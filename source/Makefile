@@ -49,7 +49,7 @@ readme:
 	@python ibrew commands > console.tmp
 	@python ibrew notes > notes.tmp
 	@python ibrew structure > protocol.tmp
-	@cat distro/README.md_parts/README_part1.md usage.tmp distro/README.md_parts/README_part2.md console.tmp distro/README.md_parts/README_part3.md examples.tmp distro/README.md_parts/README_part4.md LICENSE > README.md
+	@cat distro/README.md_parts/README_part1.md usage.tmp distro/README.md_parts/README_part2.md console.tmp distro/README.md_parts/README_part3.md examples.tmp distro/README.md_parts/README_part4.md LICENSE > ../README.md
 
 setup:
 	@echo iBrew: Fetching python requirements
