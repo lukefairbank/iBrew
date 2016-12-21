@@ -84,32 +84,32 @@ http://ip:port/
 
 Yeah I know the start and stop icons look terrible... and it is partly functional but you get no visual indicator it worked. Work in progress!
 
-![devices](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/devices.png)
+![devices](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/devices.png)
 
 #### Build in JSON Rest API
 
 For bridging smarthome controllers or use it to integrate your appliance in your own website!
 
-![rest](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/api.png)
+![rest](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/api.png)
 
 #### Setup
 
 You can setup your appliance without the Smarter app. Default settings, calibration, descaling or wifi setup... it does it all! No internet required. This means you can use and setup the kettle and the smarter coffee even if smarters servers disappears (chance of no smarter servers in 5 years 97%, I seen it before :-/)
 
-![settings](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/settings.png)
+![settings](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/settings.png)
 
 #### Statistics
 
 It keeps stats for you, and you only! It does NOT send them (or anything else) to Smarter like the Smarter app does and definitly not to me...
 Keep your appliance usage to yourself, will you!
 
-![stats](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/stats.png)
+![stats](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/stats.png)
 
 #### Protocol description is fully interactive!
 
 Cuz my code... :-) 
 
-![protocol](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/protocol.png)
+![protocol](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/protocol.png)
 
 
 ### JSON REST API
@@ -229,19 +229,19 @@ Lets start!
 
 Go to `Setup -> Hardware` and create a new dummy hardware called `Smarter`
 
-![hardware](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/domoticz/hardware.png)
+![hardware](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/domoticz/hardware.png)
 
 Click on _Create Virtual Sensors_
 
-![sensor](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/domoticz/sensor.png)
+![sensor](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/domoticz/sensor.png)
 
 Create a temperature sensor
 
-![temperature](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/domoticz/temperature.png)
+![temperature](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/domoticz/temperature.png)
 
 Go to `Setup -> Devices` and look up your new sensor.
 
-![devices](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/domoticz/devices.png)
+![devices](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/domoticz/devices.png)
 
 Use the _idx_ of the sensor to add a trigger
 
@@ -251,19 +251,19 @@ ibrew trigger add Domoticz Temperature "http://127.0.0.1:8080/json.htm?type=comm
 
 Now we also add an on base motion sensor 
 
-![switch](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/domoticz/switch.png)
+![switch](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/domoticz/switch.png)
 
 Go to `Switches` and look up your new sensor.
 
-![switches](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/domoticz/switches.png)
+![switches](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/domoticz/switches.png)
 
 Edit it!
 
-![motion](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/domoticz/motion.png)
+![motion](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/domoticz/motion.png)
 
 Select motion 
 
-![edit](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/domoticz/edit.png)
+![edit](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/domoticz/edit.png)
 
 Look up the idx in `Setup -> Devices`
 
@@ -291,11 +291,11 @@ For more information on [JSON used by domoticz!](https://www.domoticz.com/wiki/D
 
 #### User Variables
 
-![menu](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/domoticz/menuvariables.png)
+![menu](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/domoticz/menuvariables.png)
 
-![edit](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/domoticz/editvariable.png)
+![edit](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/domoticz/editvariable.png)
 
-![vars](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/domoticz/variables.png)
+![vars](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/domoticz/variables.png)
 
 ####  Domoticz Technical Stuff
 
