@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf8 -*
 
-from source.iBrewConsole import *
+from iBrewConsole import *
 
 #------------------------------------------------------
 # iBrew
