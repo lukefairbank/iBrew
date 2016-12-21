@@ -289,11 +289,47 @@ To see it in action!
 
 For more information on [JSON used by domoticz!](https://www.domoticz.com/wiki/Domoticz_API/JSON_URL's)
 
+#### User Variables
+
+![menu](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/domoticz/menuvariables.png)
+
+![edit](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/domoticz/editvariable.png)
+
+![vars](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/domoticz/variables.png)
+
+####  Domoticz Technical Stuff
+
+[Domoticz JSON API](https://www.domoticz.com/wiki/Domoticz_API/JSON_URL's)
+
+__State based triggers__
+[uservariable] string ("On",Off")
+[virtual sensor] switch (set to motion)
+
+__Watersensor based triggers__
+virtual sensor: custom sensor
+uservariable: integer
+
+__Temperature based triggers__
+virtual sensor: temperature
+uservariable: integer
+
+__Text based triggers__
+virtual sensor: text sensor
+uservariable: string
+
 #### iKettle 2.0 example 
 
-Assuming linux and running as a service (else drop the sudo):
+These are the example commands to add triggers which update Domoticz. Assuming linux and running as a service (else drop the sudo): Use your own sensors idx's & iKettle 2.0 host, Domoticz host, login & password :-)
 
-(use your own idx's & hosts :-):
+__Boolean State__
+
+Very important step, do not forget!
+
+```
+sudo ibrew trigger Domoticz state On 10.0.0.99
+```
+
+__Sensors__
 ```
 sudo ibrew trigger add Domoticz TEMPERATURE "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=149&nvalue=0&svalue=§N" 10.0.0.99
 sudo ibrew trigger add Domoticz WATERSENSOR "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=198&nvalue=0&svalue=§N" 10.0.0.99
@@ -305,16 +341,9 @@ sudo ibrew trigger add Domoticz ONBASE "http://127.0.0.1:8080/json.htm?type=comm
 sudo ibrew trigger add Domoticz KETTLESTATUS "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=205&nvalue=0&svalue=§N" 10.0.0.99
 sudo ibrew trigger add Domoticz KETTLEDEFAULTCHANGED "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=222&switchcmd=§N" 10.0.0.99
 sudo ibrew trigger add Domoticz BASECHANGED "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=225&nvalue=0&svalue=§N" 10.0.0.99
-sudo ibrew trigger Domoticz state On 10.0.0.99
 ```
 
-
-Settings as user variables:
-
-![menu](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/domoticz/menuvariables.png)
-![edit](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/domoticz/editvariable.png)
-![vars](https://raw.githubusercontent.com/Tristan79/iBrew/master/distro/images/domoticz/variables.png)
-
+__User Variables__
 ```
 sudo ibrew trigger add Domoticz BASE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Base&vtype=0&vvalue=§N" 10.0.0.99
 sudo ibrew trigger add Domoticz DEFAULTTEMPERATURE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Temperature&vtype=0&vvalue=§N" 10.0.0.99
@@ -322,10 +351,19 @@ sudo ibrew trigger add Domoticz DEFAULTFORMULATEMPERATURE "http://127.0.0.1:8080
 sudo ibrew trigger add Domoticz DEFAULTKEEPWARM "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Keepwarm&vtype=0&vvalue=§N" 10.0.0.99
 ```
 
-#### Smarter Coffee example
+#### Smarter Coffee Example
 
+These are the example commands to add triggers which update Domoticz. Assuming linux and running as a service (else drop the sudo): Use your own sensors idx's & iKettle 2.0 host, Domoticz host, login & password :-)
+ 
+__Boolean State__
 
+Very important step, do not forget!
 
+```
+sudo ibrew trigger Domoticz state On 10.0.0.98
+```
+
+__Sensors__
 ```
 sudo ibrew trigger add Domoticz CARAFE "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=197&switchcmd=§N" 10.0.0.98
 sudo ibrew trigger add Domoticz READY "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=211&switchcmd=§N" 10.0.0.98
@@ -345,6 +383,7 @@ sudo ibrew trigger add Domoticz GRINDTEXT "http://127.0.0.1:8080/json.htm?type=c
 
 ```
 
+__User Variables__
 ```
 sudo ibrew trigger add Domoticz MODE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Mode&vtype=0&vvalue=§N" 10.0.0.98
 sudo ibrew trigger add Domoticz CUPS "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Cups&vtype=0&vvalue=§N" 10.0.0.98
