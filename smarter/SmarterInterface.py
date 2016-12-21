@@ -3298,6 +3298,8 @@ class SmarterInterface:
         self.triggersKettle = {
     
             Smarter.triggerKettleStatus                 : [],
+            Smarter.triggerChangeWaterSensorBase        : [],
+            Smarter.triggerChangeKettleDefaultSettings  : [],
 
             # Operational sensors (boolean)
             Smarter.triggerBusyKettle                   : [],
@@ -3350,6 +3352,9 @@ class SmarterInterface:
             Smarter.triggerDefaultGrindText             : [],
             Smarter.triggerGrindText                    : [],
             Smarter.triggerWaterLevelText               : [],
+            Smarter.triggerChangeCoffeeDefaultSettings  : [],
+            Smarter.triggerChangeCoffeeSettings         : [],
+
             Smarter.triggerModeText                     : []
         }
 
@@ -3538,6 +3543,11 @@ class SmarterInterface:
         if triggerID == Smarter.triggerDefaultGrindText:             fire(triggerID,Smarter.grind_to_string(self.defaultGrind))
         if triggerID == Smarter.triggerWaterLevelText:               fire(triggerID,Smarter.waterlevel(self.waterLevel))
         if triggerID == Smarter.triggerModeText:                     fire(triggerID,Smarter.string_mode(self.mode))
+        if triggerID == Smarter.triggerChangeCoffeeDefaultSettings:  fire(triggerID,True)
+        if triggerID == Smarter.triggerChangeCoffeeSettings:         fire(triggerID,True)
+        if triggerID == Smarter.triggerChangeWaterSensorBase:        fire(triggerID,True)
+        if triggerID == Smarter.triggerChangeKettleDefaultSettings:  fire(triggerID,True)
+
 
     
     def triggerSet(self,group,trigger,action):
@@ -3753,46 +3763,63 @@ class SmarterInterface:
                     
 
     def __decode_KettleSettings(self,message):
+    
+        change = False
         v = Smarter.raw_to_number(message[2])
         if v != self.defaultKeepWarmTime:
             self.__trigger(Smarter.triggerDefaultKeepWarmTime,self.defaultKeepWarmTime,v)
             self.defaultKeepWarmTime = v
+            change = True
         
         v = Smarter.raw_to_temperature(message[1])
         if v != self.defaultTemperature:
             self.__trigger(Smarter.triggerDefaultTemperature,self.defaultTemperature,v)
             self.defaultTemperature = v
+            change = True
         
         v = Smarter.raw_to_number(message[3])
         if v != self.defaultFormulaTemperature:
             self.__trigger(Smarter.triggerDefaultFormulaTemperature,self.defaultFormulaTemperature,v)
             self.defaultFormulaTemperature = v
-
+            change = True
+        
+        if change:
+            self.__trigger(Smarter.triggerChangeKettleDefaultSettings,True,True)
+            
 
 
     def __decode_CoffeeSettings(self,message):
+        
+        change = False
         v = Smarter.raw_to_cups(message[1])
         if v != self.defaultCups:
             self.__trigger(Smarter.triggerDefaultCups,self.defaultCups,v)
             self.defaultCups = v
+            change = True
         
         v = Smarter.raw_to_strength(message[2])
         if v != self.defaultStrength:
             self.__trigger(Smarter.triggerDefaultStrength,self.defaultStrength,v)
             self.__trigger(Smarter.triggerDefaultStrengthText,Smarter.strength_to_string(self.defaultStrength),Smarter.strength_to_string(v))
             self.defaultStrength = v
+            change = True
         
         v = Smarter.raw_to_bool(message[3])
         if v != self.defaultGrind:
             self.__trigger(Smarter.triggerDefaultGrind,self.defaultGrind,v)
             self.__trigger(Smarter.triggerDefaultGrindText,Smarter.grind_to_string(self.defaultGrind),Smarter.grind_to_string(v))
             self.defaultGrind  = v
-        
+            change = True
+                
         v =  Smarter.raw_to_hotplate(message[4],self.version)
         if v != self.defaultHotPlate:
             self.__trigger(Smarter.triggerDefaultHotplate,self.defaultHotPlate,v)
             self.defaultHotPlate = v
-
+            change = True
+        
+        if change:
+            self.__trigger(Smarter.triggerChangeCoffeeDefaultSettings,True,True)
+        
 
 
     def __decode_KettleStatus(self,message):
@@ -3932,11 +3959,14 @@ class SmarterInterface:
             self.__trigger(Smarter.triggerReady,self.ready,v)
             self.ready = v
 
+        change = False
+        
         v = is_set(coffeeStatus,1)
         if v != self.grind :
             self.__trigger(Smarter.triggerGrind,self.grind ,v)
             self.__trigger(Smarter.triggerGrindText,Smarter.grind_to_string(self.grind) ,Smarter.grind_to_string(v))
             self.grind  = v
+            change = True
 
         v = is_set(coffeeStatus,5)
         if v != self.working:
@@ -3953,6 +3983,7 @@ class SmarterInterface:
             self.__trigger(Smarter.triggerWaterLevel,self.waterLevel,v)
             self.__trigger(Smarter.triggerWaterLevelText,Smarter.waterlevel(self.waterLevel),Smarter.waterlevel(v))
             self.waterLevel = v
+            change = True
 
         v = Smarter.raw_to_waterlevel_bit(message[2])
         if v != self.waterEnough:
@@ -3964,11 +3995,16 @@ class SmarterInterface:
             self.__trigger(Smarter.triggerStrengthText,Smarter.strength_to_string(self.strength),Smarter.strength_to_string(v))
             self.__trigger(Smarter.triggerStrength,self.strength,v)
             self.strength = v
+            change = True
 
         v = Smarter.raw_to_cups(message[5])
         if v != self.cups:
             self.__trigger(Smarter.triggerCups,self.cups,v)
             self.cups = v
+            change = True
+
+        if change:
+            self.__trigger(Smarter.triggerChangeCoffeeSettings,self.cups,v)
 
         v = Smarter.raw_to_cups_brew(message[5])
         if v != self.cupsBrew:
@@ -4093,9 +4129,10 @@ class SmarterInterface:
     def __decode_Base(self,message):
         v = Smarter.raw_to_watersensor(message[1],message[2])
         if v != self.waterSensorBase:
+            self.__trigger(Smarter.triggerChangeWaterSensorBase,True,True)
             self.__trigger(Smarter.triggerWaterSensorBase,self.waterSensorBase,v)
             self.waterSensorBase = v
-        
+
 
 
     def __decode_Carafe(self,message):

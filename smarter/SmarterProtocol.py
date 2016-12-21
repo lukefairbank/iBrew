@@ -1792,7 +1792,8 @@ class SmarterProtocol:
 
 
     # Kettle
-    
+    triggerChangeWaterSensorBase        = 4
+    triggerChangeKettleDefaultSettings  = 5
     triggerKettleStatus                 = 6
     triggerTemperatureStable            = 7
     triggerWaterSensorStable            = 8
@@ -1838,12 +1839,16 @@ class SmarterProtocol:
     triggerGrindText                    = 46
     triggerWaterLevelText               = 47
     triggerModeText                     = 48
+    triggerChangeCoffeeDefaultSettings  = 49
+    triggerChangeCoffeeSettings         = 50
 
 
     
     # format {(group,sensorid,command),...(group,sensorid,command)}
     triggersKettle = {
         triggerKettleStatus                 : ["KettleStatus","TEXT"],
+        triggerChangeWaterSensorBase        : ["BaseChanged","ONESTATE"],
+        triggerChangeKettleDefaultSettings  : ["KettleDefaultChanged","ONESTATE"],
     
         # Operational sensors (boolean)
         triggerBusyKettle                   : ["KettleBusy","STATE true if either heater or formula cooling"],
@@ -1895,6 +1900,8 @@ class SmarterProtocol:
         triggerDefaultGrindText             : ["DefaultGrindText","TEXT"],
         triggerGrindText                    : ["GrindText","TEXT"],
         triggerWaterLevelText               : ["WaterlevelText","TEXT"],
+        triggerChangeCoffeeDefaultSettings  : ["KettleDefaultChanged","ONESTATE"],
+        triggerChangeCoffeeSettings         : ["KettleSettingsChanged","ONESTATE"],
         triggerModeText                     : ["ModeText","TEXT"]
     }
 
