@@ -3495,7 +3495,8 @@ class SmarterInterface:
 
     def __triggerHeartBeat(self,triggerID):
         def fire(triggerID,x): self.__trigger(triggerID,x,x)
-        
+
+        try:
         # Kettle
         if triggerID == Smarter.triggerKettleStatus:                 fire(triggerID,Smarter.status_kettle_description(self.kettleStatus))
 
@@ -3543,6 +3544,7 @@ class SmarterInterface:
         if triggerID == Smarter.triggerDefaultGrindText:             fire(triggerID,Smarter.grind_to_string(self.defaultGrind))
         if triggerID == Smarter.triggerWaterLevelText:               fire(triggerID,Smarter.waterlevel(self.waterLevel))
         if triggerID == Smarter.triggerModeText:                     fire(triggerID,Smarter.string_mode(self.mode))
+
         if triggerID == Smarter.triggerChangeCoffeeDefaultSettings:  fire(triggerID,True)
         if triggerID == Smarter.triggerChangeCoffeeSettings:         fire(triggerID,True)
         if triggerID == Smarter.triggerChangeWaterSensorBase:        fire(triggerID,True)
@@ -3654,6 +3656,12 @@ class SmarterInterface:
 
     def print_triggers(self):
         print
+        print
+        print "Triggers"
+        print
+        if self.triggersGroups == []:
+            print "No Triggers for " + host + ":" + str(port)
+            print
         
         for j in self.triggersGroups:
             print "Triggers " + j[0]
@@ -3683,15 +3691,13 @@ class SmarterInterface:
 
         for i in self.triggersGroups:
             if i[1]:
+                
                 s = self.triggerGet(i[0],Smarter.triggerName(triggerID))
                 if s != "":
                     n = new
-                    try:
-                        if type(new) == type(True):
-                            n = self.stringboolsGroup(i[0],new)
-                    except Exception, e:
-                        print str(e)
- 
+                    if type(new) == type(True):
+                        n = self.stringboolsGroup(i[0],new)
+                
                     s = s.replace("§O",str(old)).replace("§N",str(n))
                     
                     if s[0:4] == "http":
@@ -3704,10 +3710,12 @@ class SmarterInterface:
                         r = os.popen(s).read()
                         if self.dump:
                             print r
-                
+                    
                     if self.dump and self.dump_status:
-                        logging.debug("Trigger: " + Smarter.triggersKettle[triggerID][0] + " - old:" + str(old) + " new:" + str(new) + " " + i[0] + " " + s)
-
+                         if self.isKettle:
+                            logging.debug("Trigger: " + Smarter.triggersKettle[triggerID][0] + " - old:" + str(old) + " new:" + str(new) + " " + i[0] + " " + s)
+                         if self.isCoffee:
+                            logging.debug("Trigger: " + Smarter.triggersCoffee[triggerID][0] + " - old:" + str(old) + " new:" + str(new) + " " + i[0] + " " + s)
 
 
     #------------------------------------------------------
@@ -3816,10 +3824,10 @@ class SmarterInterface:
             self.__trigger(Smarter.triggerDefaultHotplate,self.defaultHotPlate,v)
             self.defaultHotPlate = v
             change = True
-        
+    
         if change:
             self.__trigger(Smarter.triggerChangeCoffeeDefaultSettings,True,True)
-        
+
 
 
     def __decode_KettleStatus(self,message):

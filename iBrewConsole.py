@@ -103,6 +103,8 @@ class iBrewConsole:
         
         except Exception, e:
             logging.debug(e)
+            logging.debug(traceback.format_exc())
+            self.web.kill()
             logging.info("iBrew: Failed to run Web Interface & REST API on port [" + self.serverBind + ":" + str(self.serverPort) + "]")
             return
         logging.info("iBrew: Starting Web Interface & REST API [" + self.serverBind + ":" + str(self.serverPort) + "]. Press ctrl-c to stop")
@@ -427,7 +429,6 @@ class iBrewConsole:
                                 numarg -= 1
                                 arguments = arguments[0:numarg]
 
-
             if command == "legacy":
                 if numarg == 0:
                     self.legacy()
@@ -738,7 +739,7 @@ class iBrewConsole:
                                             else:
                                                 print "iBrew: Use additional command: info, block or unblock"
             elif command == "triggers":     Smarter.print_triggers()
-            elif command == "states":     Smarter.print_states()
+            elif command == "states":       Smarter.print_states()
             elif command == "trigger":
                                             if numarg == 0:
                                                 self.client.print_triggers()
