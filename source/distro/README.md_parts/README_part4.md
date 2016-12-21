@@ -543,7 +543,7 @@ ibrewstatus.sh
 
 ```
 #!/bin/bash
-CMD=`ibrew status <your kettle IP> |grep busy`
+CMD='ibrew status <your kettle IP> |grep busy'
 if [ -z "$CMD" ];then
         exit 1
 else
