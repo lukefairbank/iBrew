@@ -833,6 +833,7 @@ sudo ibrew trigger add Domoticz KeepWarm "http://127.0.0.1:8080/json.htm?type=co
 sudo ibrew trigger add Domoticz KettleHeater "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=201&switchcmd=§N" 10.0.0.99
 sudo ibrew trigger add Domoticz FormulaCooling "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=200&switchcmd=§N" 10.0.0.99
 sudo ibrew trigger add Domoticz OnBase "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=150&switchcmd=§N" 10.0.0.99
+sudo ibrew trigger add Domoticz KettleStatus "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=205&nvalue=0&svalue=§N" 10.0.0.99
 sudo ibrew trigger Domoticz state On 10.0.0.99
 ```
 
@@ -850,7 +851,16 @@ sudo ibrew trigger add Domoticz DEFAULTFORMULATEMPERATURE "http://127.0.0.1:8080
 sudo ibrew trigger add Domoticz DEFAULTKEEPWARM "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Keepwarm&vtype=0&vvalue=§N" 10.0.0.99
 ```
 
+#### Smarter Coffee example
 
+```
+sudo ibrew trigger add Domoticz DEFAULTCUPS "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Cups&vtype=0&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add Domoticz DEFAULTSTRENGTH "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Strength&vtype=0&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add Domoticz DEFAULTSTRENGTHTEXT "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Strength Text&vtype=2&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add Domoticz DEFAULTGRIND "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Grind&vtype=0&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add Domoticz DEFAULTGRINDTEXT "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Grind Text&vtype=2&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add Domoticz DEFAULTHOTPLATE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Hotplate&vtype=0&vvalue=§N" 10.0.0.98
+```
 
 Next step is creating and filling in buttons actions using either script:// or iBrew JSON Rest API!...
 

@@ -3297,7 +3297,8 @@ class SmarterInterface:
     def __initTriggers(self):
         self.triggersKettle = {
     
-    
+            Smarter.triggerKettleStatus                 : [],
+
             # Operational sensors (boolean)
             Smarter.triggerBusyKettle                   : [],
             Smarter.triggerKeepWarm                     : [],

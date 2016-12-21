@@ -18,6 +18,10 @@ mac:	cleanmac buildmac diskimage
 
 win:	cleanwin buildwin installer
 
+lin:   
+	@echo iBrew: Building Linux package    
+	@pyinstaller ibrew
+
 installer:
 	@echo !define RELEASE_STR v0.5.0.1 > distro\win\release.nsh
 	@copy LICENSE distro\win
