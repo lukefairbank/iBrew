@@ -1529,14 +1529,14 @@ class SmarterProtocol:
     KettleHeating             = 0x01
     KettleKeepWarm            = 0x02
     KettleCycleFinished       = 0x03
-    KettleFormulaCooling         = 0x04
+    KettleFormulaCooling      = 0x04
 
     StatusKettle = {
         KettleReady             : "ready",
         KettleHeating           : "heating",
         KettleKeepWarm          : "keep warm",
         KettleCycleFinished     : "cycle finished",
-        KettleFormulaCooling       : "baby cooling"
+        KettleFormulaCooling    : "baby cooling"
     }
 
 
@@ -1629,9 +1629,10 @@ class SmarterProtocol:
         return "brew " + self.cups_to_string(cups) + " of" + t + s
 
 
-
-    def string_coffee_status(self,ready,cups,working,heating,hotPlateOn,carafe,grinderOn):
+    def string_coffee_status(self,busy,ready,cups,working,heating,hotPlateOn,carafe,grinderOn):
         s = ""
+        if working:
+            s += "busy "
         if working:
             s += "working "
         if heating:
@@ -1646,7 +1647,7 @@ class SmarterProtocol:
             s+= "carafe on base"
         else:
             s+= "no carafe"
-        return s
+        return s.strip()
 
 
 
@@ -1663,6 +1664,13 @@ class SmarterProtocol:
         if timerevent:
             s += ", timer triggered"
         return s
+
+
+    def string_mode(self,mode):
+        if mode:
+            return "cup"
+        else:
+            return "carafe"
 
 
     #------------------------------------------------------
@@ -1784,6 +1792,8 @@ class SmarterProtocol:
 
 
     # Kettle
+    
+    triggerKettleStatus                 = 6
     triggerTemperatureStable            = 7
     triggerWaterSensorStable            = 8
     triggerBusyKettle                   = 9
@@ -1821,10 +1831,19 @@ class SmarterProtocol:
     triggerHeaterCoffee                 = 39
     triggerCarafeRequired               = 40
     triggerBusyCoffee                   = 41
+    triggerCoffeeStatus                 = 42
+    triggerDefaultStrengthText          = 43
+    triggerStrengthText                 = 44
+    triggerDefaultGrindText             = 45
+    triggerGrindText                    = 46
+    triggerWaterLevelText               = 47
+    triggerModeText                     = 48
+
 
     
     # format {(group,sensorid,command),...(group,sensorid,command)}
     triggersKettle = {
+        triggerKettleStatus                 : ["KettleStatus","TEXT"],
     
         # Operational sensors (boolean)
         triggerBusyKettle                   : ["KettleBusy","STATE true if either heater or formula cooling"],
@@ -1869,7 +1888,14 @@ class SmarterProtocol:
         triggerDefaultStrength              : ["DefaultStrength","NUMBER (0..2) representing (weak,normal,strong)"],
         triggerDefaultCups                  : ["DefaultCups","NUMBER (1..12)"],
         triggerDefaultGrind                 : ["DefaultGrind","STATE false is filter, true if beans"],
-        triggerDefaultHotplate              : ["DefaultHotplate","NUMBER 0,5-35 minutes in v21 and below or 0,5-40 minutes in v22"]
+        triggerDefaultHotplate              : ["DefaultHotplate","NUMBER 0,5-35 minutes in v21 and below or 0,5-40 minutes in v22"],
+        triggerCoffeeStatus                 : ["CoffeeStatus","TEXT"],
+        triggerDefaultStrengthText          : ["DefaultStrengthText","TEXT"],
+        triggerStrengthText                 : ["StrengthText","TEXT"],
+        triggerDefaultGrindText             : ["DefaultGrindText","TEXT"],
+        triggerGrindText                    : ["GrindText","TEXT"],
+        triggerWaterLevelText               : ["WaterlevelText","TEXT"],
+        triggerModeText                     : ["ModeText","TEXT"]
     }
 
     def triggerID(self,trigger):
