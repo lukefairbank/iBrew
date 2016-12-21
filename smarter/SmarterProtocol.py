@@ -1908,7 +1908,6 @@ class SmarterProtocol:
         for i in self.triggerBooleans:
             if i[0] == boolean or i[1] == boolean:
                 return i
-        
 
     def print_triggers(self):
         print

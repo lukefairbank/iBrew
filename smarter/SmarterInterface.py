@@ -3268,6 +3268,8 @@ class SmarterInterface:
             except DuplicateSectionError:
                 pass
             try:
+                print "HERE"
+                print  str(self.triggersGroups[self.__findGroup(i)][2][0])
                 config.set(section+"."+i, "Active", str(self.triggersGroups[self.__findGroup(i)][1]))
                 config.set(section+"."+i, "State", str(self.triggersGroups[self.__findGroup(i)][2][0]))
             except Exception:
@@ -3379,7 +3381,6 @@ class SmarterInterface:
             g = config.get(section, "groups").split(",")
 
             for i in g:
-                print i
         
                 try:
                     a = config.get(section+"."+i, "Active")
@@ -3588,9 +3589,14 @@ class SmarterInterface:
             self.__write_triggers()
             return
         raise SmarterErrorOld("Trigger group not found")
-                
 
-    
+    def stringboolsGroup(self,group,bools):
+        i = self.getGroup(group)[2]
+        if bools:
+            return i[0]
+        else:
+            return i[1]
+
     def print_groups(self):
         print "Trigger Groups"
         print
@@ -3653,9 +3659,14 @@ class SmarterInterface:
             if i[1]:
                 s = self.triggerGet(i[0],Smarter.triggerName(triggerID))
                 if s != "":
-                    s = s.replace("§O",str(old)).replace("§N",str(new))
-                    
-                    # replace False, True with boolean.. FIX
+                    n = new
+                    try:
+                        if type(new) == type(True):
+                            n = self.stringboolsGroup(i[0],new)
+                    except Exception, e:
+                        print str(e)
+ 
+                    s = s.replace("§O",str(old)).replace("§N",str(n))
                     
                     if s[0:4] == "http":
                         try:

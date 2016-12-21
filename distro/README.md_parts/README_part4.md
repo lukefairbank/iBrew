@@ -289,6 +289,20 @@ To see it in action!
 
 For more information on [JSON used by domoticz!](https://www.domoticz.com/wiki/Domoticz_API/JSON_URL's)
 
+#### iKettle 2.0 example 
+
+(use your own idx's & hosts :-):
+```
+sudo ibrew trigger add Domoticz Temperature "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=149&nvalue=0&svalue=§N" 10.0.0.99
+sudo ibrew trigger add Domoticz WaterSensor "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=198&nvalue=0&svalue=§N" 10.0.0.99
+sudo ibrew trigger add Domoticz KettleBusy "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=199&switchcmd=§N" 10.0.0.99
+sudo ibrew trigger add Domoticz KeepWarm "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=202&switchcmd=§N" 10.0.0.99
+sudo ibrew trigger add Domoticz KettleHeater "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=201&switchcmd=§N" 10.0.0.99
+sudo ibrew trigger add Domoticz FormulaCooling "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=200&switchcmd=§N" 10.0.0.99
+sudo ibrew trigger add Domoticz OnBase "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=150&switchcmd=§N" 10.0.0.99
+sudo ibrew trigger Domoticz state On 10.0.0.99
+```
+
 Next step is creating and filling in buttons actions using either script:// or iBrew JSON Rest API!...
 
 ### HomeKit ~ [HomeBridge](https://github.com/nfarina/homebridge)
