@@ -3659,7 +3659,7 @@ class SmarterInterface:
         print "Triggers"
         print
         if self.triggersGroups == []:
-            print "No Triggers for " + host + ":" + str(port)
+            print "No Triggers for [" + self.host + ":" + str(self.port) + "]"
             print
         
         for j in self.triggersGroups:
