@@ -3496,7 +3496,6 @@ class SmarterInterface:
     def __triggerHeartBeat(self,triggerID):
         def fire(triggerID,x): self.__trigger(triggerID,x,x)
 
-        try:
         # Kettle
         if triggerID == Smarter.triggerKettleStatus:                 fire(triggerID,Smarter.status_kettle_description(self.kettleStatus))
 
