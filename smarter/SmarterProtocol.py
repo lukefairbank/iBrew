@@ -1875,7 +1875,7 @@ class SmarterProtocol:
         triggerHeaterCoffee                 : ["CoffeeHeater","STATE"],
 
         # Data sensors
-        triggerCarafeRequired               : ["Carafe required","STATE: if carafe is needed"],
+        triggerCarafeRequired               : ["CarafeRequired","STATE: if carafe is needed"],
         triggerMode                         : ["Mode","STATE false is carafe mode, true is cup mode"],
         triggerGrind                        : ["Grind","STATE false is filter, true if beans"],
         triggerWaterEnough                  : ["EnoughWater","STATE if there is enough water"],
