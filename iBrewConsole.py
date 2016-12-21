@@ -370,7 +370,6 @@ class iBrewConsole:
                             if command == "legacy":
                                 self.client.iKettle.port = p
                             else:
-                                
                                 if "server" in arguments or command == "server" or "web" in arguments or command == "web":
                                     self.serverPort = connection[1]
                                     self.portfound = True
@@ -637,8 +636,7 @@ class iBrewConsole:
                         print
                     if not (self.console and command == "relay") and not self.client.simulate:
                         self.client.connect()
-                    
-                    
+
                 except Exception, e:
                     logging.debug(e)
                     logging.info("iBrew: Could not connect to [" + self.client.host + "]")
@@ -970,17 +968,22 @@ class iBrewConsole:
                                             else:
                                                 self.client.coffee_mode()
             elif command == "beans":
-                                            if self.client.grind:
-                                                print "iBrew: Beans already selected"
-                                            else:
+                                            try:
                                                 self.client.coffee_beans()
                                                 print "iBrew: Beans used"
+                                            except:
+                                            # Exception, e:
+                                                print "iBrew: Beans already selected"
+                                                # Fix could be no coffee machine...x
             elif command == "filter" or command == "pregrind":
-                                            if not self.client.grind:
-                                                print "iBrew: Filter already selected"
-                                            else:
+                                            try:
                                                 self.client.coffee_filter()
                                                 print "iBrew: Filter used"
+                                            except:
+                                            # Exception, e:
+                                                print "iBrew: Filter already selected"
+                                                # Fix could be no coffee machine...x
+            
             elif command == "descale":
                                             try:
                                                 self.client.coffee_descale()
@@ -1133,8 +1136,8 @@ class iBrewConsole:
     def app_info(self):
         print iBrewApp
         print iBrewInfo
-        if self.username != "NOT ACCEPTED":
-            print "iBrew: LICENSING AGREEMENT accepted by LICENSEE " + self.username
+        #if self.username != "NOT ACCEPTED":
+        #    print "iBrew: LICENSING AGREEMENT accepted by LICENSEE " + self.username
         print
         print iBrewContribute
         print

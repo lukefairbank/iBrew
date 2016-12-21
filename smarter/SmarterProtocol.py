@@ -316,16 +316,18 @@ SmarterInterfaceFailedStopThread  = 106
 class SmarterError(Exception):
 
     def __init__(self, err, msg):
-        print(traceback.format_exc())
-        print str(msg)
+        # DO NOT ADD THESE
+        #print(traceback.format_exc())
+        #print str(msg)
         self.msg = msg
         self.err = err
 
 
 class SmarterErrorOld(Exception):
     def __init__(self, msg):
-        print str(msg)
-        print(traceback.format_exc())
+        # DO NOT ADD THESE
+        #print str(msg)
+        #print(traceback.format_exc())
         self.msg = msg
 
 #------------------------------------------------------

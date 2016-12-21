@@ -1843,7 +1843,6 @@ class SmarterInterface:
             logging.error("[" + self.host + "] Could not connect to " + self.host + ":" + str(self.port))
             raise SmarterError(0,"Could not connect to + " + self.host)
 
-
         if not self.fast:
             try:
                 self.monitor = threading.Thread(target=self.__monitor_device)
@@ -1854,7 +1853,6 @@ class SmarterInterface:
                 loggins.debug(e)
                 logging.error("[" + self.host + "] Could not start monitor")
                 raise SmarterError(0,"Could not start monitor")
-
 
 
     @_threadsafe_function
@@ -5047,7 +5045,7 @@ class SmarterInterface:
         
         FIX
         """
-        if self.isCoffee and self.grind:
+        if self.fast or self.isCoffee:
             self.__send_command(Smarter.CommandTimers)
         else:
             raise SmarterError(CoffeeNoMachineGrinder,"You need a coffee machine to use timers")
@@ -5060,7 +5058,7 @@ class SmarterInterface:
         
         FIX
         """
-        if self.isCoffee and self.grind:
+        if self.fast or self.isCoffee:
             pass #self.__send_command(Smarter.CommandDisableTimer)
         else:
             raise SmarterError(CoffeeNoMachineGrinder,"You need a coffee machine to use timers")
@@ -5073,7 +5071,7 @@ class SmarterInterface:
         
         FIX
         """
-        if self.isCoffee and self.grind:
+        if  self.fast or self.isCoffee:
             pass #self.__send_command(Smarter.CommandStoreTimer)
         else:
             raise SmarterError(CoffeeNoMachineGrinder,"You need a coffee machine to use timers")
@@ -5100,7 +5098,10 @@ class SmarterInterface:
 
         Please use: coffee_pregrind() coffee_weak() coffee_medium() or coffee_strong for coffee type selection
         """
-        if self.fast or self.isCoffee:
+        
+        if self.fast:
+            self.__read()
+        if self.isCoffee:
             self.__send_command(Smarter.CommandGrinder)
             self.grind = not self.grind
         else:
@@ -5143,10 +5144,14 @@ class SmarterInterface:
         Only here because on the display it says beans/filter
         Please use: coffee_pregrind() coffee_weak() coffee_medium() or coffee_strong for coffee type selection
         """
-        if self.isCoffee:
+        if self.fast:
+            self.__read()
+        if  self.isCoffee:
             if not self.grind:
                 self.__send_command(Smarter.CommandGrinder)
                 self.grind = True
+            else:
+                raise SmarterError(CoffeeNoMachineGrinder,"Already beans")
         else:
             raise SmarterError(CoffeeNoMachineGrinder,"You need a coffee machine to use the grinder to grind the beans")
 
@@ -5161,10 +5166,19 @@ class SmarterInterface:
         Only here because on the display it says beans/filter
         Please use: coffee_pregrind() coffee_weak() coffee_medium() or coffee_strong for coffee type selection
         """
-        if self.isCoffee:
+
+        if self.fast:
+            self.__read()
+                
+        if  self.isCoffee:
             if self.grind:
-                self.__send_command(Smarter.CommandGrinder)
+                try:
+                    self.__send_command(Smarter.CommandGrinder)
+                except Exception, e:
+                    print str(e)
                 self.grind = False
+            else:
+                raise SmarterError(CoffeeNoMachineGrinder,"Already filter")
         else:
             raise SmarterError(CoffeeNoMachineGrinder,"You need a coffee machine to use the pre grind beans in the filter")
 

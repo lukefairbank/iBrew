@@ -341,6 +341,8 @@ sudo ibrew trigger add Domoticz COFFEEDEFAULTCHANGED "http://127.0.0.1:8080/json
 sudo ibrew trigger add Domoticz COFFEESETTINGSCHANGED "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=224&switchcmd=§N" 10.0.0.98
 sudo ibrew trigger add Domoticz MODETEXT "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=209&nvalue=0&svalue=§N" 10.0.0.98
 sudo ibrew trigger add Domoticz WATERLEVELTEXT "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=227&nvalue=0&svalue=§N" 10.0.0.98
+sudo ibrew trigger add Domoticz GRINDTEXT "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=210&nvalue=0&svalue=§N" 10.0.0.98
+
 ```
 
 ```
@@ -350,7 +352,6 @@ sudo ibrew trigger add Domoticz STRENGTH "http://127.0.0.1:8080/json.htm?type=co
 sudo ibrew trigger add Domoticz STRENGTHTEXT "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Strength Text&vtype=2&vvalue=§N" 10.0.0.98
 sudo ibrew trigger add Domoticz HOTPLATE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Hotplate&vtype=0&vvalue=§N" 10.0.0.98
 sudo ibrew trigger add Domoticz GRIND "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Grind&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz GRINDTEXT "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Grind Text&vtype=2&vvalue=§N" 10.0.0.98
 sudo ibrew trigger add Domoticz WATERLEVEL "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Waterlevel&vtype=0&vvalue=§N" 10.0.0.98
 sudo ibrew trigger add Domoticz DEFAULTCUPS "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Cups&vtype=0&vvalue=§N" 10.0.0.98
 sudo ibrew trigger add Domoticz DEFAULTSTRENGTH "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Strength&vtype=0&vvalue=§N" 10.0.0.98
