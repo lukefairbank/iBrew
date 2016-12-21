@@ -54,8 +54,8 @@ __iBrew Interfaces & Bridges__
  * Command Line (now with iKettle Legacy support) 
  * Web (almost finished, help appreciated!)
  * JSON REST 
- * [Javascript](https://github.com/Tristan79/iBrew/blob/master/resources/ibrew.js) (almost finished :-)
- * [Python 2.7] (https://github.com/Tristan79/iBrew/tree/master/smarter) 
+ * [Javascript](https://github.com/Tristan79/iBrew/blob/master/source/resources/ibrew.js) (almost finished :-)
+ * [Python 2.7] (https://github.com/Tristan79/iBrew/tree/master/source/smarter) 
  * Message relay (works with Smarter app!)
  
 __Connection Guides__
@@ -129,9 +129,7 @@ Other systems than Windows, MacOS or Pi that are running python see download fro
 First no python is installed by default so head up over to [python](https://www.python.org/downloads/) and install v2.7 (NOT 3)
 Secondly you need [make](http://gnuwin32.sourceforge.net/packages/make.htm) and the python [win32 package](https://sourceforge.net/projects/pywin32/files/pywin32/)
 
-Use `make setupwin` to setup
-Use `make win` to create a package 
-Use `make cleanwin` to clean up
+Go into the source folder and use `make setupwin` to setup, use `make win` to create a package and use `make cleanwin` to clean up
 
 ### MacOS
   * [MacOS]  (https://dl.dropboxusercontent.com/u/12474226/iBrew.dmg)
@@ -142,15 +140,15 @@ Open a terminal and run ```ibrew``` and you're all set, good to go!
 _it creates a soft symlink to /usr/local/bin/ibrew,... :-)_
 
 #### From source
-Make sure either the command line or xcode is installed, just run `make` and it will promt for a download!
-
-Use `make setupmac` to setup
-Use `make mac` to create a package 
-Use `make cleanmac` to clean up
+Make sure either the command line or xcode is installed, just run `make` in the source folder and it will prompt for a download!
+Go into the source folder and, use `make setupmac` to setup, use `make mac` to create a package and use `make cleanmac` to clean up
 
 ### Linux
 
 See Pi section.
+
+Go into the source folder and, use `make setuplin` to setup, use `make lin` to create a package and use `make cleanlin` to clean up
+
 
 ### Source
 
@@ -165,9 +163,6 @@ Also check out [pybonjour](https://code.google.com/archive/p/pybonjour/)
 
 Tested on a clean Jessy light image (september 2016). 
 
-Use `make setuplin` to setup
-Use `make cleanlin` to clean up
-
 #### Install 
 
 SSH to the Pi! And use:
@@ -178,7 +173,7 @@ sudo apt-get install git
 sudo apt-get install python-setuptools
 sudo easy_install pip
 git clone https://github.com/Tristan79/iBrew.git
-cd ~/iBrew
+cd ~/iBrew/source
 sudo make setuplin
 sudo ln -s ~/iBrew/ibrew /usr/local/bin/ibrew
 ```
