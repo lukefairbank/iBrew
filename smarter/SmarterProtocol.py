@@ -1900,8 +1900,8 @@ class SmarterProtocol:
         triggerDefaultGrindText             : ["DefaultGrindText","TEXT"],
         triggerGrindText                    : ["GrindText","TEXT"],
         triggerWaterLevelText               : ["WaterlevelText","TEXT"],
-        triggerChangeCoffeeDefaultSettings  : ["KettleDefaultChanged","ONESTATE"],
-        triggerChangeCoffeeSettings         : ["KettleSettingsChanged","ONESTATE"],
+        triggerChangeCoffeeDefaultSettings  : ["CoffeeDefaultChanged","ONESTATE"],
+        triggerChangeCoffeeSettings         : ["CoffeeSettingsChanged","ONESTATE"],
         triggerModeText                     : ["ModeText","TEXT"]
     }
 
