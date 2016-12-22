@@ -127,7 +127,7 @@ Other systems than Windows, MacOS or Pi that are running python see download fro
 
 #### From source
 First no python is installed by default so head up over to [python](https://www.python.org/downloads/) and install v2.7 (NOT 3)
-Secondly you need [make](http://gnuwin32.sourceforge.net/packages/make.htm) and the python [win32 package](https://sourceforge.net/projects/pywin32/files/pywin32/)
+Secondly you need [make](http://gnuwin32.sourceforge.net/packages/make.htm) and the python [win32 package](https://sourceforge.net/projects/pywin32/files/pywin32/), the [PythonVC] (https://www.microsoft.com/en-us/download/details.aspx?id=44266) and [git](https://git-scm.com/download/win) and your machine should be minial XP SP3.
 
 Go into the source folder and use `make setupwin` to setup, use `make win` to create a package and use `make cleanwin` to clean up
 
@@ -454,7 +454,7 @@ The following commands are available, note that [] are manditory arguments and (
     trigger [group]        show triggers of group
     trigger                show all triggers
     trigger [group] [bool] enabled/disable trigger group
-    trigger [group] state [bool] set group state output
+    trigger [group] switch [bool] set group switch type
 
   Actions can either be a path to a command or url
 
@@ -481,7 +481,7 @@ The following commands are available, note that [] are manditory arguments and (
     message [id]           show protocol message detail of message [id]
     notes                  show developer notes on the appliances
     protocol               show all protocol information available
-    states                 show various forms of trigger states
+    switches               show various forms of trigger switch types
     structure              show protocol structure information
     triggers               show triggers
 
@@ -934,6 +934,8 @@ sudo ibrew trigger Domoticz state On 10.0.0.98
 ### HomeKit ~ [HomeBridge](https://github.com/nfarina/homebridge)
 
 Yes, you can! Connect your iKettle or Smarter Coffee to HomeKit... just follow the following steps!
+
+Alternativly you could use https://github.com/nferro/homebridge-http-json
 
 #### Software
 

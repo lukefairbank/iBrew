@@ -127,7 +127,7 @@ Other systems than Windows, MacOS or Pi that are running python see download fro
 
 #### From source
 First no python is installed by default so head up over to [python](https://www.python.org/downloads/) and install v2.7 (NOT 3)
-Secondly you need [make](http://gnuwin32.sourceforge.net/packages/make.htm) and the python [win32 package](https://sourceforge.net/projects/pywin32/files/pywin32/)
+Secondly you need [make](http://gnuwin32.sourceforge.net/packages/make.htm) and the python [win32 package](https://sourceforge.net/projects/pywin32/files/pywin32/), the [PythonVC] (https://www.microsoft.com/en-us/download/details.aspx?id=44266) and [git](https://git-scm.com/download/win) and your machine should be minial XP SP3.
 
 Go into the source folder and use `make setupwin` to setup, use `make win` to create a package and use `make cleanwin` to clean up
 
