@@ -995,9 +995,9 @@ Fill in your own device host (either IP address or hostname) and location to iBr
 		"platform": "cmdSwitch2",
 		"switches": [{
 			"name": "Smarter Coffee",
-			"on_cmd": "/Users/Tristan/Coding/iBrew/ibrew start 10.0.0.89",
-			"off_cmd": "/Users/Tristan/Coding/iBrew/ibrew stop 10.0.0.89",
-			"state_cmd": "/Users/Tristan/Coding/iBrew/ibrew status 10.0.0.89 | grep 'busy'",
+			"on_cmd": "/Users/Tristan/Coding/iBrew/ibrew start 10.0.0.98",
+			"off_cmd": "/Users/Tristan/Coding/iBrew/ibrew stop 10.0.0.98",
+			"state_cmd": "/Users/Tristan/Coding/iBrew/ibrew status 10.0.0.98 | grep 'busy'",
             "manufacturer": "iBrew",
             "model": "iBrew Smarter Coffee",
             "serial": "44DE3AD79BC",
@@ -1012,7 +1012,7 @@ Fill in your own device host (either IP address or hostname) and location to iBr
 #### Example HomeBridge config file
 
 If you do not use any other HomeBridge devices, you can use and alter the following 
-example config file for iKettle 2.0. 
+example config file for iKettle 2.0 and Smarter Coffee. 
 
 ```
 {
@@ -1034,7 +1034,18 @@ example config file for iKettle 2.0.
 			"state_cmd": "/Users/Tristan/Coding/iBrew/ibrew status 10.0.0.99 | grep 'busy'",
             "manufacturer": "iBrew",
             "model": "iKettle 2.0 Intermezzo",
-            "serial": "44DE2AD79BC",
+            "serial": "90DE2AD79BC",
+            "polling": true,
+            "interval": 1
+		},
+        {
+			"name": "Smarter Coffee",
+			"on_cmd": "/Users/Tristan/Coding/iBrew/ibrew start 10.0.0.98",
+			"off_cmd": "/Users/Tristan/Coding/iBrew/ibrew stop 10.0.0.98",
+			"state_cmd": "/Users/Tristan/Coding/iBrew/ibrew status 10.0.0.98 | grep 'busy'",
+            "manufacturer": "iBrew",
+            "model": "iBrew Smarter Coffee",
+            "serial": "42DE3AD79BC",
             "polling": true,
             "interval": 1
 		}]

@@ -1103,6 +1103,10 @@ class SmarterInterface:
     #------------------------------------------------------
 
 
+    def __touch(path):
+        with open(path, 'a'):
+            os.utime(path, None)
+    
     @_threadsafe_function
     def __write_stats(self):
        
@@ -1118,8 +1122,35 @@ class SmarterInterface:
         
         
         if not os.path.exists(self.settingsPath):
-                os.makedirs(self.settingsPath)
-        
+            os.makedirs(self.settingsPath)
+
+        """
+        sqlite_file = 'ibrew.db'     # name of the sqlite database file
+        s = self.host.replace('.','_')
+        print s
+        table_name  =  'statistics' + s + '_' + str(self.port)   # name of the table to be created
+
+        import sqlite3
+        conn = sqlite3.connect(sqlite_file)
+        cur = conn.cursor()
+
+        i = True
+        try:
+            cur.execute("CREATE TABLE " + table_name + "(Id INT, name TEXT, value INT)")
+        except sqlite3.OperationalError:
+            i = False
+
+        if i:
+            cur.execute("INSERT INTO " + table_name + "VALUES(1,'Audi',52642)")
+            cur.execute("INSERT INTO " + table_name + "VALUES(2,'Mercedes',57127)")
+            cur.execute("INSERT INTO " + table_name + "VALUES(3,'Skoda',9000)")
+
+        conn.commit()
+        conn.close()
+        """
+
+
+
         config.read(self.settingsPath+'ibrew.conf')
         
         try:
@@ -1221,7 +1252,8 @@ class SmarterInterface:
         
       #  with open(self.settingsPath+'ibrew.conf', 'w') as f:
         with codecs.open(self.settingsPath+'ibrew.conf','wb+','utf-8') as f:
-            config.write(f)
+            # DISABLED STATS DUE TO CRASHES!!!
+            #config.write(f)
             f.close()
         
         #if self.dump:
