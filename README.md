@@ -815,7 +815,11 @@ To see it in action!
 
 For more information on [JSON used by domoticz!](https://www.domoticz.com/wiki/Domoticz_API/JSON_URL's)
 
+Next step is creating and filling in buttons actions using either script:// or iBrew JSON Rest API!...
+
 #### User Variables
+
+Adding user variables
 
 ![menu](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/domoticz/menuvariables.png)
 
@@ -848,14 +852,6 @@ __Text based triggers__
 
 These are the example commands to add triggers which update Domoticz. Assuming linux and running as a service (else drop the sudo): Use your own sensors idx's & iKettle 2.0 host, Domoticz host, login & password :-)
 
-__Boolean State__
-
-Very important step, do not forget!
-
-```
-sudo ibrew trigger Domoticz state On 10.0.0.99
-```
-
 __Sensors__
 ```
 sudo ibrew trigger add Domoticz TEMPERATURE "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=149&nvalue=0&svalue=§N" 10.0.0.99
@@ -878,18 +874,18 @@ sudo ibrew trigger add Domoticz DEFAULTFORMULATEMPERATURE "http://127.0.0.1:8080
 sudo ibrew trigger add Domoticz DEFAULTKEEPWARM "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Keepwarm&vtype=0&vvalue=§N" 10.0.0.99
 ```
 
-#### Smarter Coffee Example
-
-These are the example commands to add triggers which update Domoticz. Assuming linux and running as a service (else drop the sudo): Use your own sensors idx's & iKettle 2.0 host, Domoticz host, login & password :-)
- 
 __Boolean State__
 
 Very important step, do not forget!
 
 ```
-sudo ibrew trigger Domoticz state On 10.0.0.98
+sudo ibrew trigger Domoticz state On 10.0.0.99
 ```
 
+#### Smarter Coffee Example
+
+These are the example commands to add triggers which update Domoticz. Assuming linux and running as a service (else drop the sudo): Use your own sensors idx's & iKettle 2.0 host, Domoticz host, login & password :-)
+ 
 __Sensors__
 ```
 sudo ibrew trigger add Domoticz CARAFE "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=197&switchcmd=§N" 10.0.0.98
@@ -927,7 +923,13 @@ sudo ibrew trigger add Domoticz DEFAULTGRINDTEXT "http://127.0.0.1:8080/json.htm
 sudo ibrew trigger add Domoticz DEFAULTHOTPLATE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Hotplate&vtype=0&vvalue=§N" 10.0.0.98
 ```
 
-Next step is creating and filling in buttons actions using either script:// or iBrew JSON Rest API!...
+__Boolean State__
+
+Very important step, do not forget!
+
+```
+sudo ibrew trigger Domoticz state On 10.0.0.98
+```
 
 ### HomeKit ~ [HomeBridge](https://github.com/nfarina/homebridge)
 
