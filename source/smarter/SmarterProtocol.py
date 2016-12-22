@@ -1936,6 +1936,7 @@ class SmarterProtocol:
 
     }
 
+
     def triggerID(self,trigger):
         for i in self.triggersCoffee.keys():
             if trigger.upper() == self.triggersCoffee[i][0].upper():

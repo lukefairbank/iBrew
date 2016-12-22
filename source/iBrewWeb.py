@@ -1190,13 +1190,11 @@ class LegacyHandler(GenericAPIHandler):
             client = self.application.clients[ip]
             if client.isKettle:
                 try:
-                    print command
                     if command != "":
                         client.iKettle.send(command)
                     response = encodeLegacy(client.iKettle)
                 # FIX for right exception
                 except Exception, e:
-                    print str(e)
                     response = { 'error' : 'failed to send command' }
             else:
                 response = { 'error': 'need kettle' }
@@ -1205,6 +1203,25 @@ class LegacyHandler(GenericAPIHandler):
         self.setContentType()
         self.write(response)
 
+
+
+class RawHandler(GenericAPIHandler):
+
+    def get(self, ip, command):
+        if ip in self.application.clients:
+            client = self.application.clients[ip]
+            try:
+                print command
+                response = str(client.eventStringRaw(command))
+            # FIX for right exception
+            except Exception, e:
+                print str(e)
+                # raise 404
+                response = ""
+        else:
+            response = ""
+        #self.setContentType()
+        self.write(response)
 
 #------------------------------------------------------
 # REST INTERFACE
@@ -1389,7 +1406,13 @@ class iBrewWeb(tornado.web.Application):
                 "static_path"   : os.path.join(AppFolders.appBase(), 'resources'),
                 "static_url_prefix" : self.webroot + "/resources/", }
 
-            handlers = [
+            handlers = []
+            for i in Smarter.triggersCoffee:
+                handlers += [(self.webroot + r"/api/([0-9]+.[0-9]+.[0-9]+.[0-9]+)/raw/("+ Smarter.triggersCoffee[i][0].lower() + ")/?",RawHandler)]
+            for i in Smarter.triggersKettle:
+                handlers += [(self.webroot + r"/api/([0-9]+.[0-9]+.[0-9]+.[0-9]+)/raw/("+ Smarter.triggersKettle[i][0].lower() + ")/?",RawHandler)]
+
+            handlers += [
                 (self.webroot + r"/api/([0-9]+.[0-9]+.[0-9]+.[0-9]+)/status/?",DeviceHandler),
                 (self.webroot + r"/api/([0-9]+.[0-9]+.[0-9]+.[0-9]+)/calibrate/?",CalibrateHandler),
                 (self.webroot + r"/api/([0-9]+.[0-9]+.[0-9]+.[0-9]+)/legacy/(|status|5|10|20|warm|65|80|95|100|heat|stop)/?",LegacyHandler),

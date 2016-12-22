@@ -3440,7 +3440,6 @@ class SmarterInterface:
                 for j in Smarter.triggersKettle:
                     try:
                         s = config.get(section+"."+i, Smarter.triggerName(j))
-                        
                         if s != "":
                             self.triggersKettle[j] = [(i,s)]
                     except Exception:
@@ -3528,71 +3527,78 @@ class SmarterInterface:
         for j in Smarter.triggersCoffee:
             self.__triggerHeartBeat(j)
 
-    def __triggerHeartBeat(self,triggerID):
-        def fire(triggerID,x): self.__trigger(triggerID,x,x)
-        
+    def eventStringRaw(self,trigger):
+        return self.__triggerStringRaw(Smarter.triggerID(trigger))
+
+
+    def __triggerStringRaw(self,triggerID):
         try:
             # Kettle
-            if triggerID == Smarter.triggerKettleStatus:                 fire(triggerID,Smarter.status_kettle_description(self.kettleStatus))
+            if triggerID == Smarter.triggerKettleStatus:                   return Smarter.status_kettle_description(self.kettleStatus)
 
-            if triggerID == Smarter.triggerTemperatureStable:            fire(triggerID,self.temperatureStable)
-            if triggerID == Smarter.triggerWaterSensorStable:            fire(triggerID,self.waterSensorStable)
-            if triggerID == Smarter.triggerBusyKettle:                   fire(triggerID,self.busy)
-            if triggerID == Smarter.triggerDefaultTemperature:           fire(triggerID,self.defaultTemperature)
-            if triggerID == Smarter.triggerDefaultFormulaTemperature:    fire(triggerID,self.defaultFormulaTemperature)
-            if triggerID == Smarter.triggerDefaultKeepWarmTime:          fire(triggerID,self.defaultKeepWarmTime)
+            elif triggerID == Smarter.triggerTemperatureStable:            return self.temperatureStable
+            elif triggerID == Smarter.triggerWaterSensorStable:            return self.waterSensorStable
+            elif triggerID == Smarter.triggerBusyKettle:                   return self.busy
+            elif triggerID == Smarter.triggerDefaultTemperature:           return self.defaultTemperature
+            elif triggerID == Smarter.triggerDefaultFormulaTemperature:    return self.defaultFormulaTemperature
+            elif triggerID == Smarter.triggerDefaultKeepWarmTime:          return self.defaultKeepWarmTime
             
-            if triggerID == Smarter.triggerWaterSensorBase:              fire(triggerID,self.waterSensorBase)
-            if triggerID == Smarter.triggerKeepWarm:                     fire(triggerID,self.keepWarmOn)
-            if triggerID == Smarter.triggerHeaterKettle:                 fire(triggerID,self.heaterOn)
-            if triggerID == Smarter.triggerFormulaCooling:               fire(triggerID,self.formulaCoolingOn)
-            if triggerID == Smarter.triggerTemperature:                  fire(triggerID,self.temperature)
-            if triggerID == Smarter.triggerWaterSensor:                  fire(triggerID,self.waterSensor)
-            if triggerID == Smarter.triggerOnBase:                       fire(triggerID,self.onBase)
-            if triggerID == Smarter.triggerUnknownKettle:                fire(triggerID,self.unknown)
+            elif triggerID == Smarter.triggerWaterSensorBase:              return self.waterSensorBase
+            elif triggerID == Smarter.triggerKeepWarm:                     return self.keepWarmOn
+            elif triggerID == Smarter.triggerHeaterKettle:                 return self.heaterOn
+            elif triggerID == Smarter.triggerFormulaCooling:               return self.formulaCoolingOn
+            elif triggerID == Smarter.triggerTemperature:                  return self.temperature
+            elif triggerID == Smarter.triggerWaterSensor:                  return self.waterSensor
+            elif triggerID == Smarter.triggerOnBase:                       return self.onBase
+            elif triggerID == Smarter.triggerUnknownKettle:                return self.unknown
 
             # Coffee
-            if triggerID == Smarter.triggerMode:                         fire(triggerID,self.mode)
-            if triggerID == Smarter.triggerDefaultStrength:              fire(triggerID,self.defaultStrength)
-            if triggerID == Smarter.triggerDefaultCups:                  fire(triggerID,self.defaultCups)
-            if triggerID == Smarter.triggerDefaultCupsText:              fire(triggerID,Smarter.cups_to_string(self.defaultCups))
-            if triggerID == Smarter.triggerDefaultGrind:                 fire(triggerID,self.defaultGrind)
-            if triggerID == Smarter.triggerDefaultHotplate:              fire(triggerID,self.defaultHotPlate)
-            if triggerID == Smarter.triggerDefaultHotplateText:          fire(triggerID,Smarter.hotplate_to_string(self.defaultHotPlate))
-            if triggerID == Smarter.triggerDefaultKeepwarmText:          fire(triggerID,Smarter.keepwarm_to_string(self.defaultKeepWarmTime))
-            if triggerID == Smarter.triggerGrind:                        fire(triggerID,self.grind)
-            if triggerID == Smarter.triggerReady:                        fire(triggerID,self.ready)
-            if triggerID == Smarter.triggerWorking:                      fire(triggerID,self.working)
-            if triggerID == Smarter.triggerTimerEvent:                   fire(triggerID,self.timerEvent)
-            if triggerID == Smarter.triggerWaterLevel:                   fire(triggerID,self.waterLevel)
-            if triggerID == Smarter.triggerWaterEnough:                  fire(triggerID,self.waterEnough)
-            if triggerID == Smarter.triggerStrength:                     fire(triggerID,self.strength)
-            if triggerID == Smarter.triggerCups:                         fire(triggerID,self.cups)
-            if triggerID == Smarter.triggerCupsText:                     fire(triggerID,Smarter.cups_to_string(self.cups))
-            if triggerID == Smarter.triggerCupsBrew:                     fire(triggerID,self.cupsBrew)
-            if triggerID == Smarter.triggerUnknownCoffee:                fire(triggerID,self.unknown)
-            if triggerID == Smarter.triggerCarafe:                       fire(triggerID,self.carafe)
-            if triggerID == Smarter.triggerGrinder:                      fire(triggerID,self.grinderOn)
-            if triggerID == Smarter.triggerHotPlate:                     fire(triggerID,self.hotPlateOn)
-            if triggerID == Smarter.triggerHeaterCoffee:                 fire(triggerID,self.heaterOn)
-            if triggerID == Smarter.triggerCarafeRequired:               fire(triggerID,self.carafeRequired)
-            if triggerID == Smarter.triggerBusyCoffee:                   fire(triggerID,self.busy)
-            if triggerID == Smarter.triggerCoffeeStatus:                 fire(triggerID,Smarter.string_coffee_status(self.busy, self.ready, self.cupsBrew, self.working, self.heaterOn, self.hotPlateOn, self.carafe, self.grinderOn))
-            if triggerID == Smarter.triggerDefaultStrengthText:          fire(triggerID,Smarter.strength_to_string(self.defaultStrength))
-            if triggerID == Smarter.triggerStrengthText:                 fire(triggerID,Smarter.strength_to_string(self.strength))
-            if triggerID == Smarter.triggerGrindText:                    fire(triggerID,Smarter.grind_to_string(self.grind))
-            if triggerID == Smarter.triggerDefaultGrindText:             fire(triggerID,Smarter.grind_to_string(self.defaultGrind))
-            if triggerID == Smarter.triggerWaterLevelText:               fire(triggerID,Smarter.waterlevel(self.waterLevel))
-            if triggerID == Smarter.triggerModeText:                     fire(triggerID,Smarter.string_mode(self.mode))
+            elif triggerID == Smarter.triggerMode:                         return self.mode
+            elif triggerID == Smarter.triggerDefaultStrength:              return self.defaultStrength
+            elif triggerID == Smarter.triggerDefaultCups:                  return self.defaultCups
+            elif triggerID == Smarter.triggerDefaultCupsText:              return Smarter.cups_to_string(self.defaultCups)
+            elif triggerID == Smarter.triggerDefaultGrind:                 return self.defaultGrind
+            elif triggerID == Smarter.triggerDefaultHotplate:              return self.defaultHotPlate
+            elif triggerID == Smarter.triggerDefaultHotplateText:          return Smarter.hotplate_to_string(self.defaultHotPlate)
+            elif triggerID == Smarter.triggerDefaultKeepwarmText:          return Smarter.keepwarm_to_string(self.defaultKeepWarmTime)
+            elif triggerID == Smarter.triggerGrind:                        return self.grind
+            elif triggerID == Smarter.triggerReady:                        return self.ready
+            elif triggerID == Smarter.triggerWorking:                      return self.working
+            elif triggerID == Smarter.triggerTimerEvent:                   return self.timerEvent
+            elif triggerID == Smarter.triggerWaterLevel:                   return self.waterLevel
+            elif triggerID == Smarter.triggerWaterEnough:                  return self.waterEnough
+            elif triggerID == Smarter.triggerStrength:                     return self.strength
+            elif triggerID == Smarter.triggerCups:                         return self.cups
+            elif triggerID == Smarter.triggerCupsText:                     return Smarter.cups_to_string(self.cups)
+            elif triggerID == Smarter.triggerCupsBrew:                     return self.cupsBrew
+            elif triggerID == Smarter.triggerUnknownCoffee:                return self.unknown
+            elif triggerID == Smarter.triggerCarafe:                       return self.carafe
+            elif triggerID == Smarter.triggerGrinder:                      return self.grinderOn
+            elif triggerID == Smarter.triggerHotPlate:                     return self.hotPlateOn
+            elif triggerID == Smarter.triggerHeaterCoffee:                 return self.heaterOn
+            elif triggerID == Smarter.triggerCarafeRequired:               return self.carafeRequired
+            elif triggerID == Smarter.triggerBusyCoffee:                   return self.busy
+            elif triggerID == Smarter.triggerCoffeeStatus:                 return Smarter.string_coffee_status(self.busy, self.ready, self.cupsBrew, self.working, self.heaterOn, self.hotPlateOn, self.carafe, self.grinderOn)
+            elif triggerID == Smarter.triggerDefaultStrengthText:          return Smarter.strength_to_string(self.defaultStrength)
+            elif triggerID == Smarter.triggerStrengthText:                 return Smarter.strength_to_string(self.strength)
+            elif triggerID == Smarter.triggerGrindText:                    return Smarter.grind_to_string(self.grind)
+            elif triggerID == Smarter.triggerDefaultGrindText:             return Smarter.grind_to_string(self.defaultGrind)
+            elif triggerID == Smarter.triggerWaterLevelText:               return Smarter.waterlevel(self.waterLevel)
+            elif triggerID == Smarter.triggerModeText:                     return Smarter.string_mode(self.mode)
 
-            if triggerID == Smarter.triggerChangeCoffeeDefaultSettings:  fire(triggerID,True)
-            if triggerID == Smarter.triggerChangeCoffeeSettings:         fire(triggerID,True)
-            if triggerID == Smarter.triggerChangeWaterSensorBase:        fire(triggerID,True)
-            if triggerID == Smarter.triggerChangeKettleDefaultSettings:  fire(triggerID,True)
+            elif triggerID == Smarter.triggerChangeCoffeeDefaultSettings:  return True
+            elif triggerID == Smarter.triggerChangeCoffeeSettings:         return True
+            elif triggerID == Smarter.triggerChangeWaterSensorBase:        return True
+            elif triggerID == Smarter.triggerChangeKettleDefaultSettings:  return True
         except Exception, e:
             print logging.debug(traceback.format_exc())
             print str(e)
-
+    
+    
+    def __triggerHeartBeat(self,triggerID):
+        s = str(self.__triggerStringRaw(triggerID))
+        self.__trigger(triggerID,s,s)
+    
     
     def triggerSet(self,group,trigger,action):
         id = Smarter.triggerID(trigger.upper())
