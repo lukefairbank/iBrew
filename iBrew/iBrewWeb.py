@@ -837,7 +837,7 @@ def encodeRules(rulesIn,rulesOut):
             }
 
 
-def encodeRules():
+def encodePatch():
     #FIX
     return { 'patch' :  'not implemented yet' }
 
