@@ -56,9 +56,9 @@ bonjourmac: bonjourinfo bonjour
 bonjourlin: bonjourinfo bonjour
 
 bonjourinfo:
-    @echo if this fails (no curl or powershell download it at
-	@echo https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/pybonjour/pybonjour-1.1.1.zip
-	@echo and run: pip install pybonjour-1.1.1.zip code.google.com/pybonjour/pybonjour-1.1.1.zip > pybonjour-1.1.1.zip
+    @echo "if this fails (no curl or powershell) download it at"
+	@echo "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/pybonjour/pybonjour-1.1.1.zip"
+	@echo "and run: pip install pybonjour-1.1.1.zip code.google.com/pybonjour/pybonjour-1.1.1.zip > pybonjour-1.1.1.zip"
 
 bonjour:
 	@echo MAKE SURE you have bonjour installed before running this
