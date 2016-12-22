@@ -11,7 +11,7 @@ all:
 	@echo use \"make bonjourwin\" to install bonjour package for Windows
 	@echo use \"make mac\" to make a macOS release
 	@echo use \"make win\" to make a Windows release
-	@echo use \"make readme\" to create a new README.md 
+	@echo use \"make readme\" to create a new README.md (in folder below iBrew) 
 
 
 mac:	cleanmac buildmac diskimage

@@ -1,11 +1,16 @@
 {% set title = "iBrew API" %} {% include ../wrapper/head.html %}
-
+{% from smarter.SmarterProtocol import * %}
 
 <center>
 
 <div class="TitleApi"></div>
-<div class="TitleApi"><img class="IconMessages" src="{{ static_url('icons/info/api.png') }}"><div class="TitleMessageSubSubSub">JSON REST Interface</div>iBrew API</div>
+<div class="TitleApi"><img class="IconMessages" src="{{ static_url('icons/info/api.png') }}"><div class="TitleMessageSubSubSub">REST Interface</div>iBrew API</div>
 
+
+        <div class="TitleMessageSubSubSub">Below are listed the possibilities of iBrew API of the connected appliances. If you are a developer and have no kettle or smarter coffee! Want to see the whole API? Simulate an iKettle or Smarter Coffee from the command line! The command is <pre>ibrew coffee simulate</pre> or <pre>ibrew kettle simulate</pre>!?</div>
+
+<br>
+<br>
 <br>
 
 
@@ -205,9 +210,16 @@
         <div class="CellApiDesc">Boil</div>
         <div class="CellApi"><a href="/api/{{ escape(ip) }}/boil">/boil</a></div>
     </div>
+
+    <p>
+    <div class="tRow">
+        <div class="CellApiDesc"><b>Legacy</b></div>
+        <div class="CellApi"></div>
+    </div>
+    
     <div class="tRow">
         <div class="CellApiDesc">Legacy</div>
-        <div class="CellApi"><a href="/api/{{ escape(ip) }}/legacy">/legacy</a></div>
+        <div class="CellApi"><a href="/api/{{ escape(ip) }}/legacy/">/legacy (*fix/)</a></div>
     </div>
 
     <div class="tRow">
@@ -267,7 +279,11 @@
     
     
     {% end %}
-
+    <p>
+    <div class="tRow">
+        <div class="CellApiDesc"><b>SETTINGS</b></div>
+        <div class="CellApi"></div>
+    </div>
 <!--    <div class="tRow">
         <div class="CellApiDesc">Set Time</div>
         <div class="CellApi"><a href="/api/{{ escape(ip) }}/time">/time</a></div>
@@ -277,12 +293,7 @@
         <div class="CellApiDesc">History</div>
         <div class="CellApi"><a href="/api/{{ escape(ip) }}/history">/history</a></div>
     </div> -->
-    
-    <div class="tRow">
-        <div class="CellApiDesc">Statistics {{ devices[ip] }} </div>
-        <div class="CellApi"><a href="/api/{{ escape(ip) }}/statistics">/statistics</a></div>
-    </div>
-    
+
     <div class="tRow">
         <div class="CellApiDesc">Default user settings</div>
         <div class="CellApi"><a href="/api/{{ escape(ip) }}/default">/default</a></div>
@@ -293,6 +304,12 @@
         <div class="CellApi"><a href="/api/{{ escape(ip) }}/settings">/settings</a></div>
     </div>
 
+    <p>
+    <div class="tRow">
+        <div class="CellApiDesc"><b>WIRELESS</b></div>
+        <div class="CellApi"></div>
+    </div>
+    
     <div class="tRow">
         <div class="CellApiDesc">Scan for wireless network</div>
         <div class="CellApi"><a href="/api/{{ escape(ip) }}/scan">/scan</a></div>
@@ -309,7 +326,11 @@
         <div class="CellApi"><a href="/api/{{ escape(ip) }}/join/name/password">/join/name/password</a></div>
     </div>
     
-    
+    <p>
+    <div class="tRow">
+        <div class="CellApiDesc"><b>COMMUNICATION</b></div>
+        <div class="CellApi"></div>
+    </div>
     <div class="tRow">
         <div class="CellApiDesc">Joke</div>
         <div class="CellApi"><a href="/api/{{ escape(ip) }}/joke">/joke</a></div>
@@ -352,9 +373,33 @@
     </div>
 
     <div class="tRow">
-        <div class="CellApiDesc">Trigger remove group</div>
-        <div class="CellApi"><a href="/api/{{ escape(ip) }}/triggers/Domoticz/delete">/triggers/(group)/delete</a></div>
+        <div class="CellApiDesc">Statistics {{ devices[ip] }} </div>
+        <div class="CellApi"><a href="/api/{{ escape(ip) }}/statistics">/statistics</a></div>
     </div>
+
+    <p>
+    <div class="tRow">
+        <div class="CellApiDesc"><b>RAW</b></div>
+        <div class="CellApi"></div>
+    </div>
+    
+    {% if "iKettle 2.0" == devices[ip] %}
+         {% for raw in Smarter.triggersKettle %}
+    <div class="tRow">
+        <div class="CellApiDesc">{{ Smarter.triggersKettle[raw][0].lower() }}</div>
+        <div class="CellApi"><a href="/api/{{ escape(ip) }}/raw/{{ Smarter.triggersKettle[raw][0].lower() }}">/raw/{{ Smarter.triggersKettle[raw][0].lower() }}</a></div>
+    </div>
+         <!-- {{ Smarter.triggersKettle[raw][0] }} -->
+         {% end %}
+    {% else %}
+        {% for raw in Smarter.triggersCoffee %}
+    <div class="tRow">
+        <div class="CellApiDesc">{{ Smarter.triggersCoffee[raw][0].lower() }}</div>
+        <div class="CellApi"><a href="/api/{{ escape(ip) }}/raw/{{ Smarter.triggersCoffee[raw][0].lower() }}">/raw/{{ Smarter.triggersCoffee[raw][0].lower() }}</a></div>
+    </div>
+         {% end %}
+    {% end %}
+    <p>
  </div>
 <br>
 {% end %}

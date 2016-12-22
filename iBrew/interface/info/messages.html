@@ -17,11 +17,11 @@
 <div class="tRow"><div class="CellMessagesDevice"></div><div class="CellMessagesDevice"></div><div class="CellMessagesID">ID</div><div class="CellMessagesDesc">Description</div></div>
 {% for message in sorted(commands) %}
 <div class="tRow"><div class="CellMessagesDevice">
-{% if Smarter.DeviceCoffee in commands[message]['device'] %}
+{% if Smarter.DeviceCoffee in commands[message]['appliance'] %}
 <a href="/info/message/{{ Smarter.number_to_code(message) }}"><img class="DeviceIconSmall" src="{{ static_url('icons/coffee/coffee.png')}}"></a>
 {% end %}
 </div><div class="CellMessagesDevice">
-{% if Smarter.DeviceKettle in commands[message]['device'] %}
+{% if Smarter.DeviceKettle in commands[message]['appliance'] %}
 <a href="/info/message/{{ Smarter.number_to_code(message) }}"><img class="DeviceIconSmall" src="{{ static_url('icons/kettle/kettle.png')}}"></a>
 {% end %}
 </div><div class="CellMessagesID"><a href="/info/message/{{ Smarter.number_to_code(message) }}"><a href="/info/message/{{ Smarter.number_to_code(message) }}">{{ Smarter.number_to_code(message) }}</a></div><div class="CellMessagesDesc"><a href="/info/message/{{ Smarter.number_to_code(message) }}">{{ commands[message]['description'] }}</a></div></div>
@@ -40,11 +40,11 @@
 <div class="tRow"><div class="CellMessagesDevice"></div><div class="CellMessagesDevice"></div><div class="CellMessagesID">ID</div><div class="CellMessagesDesc">Description</div></div>
 {% for message in sorted(responses) %}
 <div class="tRow"><div class="CellMessagesDevice">
-{% if Smarter.DeviceCoffee in responses[message]['device'] %}
+{% if Smarter.DeviceCoffee in responses[message]['appliance'] %}
 <a href="/info/message/{{ Smarter.number_to_code(message) }}"><img class="DeviceIconSmall" src="{{ static_url('icons/coffee/coffee.png')}}"></a>
 {% end %}
 </div><div class="CellMessagesDevice">
-{% if Smarter.DeviceKettle in responses[message]['device'] %}
+{% if Smarter.DeviceKettle in responses[message]['appliance'] %}
 <a href="/info/message/{{ Smarter.number_to_code(message) }}"><img class="DeviceIconSmall" src="{{ static_url('icons/kettle/kettle.png')}}"></a>
 {% end %}
 </a>
@@ -63,11 +63,11 @@
 <div class="tRow"><div class="CellMessagesDevice"></div><div class="CellMessagesDevice"></div><div class="CellMessagesID">ID</div><div class="CellMessagesDesc">Description</div></div>
 {% for message in sorted(status) %}
 <div class="tRow"><div class="CellMessagesDevice">
-{% if Smarter.DeviceCoffee in status[message]['device'] %}
+{% if Smarter.DeviceCoffee in status[message]['appliance'] %}
 <a href="/info/message/{{ Smarter.number_to_code(message) }}"><img class="DeviceIconSmall" src="{{ static_url('icons/coffee/coffee.png')}}"></a>
 {% end %}
 </div><div class="CellMessagesDevice">
-{% if Smarter.DeviceKettle in status[message]['device'] %}
+{% if Smarter.DeviceKettle in status[message]['appliance'] %}
 <a href="/info/message/{{ Smarter.number_to_code(message) }}"><img class="DeviceIconSmall" src="{{ static_url('icons/kettle/kettle.png')}}"></a>
 {% end %}
 </div><div class="CellMessagesID"><a href="/info/message/{{ Smarter.number_to_code(message) }}">{{ Smarter.number_to_code(message) }}</a></div><div class="CellMessagesDesc"><a href="/info/message/{{ Smarter.number_to_code(message) }}">{{ status[message]['description'] }}</a></div></div>
