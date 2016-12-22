@@ -1288,6 +1288,11 @@ class SmarterProtocol:
         return self.number_to_raw(self.check_hotplate(timer,version))
 
 
+    def hotplate_to_string(self,hotplate):
+        if hotplate == 0: return "Off"
+        else:
+            return str(hotplate) + " minutes"
+
     #------------------------------------------------------
     # KEEPWARM ARGUMENT WRAPPER
     #------------------------------------------------------
@@ -1317,6 +1322,12 @@ class SmarterProtocol:
 
     def keepwarm_to_raw(self,timer):
         return self.number_to_raw(self.check_keepwarm(timer))
+    
+    def keepwarm_to_string(self,keepwarm):
+        if keepwarm == 0: return "Off"
+        else:
+            return str(keepwarm) + " minutes"
+    
 
 
     #------------------------------------------------------
@@ -1794,6 +1805,10 @@ class SmarterProtocol:
 
 
     # Kettle
+
+
+
+    triggerDefaultKeepwarmText          = 3
     triggerChangeWaterSensorBase        = 4
     triggerChangeKettleDefaultSettings  = 5
     triggerKettleStatus                 = 6
@@ -1843,21 +1858,29 @@ class SmarterProtocol:
     triggerModeText                     = 48
     triggerChangeCoffeeDefaultSettings  = 49
     triggerChangeCoffeeSettings         = 50
+    triggerCupsText                     = 51
+    triggerDefaultHotplateText          = 52
+    triggerDefaultCupsText              = 53
+
+    # Maybe add these...
+    #triggerChangeKettleDefaultSettingsText  = 2
+    #triggerChangeCoffeeDefaultSettingsText = 54
+    #triggerChangeCoffeeSettingsText     = 55
 
 
     
     # format {(group,sensorid,command),...(group,sensorid,command)}
     triggersKettle = {
         triggerKettleStatus                 : ["KettleStatus","TEXT"],
-        triggerChangeWaterSensorBase        : ["BaseChanged","ONESTATE"],
-        triggerChangeKettleDefaultSettings  : ["KettleDefaultChanged","ONESTATE"],
+        triggerChangeWaterSensorBase        : ["BaseChanged","TRIGGER"],
+        triggerChangeKettleDefaultSettings  : ["KettleDefaultChanged","TRIGGER"],
     
         # Operational sensors (boolean)
-        triggerBusyKettle                   : ["KettleBusy","STATE true if either heater or formula cooling"],
-        triggerKeepWarm                     : ["KeepWarm","STATE"],
-        triggerHeaterKettle                 : ["KettleHeater","STATE"],
-        triggerFormulaCooling               : ["FormulaCooling","STATE"],
-        triggerOnBase                       : ["OnBase","STATE"],
+        triggerBusyKettle                   : ["KettleBusy","SWITCH true if either heater or formula cooling"],
+        triggerKeepWarm                     : ["KeepWarm","SWITCH"],
+        triggerHeaterKettle                 : ["KettleHeater","SWITCH"],
+        triggerFormulaCooling               : ["FormulaCooling","SWITCH"],
+        triggerOnBase                       : ["OnBase","SWITCH"],
         
         # Data sensors
         triggerWaterSensorBase              : ["Base","NUMBER"],
@@ -1868,25 +1891,27 @@ class SmarterProtocol:
         triggerWaterSensor                  : ["WaterSensorRaw","NUMBER"],
         triggerTemperatureStable            : ["Temperature","NUMBER"],
         triggerWaterSensorStable            : ["WaterSensor","NUMBER"],
+        triggerDefaultKeepwarmText          : ["DefaultKeepwarmText","TEXT"],
         triggerUnknownKettle                : ["KettleUnknown","NUMBER"]
+
     }
     
     triggersCoffee = {
         # Operational sensors (boolean)
-        triggerGrinder                      : ["Grinder","STATE"],
-        triggerTimerEvent                   : ["Timer","STATE"],
-        triggerBusyCoffee                   : ["CoffeeBusy","STATE"],
-        triggerReady                        : ["Ready","STATE"],
-        triggerWorking                      : ["Working","STATE"],
-        triggerHotPlate                     : ["Hotplate","STATE"],
-        triggerHeaterCoffee                 : ["CoffeeHeater","STATE"],
+        triggerGrinder                      : ["Grinder","SWITCH"],
+        triggerTimerEvent                   : ["Timer","SWITCH"],
+        triggerBusyCoffee                   : ["CoffeeBusy","SWITCH"],
+        triggerReady                        : ["Ready","SWITCH"],
+        triggerWorking                      : ["Working","SWITCH"],
+        triggerHotPlate                     : ["Hotplate","SWITCH"],
+        triggerHeaterCoffee                 : ["CoffeeHeater","SWITCH"],
 
         # Data sensors
-        triggerCarafeRequired               : ["CarafeRequired","STATE: if carafe is needed"],
-        triggerMode                         : ["Mode","STATE false is carafe mode, true is cup mode"],
-        triggerGrind                        : ["Grind","STATE false is filter, true if beans"],
-        triggerWaterEnough                  : ["EnoughWater","STATE if there is enough water"],
-        triggerCarafe                       : ["Carafe","STATE if carafe is present"],
+        triggerCarafeRequired               : ["CarafeRequired","SWITCH: if carafe is needed"],
+        triggerMode                         : ["Mode","SWITCH false is carafe mode, true is cup mode"],
+        triggerGrind                        : ["Grind","SWITCH false is filter, true if beans"],
+        triggerWaterEnough                  : ["EnoughWater","SWITCH if there is enough water"],
+        triggerCarafe                       : ["Carafe","SWITCH if carafe is present"],
         triggerWaterLevel                   : ["Waterlevel","NUMBER (0..3) representing empty .. full"],
         triggerStrength                     : ["Strength","NUMBER (0..2) representing (weak,normal,strong)"],
         triggerCups                         : ["Cups","NUMBER (1..12) or (1..3) in cup mode"],
@@ -1894,7 +1919,7 @@ class SmarterProtocol:
         triggerUnknownCoffee                : ["CoffeeUnknown","NUMBER"],
         triggerDefaultStrength              : ["DefaultStrength","NUMBER (0..2) representing (weak,normal,strong)"],
         triggerDefaultCups                  : ["DefaultCups","NUMBER (1..12)"],
-        triggerDefaultGrind                 : ["DefaultGrind","STATE false is filter, true if beans"],
+        triggerDefaultGrind                 : ["DefaultGrind","SWITCH false is filter, true if beans"],
         triggerDefaultHotplate              : ["DefaultHotplate","NUMBER 0,5-35 minutes in v21 and below or 0,5-40 minutes in v22"],
         triggerCoffeeStatus                 : ["CoffeeStatus","TEXT"],
         triggerDefaultStrengthText          : ["DefaultStrengthText","TEXT"],
@@ -1902,9 +1927,13 @@ class SmarterProtocol:
         triggerDefaultGrindText             : ["DefaultGrindText","TEXT"],
         triggerGrindText                    : ["GrindText","TEXT"],
         triggerWaterLevelText               : ["WaterlevelText","TEXT"],
-        triggerChangeCoffeeDefaultSettings  : ["CoffeeDefaultChanged","ONESTATE"],
-        triggerChangeCoffeeSettings         : ["CoffeeSettingsChanged","ONESTATE"],
-        triggerModeText                     : ["ModeText","TEXT"]
+        triggerChangeCoffeeDefaultSettings  : ["CoffeeDefaultChanged","TRIGGER"],
+        triggerChangeCoffeeSettings         : ["CoffeeSettingsChanged","TRIGGER"],
+        triggerModeText                     : ["ModeText","TEXT"],
+        triggerCupsText                     : ["CupsText","TEXT"],
+        triggerDefaultHotplateText          : ["DefaultHotplateText","TEXT"],
+        triggerDefaultCupsText              : ["DefaultCupsText","TEXT"]
+
     }
 
     def triggerID(self,trigger):
@@ -1939,7 +1968,7 @@ class SmarterProtocol:
         try:
             self.string_to_bool(boolean)
         except:
-            SmarterErrorOld("Trigger state not recognized")
+            SmarterErrorOld("Trigger switch type not recognized")
         for i in self.triggerBooleans:
             if i[0] == boolean or i[1] == boolean:
                 return i
@@ -1962,7 +1991,7 @@ class SmarterProtocol:
 
     def print_states(self):
         print
-        print "State types for trigger actions"
+        print "Switch types for trigger actions"
         print
         for i in self.triggerBooleans:
             print i[0] + ": (" + i[0] + "," + i[1] + ")"
@@ -2322,6 +2351,7 @@ class SmarterProtocol:
 
         ArgHotPlateOn         : ('OPTION',"HotplateOn",[(0,"Hotplate on"),(1,"Hotplate off")]),
 
+        # Seems to be a bit lonely, are you used somewhere?
         ArgState              : ('OPTION',"State",[(0,"Failed"),(1,"Succes")]),
         ArgStrength       : ('OPTION',"Strength",[(CoffeeWeak,CoffeeStringWeak),
                                     (CoffeeMedium,CoffeeStringMedium),

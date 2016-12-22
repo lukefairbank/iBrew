@@ -612,7 +612,7 @@ class iBrewConsole:
             if command == "monitor" or command == "events":
                 self.client.fast = False
 
-            if (command == "relay" and not self.console) or ((not self.client.connected or self.haveHost) and command != "help" and command != "?" and command != "list" and command != "message" and command != "usage" and command != "commands" and command != "server" and command != "joke" and command != "license" and command != "protocol" and command != "structure" and command != "notes" and command != "groups" and command != "group" and command != "examples" and command != "states" and command != "triggers" and command != "messages" and command != "rules" and command != "rule" and command != "web" and command != "legacy"  and command != "trigger"):
+            if (command == "relay" and not self.console) or ((not self.client.connected or self.haveHost) and command != "help" and command != "?" and command != "list" and command != "message" and command != "usage" and command != "commands" and command != "server" and command != "joke" and command != "license" and command != "protocol" and command != "structure" and command != "notes" and command != "groups" and command != "group" and command != "examples" and command != "switches" and command != "triggers" and command != "messages" and command != "rules" and command != "rule" and command != "web" and command != "legacy"  and command != "trigger"):
 
 
                 if not self.haveHost and command != "relay":
@@ -737,7 +737,7 @@ class iBrewConsole:
                                             else:
                                                 print "iBrew: Use additional command: info, block or unblock"
             elif command == "triggers":     Smarter.print_triggers()
-            elif command == "states":       Smarter.print_states()
+            elif command == "switches":     Smarter.print_states()
             elif command == "trigger":
                                             if numarg == 0:
                                                 self.client.print_triggers()
@@ -763,7 +763,7 @@ class iBrewConsole:
                                                     if numarg == 1:
                                                         self.client.print_group(arguments[0])
                                                     elif numarg == 2:
-                                                        if arguments[1] == "state":
+                                                        if arguments[1] == "switch":
                                                             print "iBrew: Missing arguments, which duality?"
                                                         else:
                                                             try:
@@ -776,10 +776,10 @@ class iBrewConsole:
                                                                     print "iBrew: Trigger group " + arguments[0] + " enabled"
                                                             except Exception, e:
                                                                 print str(e)
-                                                                print "iBrew: failed to get state"
-                                                    elif arguments[1] == "state":
+                                                                print "iBrew: failed to get switch type"
+                                                    elif arguments[1] == "switch":
                                                         self.client.boolsGroup(arguments[0],arguments[2])
-                                                        print "iBrew: Trigger group " + arguments[0] + " boolean state " + arguments[2]
+                                                        print "iBrew: Trigger group " + arguments[0] + " switch type " + arguments[2]
                                                     else:
                                                         print "iBrew: missing arguments, about time for some peace and quite :-)"
                                                             
@@ -1331,7 +1331,7 @@ class iBrewConsole:
         print "    trigger [group]        show triggers of group"
         print "    trigger                show all triggers"
         print "    trigger [group] [bool] enabled/disable trigger group"
-        print "    trigger [group] state [bool] set group state output"
+        print "    trigger [group] switch [bool] set group switch type"
         print
         print "  Actions can either be a path to a command or url"
         print
@@ -1385,7 +1385,7 @@ class iBrewConsole:
         print "    message [id]           show protocol message detail of message [id]"
         print "    notes                  show developer notes on the appliances"
         print "    protocol               show all protocol information available"
-        print "    states                 show various forms of trigger states"
+        print "    switches               show various forms of trigger switch types"
         print "    structure              show protocol structure information"
         print "    triggers               show triggers"
         print

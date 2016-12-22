@@ -1148,9 +1148,7 @@ class SmarterInterface:
         conn.commit()
         conn.close()
         """
-
-
-
+        
         config.read(self.settingsPath+'ibrew.conf')
         
         try:
@@ -1998,6 +1996,7 @@ class SmarterInterface:
                 os.makedirs(self.settingsPath)
         
         config.read(self.settingsPath+'ibrew.conf')
+
         
         try:
             config.add_section(section)
@@ -3275,7 +3274,8 @@ class SmarterInterface:
                 os.makedirs(self.settingsPath)
         
         config.read(self.settingsPath+'ibrew.conf')
-        
+
+
         try:
             config.add_section(section)
         except DuplicateSectionError:
@@ -3298,7 +3298,7 @@ class SmarterInterface:
                 pass
             try:
                 config.set(section+"."+i, "Active", str(self.triggersGroups[self.__findGroup(i)][1]))
-                config.set(section+"."+i, "State", str(self.triggersGroups[self.__findGroup(i)][2][0]))
+                config.set(section+"."+i, "Switch", str(self.triggersGroups[self.__findGroup(i)][2][0]))
             except Exception:
                 pass # logging.warning("Error reading triggers " + str(e))
 
@@ -3347,6 +3347,7 @@ class SmarterInterface:
             Smarter.triggerTemperatureStable            : [],
             Smarter.triggerWaterSensor                  : [],
             Smarter.triggerWaterSensorStable            : [],
+            Smarter.triggerDefaultKeepwarmText          : [],
             Smarter.triggerUnknownKettle                : []
         }
 
@@ -3384,8 +3385,11 @@ class SmarterInterface:
             Smarter.triggerWaterLevelText               : [],
             Smarter.triggerChangeCoffeeDefaultSettings  : [],
             Smarter.triggerChangeCoffeeSettings         : [],
-
-            Smarter.triggerModeText                     : []
+            Smarter.triggerModeText                     : [],
+            Smarter.triggerCupsText                     : [],
+            Smarter.triggerDefaultHotplateText          : [],
+            Smarter.triggerDefaultCupsText              : []
+        
         }
 
         self.triggersGroups = []
@@ -3403,16 +3407,17 @@ class SmarterInterface:
         #else:
         #    return
 
-
         self.__initTriggers()
-        
+
+  
         config = SafeConfigParser()
 
         if not os.path.exists(self.settingsPath):
             os.makedirs(self.settingsPath)
         
         config.read(self.settingsPath+'ibrew.conf')
-        
+      
+                
         try:
             config.add_section(section)
         except DuplicateSectionError:
@@ -3425,7 +3430,7 @@ class SmarterInterface:
         
                 try:
                     a = config.get(section+"."+i, "Active")
-                    s = config.get(section+"."+i, "State")
+                    s = config.get(section+"."+i, "Switch")
                 except:
                     pass # logging.warning("Error reading triggers " + str(e))
                 
@@ -3525,60 +3530,68 @@ class SmarterInterface:
 
     def __triggerHeartBeat(self,triggerID):
         def fire(triggerID,x): self.__trigger(triggerID,x,x)
+        
+        try:
+            # Kettle
+            if triggerID == Smarter.triggerKettleStatus:                 fire(triggerID,Smarter.status_kettle_description(self.kettleStatus))
 
-        # Kettle
-        if triggerID == Smarter.triggerKettleStatus:                 fire(triggerID,Smarter.status_kettle_description(self.kettleStatus))
+            if triggerID == Smarter.triggerTemperatureStable:            fire(triggerID,self.temperatureStable)
+            if triggerID == Smarter.triggerWaterSensorStable:            fire(triggerID,self.waterSensorStable)
+            if triggerID == Smarter.triggerBusyKettle:                   fire(triggerID,self.busy)
+            if triggerID == Smarter.triggerDefaultTemperature:           fire(triggerID,self.defaultTemperature)
+            if triggerID == Smarter.triggerDefaultFormulaTemperature:    fire(triggerID,self.defaultFormulaTemperature)
+            if triggerID == Smarter.triggerDefaultKeepWarmTime:          fire(triggerID,self.defaultKeepWarmTime)
+            
+            if triggerID == Smarter.triggerWaterSensorBase:              fire(triggerID,self.waterSensorBase)
+            if triggerID == Smarter.triggerKeepWarm:                     fire(triggerID,self.keepWarmOn)
+            if triggerID == Smarter.triggerHeaterKettle:                 fire(triggerID,self.heaterOn)
+            if triggerID == Smarter.triggerFormulaCooling:               fire(triggerID,self.formulaCoolingOn)
+            if triggerID == Smarter.triggerTemperature:                  fire(triggerID,self.temperature)
+            if triggerID == Smarter.triggerWaterSensor:                  fire(triggerID,self.waterSensor)
+            if triggerID == Smarter.triggerOnBase:                       fire(triggerID,self.onBase)
+            if triggerID == Smarter.triggerUnknownKettle:                fire(triggerID,self.unknown)
 
-        if triggerID == Smarter.triggerTemperatureStable:            fire(triggerID,self.temperatureStable)
-        if triggerID == Smarter.triggerWaterSensorStable:            fire(triggerID,self.waterSensorStable)
-        if triggerID == Smarter.triggerBusyKettle:                   fire(triggerID,self.busy)
-        if triggerID == Smarter.triggerDefaultTemperature:           fire(triggerID,self.defaultTemperature)
-        if triggerID == Smarter.triggerDefaultFormulaTemperature:    fire(triggerID,self.defaultFormulaTemperature)
-        if triggerID == Smarter.triggerDefaultKeepWarmTime:          fire(triggerID,self.defaultKeepWarmTime)
-        if triggerID == Smarter.triggerWaterSensorBase:              fire(triggerID,self.waterSensorBase)
-        if triggerID == Smarter.triggerKeepWarm:                     fire(triggerID,self.keepWarmOn)
-        if triggerID == Smarter.triggerHeaterKettle:                 fire(triggerID,self.heaterOn)
-        if triggerID == Smarter.triggerFormulaCooling:               fire(triggerID,self.formulaCoolingOn)
-        if triggerID == Smarter.triggerTemperature:                  fire(triggerID,self.temperature)
-        if triggerID == Smarter.triggerWaterSensor:                  fire(triggerID,self.waterSensor)
-        if triggerID == Smarter.triggerOnBase:                       fire(triggerID,self.onBase)
-        if triggerID == Smarter.triggerUnknownKettle:                fire(triggerID,self.unknown)
+            # Coffee
+            if triggerID == Smarter.triggerMode:                         fire(triggerID,self.mode)
+            if triggerID == Smarter.triggerDefaultStrength:              fire(triggerID,self.defaultStrength)
+            if triggerID == Smarter.triggerDefaultCups:                  fire(triggerID,self.defaultCups)
+            if triggerID == Smarter.triggerDefaultCupsText:              fire(triggerID,Smarter.cups_to_string(self.defaultCups))
+            if triggerID == Smarter.triggerDefaultGrind:                 fire(triggerID,self.defaultGrind)
+            if triggerID == Smarter.triggerDefaultHotplate:              fire(triggerID,self.defaultHotPlate)
+            if triggerID == Smarter.triggerDefaultHotplateText:          fire(triggerID,Smarter.hotplate_to_string(self.defaultHotPlate))
+            if triggerID == Smarter.triggerDefaultKeepwarmText:          fire(triggerID,Smarter.keepwarm_to_string(self.defaultKeepWarmTime))
+            if triggerID == Smarter.triggerGrind:                        fire(triggerID,self.grind)
+            if triggerID == Smarter.triggerReady:                        fire(triggerID,self.ready)
+            if triggerID == Smarter.triggerWorking:                      fire(triggerID,self.working)
+            if triggerID == Smarter.triggerTimerEvent:                   fire(triggerID,self.timerEvent)
+            if triggerID == Smarter.triggerWaterLevel:                   fire(triggerID,self.waterLevel)
+            if triggerID == Smarter.triggerWaterEnough:                  fire(triggerID,self.waterEnough)
+            if triggerID == Smarter.triggerStrength:                     fire(triggerID,self.strength)
+            if triggerID == Smarter.triggerCups:                         fire(triggerID,self.cups)
+            if triggerID == Smarter.triggerCupsText:                     fire(triggerID,Smarter.cups_to_string(self.cups))
+            if triggerID == Smarter.triggerCupsBrew:                     fire(triggerID,self.cupsBrew)
+            if triggerID == Smarter.triggerUnknownCoffee:                fire(triggerID,self.unknown)
+            if triggerID == Smarter.triggerCarafe:                       fire(triggerID,self.carafe)
+            if triggerID == Smarter.triggerGrinder:                      fire(triggerID,self.grinderOn)
+            if triggerID == Smarter.triggerHotPlate:                     fire(triggerID,self.hotPlateOn)
+            if triggerID == Smarter.triggerHeaterCoffee:                 fire(triggerID,self.heaterOn)
+            if triggerID == Smarter.triggerCarafeRequired:               fire(triggerID,self.carafeRequired)
+            if triggerID == Smarter.triggerBusyCoffee:                   fire(triggerID,self.busy)
+            if triggerID == Smarter.triggerCoffeeStatus:                 fire(triggerID,Smarter.string_coffee_status(self.busy, self.ready, self.cupsBrew, self.working, self.heaterOn, self.hotPlateOn, self.carafe, self.grinderOn))
+            if triggerID == Smarter.triggerDefaultStrengthText:          fire(triggerID,Smarter.strength_to_string(self.defaultStrength))
+            if triggerID == Smarter.triggerStrengthText:                 fire(triggerID,Smarter.strength_to_string(self.strength))
+            if triggerID == Smarter.triggerGrindText:                    fire(triggerID,Smarter.grind_to_string(self.grind))
+            if triggerID == Smarter.triggerDefaultGrindText:             fire(triggerID,Smarter.grind_to_string(self.defaultGrind))
+            if triggerID == Smarter.triggerWaterLevelText:               fire(triggerID,Smarter.waterlevel(self.waterLevel))
+            if triggerID == Smarter.triggerModeText:                     fire(triggerID,Smarter.string_mode(self.mode))
 
-        # Coffee
-        if triggerID == Smarter.triggerMode:                         fire(triggerID,self.mode)
-        if triggerID == Smarter.triggerDefaultStrength:              fire(triggerID,self.defaultStrength)
-        if triggerID == Smarter.triggerDefaultCups:                  fire(triggerID,self.defaultCups)
-        if triggerID == Smarter.triggerDefaultGrind:                 fire(triggerID,self.defaultGrind)
-        if triggerID == Smarter.triggerDefaultHotplate:              fire(triggerID,self.defaultHotPlate)
-        if triggerID == Smarter.triggerGrind:                        fire(triggerID,self.grind)
-        if triggerID == Smarter.triggerReady:                        fire(triggerID,self.ready)
-        if triggerID == Smarter.triggerWorking:                      fire(triggerID,self.working)
-        if triggerID == Smarter.triggerTimerEvent:                   fire(triggerID,self.timerEvent)
-        if triggerID == Smarter.triggerWaterLevel:                   fire(triggerID,self.waterLevel)
-        if triggerID == Smarter.triggerWaterEnough:                  fire(triggerID,self.waterEnough)
-        if triggerID == Smarter.triggerStrength:                     fire(triggerID,self.strength)
-        if triggerID == Smarter.triggerCups:                         fire(triggerID,self.cups)
-        if triggerID == Smarter.triggerCupsBrew:                     fire(triggerID,self.cupsBrew)
-        if triggerID == Smarter.triggerUnknownCoffee:                fire(triggerID,self.unknown)
-        if triggerID == Smarter.triggerCarafe:                       fire(triggerID,self.carafe)
-        if triggerID == Smarter.triggerGrinder:                      fire(triggerID,self.grinderOn)
-        if triggerID == Smarter.triggerHotPlate:                     fire(triggerID,self.hotPlateOn)
-        if triggerID == Smarter.triggerHeaterCoffee:                 fire(triggerID,self.heaterOn)
-        if triggerID == Smarter.triggerCarafeRequired:               fire(triggerID,self.carafeRequired)
-        if triggerID == Smarter.triggerBusyCoffee:                   fire(triggerID,self.busy)
-        if triggerID == Smarter.triggerCoffeeStatus:                 fire(triggerID,Smarter.string_coffee_status(self.busy, self.ready, self.cupsBrew, self.working, self.heaterOn, self.hotPlateOn, self.carafe, self.grinderOn))
-        if triggerID == Smarter.triggerDefaultStrengthText:          fire(triggerID,Smarter.strength_to_string(self.defaultStrength))
-        if triggerID == Smarter.triggerStrengthText:                 fire(triggerID,Smarter.strength_to_string(self.strength))
-        if triggerID == Smarter.triggerGrindText:                    fire(triggerID,Smarter.grind_to_string(self.grind))
-        if triggerID == Smarter.triggerDefaultGrindText:             fire(triggerID,Smarter.grind_to_string(self.defaultGrind))
-        if triggerID == Smarter.triggerWaterLevelText:               fire(triggerID,Smarter.waterlevel(self.waterLevel))
-        if triggerID == Smarter.triggerModeText:                     fire(triggerID,Smarter.string_mode(self.mode))
-
-        if triggerID == Smarter.triggerChangeCoffeeDefaultSettings:  fire(triggerID,True)
-        if triggerID == Smarter.triggerChangeCoffeeSettings:         fire(triggerID,True)
-        if triggerID == Smarter.triggerChangeWaterSensorBase:        fire(triggerID,True)
-        if triggerID == Smarter.triggerChangeKettleDefaultSettings:  fire(triggerID,True)
-
+            if triggerID == Smarter.triggerChangeCoffeeDefaultSettings:  fire(triggerID,True)
+            if triggerID == Smarter.triggerChangeCoffeeSettings:         fire(triggerID,True)
+            if triggerID == Smarter.triggerChangeWaterSensorBase:        fire(triggerID,True)
+            if triggerID == Smarter.triggerChangeKettleDefaultSettings:  fire(triggerID,True)
+        except Exception, e:
+            print logging.debug(traceback.format_exc())
+            print str(e)
 
     
     def triggerSet(self,group,trigger,action):
@@ -3641,7 +3654,7 @@ class SmarterInterface:
     
     def boolsGroup(self,group,bools):
         if self.isTriggersGroup(group):
-            print "Trigger group " + group + " setting state type " + "/".join(Smarter.triggerCheckBooleans(bools))
+            print "Trigger group " + group + " setting switch type " + "/".join(Smarter.triggerCheckBooleans(bools))
             self.getGroup(group)[2] = Smarter.triggerCheckBooleans(bools)
             self.__write_triggers()
             return
@@ -3657,8 +3670,8 @@ class SmarterInterface:
     def print_groups(self):
         print "Trigger Groups"
         print
-        print "Name".rjust(18,' ') + "        Boolean State"
-        print "".rjust(18,'_') + "_____________________"
+        print "Name".rjust(18,' ') + "        Switch Type"
+        print "".rjust(18,'_') + "___________________"
         for i in self.triggersGroups:
             s = ""
             if i[1]: s = "Active "
@@ -3670,8 +3683,8 @@ class SmarterInterface:
     def print_group(self,group):
         print "Trigger Group"
         print
-        print "Name".rjust(18,' ') + "        Boolean State"
-        print "".rjust(18,'_') + "_____________________"
+        print "Name".rjust(18,' ') + "        Switch Type"
+        print "".rjust(18,'_') + "___________________"
         for i in self.triggersGroups:
             if i[0] == group:
                 s = ""
@@ -3805,6 +3818,7 @@ class SmarterInterface:
         v = Smarter.raw_to_number(message[2])
         if v != self.defaultKeepWarmTime:
             self.__trigger(Smarter.triggerDefaultKeepWarmTime,self.defaultKeepWarmTime,v)
+            self.__trigger(Smarter.triggerDefaultKeepwarmText,Smarter.keepwarm_to_string(self.defaultKeepWarmTime),Smarter.keepwarm_to_string(v))
             self.defaultKeepWarmTime = v
             change = True
         
@@ -3831,6 +3845,7 @@ class SmarterInterface:
         v = Smarter.raw_to_cups(message[1])
         if v != self.defaultCups:
             self.__trigger(Smarter.triggerDefaultCups,self.defaultCups,v)
+            self.__trigger(Smarter.triggerDefaultCupsText,Smarter.cups_to_string(self.defaultCups),Smarter.cups_to_string(v))
             self.defaultCups = v
             change = True
         
@@ -3851,6 +3866,7 @@ class SmarterInterface:
         v =  Smarter.raw_to_hotplate(message[4],self.version)
         if v != self.defaultHotPlate:
             self.__trigger(Smarter.triggerDefaultHotplate,self.defaultHotPlate,v)
+            self.__trigger(Smarter.triggerDefaultHotplateText,Smarter.hotplate_to_string(self.defaultHotPlate),Smarter.hotplate_to_string(v))
             self.defaultHotPlate = v
             change = True
     
@@ -4037,6 +4053,7 @@ class SmarterInterface:
         v = Smarter.raw_to_cups(message[5])
         if v != self.cups:
             self.__trigger(Smarter.triggerCups,self.cups,v)
+            self.__trigger(Smarter.triggerCupsText,Smarter.cups_to_string(self.cups),Smarter.cups_to_string(v))
             self.cups = v
             change = True
 

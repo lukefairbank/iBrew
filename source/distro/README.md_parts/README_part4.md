@@ -411,6 +411,8 @@ sudo ibrew trigger Domoticz state On 10.0.0.98
 
 Yes, you can! Connect your iKettle or Smarter Coffee to HomeKit... just follow the following steps!
 
+Alternativly you could use https://github.com/nferro/homebridge-http-json
+
 #### Software
 
 Install the following software to bridge iBrew with HomeKit
