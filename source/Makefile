@@ -15,7 +15,7 @@ all:
 	@echo use \"make pyinstallerwin\" to install pyinstaller package for Windows
 		@echo use \"make mac\" to make a macOS release
 	@echo use \"make win\" to make a Windows release
-	@echo use \"make readme\" "to create a new README.md (in folder below iBrew)"
+	@echo use \"make readme\" to create a new README.md (in folder below iBrew) 
 
 
 mac:	cleanmac buildmac diskimage
@@ -60,6 +60,7 @@ bonjour:
 	@echo if this fails (no curl or powershell download it at
 	@echo https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/pybonjour/pybonjour-1.1.1.zip
 	@echo and run: pip install pybonjour-1.1.1.zip
+code.google.com/pybonjour/pybonjour-1.1.1.zip > pybonjour-1.1.1.zip	
 	@curl https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/pybonjour/pybonjour-1.1.1.zip > pybonjour-1.1.1.zip
 	@pip install pybonjour-1.1.1.zip
 	@rm pybonjour-1.1.1.zip
@@ -113,7 +114,7 @@ buildlin:
 installer:
 	@echo !define RELEASE_STR v0.5.0.1 > distro\win\release.nsh
 	@copy LICENSE distro\win
-	@"C:\Program Files (x86)\NSIS\makensis.exe" distro\win\ibrew.nsi
+	@"%PROGRAMFILES%\NSIS\makensis.exe" distro\win\ibrew.nsi
 	@mkdir release
 	@copy distro\win\iBrew.exe release
 	@del distro\win\iBrew.exe 
@@ -127,7 +128,8 @@ buildwin:
 	@xcopy /S resources dist\ibrew\resources
 	@xcopy /S interface dist\ibrew\interface
 	@copy /Y dist\ibrewui\*.* dist\ibrew
-	@copy LICENSE dist\ibrew	
+	@copy LICENSE dist\ibrew
+	
 buildmac:
 	@echo iBrew: Building MacOS package
 	@rm -rf build     
