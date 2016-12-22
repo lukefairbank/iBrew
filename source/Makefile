@@ -51,22 +51,21 @@ setupmac: setup packmac bonjourmac
 packmac:
 	@pip install -q -r distro/mac/requirements.txt
 
-bonjourmac: bonjourinfo bonjour
+bonjourmac: bonjour
 
-bonjourlin: bonjourinfo bonjour
+bonjourlin: bonjour
+
+bonjourwin: bonjourinfo bonjourwintry
 
 bonjourinfo:
-    @echo "if this fails (no curl or powershell) download it at"
+	@echo "if this failse try downloading"
 	@echo "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/pybonjour/pybonjour-1.1.1.zip"
 	@echo "and run: pip install pybonjour-1.1.1.zip code.google.com/pybonjour/pybonjour-1.1.1.zip > pybonjour-1.1.1.zip"
 
 bonjour:
-	@echo MAKE SURE you have bonjour installed before running this
 	@curl https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/pybonjour/pybonjour-1.1.1.zip > pybonjour-1.1.1.zip
 	@pip install pybonjour-1.1.1.zip
 	@rm pybonjour-1.1.1.zip
-
-bonjourwin: bonjourinfo bonjourwintry
 
 bonjourwintry:
 	@echo MAKE SURE you have iTUNES or Bonjour 3.0 sdk installed before running this

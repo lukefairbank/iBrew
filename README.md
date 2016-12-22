@@ -136,6 +136,15 @@ Secondly you need [make](http://gnuwin32.sourceforge.net/packages/make.htm), mak
 For creating a package we need [NSIS](http://nsis.sourceforge.net/Download), the [PythonVC] (https://www.microsoft.com/en-us/download/details.aspx?id=44266) or any other [compilers](https://wiki.python.org/moin/WindowsCompilers) compatible. For XP install .NET 3.5 and use [Windows SDK for Windows Server 2008 and .NET Framework 3.5
 ](https://www.microsoft.com/en-us/download/details.aspx?id=24826) as a compiler. And after installing a compiler run `make pyinstallerwin`
 
+Edit [ibrewui](https://github.com/Tristan79/iBrew/blob/master/source/ibrewui#L100) with the Python IDLE editor and uncomment the pass and comment the out the following 3 lines
+
+```
+pass
+#from iBrewMac import MacGui
+#                self.ui = MacGui(self.web)
+#                self.ui.run()
+```                
+                
 Go into the source folder and use `make setupwin` to setup, use `make win` to create a package and use `make cleanwin` to clean up
 
 ### MacOS
