@@ -1251,10 +1251,10 @@ class SmarterInterface:
 
         
       #  with open(self.settingsPath+'ibrew.conf', 'w') as f:
-        with codecs.open(self.settingsPath+'ibrew.conf','wb+','utf-8') as f:
+       # with codecs.open(self.settingsPath+'ibrew.conf','wb+','utf-8') as f:
             # DISABLED STATS DUE TO CRASHES!!!
             #config.write(f)
-            f.close()
+       #     f.close()
         
         #if self.dump:
         #    self.print_stats()
