@@ -1633,7 +1633,7 @@ class SmarterProtocol:
 
     def string_coffee_status(self,busy,ready,cups,working,heating,hotPlateOn,carafe,grinderOn):
         s = ""
-        if working:
+        if busy:
             s += "busy "
         if working:
             s += "working "
