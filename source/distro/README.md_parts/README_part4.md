@@ -246,7 +246,7 @@ Go to `Setup -> Devices` and look up your new sensor.
 Use the _idx_ of the sensor to add a trigger
 
 ```
-ibrew trigger add Domoticz Temperature "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=155&nvalue=0&svalue=§N" 10.0.0.99
+ibrew trigger add Domoticz Temperature "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=149&nvalue=0&svalue=§N" 10.0.0.99
 ```
 
 Now we also add an on base motion sensor 
@@ -302,20 +302,21 @@ For more information on [JSON used by domoticz!](https://www.domoticz.com/wiki/D
 [Domoticz JSON API](https://www.domoticz.com/wiki/Domoticz_API/JSON_URL's)
 
 __State based triggers__
-[uservariable] string ("On",Off")
-[virtual sensor] switch (set to motion)
+ * uservariable _string_ ("On",Off")
+ * virtual sensor _switch_ (set to motion)
 
 __Watersensor based triggers__
-virtual sensor: custom sensor
-uservariable: integer
+ * virtual sensor _custom sensor_
+ * uservariable _integer_
 
 __Temperature based triggers__
-virtual sensor: temperature
-uservariable: integer
+ * virtual sensor _temperature_
+ * uservariable _integer_
 
 __Text based triggers__
-virtual sensor: text sensor
-uservariable: string
+ * virtual sensor _text_
+ * uservariable _string_
+
 
 #### iKettle 2.0 example 
 
@@ -336,7 +337,7 @@ sudo ibrew trigger add Domoticz WATERSENSOR "http://127.0.0.1:8080/json.htm?type
 sudo ibrew trigger add Domoticz KETTLEBUSY "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=199&switchcmd=§N" 10.0.0.99
 sudo ibrew trigger add Domoticz KEEPWARM "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=202&switchcmd=§N" 10.0.0.99
 sudo ibrew trigger add Domoticz KETTLEHEATER "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=201&switchcmd=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz FormulaCooling "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=200&switchcmd=§N" 10.0.0.99
+sudo ibrew trigger add Domoticz FORMULACOOLING "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=200&switchcmd=§N" 10.0.0.99
 sudo ibrew trigger add Domoticz ONBASE "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=150&switchcmd=§N" 10.0.0.99
 sudo ibrew trigger add Domoticz KETTLESTATUS "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=205&nvalue=0&svalue=§N" 10.0.0.99
 sudo ibrew trigger add Domoticz KETTLEDEFAULTCHANGED "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=222&switchcmd=§N" 10.0.0.99
@@ -377,14 +378,14 @@ sudo ibrew trigger add Domoticz HOTPLATE "http://127.0.0.1:8080/json.htm?type=co
 sudo ibrew trigger add Domoticz COFFEESTATUS "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=216&nvalue=0&svalue=§N" 10.0.0.98
 sudo ibrew trigger add Domoticz COFFEEDEFAULTCHANGED "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=223&switchcmd=§N" 10.0.0.98
 sudo ibrew trigger add Domoticz COFFEESETTINGSCHANGED "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=224&switchcmd=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz MODETEXT "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=209&nvalue=0&svalue=§N" 10.0.0.98
 sudo ibrew trigger add Domoticz WATERLEVELTEXT "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=227&nvalue=0&svalue=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz GRINDTEXT "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=210&nvalue=0&svalue=§N" 10.0.0.98
+sudo ibrew trigger add Domoticz MODETEXT "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=209&switchcmd=§N" 10.0.0.98
 
 ```
 
 __User Variables__
 ```
+sudo ibrew trigger add Domoticz GRINDTEXT "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Grind Text&vtype=0&vvalue=§N" 10.0.0.98
 sudo ibrew trigger add Domoticz MODE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Mode&vtype=0&vvalue=§N" 10.0.0.98
 sudo ibrew trigger add Domoticz CUPS "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Cups&vtype=0&vvalue=§N" 10.0.0.98
 sudo ibrew trigger add Domoticz STRENGTH "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Strength&vtype=0&vvalue=§N" 10.0.0.98
