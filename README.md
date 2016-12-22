@@ -696,56 +696,16 @@ appliance.disconnect()
 
 ### Smarthome controller push
 
-You can pull values and states with the JSON REST api with it also possible to push values and state with the trigger events system.
-
-To add
+You can pull values and states with the JSON REST api with it also possible to push values and states with the trigger events system. Exmaple adding triggers, where Domoticz is the group (one action per trigger per group) and §N is the new value and §O is the old value.
+:
 
 ```
 ibrew trigger add Domoticz Temperature "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=155&nvalue=0&svalue=§N" 10.0.0.99
-
 ibrew trigger add Scripts KettleBusy "C:\SCRIPTS\SENSOR.BAT §N" 10.0.0.99
-
 ibrew trigger add Scripts KettleBusy "/home/pi/iBrew/scripts/sensor.sh §O §N" 10.0.0.99
 ```
 
-where Domoticz is the group (one action per trigger per group) and §N is the new value and §O is the old value.
-
-To see all triggers 
-
-`ibrew triggers`
-
-To see all active triggers
-
-`ibrew trigger`
-
-monitor the trigger event system
- 
-`ibrew dump events 10.0.0.99`
-
-or use the web server with auto re-connect :-)
-
-`ibrew dump events web`
-
-If you run the webserver as daemon/service add sudo to all your ibrew commands such that the right config file gets updated!
-
-So instead of `ibrew trigger Domoticz state On 10.0.0.99` run `sudo ibrew trigger Domoticz state On 10.0.0.99`
-
-
-It is possible to set boolean type to various formats (on/off, 1/0, enabled/disabled,...)
-
-
-`ibrew trigger Domoticz state on`
-
-See  `ibrew states` for an overview
-
-
-And enable disable entire groups
-
-`ibrew trigger Domoticz off`
-
-See for group overview
-
-`ibrew trigger groups`
+To see all triggers `ibrew triggers`. To see all active triggers `ibrew trigger 10.0.0.99`. Monitor the trigger event system `ibrew dump events 10.0.0.99` or use the web server with auto re-connect :-) `ibrew dump events web`. It is possible to set switch types to various formats (on/off, 1/0, enabled/disabled,...) `ibrew trigger Domoticz switch On 10.0.0.99`. See  `ibrew switches` for an overview. Enable disable entire groups `ibrew trigger Domoticz off 10.0.0.99` See for group overview `ibrew trigger groups 10.0.0.99`. If you run the webserver as daemon/service add sudo to all your ibrew commands such that the right config file gets updated! So instead of `ibrew trigger Domoticz switch On 10.0.0.99` run `sudo ibrew trigger Domoticz switch On 10.0.0.99`
 
 Alpha!
 
@@ -810,9 +770,9 @@ Use the _idx_ of the sensor to add a trigger
 ibrew trigger add Domoticz OnBase "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=99&switchcmd=§N" 10.0.0.99
 ```
 
-We need to set up the right boolean state, domoticz uses the format _On_ or _Off_
+We need to set up the right switch state type, domoticz uses the format _On_ or _Off_
 
-`ibrew trigger Domoticz state On 10.0.0.99`
+`ibrew trigger Domoticz switch On 10.0.0.99`
 
 start any server with the events enables like
 
@@ -820,7 +780,7 @@ start any server with the events enables like
 
 If you run the webserver as daemon/service add sudo to all your ibrew commands such that the right config file gets updated!
 
-So instead of `ibrew trigger Domoticz state On 10.0.0.99` run `sudo ibrew trigger Domoticz state On 10.0.0.99`
+So instead of `ibrew trigger Domoticz switch On 10.0.0.99` run `sudo ibrew trigger Domoticz switch On 10.0.0.99`
 
 To see it in action!
 
@@ -842,8 +802,8 @@ Adding user variables
 
 [Domoticz JSON API](https://www.domoticz.com/wiki/Domoticz_API/JSON_URL's)
 
-__State based triggers__
- * uservariable _string_ ("On",Off")
+__Switch based triggers__
+ * uservariable _string_ ("1",0")
  * virtual sensor _switch_ (set to motion)
 
 __Watersensor based triggers__
@@ -858,6 +818,11 @@ __Text based triggers__
  * virtual sensor _text_
  * uservariable _string_
 
+Make sure you change the switch state type for the sensor group of domoticz (Domoticz), you can leave the user variable group (DomoticzUser) as it is!
+ 
+```
+sudo ibrew trigger Domoticz switch On 10.0.0.99
+```
 
 #### iKettle 2.0 example 
 
@@ -879,18 +844,18 @@ sudo ibrew trigger add Domoticz BASECHANGED "http://127.0.0.1:8080/json.htm?type
 
 __User Variables__
 ```
-sudo ibrew trigger add Domoticz BASE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Base&vtype=0&vvalue=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz DEFAULTTEMPERATURE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Temperature&vtype=0&vvalue=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz DEFAULTFORMULATEMPERATURE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Formula Temperature&vtype=0&vvalue=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz DEFAULTKEEPWARM "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Keepwarm&vtype=0&vvalue=§N" 10.0.0.99
+sudo ibrew trigger add DomoticzUser BASE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Base&vtype=0&vvalue=§N" 10.0.0.99
+sudo ibrew trigger add DomoticzUser DEFAULTTEMPERATURE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Temperature&vtype=0&vvalue=§N" 10.0.0.99
+sudo ibrew trigger add DomoticzUser DEFAULTFORMULATEMPERATURE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Formula Temperature&vtype=0&vvalue=§N" 10.0.0.99
+sudo ibrew trigger add DomoticzUser DEFAULTKEEPWARM "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Keepwarm&vtype=0&vvalue=§N" 10.0.0.99
 ```
 
-__Boolean State__
+__Switch State Type__
 
 Very important step, do not forget!
 
 ```
-sudo ibrew trigger Domoticz state On 10.0.0.99
+sudo ibrew trigger Domoticz switch On 10.0.0.99
 ```
 
 #### Smarter Coffee Example
@@ -918,28 +883,28 @@ sudo ibrew trigger add Domoticz MODETEXT "http://127.0.0.1:8080/json.htm?type=co
 
 __User Variables__
 ```
-sudo ibrew trigger add Domoticz GRINDTEXT "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Grind Text&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz MODE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Mode&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz CUPS "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Cups&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz STRENGTH "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Strength&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz STRENGTHTEXT "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Strength Text&vtype=2&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz HOTPLATE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Hotplate&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz GRIND "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Grind&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz WATERLEVEL "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Waterlevel&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz DEFAULTCUPS "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Cups&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz DEFAULTSTRENGTH "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Strength&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz DEFAULTSTRENGTHTEXT "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Strength Text&vtype=2&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz DEFAULTGRIND "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Grind&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz DEFAULTGRINDTEXT "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Grind Text&vtype=2&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz DEFAULTHOTPLATE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Hotplate&vtype=0&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add DomoticzUser GRINDTEXT "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Grind Text&vtype=0&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add DomoticzUser MODE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Mode&vtype=0&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add DomoticzUser CUPS "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Cups&vtype=0&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add DomoticzUser STRENGTH "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Strength&vtype=0&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add DomoticzUser STRENGTHTEXT "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Strength Text&vtype=2&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add DomoticzUser HOTPLATE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Hotplate&vtype=0&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add DomoticzUser GRIND "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Grind&vtype=0&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add DomoticzUser WATERLEVEL "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Waterlevel&vtype=0&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add DomoticzUser DEFAULTCUPS "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Cups&vtype=0&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add DomoticzUser DEFAULTSTRENGTH "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Strength&vtype=0&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add DomoticzUser DEFAULTSTRENGTHTEXT "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Strength Text&vtype=2&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add DomoticzUser DEFAULTGRIND "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Grind&vtype=0&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add DomoticzUser DEFAULTGRINDTEXT "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Grind Text&vtype=2&vvalue=§N" 10.0.0.98
+sudo ibrew trigger add DomoticzUser DEFAULTHOTPLATE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Hotplate&vtype=0&vvalue=§N" 10.0.0.98
 ```
 
-__Boolean State__
+__Switch State Type__
 
 Very important step, do not forget!
 
 ```
-sudo ibrew trigger Domoticz state On 10.0.0.98
+sudo ibrew trigger Domoticz switch On 10.0.0.98
 ```
 
 ### HomeKit ~ [HomeBridge](https://github.com/nfarina/homebridge)
