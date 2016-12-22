@@ -1,24 +1,112 @@
 all:
 	@echo "iBrew setup (Windows, Linux & macOS)"
-	@echo use \"make setup\" "to fetch requirements (source only no bonjour)"
+	@echo use \"make setup\" "to install requirements (source only no bonjour)"
 	@echo use \"make cleanlin\" to clean temp files
 	@echo use \"make cleanmac\" to clean temp files
 	@echo use \"make cleanwin\" to clean temp files
-	@echo use \"make setuplin\" to fetch additional Linux requirements
-	@echo use \"make setupmac\" to fetch additional macOS requirements
-	@echo use \"make setupwin\" to fetch additional Windows requirementse
-	@echo use \"make bonjour\" to install bonjour package for macOS and Linux 
+	@echo use \"make setuplin\" to install Linux requirements
+	@echo use \"make setupmac\" to install macOS requirements
+	@echo use \"make setupwin\" to install Windows requirementse
+	@echo use \"make bonjourlin\" to install bonjour package Linux 
+	@echo use \"make bonjourmac\" to install bonjour package for macOS 
 	@echo use \"make bonjourwin\" to install bonjour package for Windows
-	@echo use \"make mac\" to make a macOS release
+	@echo use \"make pyinstallerlin\" to install pyinstaller package Linux 
+	@echo use \"make pyinstallermac\" to install patched! pyinstaller package for macOS 
+	@echo use \"make pyinstallerwin\" to install pyinstaller package for Windows
+		@echo use \"make mac\" to make a macOS release
 	@echo use \"make win\" to make a Windows release
-	@echo use \"make readme\" to create a new README.md (in folder below iBrew) 
+	@echo use \"make readme\" "to create a new README.md (in folder below iBrew)"
 
 
 mac:	cleanmac buildmac diskimage
 
 win:	cleanwin buildwin installer
 
-lin:   
+lin:	cleanlin buildlin
+
+
+readme:
+	@python ibrew license > LICENSE
+	@echo iBrew: Generating README.md
+	@python ibrew usage > usage.tmp
+	@python ibrew examples > examples.tmp
+	@python ibrew commands > console.tmp
+	@python ibrew notes > notes.tmp
+	@python ibrew structure > protocol.tmp
+	@cat distro/README.md_parts/README_part1.md usage.tmp distro/README.md_parts/README_part2.md console.tmp distro/README.md_parts/README_part3.md examples.tmp distro/README.md_parts/README_part4.md LICENSE > ../README.md
+
+setup:
+	@echo iBrew: Fetching python requirements
+	@pip install -q -r requirements.txt
+
+setuplin: setup 
+
+setupwin: setup packwin 
+
+packwin:
+	@pip install win-inet-pton
+
+setupmac: setup packmac bonjourmac
+
+packmac:
+	@pip install -q -r distro/mac/requirements.txt
+
+bonjourmac: bonjour
+
+bonjourlin: bonjour
+
+bonjour:
+	@echo MAKE SURE you have bonjour installed before running this
+	@echo if this fails (no curl or powershell download it at
+	@echo https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/pybonjour/pybonjour-1.1.1.zip
+	@echo and run: pip install pybonjour-1.1.1.zip
+	@curl https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/pybonjour/pybonjour-1.1.1.zip > pybonjour-1.1.1.zip
+	@pip install pybonjour-1.1.1.zip
+	@rm pybonjour-1.1.1.zip
+
+bonjourwin:
+	@echo MAKE SURE you have iTUNES or Bonjour 3.0 sdk installed before running this
+	@powershell -command "& { iwr https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/pybonjour/pybonjour-1.1.1.zip -OutFile pybonjour-1.1.1.zip }"
+	@pip install pybonjour-1.1.1.zip
+	@del pybonjour-1.1.1.zip
+
+
+pyinstallerwin:
+	@distro\win\pyinstaller.bat
+
+pyinstallerlin:
+	@distro/lin/pyinstaller.sh
+
+pyinstallermac:
+	@distro/mac/pyinstaller.sh
+
+cleanlin:
+	@echo iBrew: Cleaning up
+	@rm -f *.pyc smarter/*.pyc
+	@rm -f *.tmp
+	@rm -rf dist
+	@rm -f *.spec 
+	@rm -rf build
+	@rm -rf test
+	@rm -rf release
+
+cleanwin:
+	@echo iBrew: Cleaning up [Windows]
+	@distro\win\cleanwin.bat     
+ 
+cleanmac:
+	@echo iBrew: Cleaning up [MacOS]
+	@rm -rf ~/Library/Application\ Support/iBrew/logs 
+	@rm -f *.pyc smarter/*.pyc
+	@rm -f *.tmp
+	@rm -f *.spec 
+	@rm -rf build
+	@rm -rf test
+	@rm -rf dist
+	@rm -rf release
+	@rm -rf dmg
+
+buildlin:   
 	@echo iBrew: Building Linux package    
 	@pyinstaller ibrew
 
@@ -39,79 +127,7 @@ buildwin:
 	@xcopy /S resources dist\ibrew\resources
 	@xcopy /S interface dist\ibrew\interface
 	@copy /Y dist\ibrewui\*.* dist\ibrew
-	@copy LICENSE dist\ibrew
-
-readme:
-	@python ibrew license > LICENSE
-	@echo iBrew: Generating README.md
-	@python ibrew usage > usage.tmp
-	@python ibrew examples > examples.tmp
-	@python ibrew commands > console.tmp
-	@python ibrew notes > notes.tmp
-	@python ibrew structure > protocol.tmp
-	@cat distro/README.md_parts/README_part1.md usage.tmp distro/README.md_parts/README_part2.md console.tmp distro/README.md_parts/README_part3.md examples.tmp distro/README.md_parts/README_part4.md LICENSE > ../README.md
-
-setup:
-	@echo iBrew: Fetching python requirements
-	@pip install -q -r requirements.txt
-
-cleanlin:
-	@echo iBrew: Cleaning up
-	@rm -f *.pyc smarter/*.pyc
-	@rm -f *.tmp
-	@rm -rf dist
-	@rm -f *.spec 
-	@rm -rf build
-	@rm -rf test
-	@rm -rf release
-
-setuplin: setup 
-
-setupwin: setup packwin 
-
-packwin:
-	@pip install win-inet-pton
-
-setupmac: setup packmac bonjour pyinstaller
-
-packmac:
-	@pip install -q -r distro/mac/requirements.txt
-
-bonjourmac: bonjour
-
-bonjourlin: bonjour
-
-bonjour:
-	@echo  MAKE SURE you have bonjour installed before running this	
-	@curl https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/pybonjour/pybonjour-1.1.1.zip > pybonjour-1.1.1.zip
-	@pip install pybonjour-1.1.1.zip
-	@rm pybonjour-1.1.1.zip
-
-bonjourwin:
-	@echo MAKE SURE you have iTUNES or Bonjour 3.0 sdk installed before running this
-	@powershell -command "& { iwr https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/pybonjour/pybonjour-1.1.1.zip -OutFile pybonjour-1.1.1.zip }"
-	@pip install pybonjour-1.1.1.zip
-	@del pybonjour-1.1.1.zip
-
-pyinstaller:
-	@distro/mac/pyinstaller.sh
-
-cleanwin:
-	@echo iBrew: Cleaning up [Windows]
-	@distro\win\cleanwin.bat     
- 
-cleanmac:
-	@echo iBrew: Cleaning up [MacOS]
-	@rm -rf ~/Library/Application\ Support/iBrew/logs 
-	@rm -f *.pyc smarter/*.pyc
-	@rm -f *.tmp
-	@rm -f *.spec 
-	@rm -rf build
-	@rm -rf test
-	@rm -rf dist
-	@rm -rf release
-	@rm -rf dmg
-	
+	@copy LICENSE dist\ibrew	
 buildmac:
 	@echo iBrew: Building MacOS package
 	@rm -rf build     

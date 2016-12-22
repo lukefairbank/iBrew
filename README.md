@@ -17,8 +17,9 @@ Contact <tristan@monkeycat.nl>!
 
 
 ## Downloads
-  * [Windows](https://dl.dropboxusercontent.com/u/12474226/iBrew.exe)
-  * [MacOS]  (https://dl.dropboxusercontent.com/u/12474226/iBrew.dmg)
+  * [Windows x86](https://dl.dropboxusercontent.com/u/12474226/32/iBrew.exe)
+  * [Windows x64](https://dl.dropboxusercontent.com/u/12474226/64/iBrew.exe)
+  * [MacOS](https://dl.dropboxusercontent.com/u/12474226/64/iBrew.dmg)
   * [Source] (https://github.com/Tristan79/iBrew/archive/master.zip)
 
 ## Hot! News
@@ -119,20 +120,27 @@ If you have jokes on coffee, tea, hot chocolade, coffee machines or kettles, ple
  
 ## Installing
 
-Other systems than Windows, MacOS or Pi that are running python see download from source section.
+### Source
+
+You can run iBrew on systems that run python 2.7. Download and unpack the [source](https://github.com/Tristan79/iBrew/archive/master.zip), download it from github using [Github Desktop](https://desktop.github.com) or manually `git clone https://github.com/Tristan79/iBrew.git`. Finish the setup with running `make setup` in the iBrew folder to configure the python packages for bare bones operation. Update to the latest version of iBrew with `git pull`. Run `make` to see all other options possible.
 
 ### Windows 
 
-  * [Windows]  (https://dl.dropboxusercontent.com/u/12474226/iBrew.exe)
+  * [Windows x86](https://dl.dropboxusercontent.com/u/12474226/32/iBrew.exe)
+  * [Windows x64](https://dl.dropboxusercontent.com/u/12474226/64/iBrew.exe)
 
 #### From source
 First no python is installed by default so head up over to [python](https://www.python.org/downloads/) and install v2.7 (NOT 3)
-Secondly you need [make](http://gnuwin32.sourceforge.net/packages/make.htm) and the python [win32 package](https://sourceforge.net/projects/pywin32/files/pywin32/), the [PythonVC] (https://www.microsoft.com/en-us/download/details.aspx?id=44266) and [git](https://git-scm.com/download/win) and your machine should be minial XP SP3.
+Secondly you need [make](http://gnuwin32.sourceforge.net/packages/make.htm), make sure you copy make.exe and its dll's to c:\windows or add it to your command path. The python [win32 package](https://sourceforge.net/projects/pywin32/files/pywin32/) and [git](https://git-scm.com/download/win) or [git for xp](https://github.com/git-for-windows/git/releases/tag/v2.10.0.windows.1) and your machine should be minial XP SP3.
+
+For creating a package we need [NSIS](http://nsis.sourceforge.net/Download), the [PythonVC] (https://www.microsoft.com/en-us/download/details.aspx?id=44266) or any other [compilers](https://wiki.python.org/moin/WindowsCompilers) compatible. For XP install .NET 3.5 and use [Windows SDK for Windows Server 2008 and .NET Framework 3.5
+](https://www.microsoft.com/en-us/download/details.aspx?id=24826) as a compiler. And after installing a compiler run `make pyinstallerwin`
 
 Go into the source folder and use `make setupwin` to setup, use `make win` to create a package and use `make cleanwin` to clean up
 
 ### MacOS
-  * [MacOS]  (https://dl.dropboxusercontent.com/u/12474226/iBrew.dmg)
+  * [MacOS](https://dl.dropboxusercontent.com/u/12474226/64/iBrew.dmg)
+
 
 Once you start the app from the MacOS package (drag it to your application folder first) it will auto link iBrew in your terminal.
 Open a terminal and run ```ibrew``` and you're all set, good to go!
@@ -141,23 +149,17 @@ _it creates a soft symlink to /usr/local/bin/ibrew,... :-)_
 
 #### From source
 Make sure either the command line or xcode is installed, just run `make` in the source folder and it will prompt for a download!
-Go into the source folder and, use `make setupmac` to setup, use `make mac` to create a package and use `make cleanmac` to clean up
+Go into the source folder and, use `make setupmac` to setup, use `make mac` to create a package and use `make cleanmac` to clean up. For a package you need to have patched pyinstaller, install it from source use `make pyinstallermac`
 
 ### Linux
 
 See Pi section.
 
-Go into the source folder and, use `make setuplin` to setup, use `make lin` to create a package and use `make cleanlin` to clean up
-
-
-### Source
-
-You can run iBrew on systems that run python 2.7. Download and unpack the [source](https://github.com/Tristan79/iBrew/archive/master.zip), download it from github using [Github Desktop](https://desktop.github.com) or manually `git clone https://github.com/Tristan79/iBrew.git`. Finish the setup with running `make setup` in the iBrew folder to configure the python packages for bare bones operation. Update to the latest version of iBrew with `git pull`. Run `make` to see all other options possible.
+Go into the source folder and, use `make setuplin` to setup, use `make lin` to create a package and use `make cleanlin` to clean up. For a package you need to have the pyinstaller >= 3.3 so install it from source use `make pyinstallerlin`
 
 #### Bonjour
 
-Bonjour is not enabled by default, to install it use `make bonjour` or for windows `make bonjourwin`. But you have to have bonjour installed on your system, macOS its out of the box, on most linux system you can install it with (or try equivalent packages for your *nix distro) `apt-get install avahi-daemon avahi-discover libnss-mdns` and on Windows you either install iTunes or download it from [apple](http://developer.apple.com/networking/bonjour/download/)
-Also check out [pybonjour](https://code.google.com/archive/p/pybonjour/)
+Bonjour is not enabled by default, to install it use `make bonjourlin`, `make bonjourmac` or for windows `make bonjourwin`. But you have to have bonjour installed on your system, macOS its out of the box, on most linux system you can install it with (or try equivalent packages for your *nix distro) `apt-get install avahi-daemon avahi-discover libnss-mdns` and on Windows you either install iTunes or download it from [apple](http://developer.apple.com/networking/bonjour/download/). Also check out [pybonjour](https://code.google.com/archive/p/pybonjour/)
 
 ### Raspberry Pi Jessy (light)
 
