@@ -35,9 +35,9 @@ buildwin:
 	@pyinstaller -c --version-file distro\win\version.py -i resources\favicon.ico ibrew
 	@pyinstaller -w --version-file distro\win\version.py -i resources\favicon.ico ibrewui
 	@mkdir dist\ibrew\resources
-	@mkdir dist\ibrew\web
+	@mkdir dist\ibrew\interface
 	@xcopy /S resources dist\ibrew\resources
-	@xcopy /S web dist\ibrew\web
+	@xcopy /S interface dist\ibrew\interface
 	@copy /Y dist\ibrewui\*.* dist\ibrew
 	@copy LICENSE dist\ibrew
 
@@ -119,7 +119,7 @@ buildmac:
 	@pyinstaller ibrewui -s -w -n iBrew --noupx
 	@pyinstaller ibrew -s -w -n iBrewConsole --noupx
 	@cp -a resources dist/iBrew.app/Contents/MacOS
-	@cp -a web dist/iBrew.app/Contents/MacOS
+	@cp -a interface dist/iBrew.app/Contents/MacOS
 	@cp distro/mac/Info.plist dist/iBrew.app/Contents/
 	@mv dist/iBrewConsole.app/Contents/MacOS/iBrewConsole dist/iBrew.app/Contents/MacOS
 	@cp distro/mac/iBrew.icns dist/iBrew.app/Contents/Resources/icon-windowed.icns

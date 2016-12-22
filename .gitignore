@@ -3,11 +3,11 @@
 
 *.DS_Store
  
-dist/*
+/source/dist/*
 
-build/*
+/source/build/*
 
-test/*
+/source/test/*
 
 *.conf
 
@@ -19,17 +19,17 @@ test/*
 
 *.spec
 
-distro/win/release.nsh
+/source/distro/win/release.nsh
 
-distro/win/LICENSE
+/source/distro/win/LICENSE
 
 *.zip
 
-pyinstaller/
+/source/pyinstaller/
 
-release/
+/source/release/
 
-dmg/
+/source/dmg/
 
 *.dmg
 

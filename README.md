@@ -494,9 +494,7 @@ The following commands are available, note that [] are manditory arguments and (
 
 ```
 
-Alternativly you can run a console to test out the commands. start the console with the command 
-
-`ibrew console 10.0.0.99`. 
+Alternativly you can run a console to test out the commands. Start the console with the command `ibrew console 10.0.0.99`. 
 
 #### Examples
 
@@ -590,7 +588,7 @@ ibrew trigger add Domoticz Temperature "http://127.0.0.1:8080/json.htm?type=comm
 ibrew events kettle simulate
 ```
 
-### Web
+### Web (WIP)
 
 This is a build in progress, please contribute!
 
@@ -653,10 +651,10 @@ The default port is 2080
 http://localhost:2080/api/10.0.0.99/status
 
 ```
-{"device": {"directmode": false, "connected": true, "host": "10.0.0.99", "firmware": {"version": 19, "certified": "iBrew certified firmware"}, "type": {"desciption": "iKettle 2.0", "id": 1}}, "default": {"formula": {"use": false, "temperature": {"fahrenheid": 32, "celsius": 0}}, "keepwarm": 0, "temperature": {"fahrenheid": 212, "celsius": 100, "prefered": "celsius"}}, "sensors": {"status": "ready", "base": "On", "temperature": {"raw": {"fahrenheid": 68, "celsius": 20}, "stable": {"fahrenheid": 68, "celsius": 20}}, "waterlevel": {"raw": 2005, "base": 920, "stable": 2004}}}
+{"status": "ready", "sensors": {"base": "On", "temperature": {"raw": {"fahrenheid": 75, "celsius": 24}, "stable": {"fahrenheid": 75, "celsius": 24}}, "waterlevel": {"raw": 2174, "base": 1110, "stable": 2173}}, "appliance": {"model": "iKettle 2.0", "firmware": {"version": 19, "certified": "iBrew certified firmware"}, "mode": "normal", "network": {"connection": {"directmode": false, "host": "10.0.0.99", "connected": true, "port": 2081, "relay": false}, "relay": {"active": false, "bind": "", "port": 2081}}}, "settings": {"default": {"formula": {"use": false, "temperature": {"fahrenheid": 33, "celsius": 1}}, "keepwarm": 5, "temperature": {"fahrenheid": 212, "celsius": 100, "prefered": "celsius"}}}}
 ```
 
-### JavaScript
+### JavaScript (WIP)
 
 Work in progress! Help would be nice!
 
@@ -667,6 +665,8 @@ JavaScript for use with iBrew JSON REST API [Javascript iBrew interface](https:/
 Python 2.7 only!
 
 The [Python Smarter Interface](https://github.com/Tristan79/iBrew/blob/master/source/smarter/) to the iKettle 2.0 and the Smarter Coffee is located in the Smarter folder. Use __pydoc__ or any other python doc app to see the help on [SmarterInterface.py](https://github.com/Tristan79/iBrew/blob/master/source/smarter/SmarterInterface.py) and [SmarterProtocol.py](https://github.com/Tristan79/iBrew/blob/master/smarter/source/SmarterProtocol.py). There are a lot of options and functions you can use!
+
+Yes, code could be a lot better, you rewrite it,... I suggest making classes of blocking, triggers and patches. Classes of the protocol arguments and messages. Arrghh. This is just one big prototype hack! For me it was about testing IT stuff, not the appliance. The appliances made testing stuff more fun! I mean, events trigger system, emulation, simulation of a _Kettle_?! Wiresharking protocols and figure out what it all does. Well for me this is great fun while I am sick.
 
 #### Basic example
 
@@ -699,7 +699,7 @@ ibrew trigger add Scripts KettleBusy "/home/pi/iBrew/scripts/sensor.sh §O §N" 
 
 where Domoticz is the group (one action per trigger per group) and §N is the new value and §O is the old value.
 
-To see all triggers
+To see all triggers 
 
 `ibrew triggers`
 

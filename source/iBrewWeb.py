@@ -1385,7 +1385,7 @@ class iBrewWeb(tornado.web.Application):
         try:
             settings = {
                 "debug"         : self.dump,
-                "template_path" : os.path.join(AppFolders.appBase(), 'web'),
+                "template_path" : os.path.join(AppFolders.appBase(), 'interface'),
                 "static_path"   : os.path.join(AppFolders.appBase(), 'resources'),
                 "static_url_prefix" : self.webroot + "/resources/", }
 
