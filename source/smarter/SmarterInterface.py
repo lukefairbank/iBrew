@@ -4141,7 +4141,6 @@ class SmarterInterface:
         
         for i in self.triggersGroups:
             if i[1]:
-                print Smarter.triggerName(triggerID)
                 s = self.triggerGet(i[0],Smarter.triggerName(triggerID))
                 
                 if s != "":
