@@ -331,6 +331,8 @@ class iBrewConsole:
                     else:
                         return
 
+            # 3 times I went bug hunting forgotting the "s"
+            if command == "event": command = "events"
             if command == "events":
                 if self.console:
                     if self.client.events == False:
