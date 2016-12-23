@@ -480,6 +480,8 @@ class iBrewConsole:
                         return
                             
                     if arguments[0] == "trigger":
+                        arguments = arguments[1:]
+                        numarg -= 1
                         if numarg == 0:
                             self.client.iKettle.print_triggers()
                         else:
@@ -487,6 +489,8 @@ class iBrewConsole:
                                 self.client.iKettle.print_groups()
                             elif arguments[0] == "add" and numarg == 4:
                                 self.client.iKettle.triggerAdd(arguments[1],arguments[2].upper(),arguments[3])
+                                self.client.iKettle.print_group(arguments[1])
+                                self.client.iKettle.print_trigger(arguments[1])
                                 print "iBrew: Legacy iKettle: Added trigger " + arguments[2].upper() + " to group " + arguments[1] + " with action " + arguments[3]
                             elif arguments[0] == "add" and numarg != 4:
                                 print "iBrew: Legacy iKettle: Trigger add need a group name and a trigger action"
@@ -497,6 +501,8 @@ class iBrewConsole:
                                         print "iBrew: Legacy iKettle: Trigger group " + arguments[1] + " deleted"
                                     else:
                                         self.client.iKettle.triggerDelete(arguments[1],arguments[2].upper())
+                                        self.client.iKettle.print_group(arguments[1])
+                                        self.client.iKettle.print_trigger(arguments[1])
                                         print "iBrew: Legacy iKettle: Trigger " + arguments[2].upper() + " of group " + arguments[1] + " deleted"
                                 else:
                                     print "iBrew: Legacy iKettle: Trigger delete need a group name or a group name and a trigger action"
@@ -804,6 +810,8 @@ class iBrewConsole:
                                                     self.client.print_groups()
                                                 elif arguments[0] == "add" and numarg == 4:
                                                     self.client.triggerAdd(arguments[1],arguments[2].upper(),arguments[3])
+                                                    self.client.print_group(arguments[1])
+                                                    self.client.print_trigger(arguments[1])
                                                     print "iBrew: Added trigger " + arguments[2].upper() + " to group " + arguments[1] + " with action " + arguments[3]
                                                 elif arguments[0] == "add" and numarg != 4:
                                                     print "iBrew: Trigger add need a group name and a trigger action"
@@ -814,6 +822,8 @@ class iBrewConsole:
                                                             print "iBrew: Trigger group " + arguments[1] + " deleted"
                                                         else:
                                                             self.client.triggerDelete(arguments[1],arguments[2].upper())
+                                                            self.client.print_group(arguments[1])
+                                                            self.client.print_trigger(arguments[1])
                                                             print "iBrew: Trigger " + arguments[2].upper() + " of group " + arguments[1] + " deleted"
                                                     else:
                                                         print "iBrew: Trigger delete need a group name or a group name and a trigger action"
