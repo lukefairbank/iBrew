@@ -74,10 +74,8 @@ def _threadsafe_function(fn):
 class SmarterInterfaceLegacy():
 
     def __init(self):
-        self.temperature        = SmarterLegacy.status100c
-        self.temperatureSelect  = False
+        self.temperature        = SmarterLegacy.statusTempOff
         self.keepwarm           = SmarterLegacy.statusWarm10m
-        self.keepwarmSelect     = False
         self.heaterOn           = False
         self.keepwarmOn         = False
         self.onBase             = False
@@ -96,10 +94,8 @@ class SmarterInterfaceLegacy():
         self.__init()
         self.__read_triggers()
     
-        self.simTemperature     = SmarterLegacy.status100c
-        self.simTemperatureSelect = False
+        self.simTemperature     = SmarterLegacy.statusTempOff
         self.simKeepwarm        = SmarterLegacy.statusWarm10m
-        self.simKeepwarmSelect  = False
         self.simHeaterOn        = False
         self.simKeepwarmOn      = False
         self.simOnBase          = False
@@ -108,10 +104,8 @@ class SmarterInterfaceLegacy():
         self.simOverheated      = False
 
 
-        self.emuTemperature     = SmarterLegacy.status100c
-        self.emuTemperatureSelect = False
+        self.emuTemperature     = SmarterLegacy.statusTempOff
         self.emuKeepwarm        = SmarterLegacy.statusWarm10m
-        self.emuKeepwarmSelect  = False
         self.emuHeaterOn        = False
         self.emuKeepwarmOn      = False
         self.emuOnBase          = False
@@ -212,6 +206,11 @@ class SmarterInterfaceLegacy():
         self.relay_start(host,port)
     
     
+    #------------------------------------------------------
+    # CONNECTION: iKettle
+    #------------------------------------------------------
+    
+    
     def connect(self,monitor=False):
         
         self.disconnect()
@@ -219,12 +218,9 @@ class SmarterInterfaceLegacy():
         if self.emulation and self.dump:
             logging.debug("[" + self.host + ":" + str(self.port) + "] Connecting emulation")
             return
-
         if self.simulation and self.dump:
             logging.debug("[" + self.host + ":" + str(self.port) + "] Connecting simulation")
             return
-
-
         if self.dump:
             logging.debug("[" + self.host + ":" + str(self.port) + "] Connecting")
         
@@ -243,7 +239,6 @@ class SmarterInterfaceLegacy():
             logging.debug("No kettle found at " + self.host + ":" +  str(self.port))
             raise SmarterErrorOld("Could not connect to " + self.host + ":" +  str(self.port))
 
-
         try:
             self.socket.send(SmarterLegacy.commandHandshake+"\n")
             data =  self.__read() #self.socket.recv(len(SmarterLegacy.commandHandshake)+1)
@@ -257,8 +252,6 @@ class SmarterInterfaceLegacy():
             self.disconnect()
             raise SmarterErrorOld("No kettle found at " + self.host + ":" +  str(self.port))
 
-
-
         if len(data) < 8:
             self.disconnect()
             logging.debug("No kettle found at " + self.host + ":" +  str(self.port))
@@ -270,6 +263,7 @@ class SmarterInterfaceLegacy():
         self.connected = True
 
 
+
     def disconnect(self):
         if self.connected and self.dump:
             logging.debug("[" + self.host + ":" + str(self.port) + "] Disconnecting")
@@ -277,6 +271,7 @@ class SmarterInterfaceLegacy():
         self.connected = False
         if self.socket:
             self.socket.close()
+
 
 
     def __read(self):
@@ -290,6 +285,8 @@ class SmarterInterfaceLegacy():
         except socket.timeout:
             data = None
         return data[:-1]
+
+
 
     def send(self,command):
         if self.emulation:
@@ -310,10 +307,12 @@ class SmarterInterfaceLegacy():
                 self.socket.send(command+"\n")
             except socket.error:
                 self.disconnect()
+                logging.debug(traceback.format_exc())
+
                 raise SmarterErrorOld("[" + self.host + ":" + str(self.port) + "] Connection timed out")
             response = []
             try:
-                m = 2
+                m = 1 # look up how much...
                 if command == SmarterLegacy.commandHandshake:
                     m = 1
                 for i in range(0,m):
@@ -326,140 +325,138 @@ class SmarterInterfaceLegacy():
                         logging.debug("[" + self.host + ":" + str(self.port) + "] Received: " + s + " [" + data + "]")
 
             except Exception, e:
+                logging.debug(traceback.format_exc())
+
                 raise SmarterErrorOld("[" + self.host + ":" + str(self.port) + "] Connection timed out")
+                
         return response
-    
+
+
+
+    #------------------------------------------------------
+    # DECODE: iKettle
+    #------------------------------------------------------
+
+    def __decode_temperature(self,status):
+        if status != self.temperature:
+            self.__trigger(SmarterLegacy.triggerTemperatureSelect,SmarterLegacy.string_response(self.temperature),SmarterLegacy.string_response(status))
+            if SmarterLegacy.status100c == status:
+                self.__trigger(SmarterLegacy.trigger100c,False,True)
+                if self.temperature == SmarterLegacy.statusTempOff: self.__trigger(SmarterLegacy.triggerTempOff,True,False)
+                elif self.temperature == SmarterLegacy.status65c:   self.__trigger(SmarterLegacy.trigger65c,True,False)
+                elif self.temperature == SmarterLegacy.status80c:   self.__trigger(SmarterLegacy.trigger80c,True,False)
+                elif self.temperature == SmarterLegacy.status95c:   self.__trigger(SmarterLegacy.trigger95c,True,False)
+            elif SmarterLegacy.status95c == status:
+                self.__trigger(SmarterLegacy.triggerTemperatureSelect,SmarterLegacy.string_response(self.temperature),SmarterLegacy.string_response(SmarterLegacy.status95c))
+                self.__trigger(SmarterLegacy.trigger95c,False,True)
+                if self.temperature == SmarterLegacy.statusTempOff: self.__trigger(SmarterLegacy.triggerTempOff,True,False)
+                elif self.temperature == SmarterLegacy.status100c:  self.__trigger(SmarterLegacy.trigger100c,True,False)
+                elif self.temperature == SmarterLegacy.status80c:   self.__trigger(SmarterLegacy.trigger80c,True,False)
+                elif self.temperature == SmarterLegacy.status65c:   self.__trigger(SmarterLegacy.trigger65c,True,False)
+            elif SmarterLegacy.status80c == status:
+                self.__trigger(SmarterLegacy.triggerTemperatureSelect,SmarterLegacy.string_response(self.temperature),SmarterLegacy.string_response(SmarterLegacy.status80c))
+                self.__trigger(SmarterLegacy.trigger80c,False,True)
+                if self.temperature == SmarterLegacy.statusTempOff: self.__trigger(SmarterLegacy.triggerTempOff,True,False)
+                elif self.temperature == SmarterLegacy.status100c:    self.__trigger(SmarterLegacy.trigger100c,True,False)
+                elif self.temperature == SmarterLegacy.status65c: self.__trigger(SmarterLegacy.trigger65c,True,False)
+                elif self.temperature == SmarterLegacy.status95c:
+                    self.__trigger(SmarterLegacy.trigger95c,True,False)
+            elif SmarterLegacy.status65c == status:
+                self.__trigger(SmarterLegacy.triggerTemperatureSelect,SmarterLegacy.string_response(self.temperature),SmarterLegacy.string_response(SmarterLegacy.status65c))
+                self.__trigger(SmarterLegacy.trigger65c,False,True)
+                if self.temperature == SmarterLegacy.statusTempOff: self.__trigger(SmarterLegacy.triggerTempOff,True,False)
+                elif self.temperature == SmarterLegacy.status100c:  self.__trigger(SmarterLegacy.trigger100c,True,False)
+                elif self.temperature == SmarterLegacy.status80c:   self.__trigger(SmarterLegacy.trigger80c,True,False)
+                elif self.temperature == SmarterLegacy.status95c:   self.__trigger(SmarterLegacy.trigger95c,True,False)
+            elif SmarterLegacy.statusTempOff == status:
+                self.__trigger(SmarterLegacy.triggerTemperatureSelect,SmarterLegacy.string_response(self.temperature),SmarterLegacy.string_response(SmarterLegacy.statusTempOff))
+                self.__trigger(SmarterLegacy.triggerTempOff,False,True)
+                if self.temperature == SmarterLegacy.status100c:    self.__trigger(SmarterLegacy.trigger100c,True,False)
+                elif self.temperature == SmarterLegacy.status65c:   self.__trigger(SmarterLegacy.trigger65c,True,False)
+                elif self.temperature == SmarterLegacy.status80c:   self.__trigger(SmarterLegacy.trigger80c,True,False)
+                elif self.temperature == SmarterLegacy.status95c:   self.__trigger(SmarterLegacy.trigger95c,True,False)
+            self.temperature = status
+
+
+
+    def __decode_status(self,heaterOn,onBase,keepwarmOn,overheated,heatingFinished,keepwarmFinished):
+            if heaterOn != self.heaterOn:                   self.__trigger(SmarterLegacy.triggerHeating,self.heaterOn,heaterOn)
+            if overheated != self.overheated:               self.__trigger(SmarterLegacy.triggerOverheat,self.overheated,overheated)
+            if onBase != self.onBase:                       self.__trigger(SmarterLegacy.triggerKettleRemoved,self.onBase,onBase)
+            if heatingFinished != self.heatingFinished:     self.__trigger(SmarterLegacy.triggerHeated,self.heatingFinished,heatingFinished)
+            if keepwarmOn != self.keepwarmOn:                   self.__trigger(SmarterLegacy.triggerWarm,self.keepwarmOn,keepwarmOn)
+            if keepwarmFinished != self.keepwarmFinished:   self.__trigger(SmarterLegacy.triggerWarmFinished,self.keepwarmFinished,keepwarmFinished)
+            self.keepwarmFinished = keepwarmFinished
+            self.heatingFinished = heatingFinished
+            self.onBase = onBase
+            self.keepwarmOn = keepwarmOn
+            self.heaterOn = heaterOn
+            self.overheated = overheated
+
+
 
     def __decode_responseStatus(self,status):
-
+        
         def is_set(x, n):
             return x & 2**n != 0
 
         if len(SmarterLegacy.responseStatus) == len(status):
-            self.temperatureSelect = False
-            self.keepwarmSelect = False
-            self.keepwarmFinished = False
-            self.heatingFinished = False
-            self.onBase = True
-            self.keepwarmOn = False
-            self.heaterOn = False
-            self.overheated = False
+            self.__decode_temperature(SmarterLegacy.statusTempOff)
+            self.__decode_status(False,True,False,False,False,False)
             return
-
+        
         statusdata = Smarter.raw_to_number(status[len(SmarterLegacy.responseStatus)])
+        self.__decode_status(is_set(statusdata,0),True,is_set(statusdata,1),False,False,False)
+        if is_set(statusdata,2):    self.__decode_temperature(SmarterLegacy.status65c)
+        if is_set(statusdata,3):    self.__decode_temperature(SmarterLegacy.status80c)
+        if is_set(statusdata,4):    self.__decode_temperature(SmarterLegacy.status95c)
+        if is_set(statusdata,5):    self.__decode_temperature(SmarterLegacy.status100c)
+        if not is_set(statusdata,2) and not is_set(statusdata,3) and not is_set(statusdata,4) and not is_set(statusdata,5):
+            self.__decode_temperature(SmarterLegacy.statusTempOff)
+        #if is_set(statusdata,6):    pass
+        #if is_set(statusdata,7):    pass
 
 
-        if is_set(statusdata,0):
-            self.heatingFinished = False
-            self.keepwarmFinished = False
-            self.onBase = True
-            self.keepwarmOn = False
-            self.heaterOn = True
-            self.overheated = False
-        if is_set(statusdata,1):
-            self.keepwarmFinished = False
-            self.onBase = True
-            self.heaterOn = False
-            self.keepwarmOn = True
-            self.overheated = False
-            self.heatingFinished = False
-        if is_set(statusdata,2):
-            self.temperatureSelect = True
-            self.temperature = SmarterLegacy.status65c
-        if is_set(statusdata,3):
-            self.temperatureSelect = True
-            self.temperature = SmarterLegacy.status80c
-        if is_set(statusdata,4):
-            self.temperatureSelect = True
-            self.temperature = SmarterLegacy.status95c
-        if is_set(statusdata,5):
-            self.temperatureSelect = True
-            self.temperature = SmarterLegacy.status100c
-        #if is_set(statusdata,6):
-        #    pass
-        #if is_set(statusdata,7):
-        #    pass
-
+    def __decode_keepwarm(self,keepwarm):
+        if keepwarm != self.keepwarm:
+            self.__trigger(SmarterLegacy.triggerKeepwarmSelect,SmarterLegacy.string_response(self.keepwarm),SmarterLegacy.string_response(keepwarm))
+            self.__trigger(SmarterLegacy.triggerWarm,self.keepwarm,keepwarm)
+            if SmarterLegacy.statusWarm5m == keepwarm:
+                self.__trigger(SmarterLegacy.triggerWarm5m,False,True)
+                if self.keepwarm == SmarterLegacy.statusWarm10m:     self.__trigger(SmarterLegacy.triggerWarm10m,True,False)
+                elif self.keepwarm == SmarterLegacy.statusWarm20m:   self.__trigger(SmarterLegacy.triggerWarm20m,True,False)
+            if SmarterLegacy.statusWarm10m == keepwarm:
+                self.__trigger(SmarterLegacy.triggerWarm10m,False,True)
+                if self.keepwarm == SmarterLegacy.statusWarm5m:      self.__trigger(SmarterLegacy.triggerWarm5m,True,False)
+                elif self.keepwarm == SmarterLegacy.statusWarm20m:   self.__trigger(SmarterLegacy.triggerWarm20m,True,False)
+            if SmarterLegacy.statusWarm20m == keepwarm:
+                self.__trigger(SmarterLegacy.triggerWarm20m,False,True)
+                if self.keepwarm == SmarterLegacy.statusWarm5m:      self.__trigger(SmarterLegacy.triggerWarm5m,True,False)
+                elif self.keepwarm == SmarterLegacy.statusWarm10m:   self.__trigger(SmarterLegacy.triggerWarm10m,True,False)
+            self.keepwarm = keepwarm
+    
 
     def __decode_response(self,status):
-        print "GVD"
-        print status == SmarterLegacy.responseHandshake
-        if status == SmarterLegacy.status100c:
-            self.temperatureSelect = True
-            self.temperature = SmarterLegacy.status100c
-        elif status == SmarterLegacy.status95c:
-            self.temperatureSelect = True
-            self.temperature = SmarterLegacy.status95c
-        elif status == SmarterLegacy.status80c:
-            self.temperatureSelect = True
-            self.temperature = SmarterLegacy.status80c
-        elif status == SmarterLegacy.status65c:
-            self.temperatureSelect = True
-            self.temperature = SmarterLegacy.status65c
-        elif status == SmarterLegacy.statusWarm:
-            self.keepwarmFinished = False
-            self.onBase = True
-            self.heaterOn = False
-            self.keepwarmOn = True
-            self.overheated = False
-            self.heatingFinished = False
-        elif status == SmarterLegacy.statusWarmFinished:
-            self.onBase = True
-            self.keepwarmOn = False
-            self.heaterOn = False
-            self.keepwarmFinished = True
-            self.overheated = False
-            self.heatingFinished = False
-        elif status == SmarterLegacy.statusHeating:
-            self.heatingFinished = False
-            self.keepwarmFinished = False
-            self.onBase = True
-            self.keepwarmOn = False
-            self.heaterOn = True
-            self.overheated = False
-        elif status == SmarterLegacy.statusReady:
-            self.keepwarmFinished = False
-            self.heatingFinished = False
-            self.onBase = True
-            self.keepwarmOn = False
-            self.heaterOn = False
-            self.overheated = False
-        elif status == SmarterLegacy.statusWarm5m:
-            self.keepwarmSelect = True
-            self.keepwarm = SmarterLegacy.statusWarm5m
-        elif status == SmarterLegacy.statusWarm10m:
-            self.keepwarmSelect = True
-            self.keepwarm = SmarterLegacy.statusWarm10m
-        elif status == SmarterLegacy.statusWarm20m:
-            self.keepwarmSelect = True
-            self.keepwarm = SmarterLegacy.statusWarm20m
-        elif status == SmarterLegacy.statusHeated:
-            self.keepwarmFinished = False
-            self.onBase = True
-            self.keepwarmOn = False
-            self.heaterOn = True
-            self.overheated = False
-            self.heatingFinished = True
-        elif status == SmarterLegacy.statusOverheat:
-            self.keepwarmFinished = False
-            self.keepwarmOn = False
-            self.onBase = True
-            self.heaterOn = False
-            self.overheated = True
-            self.heatingFinished = False
-        elif status == SmarterLegacy.statusKettleRemoved:
-            self.keepwarmFinished = False
-            self.overheated = False
-            self.heaterOn = False
-            self.keepwarmOn = False
-            self.onBase = False
-            self.heatingFinished = False
-        elif status == SmarterLegacy.responseHandshake:
-            pass
-        elif status[-1] == SmarterLegacy.responseStatus:
-            self.__decode_responseStatus(status)
+        if status == SmarterLegacy.status100c:              self.__decode_temperature(SmarterLegacy.status100c)
+        elif status == SmarterLegacy.status95c:             self.__decode_temperature(SmarterLegacy.status95c)
+        elif status == SmarterLegacy.status80c:             self.__decode_temperature(SmarterLegacy.status80c)
+        elif status == SmarterLegacy.status65c:             self.__decode_temperature(SmarterLegacy.status65c)
+        elif status == SmarterLegacy.statusWarm:            self.__decode_status(self.heaterOn,True,True,False,self.heatingFinished,False)
+        elif status == SmarterLegacy.statusWarmFinished:    self.__decode_status(False,True,False,False,False,True)
+        elif status == SmarterLegacy.statusHeating:         self.__decode_status(True,True,self.keepwarm,False,False,self.keepwarmFinished)
+        elif status == SmarterLegacy.statusReady:           self.__decode_status(False,True,False,False,False,False)
+        elif status == SmarterLegacy.statusHeated:          self.__decode_status(False,True,False,False,True,self.keepwarmFinished)
+        elif status == SmarterLegacy.statusOverheat:        self.__decode_status(False,True,False,True,False,False)
+        elif status == SmarterLegacy.statusKettleRemoved:   self.__decode_status(False,False,False,False,self.heaterOn,self.keepwarm)
+        elif status == SmarterLegacy.statusWarm5m:          self.__decode_keepwarm(SmarterLegacy.statusWarm5m)
+        elif status == SmarterLegacy.statusWarm10m:         self.__decode_keepwarm(SmarterLegacy.statusWarm10m)
+        elif status == SmarterLegacy.statusWarm20m:         self.__decode_keepwarm(SmarterLegacy.statusWarm20m)
+        elif status == SmarterLegacy.responseHandshake:     pass
+        elif status[0:-1] == SmarterLegacy.responseStatus:  self.__decode_responseStatus(status)
         else:
             raise SmarterErrorOld("Unknown status! Help! Please post an issues on GitHub" + str([status]))
+
+
 
     #------------------------------------------------------
     # EMULATION: iKettle
@@ -474,23 +471,22 @@ class SmarterInterfaceLegacy():
             self.iKettle2.kettle_stop()
         elif command == SmarterLegacy.commandHeat:
             keepwarm = 0
-            if self.emuKeepwarmSelect:
-                if self.emuKeepwarm == SmarterLegacy.statusWarm5m:
-                    keepwarm = 5
-                elif self.emuKeepwarm == SmarterLegacy.statusWarm10m:
-                    keepwarm = 10
-                elif self.emuKeepwarm == SmarterLegacy.statusWarm20m:
-                    keepwarm = 20
-            if self.emuTemperatureSelect:
-                if self.emuTemperature == SmarterLegacy.status65c:
-                    temperature = 65
-                elif self.emuTemperature == SmarterLegacy.status80c:
-                    temperature = 80
-                elif self.emuTemperature == SmarterLegacy.status95c:
-                    temperature = 95
-                elif self.emuTemperature == SmarterLegacy.status100c:
-                    temperature = 100
-            else:
+            if self.emuKeepwarm == SmarterLegacy.statusWarm5m:
+                keepwarm = 5
+            elif self.emuKeepwarm == SmarterLegacy.statusWarm10m:
+                keepwarm = 10
+            elif self.emuKeepwarm == SmarterLegacy.statusWarm20m:
+                keepwarm = 20
+
+            if self.emuTemperature == SmarterLegacy.status65c:
+                temperature = 65
+            elif self.emuTemperature == SmarterLegacy.status80c:
+                temperature = 80
+            elif self.emuTemperature == SmarterLegacy.status95c:
+                temperature = 95
+            elif self.emuTemperature == SmarterLegacy.status100c:
+                temperature = 100
+            elif self.emuTemperature == SmarterLegacy.statusTempOff:
                 temperature = 100
             self.iKettle2.kettle_heat(temperature,keepwarm)
         elif command == SmarterLegacy.commandHandshake:
@@ -502,14 +498,12 @@ class SmarterInterfaceLegacy():
             if command == SmarterLegacy.command80c:     self.emuTemperature = SmarterLegacy.status80c
             if command == SmarterLegacy.command95c:     self.emuTemperature = SmarterLegacy.status95c
             if command == SmarterLegacy.command100c:    self.emuTemperature = SmarterLegacy.status100c
-            self.emuTemperatureSelect = True
         elif command == SmarterLegacy.commandWarm:
             pass
         elif command == SmarterLegacy.commandWarm5m or command == SmarterLegacy.commandWarm10m or command == SmarterLegacy.commandWarm20m:
             if command == SmarterLegacy.commandWarm5m:      self.emuKeepwarm = SmarterLegacy.statusWarm5m
             if command == SmarterLegacy.commandWarm10m:     self.emuKeepwarm = SmarterLegacy.statusWarm10m
             if command == SmarterLegacy.commandWarm20m:     self.emuKeepwarm = SmarterLegacy.statusWarm20m
-            self.emuKeepwarmSelect = True
         else:
             raise SmarterErrorOld("Legacy passthrough of command " + command + " not implemented")
         return self.emu_response(command)
@@ -527,7 +521,7 @@ class SmarterInterfaceLegacy():
         elif command == SmarterLegacy.commandWarm:  response = self.__emu_warm()
         elif command == SmarterLegacy.commandWarm5m or command == SmarterLegacy.commandWarm10m or command == SmarterLegacy.commandWarm20m:
                                                 response = self.__emu_keepwarm_minutes()
-                                                self.simKeepwarmSelect = True
+
         else:
             raise SmarterErrorOld("Legacy emulation of command " + command + " not implemented")
         return response
@@ -539,7 +533,7 @@ class SmarterInterfaceLegacy():
         return [SmarterLegacy.statusHeating] + [self.emuTemperature]
     
     def __emu_status(self):
-        return self.__encode_status(self.emuTemperature,self.emuHeaterOn,self.emuKeepwarmOn,self.emuTemperatureSelect)
+        return self.__encode_status(self.emuTemperature,self.emuHeaterOn,self.emuKeepwarmOn)
     
     def __emu_temperature(self):
         return [self.emuTemperature]
@@ -577,7 +571,6 @@ class SmarterInterfaceLegacy():
 
 
     def emu_trigger_temperature(self,temperature):
-        self.emuTemperatureSelect = True
         if temperature < 73:
             self.emuTemperature = SmarterLegacy.status65c
         elif temperature < 88:
@@ -597,7 +590,6 @@ class SmarterInterfaceLegacy():
         self.emuHeatingFinished = True
         self.emuKeepwarmOn = False
         self.emuOverheated = False
-        self.emuTemperatureSelect = False
 
 
     #------------------------------------------------------
@@ -614,11 +606,10 @@ class SmarterInterfaceLegacy():
         elif command == SmarterLegacy.commandStatus:response = self.__sim_status()
         elif command == SmarterLegacy.command65c or command == SmarterLegacy.command80c or command == SmarterLegacy.command95c or command == SmarterLegacy.command100c:
                                                 response = self.__sim_temperature(command)
-                                                self.simTemperatureSelect = True
         elif command == SmarterLegacy.commandWarm:  response = self.__sim_warm()
         elif command == SmarterLegacy.commandWarm5m or command == SmarterLegacy.commandWarm10m or command == SmarterLegacy.commandWarm20m:
                                                 response = self.__sim_keepwarm_minutes(command)
-                                                self.simKeepwarmSelect = True
+
         else:
             raise SmarterErrorOld("Legacy simulation of command " + command + " not implemented")
         return response
@@ -630,11 +621,11 @@ class SmarterInterfaceLegacy():
 
 
     def __sim_status(self):
-        return self.__encode_status(self.simTemperature,self.simHeaterOn,self.simKeepwarmOn,self.simTemperatureSelect)
+        return self.__encode_status(self.simTemperature,self.simHeaterOn,self.simKeepwarmOn)
 
 
-    def __encode_status(self,temperature,heaterOn,keepwarmOn,temperatureSelect):
-        if not heaterOn and not keepwarmOn and not temperatureSelect: # and not self.simKeepwarmSelect:
+    def __encode_status(self,temperature,heaterOn,keepwarmOn):
+        if not heaterOn and not keepwarmOn and temperature == SmarterLegacy.statusTempOff:
             return [SmarterLegacy.responseStatus]
         status = 0
         if heaterOn:                                    status += 1
@@ -841,22 +832,26 @@ class SmarterInterfaceLegacy():
 
     def __initTriggers(self):
         self.triggersKettle = {
-            SmarterLegacy.trigger65c            : [],
-            SmarterLegacy.trigger80c            : [],
-            SmarterLegacy.trigger95c            : [],
-            SmarterLegacy.trigger100c           : [],
+            SmarterLegacy.triggerTempOff            : [],
+            SmarterLegacy.trigger65c                : [],
+            SmarterLegacy.trigger80c                : [],
+            SmarterLegacy.trigger95c                : [],
+            SmarterLegacy.trigger100c               : [],
+            SmarterLegacy.triggerTemperatureSelect  : [],
+            
+            
             SmarterLegacy.triggerWarm5m         : [],
             SmarterLegacy.triggerWarm10m        : [],
             SmarterLegacy.triggerWarm20m        : [],
+            
             SmarterLegacy.triggerHeating        : [],
             SmarterLegacy.triggerHeated         : [],
             SmarterLegacy.triggerOverheat       : [],
             SmarterLegacy.triggerWarmFinished   : [],
             SmarterLegacy.triggerWarm           : [],
             SmarterLegacy.triggerKettleRemoved  : [],
-            SmarterLegacy.triggerBusyKettle           : [],
-            SmarterLegacy.triggerTemperatureSelect    : [],
-            SmarterLegacy.triggerKeepwarmSelect       : []
+            SmarterLegacy.triggerBusyKettle     : [],
+            SmarterLegacy.triggerKeepwarmSelect : []
         }
         self.triggersGroups = []
 
@@ -968,13 +963,14 @@ class SmarterInterfaceLegacy():
 
     def __triggerStringRaw(self,triggerID):
         try:
-            if triggerID == SmarterLegacy.trigger65c:                   return True
-            if triggerID == SmarterLegacy.trigger80c:                   return True
-            if triggerID == SmarterLegacy.trigger95c:                   return True
-            if triggerID == SmarterLegacy.trigger100c:                  return True
-            if triggerID == SmarterLegacy.triggerWarm5m:                return True
-            if triggerID == SmarterLegacy.triggerWarm10m:               return True
-            if triggerID == SmarterLegacy.triggerWarm20m:               return True
+            if triggerID == SmarterLegacy.triggerTempOff:               return self.temperature == SmarterLegacy.statusTempOff
+            if triggerID == SmarterLegacy.trigger65c:                   return self.temperature == SmarterLegacy.status65c
+            if triggerID == SmarterLegacy.trigger80c:                   return self.temperature == SmarterLegacy.status80c
+            if triggerID == SmarterLegacy.trigger95c:                   return self.temperature == SmarterLegacy.status95c
+            if triggerID == SmarterLegacy.trigger100c:                  return self.temperature == SmarterLegacy.status100c
+            if triggerID == SmarterLegacy.triggerWarm5m:                return self.keepwarm == SmarterLegacy.statusWarm5m
+            if triggerID == SmarterLegacy.triggerWarm10m:               return self.keepwarm == SmarterLegacy.statusWarm10m
+            if triggerID == SmarterLegacy.triggerWarm20m:               return self.keepwarm == SmarterLegacy.statusWarm20m
             if triggerID == SmarterLegacy.triggerHeating:               return self.heaterOn
             if triggerID == SmarterLegacy.triggerHeated:                return self.heatingFinished
             if triggerID == SmarterLegacy.triggerOverheat:              return self.overheated
