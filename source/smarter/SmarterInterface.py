@@ -84,15 +84,18 @@ class SmarterInterfaceLegacy():
         self.keepwarmFinished   = False
         self.heatingFinished    = False
         self.overheated         = False
+        self.events             = False
     
-    def __init__(self,host=SmarterLegacy.DirectHost,port=SmarterLegacy.Port):
-        self.port = port
-        self.host = host
-        self.dump = False
-        self.connected = False
-    
+    def __init__(self,setting_path="",host=SmarterLegacy.DirectHost,port=SmarterLegacy.Port):
+        self.port               = port
+        self.host               = host
+        self.dump               = False
+        self.connected          = False
+        self.settingsPath       = setting_path
+       
         self.__init()
-   
+        self.__read_triggers()
+    
         self.simTemperature     = SmarterLegacy.status100c
         self.simTemperatureSelect = False
         self.simKeepwarm        = SmarterLegacy.statusWarm10m
@@ -133,11 +136,14 @@ class SmarterInterfaceLegacy():
         self.relay_stop()
         self.disconnect()
     
-     #------------------------------------------------------
+    #------------------------------------------------------
     # CLIENT CONNECTION
     #------------------------------------------------------
 
 
+    def setHost(self,host):
+        self.host = host
+        self.__read_triggers()
     
     def __monitor_device(self):
         if self.dump:
@@ -189,7 +195,7 @@ class SmarterInterfaceLegacy():
         self.simulation = True
         self.relay_stop()
         self.disconnect()
-        self.host = "simulation"
+        self.setHost("simulation")
         self.port = SmarterLegacy.Port
         self.relay_start(host,port)
 
@@ -209,7 +215,7 @@ class SmarterInterfaceLegacy():
     def connect(self,monitor=False):
         
         self.disconnect()
-
+        
         if self.emulation and self.dump:
             logging.debug("[" + self.host + ":" + str(self.port) + "] Connecting emulation")
             return
@@ -231,27 +237,35 @@ class SmarterInterfaceLegacy():
             self.socket.settimeout(10)
             self.socket.connect((self.host,self.port))
         except socket.timeout:
+            logging.debug("No kettle found at " + self.host + ":" +  str(self.port))
             raise SmarterErrorOld("Could not connect to " + self.host + ":" +  str(self.port))
         except socket.error:
+            logging.debug("No kettle found at " + self.host + ":" +  str(self.port))
             raise SmarterErrorOld("Could not connect to " + self.host + ":" +  str(self.port))
-        
+
 
         try:
             self.socket.send(SmarterLegacy.commandHandshake+"\n")
-            #data = self.send(SmarterLegacy.commandHandshake)
             data =  self.__read() #self.socket.recv(len(SmarterLegacy.commandHandshake)+1)
+        
         except socket.timeout:
-            raise SmarterErrorOld("No kettle found at " + self.host + ":" +  str(self.port))
+            logging.debug("No kettle found at " + self.host + ":" +  str(self.port))
             self.disconnect()
+            raise SmarterErrorOld("No kettle found at " + self.host + ":" +  str(self.port))
         except socket.error:
-            raise SmarterErrorOld("No kettle found at " + self.host + ":" +  str(self.port))
+            logging.debug("No kettle found at " + self.host + ":" +  str(self.port))
             self.disconnect()
+            raise SmarterErrorOld("No kettle found at " + self.host + ":" +  str(self.port))
+
+
 
         if len(data) < 8:
             self.disconnect()
+            logging.debug("No kettle found at " + self.host + ":" +  str(self.port))
             raise SmarterErrorOld("No kettle found at " + self.host + ":" +  str(self.port))
         if data[0:8] != SmarterLegacy.responseHandshake[0:8]:
             self.disconnect()
+            logging.debug("No kettle found at " + self.host + ":" +  str(self.port))
             raise SmarterErrorOld("No kettle found at " + self.host + ":" +  str(self.port))
         self.connected = True
 
@@ -272,10 +286,9 @@ class SmarterInterfaceLegacy():
             while d != '\r':
                 d = self.socket.recv(1)
                 data += d
-            self.__decode_response(data)
+            self.__decode_response(data[:-1])
         except socket.timeout:
             data = None
-        #print "READ: " + data
         return data[:-1]
 
     def send(self,command):
@@ -288,7 +301,6 @@ class SmarterInterfaceLegacy():
             for data in response:
                 self.__decode_response(data)
         else:
-
             if not self.connected:
                 self.connect()
 
@@ -314,7 +326,7 @@ class SmarterInterfaceLegacy():
                         logging.debug("[" + self.host + ":" + str(self.port) + "] Received: " + s + " [" + data + "]")
 
             except Exception, e:
-                pass #raise SmarterErrorOld("[" + self.host + ":" + str(self.port) + "] Connection timed out")
+                raise SmarterErrorOld("[" + self.host + ":" + str(self.port) + "] Connection timed out")
         return response
     
 
@@ -335,6 +347,7 @@ class SmarterInterfaceLegacy():
             return
 
         statusdata = Smarter.raw_to_number(status[len(SmarterLegacy.responseStatus)])
+
 
         if is_set(statusdata,0):
             self.heatingFinished = False
@@ -369,9 +382,9 @@ class SmarterInterfaceLegacy():
 
 
     def __decode_response(self,status):
-        if status[0:len(SmarterLegacy.responseStatus)] == SmarterLegacy.responseStatus:
-            self.__decode_responseStatus(status)
-        elif status == SmarterLegacy.status100c:
+        print "GVD"
+        print status == SmarterLegacy.responseHandshake
+        if status == SmarterLegacy.status100c:
             self.temperatureSelect = True
             self.temperature = SmarterLegacy.status100c
         elif status == SmarterLegacy.status95c:
@@ -443,6 +456,8 @@ class SmarterInterfaceLegacy():
             self.heatingFinished = False
         elif status == SmarterLegacy.responseHandshake:
             pass
+        elif status[-1] == SmarterLegacy.responseStatus:
+            self.__decode_responseStatus(status)
         else:
             raise SmarterErrorOld("Unknown status! Help! Please post an issues on GitHub" + str([status]))
 
@@ -759,6 +774,367 @@ class SmarterInterfaceLegacy():
 
 
     #------------------------------------------------------
+    # TRIGGERS
+    #------------------------------------------------------
+    #
+    # History:
+    # v0.1 Push The Button Engine
+    #
+    # Note there is a lot of duplicated code which should be classified!
+
+    @_threadsafe_function
+    def __write_triggers(self):
+    
+        self.print_groups()
+        self.print_triggers()
+        
+        if self.dump:
+            logging.debug("Write Triggers: [" + self.host + ":" + str(self.port) + "]" )
+        section = self.host + "." + str(self.port) + ".triggers"
+
+        config = SafeConfigParser()
+
+        if not os.path.exists(self.settingsPath):
+                os.makedirs(self.settingsPath)
+        
+        config.read(self.settingsPath+'ibrew.conf')
+
+
+        try:
+            config.add_section(section)
+        except DuplicateSectionError:
+            pass
+
+
+        try:
+            g = []
+            for i in self.triggersGroups:
+                g += [i[0]]
+            
+            config.set(section, "groups", ','.join(g))
+        except Exception:
+            pass
+
+        for i in g:
+            try:
+                config.add_section(section+"."+i)
+            except DuplicateSectionError:
+                pass
+            try:
+                config.set(section+"."+i, "Active", str(self.triggersGroups[self.__findGroup(i)][1]))
+                config.set(section+"."+i, "Switch", str(self.triggersGroups[self.__findGroup(i)][2][0]))
+            except Exception:
+                pass # logging.warning("Error reading triggers " + str(e))
+
+            for j in Smarter.triggersKettle:
+                try:
+                    config.set(section+"."+i, Smarter.triggerName(j),self.triggerGet(i,Smarter.triggerName(j)))
+                except Exception, e:
+                    pass # logging.warning("Error reading triggers " + str(e))
+            
+        with codecs.open(self.settingsPath+'ibrew.conf','wb+','utf-8') as f:
+            config.write(f)
+            f.close()
+        #with open(self.settingsPath+'ibrew.conf', 'w') as f:
+        #    config.write(f)
+
+
+    def __initTriggers(self):
+        self.triggersKettle = {
+            SmarterLegacy.trigger65c            : [],
+            SmarterLegacy.trigger80c            : [],
+            SmarterLegacy.trigger95c            : [],
+            SmarterLegacy.trigger100c           : [],
+            SmarterLegacy.triggerWarm5m         : [],
+            SmarterLegacy.triggerWarm10m        : [],
+            SmarterLegacy.triggerWarm20m        : [],
+            SmarterLegacy.triggerHeating        : [],
+            SmarterLegacy.triggerHeated         : [],
+            SmarterLegacy.triggerOverheat       : [],
+            SmarterLegacy.triggerWarmFinished   : [],
+            SmarterLegacy.triggerWarm           : [],
+            SmarterLegacy.triggerKettleRemoved  : [],
+            SmarterLegacy.triggerBusyKettle           : [],
+            SmarterLegacy.triggerTemperatureSelect    : [],
+            SmarterLegacy.triggerKeepwarmSelect       : []
+        }
+        self.triggersGroups = []
+
+    
+    @_threadsafe_function
+    def __read_triggers(self):
+        if self.dump:
+            logging.debug("Read Triggers: [" + self.host + ":" + str(self.port) + "]" )
+        section = self.host + "." + str(self.port) + ".triggers"
+
+        self.__initTriggers()
+        config = SafeConfigParser()
+        if not os.path.exists(self.settingsPath):
+            os.makedirs(self.settingsPath)
+        config.read(self.settingsPath+'ibrew.conf')
+      
+        try:
+            config.add_section(section)
+        except DuplicateSectionError:
+            pass
+
+        try:
+            g = config.get(section, "groups").split(",")
+
+            for i in g:
+        
+                try:
+                    a = config.get(section+"."+i, "Active")
+                    s = config.get(section+"."+i, "Switch")
+                except:
+                    pass # logging.warning("Error reading triggers " + str(e))
+                
+                if not self.isTriggersGroup(i):
+                    self.triggersGroups += [[i,Smarter.string_to_bool(a),Smarter.triggerCheckBooleans(s)]]
+             
+                for j in Smarter.triggersKettle:
+                    try:
+                        s = config.get(section+"."+i, Smarter.triggerName(j))
+                        if s != "":
+                            self.triggersKettle[j] = [(i,s)]
+                    except Exception:
+                        pass # logging.warning("Error reading triggers " + str(e))
+
+        except Exception, e:
+            pass #logging.warning("Error reading triggers " + str(e))
+
+
+
+    def triggerAdd(self,group,trigger,action):
+        if not self.isTriggersGroup(group):
+            self.triggersGroups += [(group,True,"1")]
+        self.triggerSet(group,trigger.upper(),action)
+        if self.dump:
+            logging.debug("Trigger " + trigger.upper() + " added to group " + group + " with action " + action )
+        self.__write_triggers()
+
+
+    def triggerGroupDelete(self,group):
+        if self.dump:
+            logging.debug("Deleting trigger group: " + group )
+        for k in Smarter.triggersKettle:
+            self.__triggerDelete(group,Smarter.triggersKettle[k][0])
+        
+        for i in range(0,len(self.triggersGroups)):
+            if group == self.triggersGroups[i][0]:
+                del self.triggersGroups[i]
+                break
+        self.__write_triggers()
+    
+
+    def __triggerDelete(self,group,trigger):
+        if self.dump:
+            logging.debug("Deleting trigger " + trigger.upper() + " from group: " + group )
+        id = Smarter.triggerID(trigger.upper())
+        if self.isTriggersGroup(group):
+            if id in self.triggersKettle:
+                if len(self.triggersKettle[id]) != 0:
+                    for i in range(0,len(self.triggersKettle[id])):
+                        if self.triggersKettle[id][i][0] == group:
+                            del self.triggersKettle[id][i]
+        else:
+            raise SmarterErrorOld("Trigger group not found")
+
+
+    def triggerDelete(self,group,trigger):
+        if self.dump:
+            logging.debug("Deleting trigger: " + trigger.upper() + " from group " + group )
+        self.__triggerDelete(group,trigger)
+        self.__write_triggers()
+
+    
+    def triggerGet(self,group,trigger):
+        id = Smarter.triggerID(trigger)
+        if id in self.triggersKettle:
+            if self.triggersKettle[id] is not None:
+                for i in self.triggersKettle[id]:
+                    if i[0] == group: return i[1]
+        return ""
+
+
+    def __triggerHeartBeats(self):
+        for j in Smarter.triggersKettle:
+            self.__triggerHeartBeat(j)
+
+
+    def eventStringRaw(self,trigger):
+        return self.__triggerStringRaw(Smarter.triggerID(trigger))
+
+
+    def __triggerStringRaw(self,triggerID):
+        try:
+            if triggerID == SmarterLegacy.trigger65c:                   return True
+            if triggerID == SmarterLegacy.trigger80c:                   return True
+            if triggerID == SmarterLegacy.trigger95c:                   return True
+            if triggerID == SmarterLegacy.trigger100c:                  return True
+            if triggerID == SmarterLegacy.triggerWarm5m:                return True
+            if triggerID == SmarterLegacy.triggerWarm10m:               return True
+            if triggerID == SmarterLegacy.triggerWarm20m:               return True
+            if triggerID == SmarterLegacy.triggerHeating:               return self.heaterOn
+            if triggerID == SmarterLegacy.triggerHeated:                return self.heatingFinished
+            if triggerID == SmarterLegacy.triggerOverheat:              return self.overheated
+            if triggerID == SmarterLegacy.triggerWarmFinished:          return self.keepwarmFinished
+            if triggerID == SmarterLegacy.triggerWarm:                  return self.keepwarmOn
+            if triggerID == SmarterLegacy.triggerKettleRemoved:         return self.onBase
+            if triggerID == SmarterLegacy.triggerBusyKettle:            return self.heaterOn
+            if triggerID == SmarterLegacy.triggerTemperatureSelect:     return SmarterLegacy.string_response(self.temperature)
+            if triggerID == SmarterLegacy.triggerKeepwarmSelect:        return SmarterLegacy.string_response(self.keepwarm)
+        except Exception, e:
+            print logging.debug(traceback.format_exc())
+            print str(e)
+    
+    
+    def __triggerHeartBeat(self,triggerID):
+        s = str(self.__triggerStringRaw(triggerID))
+        self.__trigger(triggerID,s,s)
+    
+    
+    def triggerSet(self,group,trigger,action):
+        id = Smarter.triggerID(trigger.upper())
+        if id in Smarter.triggersKettle:
+            if len(self.triggersKettle[id]) != 0:
+                for i in range(0,len(self.triggersKettle[id])):
+                    if self.triggersKettle[id][i][0] == group:
+                        del self.triggersKettle[id][i]
+            self.triggersKettle[id] += [(group,action)]
+            # it should be the trigger of the group only.. FU!
+            self.__triggerHeartBeat(id)
+        self.__write_triggers()
+
+
+    def isTriggersGroup(self,group):
+        for i in self.triggersGroups:
+            if i[0] == group:
+                return True
+        return False
+
+    def getGroup(self,group):
+        return self.triggersGroups[self.__findGroup(group)]
+
+    def __findGroup(self,group):
+        for i in range(0,len(self.triggersGroups)):
+            if self.triggersGroups[i][0] == group:
+                return i
+        raise SmarterErrorOld("Trigger group not found")
+        
+
+    def enableGroup(self,group):
+        if self.isTriggersGroup(group):
+            print "Trigger group enabled " + group
+            self.getGroup(group)[1] = True
+            self.__write_triggers()
+            return
+        raise SmarterErrorOld("Trigger group not found")
+
+
+    def disableGroup(self,group):
+        if self.isTriggersGroup(group):
+            print "Trigger group disabled " + group
+            self.getGroup(group)[1] = False
+            self.__write_triggers()
+            return
+        raise SmarterErrorOld("Trigger group not found")
+
+     
+    
+    def boolsGroup(self,group,bools):
+        if self.isTriggersGroup(group):
+            print "Trigger group " + group + " setting switch type " + "/".join(Smarter.triggerCheckBooleans(bools))
+            self.getGroup(group)[2] = Smarter.triggerCheckBooleans(bools)
+            self.__write_triggers()
+            return
+        raise SmarterErrorOld("Trigger group not found")
+
+    def stringboolsGroup(self,group,bools):
+        i = self.getGroup(group)[2]
+        if bools:
+            return i[0]
+        else:
+            return i[1]
+
+    def print_groups(self):
+        print "Trigger Groups"
+        print
+        print "Name".rjust(18,' ') + "        Switch Type"
+        print "".rjust(18,'_') + "___________________"
+        for i in self.triggersGroups:
+            s = ""
+            if i[1]: s = "Active "
+            else: s = "       "
+            print i[0].rjust(18,' ') + " " + s + ":".join(i[2])
+        print
+
+
+    def print_group(self,group):
+        print "Trigger Group"
+        print
+        print "Name".rjust(18,' ') + "        Switch Type"
+        print "".rjust(18,'_') + "___________________"
+        for i in self.triggersGroups:
+            if i[0] == group:
+                s = ""
+                if i[1]: s = "Active "
+                else: s = "       "
+                print i[0].rjust(18,' ') + " " + s + ":".join(i[2])
+                print
+                return
+        raise SmarterErrorOld("Trigger action group not found")
+
+
+    def print_triggers(self):
+        print
+        print
+        print "Triggers"
+        print
+        if self.triggersGroups == []:
+            print "No Triggers for [" + self.host + ":" + str(self.port) + "]"
+            print
+        
+        for j in self.triggersGroups:
+            print "Triggers " + j[0]
+            print "_".rjust(25, "_")
+            for i in Smarter.triggersKettle:
+                s = self.triggerGet(j[0],Smarter.triggersKettle[i][0].upper())
+                if s != "":
+                    print Smarter.triggersKettle[i][0].rjust(25,' ') + " " + s
+            print
+            print
+        
+    @_threadsafe_function
+    def __trigger(self,triggerID,old,new):
+        if not self.events: return
+        for i in self.triggersGroups:
+            if i[1]:
+                
+                s = self.triggerGet(i[0],Smarter.triggerName(triggerID))
+                if s != "":
+                    n = new
+                    if type(new) == type(True):
+                        n = self.stringboolsGroup(i[0],new)
+                
+                    s = s.replace("§O",str(old)).replace("§N",str(n))
+                    
+                    if s[0:4] == "http":
+                        try:
+                            response = urllib.urlopen(s)
+            
+                        except Exception, e:
+                            print str(e)
+                    else:
+                        r = os.popen(s).read()
+                        if self.dump:
+                            print r
+                    
+                    if self.dump and self.dump_status:
+                        logging.debug("Trigger: " + Smarter.triggersKettle[triggerID][0] + " - old:" + str(old) + " new:" + str(new) + " " + i[0] + " " + s)
+
+
+    #------------------------------------------------------
     # COMMANDS: iKettle
     #------------------------------------------------------
 
@@ -975,10 +1351,10 @@ class SmarterInterface:
         self.triggersKettle = self.__initTriggers()
         self.triggersCoffee = self.__initTriggers()
  
-        self.settingsPath                 = setting_path
+        self.settingsPath               = setting_path
         self.events                     = False
-        self.relayHost                 = ''
-        self.relayPort                 = Smarter.Port
+        self.relayHost                  = ''
+        self.relayPort                  = Smarter.Port
         self.isKettle                   = False
         self.isCoffee                   = False
         
@@ -1056,7 +1432,7 @@ class SmarterInterface:
         
         self.__init()
 
-        self.iKettle                      = SmarterInterfaceLegacy()
+        self.iKettle                      = SmarterInterfaceLegacy(self.settingsPath)
         self.emulate                      = False
 
 
@@ -1313,6 +1689,9 @@ class SmarterInterface:
     #------------------------------------------------------
     # SERVER CONNECTION
     #------------------------------------------------------
+    #
+    # History:
+    # v0.1 IAM Engine
 
 
 
@@ -3249,7 +3628,9 @@ class SmarterInterface:
     #------------------------------------------------------
     # TRIGGERS
     #------------------------------------------------------
-
+    #
+    # History:
+    # v0.1 Push The Button Engine
 
     @_threadsafe_function
     def __write_triggers(self):
