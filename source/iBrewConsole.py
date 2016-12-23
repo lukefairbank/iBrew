@@ -331,25 +331,7 @@ class iBrewConsole:
                     else:
                         return
 
-            # 3 times I went bug hunting forgotting the "s"
-            if command == "event": command = "events"
-            if command == "events":
-                if self.console:
-                    if self.client.events == False:
-                        self.client.iKettle.events = True
-                        self.client.events = True
-                        print "iBrew: Trigger events enabled"
-                    else:
-                        self.client.iKettle.events = False
-                        self.client.events = False
-                        print "iBrew: Trigger events disabled"
-                    return
-                elif numarg != 0:
-                    self.client.events = True
-                    command = arguments[0].lower()
-                    arguments = arguments[1:]
-                    numarg -= 1
-        
+
             self.haveHost = False
             self.serverBind = ""
             self.serverPort = Smarter.Port - 1
@@ -431,6 +413,26 @@ class iBrewConsole:
                                 self.serverBind = connection[0]
                                 numarg -= 1
                                 arguments = arguments[0:numarg]
+
+            # 3 times I went bug hunting forgotting the "s"
+            if command == "event": command = "events"
+            if command == "events":
+                if self.console:
+                    if self.client.events == False:
+                        self.client.iKettle.events = True
+                        self.client.events = True
+                        print "iBrew: Trigger events enabled"
+                    else:
+                        self.client.iKettle.events = False
+                        self.client.events = False
+                        print "iBrew: Trigger events disabled"
+                    return
+                elif numarg != 0:
+                    self.client.events = True
+                    command = arguments[0].lower()
+                    arguments = arguments[1:]
+                    numarg -= 1
+
 
             if command == "legacy":
                 if numarg == 0:
