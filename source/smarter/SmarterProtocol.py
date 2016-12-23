@@ -78,10 +78,13 @@ class SmarterProtocolLegacy:
         print
         print "Send HELLOKETTLE\\n receive HELLOAPP\\r"
         print
-        print
         print "You might receive other HELLOAPP commands at later points as other apps on the network connect to the kettle."
         print
         print "If the kettle stops warming or heating the buttons go off"
+        print
+        print "Telnet on port 23 containts the esp8266 AT protocol, you can leave/join wireless network there. 
+        print "Password on the telnet, connection set when using the iOS app is 6 digits. You can brute force that.
+        print
     
     Port       = 2000
     DirectHost = "192.168.4.1"
