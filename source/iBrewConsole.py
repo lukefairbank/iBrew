@@ -432,8 +432,11 @@ class iBrewConsole:
                     command = arguments[0].lower()
                     arguments = arguments[1:]
                     numarg -= 1
-
-
+                else:
+                    self.client.events = True
+                    self.client.iKettle.events = True
+                    command = "monitor"
+                    
             if command == "legacy":
                 if numarg == 0:
                     self.legacy()
@@ -1089,9 +1092,6 @@ class iBrewConsole:
 
               # Console Commands
             elif command == "monitor":      self.monitor()
-            elif command == "events":
-                                            self.client.events = True
-                                            self.monitor()
             elif command == "sweep":
                                             if numarg >= 1:
                                                  self.sweep(Smarter.code_to_number(arguments[0]))

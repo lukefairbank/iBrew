@@ -873,8 +873,8 @@ class SmarterInterfaceLegacy():
 
 
             for i in g:
-                a = ""
-                s = ""
+                a = False
+                s = "0"
                 try:
                     a = config.get(section+"."+i, "Active")
                     s = config.get(section+"."+i, "Switch")
@@ -2225,7 +2225,7 @@ class SmarterInterface:
             print "[" + self.host +  ":" + '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now()) + "] Connecting appliance"
         self.__init()
         self.__write_stats()
-        
+
         if self.host == "":
             self.setHost(Smarter.DirectHost)
         
@@ -3791,16 +3791,8 @@ class SmarterInterface:
         if self.dump:
             logging.debug("Read Triggers: [" + self.host + ":" + str(self.port) + "]" )
         section = self.host + "." + str(self.port) + ".triggers"
-        #if self.isKettle:
-        #    section += ".kettle"
-        #elif self.isCoffee:
-        #    section += ".coffee"
-        #else:
-        #    return
-
 
         self.__initTriggers()
-
         config = SafeConfigParser()
 
         if not os.path.exists(self.settingsPath):
@@ -3817,16 +3809,16 @@ class SmarterInterface:
         try:
             g = config.get(section, "groups").split(",")
             for i in g:
+            
+                a = False
+                s = "0"
                 
-                a = ""
-                s = ""
                 try:
                     a = config.get(section+"."+i, "Active")
                     s = config.get(section+"."+i, "Switch")
                 except:
                     pass # logging.warning("Error reading triggers " + str(e))
                 
-
                 if not self.isTriggersGroup(i):
                     self.triggersGroups += [[i,Smarter.string_to_bool(a),Smarter.triggerCheckBooleans(s)]]
                 
@@ -3837,16 +3829,17 @@ class SmarterInterface:
                             self.triggersKettle[j] = [(i,s)]
                     except Exception:
                         pass # logging.warning("Error reading triggers " + str(e))
-                
+            
                 for j in Smarter.triggersCoffee:
                     try:
                         s = config.get(section+"."+i, Smarter.triggerName(j))
                         if s != "":
                             self.triggersCoffee[j] = [(i,s)]
-                    except Exception:
+                    except Exception, e:
                         pass # logging.warning("Error reading triggers " + str(e))
 
         except Exception, e:
+            #print str(e)
             pass #logging.warning("Error reading triggers " + str(e))
 
 
@@ -4146,25 +4139,19 @@ class SmarterInterface:
     def __trigger(self,triggerID,old,new):
         if not self.events: return
         
-        #if self.dump and self.dump_status:
-        #    if self.isKettle:
-        #        logging.debug("Trigger: " + Smarter.triggersKettle[trigger][0] + " - old:" + str(old) + " new:" + str(new))
-                
-        #    if self.isCoffee:
-        #        logging.debug("Trigger: " + Smarter.triggersCoffee[trigger][0] + " - old:" + str(old) + " new:" + str(new))
-
-
         for i in self.triggersGroups:
             if i[1]:
-                
+                print Smarter.triggerName(triggerID)
                 s = self.triggerGet(i[0],Smarter.triggerName(triggerID))
+                
                 if s != "":
                     n = new
+          
                     if type(new) == type(True):
                         n = self.stringboolsGroup(i[0],new)
-                
+          
                     s = s.replace("§O",str(old)).replace("§N",str(n))
-                    
+
                     if s[0:4] == "http":
                         try:
                             response = urllib.urlopen(s)
@@ -4177,11 +4164,7 @@ class SmarterInterface:
                             print r
                     
                     if self.dump and self.dump_status:
-                         if self.isKettle:
-                            logging.debug("Trigger: " + Smarter.triggersKettle[triggerID][0] + " - old:" + str(old) + " new:" + str(new) + " " + i[0] + " " + s)
-                         if self.isCoffee:
-                            logging.debug("Trigger: " + Smarter.triggersCoffee[triggerID][0] + " - old:" + str(old) + " new:" + str(new) + " " + i[0] + " " + s)
-
+                        logging.debug("Trigger: " + Smarter.triggerName(triggerID) + " - old:" + str(old) + " new:" + str(new) + " " + i[0] + " " + s)
 
     #------------------------------------------------------
     # MESSAGE RESPONSE DECODERS
