@@ -2,6 +2,12 @@
 
 iKettle, [iKettle 2.0](http://smarter.am/ikettle) and [Smarter Coffee](http://smarter.am/coffee) Interface
 
+
+> “The only way to get any smarter is to play a smarter opponent.”
+
+Comming soon the iKettle emulator and the iKettle 2.0 emulator! 
+
+
 ## Needed remote access to iKettle 1, to test new code!
 
 To test and finish: 
@@ -92,6 +98,7 @@ __For smarthome fans!__
  * HomeKit support 
  * Relay
  * Simulator
+ * HTTP push!
 
 #### Usefull links
 Check out [ikettle-brute-forcer](https://github.com/C0smos/ikettle-brute-forcer)
