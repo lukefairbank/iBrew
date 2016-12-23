@@ -82,8 +82,8 @@ class SmarterProtocolLegacy:
         print
         print "If the kettle stops warming or heating the buttons go off"
         print
-        print "Telnet on port 23 containts the esp8266 AT protocol, you can leave/join wireless network there. 
-        print "Password on the telnet, connection set when using the iOS app is 6 digits. You can brute force that.
+        print "Telnet on port 23 containts the esp8266 AT protocol, you can leave/join wireless network there."
+        print "Password on the telnet, connection set when using the iOS app is 6 digits. You can brute force that."
         print
     
     Port       = 2000
