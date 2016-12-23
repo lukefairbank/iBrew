@@ -836,20 +836,16 @@ class SmarterInterfaceLegacy():
             SmarterLegacy.trigger95c                : [],
             SmarterLegacy.trigger100c               : [],
             SmarterLegacy.triggerTemperatureSelect  : [],
-            
-            
-            SmarterLegacy.triggerWarm5m         : [],
-            SmarterLegacy.triggerWarm10m        : [],
-            SmarterLegacy.triggerWarm20m        : [],
-            
-            SmarterLegacy.triggerHeating        : [],
-            SmarterLegacy.triggerHeated         : [],
-            SmarterLegacy.triggerOverheat       : [],
-            SmarterLegacy.triggerWarmFinished   : [],
-            SmarterLegacy.triggerWarm           : [],
-            SmarterLegacy.triggerKettleRemoved  : [],
-            SmarterLegacy.triggerBusyKettle     : [],
-            SmarterLegacy.triggerKeepwarmSelect : []
+            SmarterLegacy.triggerHeating            : [],
+            SmarterLegacy.triggerHeated             : [],
+            SmarterLegacy.triggerOverheat           : [],
+            SmarterLegacy.triggerWarm5m             : [],
+            SmarterLegacy.triggerWarm10m            : [],
+            SmarterLegacy.triggerWarm20m            : [],
+            SmarterLegacy.triggerWarmFinished       : [],
+            SmarterLegacy.triggerWarm               : [],
+            SmarterLegacy.triggerKeepwarmSelect     : [],
+            SmarterLegacy.triggerKettleRemoved      : []
         }
         self.triggersGroups = []
 
@@ -974,7 +970,6 @@ class SmarterInterfaceLegacy():
             if triggerID == SmarterLegacy.triggerWarmFinished:          return self.keepwarmFinished
             if triggerID == SmarterLegacy.triggerWarm:                  return self.keepwarmOn
             if triggerID == SmarterLegacy.triggerKettleRemoved:         return self.onBase
-            if triggerID == SmarterLegacy.triggerBusyKettle:            return self.heaterOn
             if triggerID == SmarterLegacy.triggerTemperatureSelect:     return SmarterLegacy.string_response(self.temperature)
             if triggerID == SmarterLegacy.triggerKeepwarmSelect:        return SmarterLegacy.string_response(self.keepwarm)
         except Exception, e:

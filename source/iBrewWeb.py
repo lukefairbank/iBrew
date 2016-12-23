@@ -1205,22 +1205,32 @@ class LegacyHandler(GenericAPIHandler):
 
 
 
-class RawHandler(GenericAPIHandler):
+class LegacyRawHandler(GenericAPIHandler):
 
     def get(self, ip, command):
         if ip in self.application.clients:
             client = self.application.clients[ip]
+            if client.isKettle:
+                try:
+                    response = str(client.iKettle.eventStringRaw(command))
+                # FIX for right exception
+                except Exception, e:
+                    print str(e)
+                # raise 404
+        self.write(response)
+
+class RawHandler(GenericAPIHandler):
+
+    def get(self, ip, command):
+        response = ""
+        if ip in self.application.clients:
+            client = self.application.clients[ip]
             try:
-                print command
                 response = str(client.eventStringRaw(command))
             # FIX for right exception
             except Exception, e:
                 print str(e)
                 # raise 404
-                response = ""
-        else:
-            response = ""
-        #self.setContentType()
         self.write(response)
 
 #------------------------------------------------------
@@ -1411,6 +1421,8 @@ class iBrewWeb(tornado.web.Application):
                 handlers += [(self.webroot + r"/api/([0-9]+.[0-9]+.[0-9]+.[0-9]+)/raw/("+ Smarter.triggersCoffee[i][0].lower() + ")/?",RawHandler)]
             for i in Smarter.triggersKettle:
                 handlers += [(self.webroot + r"/api/([0-9]+.[0-9]+.[0-9]+.[0-9]+)/raw/("+ Smarter.triggersKettle[i][0].lower() + ")/?",RawHandler)]
+            for i in SmarterLegacy.triggersKettle:
+                handlers += [(self.webroot + r"/api/([0-9]+.[0-9]+.[0-9]+.[0-9]+)/legacy/raw/("+ SmarterLegacy.triggersKettle[i][0].lower() + ")/?",LegacyRawHandler)]
 
             handlers += [
                 (self.webroot + r"/api/([0-9]+.[0-9]+.[0-9]+.[0-9]+)/status/?",DeviceHandler),
