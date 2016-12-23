@@ -875,7 +875,6 @@ class SmarterInterfaceLegacy():
             g = config.get(section, "groups").split(",")
 
             for i in g:
-        
                 try:
                     a = config.get(section+"."+i, "Active")
                     s = config.get(section+"."+i, "Switch")
@@ -883,8 +882,8 @@ class SmarterInterfaceLegacy():
                     pass # logging.warning("Error reading triggers " + str(e))
                 
                 if not self.isTriggersGroup(i):
-                    self.triggersGroups += [[i,SmarterLegacy.string_to_bool(a),SmarterLegacy.triggerCheckBooleans(s)]]
-             
+                    self.triggersGroups += [[i,Smarter.string_to_bool(a),SmarterLegacy.triggerCheckBooleans(s)]]
+
                 for j in SmarterLegacy.triggersKettle:
                     try:
                         s = config.get(section+"."+i, SmarterLegacy.triggerName(j))
