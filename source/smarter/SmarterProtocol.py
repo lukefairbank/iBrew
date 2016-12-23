@@ -303,10 +303,10 @@ class SmarterProtocolLegacy:
     
     triggersKettle = {
         triggerTempOff              : ["TempOff","SWITCH Temperature off"],
-        trigger65c                  : ["65","SWITCH "+text65c],
-        trigger80c                  : ["80","SWITCH "+text80c],
-        trigger95c                  : ["95","SWITCH "+text95c],
-        trigger100c                 : ["100","SWITCH "+text100c],
+        trigger65c                  : ["65c","SWITCH "+text65c],
+        trigger80c                  : ["80c","SWITCH "+text80c],
+        trigger95c                  : ["95c","SWITCH "+text95c],
+        trigger100c                 : ["100c","SWITCH "+text100c],
         triggerWarm5m               : ["5m","SWITCH"],
         triggerWarm10m              : ["10m","SWITCH"],
         triggerWarm20m              : ["20m","SWITCH"],
