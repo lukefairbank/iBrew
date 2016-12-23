@@ -700,18 +700,16 @@ class iBrewConsole:
                         print
                     if not (self.console and command == "relay") and not self.client.simulate:
                         self.client.connect()
-
                 except Exception, e:
                     logging.debug(e)
                     logging.info("iBrew: Could not connect to [" + self.client.host + "]")
-                    if command != "console" and command != "connect" and command != "relay":
+                    if command != "console" and command != "web" and command != "server" and command != "connect" and command != "relay":
                         return
 
-                # FIX RELAY SHOULD NOT BE HERE
                 if command == "console" or command == "connect":
                     self.console = True
 
-                if command == "console" or command == "connect" or command == "relay":
+                if command == "console" or command == "server" or command == "web" or command == "connect" or command == "relay":
                     if numarg >= 1:
                         if arguments[0][2] == ':' or arguments[0][3] == ':':
                             self.client.unblock("in:GOD,out:GOD")
@@ -720,7 +718,7 @@ class iBrewConsole:
                             arguments = arguments[0:numarg]
                     if self.client.dump:
                         self.client.print_rules_short()
-                
+               
             if command == "status" and numarg > 0:
                 self.client.fast = False
                 try:
