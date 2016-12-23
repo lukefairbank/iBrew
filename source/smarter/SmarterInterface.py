@@ -1247,7 +1247,7 @@ class SmarterInterface:
         self.waterSensorBase            = 974
         
         self.waterSensor                = 2010
-        self.waterSensorStable          = 2010
+        self.waterSensorStable          = 2010 - self.waterSensorBase
 
         # status
         self.kettleStatus               = Smarter.KettleReady
@@ -1849,7 +1849,7 @@ class SmarterInterface:
         previousTemperature = self.temperature
         previousAverage = self.temperature
         
-        self.waterSensorStable  = self.waterSensor
+        self.waterSensorStable  = self.waterSensor - self.waterSensorBase
         self.temperatureStable  = self.temperature
         
         monitorCount = 0
@@ -1952,9 +1952,9 @@ class SmarterInterface:
 
 
                 if previousWaterSensor - 3 > self.waterSensor or previousWaterSensor + 3 < self.waterSensor:
-                    if self.waterSensorStable != self.waterSensor:
-                        self.__trigger(Smarter.triggerWaterSensorStable,self.waterSensorStable,self.waterSensor)
-                        self.waterSensorStable = self.waterSensor
+                    if self.waterSensorStable != self.waterSensor - self.waterSensorBase:
+                        self.__trigger(Smarter.triggerWaterSensorStable,self.waterSensorStable,self.waterSensor - self.waterSensorBase)
+                        self.waterSensorStable = self.waterSensor - self.waterSensorBase
             
                     previousWaterSensor = self.waterSensor
                 
