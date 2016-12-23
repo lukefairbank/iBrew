@@ -334,9 +334,11 @@ class iBrewConsole:
             if command == "events":
                 if self.console:
                     if self.client.events == False:
+                        self.client.iKettle.events = True
                         self.client.events = True
                         print "iBrew: Trigger events enabled"
                     else:
+                        self.client.iKettle.events = False
                         self.client.events = False
                         print "iBrew: Trigger events disabled"
                     return
@@ -357,7 +359,7 @@ class iBrewConsole:
                     connection = str.split(arguments[numarg-1],':')
                     if self.is_valid_ipv4_address(connection[0]) or self.is_valid_ipv6_address(connection[0]) or (("server" in arguments or command == "server") and connection[0] == ""):
                         if command == "legacy":
-                            self.client.iKettle.host = connection[0]
+                            self.client.iKettle.setHost(connection[0])
                         
                         else:
                             if "server" in arguments or command == "server" or "web" in arguments or command == "web":
@@ -432,15 +434,26 @@ class iBrewConsole:
                 if numarg == 0:
                     self.legacy()
                     self.legacy_commands()
+                    self.triggers()
                     return
                 if numarg >= 1:
                     if self.client.isCoffee:
                         print "iBrew: iKettle != Coffee Machine"
                         #logging.warning("iBrew: iKettle != Coffee Machine")
+                        return
               
                     if arguments[0] == "protocol":
                         SmarterLegacy.protocol()
-                        
+                        return
+                   
+                    if arguments[0] == "triggers":
+                        SmarterLegacy.print_triggers()
+                        return
+                    
+                    if command == "switches":
+                        SmarterLegacy.print_states()
+                        return
+                    
                     if arguments[0] == "simulate":
                         self.client.iKettle.simulate()
                         self.monitor()
@@ -465,20 +478,71 @@ class iBrewConsole:
                         self.client.iKettle.relay_start()
                         self.monitor()
                         return
-                    
+                            
+                    if arguments[0] == "trigger":
+                        arguments = arguments[1:]
+                        numarg -= 1
+                        if numarg == 0:
+                            self.client.iKettle.print_triggers()
+                        else:
+                            if arguments[0] == "groups":
+                                self.client.iKettle.print_groups()
+                            elif arguments[0] == "add" and numarg == 4:
+                                self.client.iKettle.triggerAdd(arguments[1],arguments[2].upper(),arguments[3])
+                                self.client.iKettle.print_group(arguments[1])
+                                self.client.iKettle.print_trigger(arguments[1])
+                                print "iBrew: Legacy iKettle: Added trigger " + arguments[2].upper() + " to group " + arguments[1] + " with action " + arguments[3]
+                            elif arguments[0] == "add" and numarg != 4:
+                                print "iBrew: Legacy iKettle: Trigger add need a group name and a trigger action"
+                            elif arguments[0][0:3] == "del":
+                                if numarg == 3 or numarg == 2:
+                                    if numarg == 2:
+                                        self.client.iKettle.triggerGroupDelete(arguments[1])
+                                        print "iBrew: Legacy iKettle: Trigger group " + arguments[1] + " deleted"
+                                    else:
+                                        self.client.iKettle.triggerDelete(arguments[1],arguments[2].upper())
+                                        self.client.iKettle.print_group(arguments[1])
+                                        self.client.iKettle.print_trigger(arguments[1])
+                                        print "iBrew: Legacy iKettle: Trigger " + arguments[2].upper() + " of group " + arguments[1] + " deleted"
+                                else:
+                                    print "iBrew: Legacy iKettle: Trigger delete need a group name or a group name and a trigger action"
+                            else:
+                                if numarg == 1:
+                                    self.client.iKettle.print_group(arguments[0])
+                                elif numarg == 2:
+                                    if arguments[1] == "switch":
+                                        print "iBrew: Legacy iKettle: Missing arguments, which duality?"
+                                    else:
+                                        try:
+                                            state = Smarter.string_to_bool(arguments[1])
+                                            if state:
+                                                self.client.iKettle.enableGroup(arguments[0])
+                                                print "iBrew: Legacy iKettle: Trigger group " + arguments[0] + " enabled"
+                                            else:
+                                                self.client.iKettle.disableGroup(arguments[0])
+                                                print "iBrew: Legacy iKettle: Trigger group " + arguments[0] + " enabled"
+                                        except Exception, e:
+                                            print str(e)
+                                            print "iBrew: Legacy iKettle: failed to get switch state type"
+                                elif arguments[1] == "switch":
+                                    self.client.iKettle.boolsGroup(arguments[0],arguments[2])
+                                    print "iBrew: Legacy iKettle: Trigger group " + arguments[0] + " switch type " + arguments[2]
+                                else:
+                                    print "iBrew: Legacy iKettle: Missing arguments, about time for some peace and quite :-)"
+                        return
+
                     if numarg == 1:
                         self.client.iKettle.dump = self.client.dump
                         self.client.iKettle.normal()
                         try:
                             r = self.client.iKettle.send(SmarterLegacy.string_to_command(arguments[0]))
                             for i in r:
-                                print "iBrew Legacy: " + SmarterLegacy.string_response(i)
+                                print "iBrew: Legacy iKettle: " + SmarterLegacy.string_response(i)
                         except Exception:
-                            print "iBrew: Unknown legacy command"
+                            print "iBrew: Legacy iKettle: Unknown command"
                         return
                     else:
-                        print "iBrew: Unknown legacy command"
-
+                        print "iBrew: Legacy iKettle: Unknown command"
 
             if command == "shout":
                 if self.console or numarg == 0:
@@ -746,6 +810,8 @@ class iBrewConsole:
                                                     self.client.print_groups()
                                                 elif arguments[0] == "add" and numarg == 4:
                                                     self.client.triggerAdd(arguments[1],arguments[2].upper(),arguments[3])
+                                                    self.client.print_group(arguments[1])
+                                                    self.client.print_trigger(arguments[1])
                                                     print "iBrew: Added trigger " + arguments[2].upper() + " to group " + arguments[1] + " with action " + arguments[3]
                                                 elif arguments[0] == "add" and numarg != 4:
                                                     print "iBrew: Trigger add need a group name and a trigger action"
@@ -756,6 +822,8 @@ class iBrewConsole:
                                                             print "iBrew: Trigger group " + arguments[1] + " deleted"
                                                         else:
                                                             self.client.triggerDelete(arguments[1],arguments[2].upper())
+                                                            self.client.print_group(arguments[1])
+                                                            self.client.print_trigger(arguments[1])
                                                             print "iBrew: Trigger " + arguments[2].upper() + " of group " + arguments[1] + " deleted"
                                                     else:
                                                         print "iBrew: Trigger delete need a group name or a group name and a trigger action"
@@ -776,12 +844,12 @@ class iBrewConsole:
                                                                     print "iBrew: Trigger group " + arguments[0] + " enabled"
                                                             except Exception, e:
                                                                 print str(e)
-                                                                print "iBrew: failed to get switch type"
+                                                                print "iBrew: failed to get switch state type"
                                                     elif arguments[1] == "switch":
                                                         self.client.boolsGroup(arguments[0],arguments[2])
                                                         print "iBrew: Trigger group " + arguments[0] + " switch type " + arguments[2]
                                                     else:
-                                                        print "iBrew: missing arguments, about time for some peace and quite :-)"
+                                                        print "iBrew: Missing arguments, about time for some peace and quite :-)"
                                                             
             elif command == "relay":
                                             if numarg >= 1:
@@ -1204,12 +1272,13 @@ class iBrewConsole:
 
     def legacy(self):
         print
-        print "  iBrew iKettle Legacy Command Line"
+        print "  iBrew Legacy iKettle Command Line"
         print "  _________________________________"
         print
-        print "  Usage: ibrew (dump) legacy command (host(:port))"
+        print "  Usage: ibrew (dump) (events) legacy command (host(:port))"
         print
         print "    command                iKettle command, action to take!"
+        print "    events                 enable trigger events (monitor, relay)"
         print "    host                   host address of the appliance (format: ip4, ip6, fqdn)"
         print "    port                   port of appliance, optional, only use if alternative port"
         print
@@ -1219,20 +1288,39 @@ class iBrewConsole:
         print "  iKettle Commands"
         print "    heat                   " + SmarterLegacy.textHeat.lower()
         print "    stop                   " + SmarterLegacy.textStop.lower()
-        print "    65                     " + SmarterLegacy.textSelect65c.lower()
-        print "    80                     " + SmarterLegacy.textSelect80c.lower()
-        print "    95                     " + SmarterLegacy.textSelect95c.lower()
-        print "    100                    " + SmarterLegacy.textSelect100c.lower()
+        print "    65C                    " + SmarterLegacy.textSelect65c.lower()
+        print "    80C                    " + SmarterLegacy.textSelect80c.lower()
+        print "    95C                    " + SmarterLegacy.textSelect95c.lower()
+        print "    100C                   " + SmarterLegacy.textSelect100c.lower()
+        """
+        print "    149F"
+        print "    176F"
+        print "    203F"
+        print "    212F"
+        """
         print "    warm                   " + SmarterLegacy.textStartWarm.lower()
-        print "    5                      " + SmarterLegacy.textSelectWarm5m.lower()
-        print "    10                     " + SmarterLegacy.textSelectWarm10m.lower()
-        print "    20                     " + SmarterLegacy.textSelectWarm20m.lower()
+        print "    5m                     " + SmarterLegacy.textSelectWarm5m.lower()
+        print "    10m                    " + SmarterLegacy.textSelectWarm10m.lower()
+        print "    20m                    " + SmarterLegacy.textSelectWarm20m.lower()
         print "    status                 " + SmarterLegacy.textGetStatus
         print
         print "    protocol               protocol information"
         print "    simulate               start kettle simulation"
         print "    relay ((ip:)port)      start relay"
-
+        print "    trigger                see triggers section"
+        print "    triggers               overview of legacy triggers"
+        print
+    
+    def triggers(self):
+        print
+        print "  Triggers"
+        print "    trigger add [group] [trigger] [action] add trigger to a group"
+        print "    trigger delete [group] (trigger) delete trigger or group triggers"
+        print "    trigger groups         show list of groups"
+        print "    trigger [group]        show triggers of group"
+        print "    trigger                show all triggers"
+        print "    trigger [group] [bool] enabled/disable trigger group"
+        print "    trigger [group] switch [bool] set group switch type"
         print
     
     def commands(self):
@@ -1323,16 +1411,7 @@ class iBrewConsole:
         print "    VAR                VALUE"
         print "    temperaturelimit   STATE or [0..100]  kettle can not heat above VALUE degrees"
         print "    childprotection    STATE              kettle can not heat above 45 degrees"
-        print
-        print "  Triggers"
-        print "    trigger add [group] [trigger] [action] add trigger to a group"
-        print "    trigger delete [group] (trigger) delete trigger or group triggers"
-        print "    trigger groups         show list of groups"
-        print "    trigger [group]        show triggers of group"
-        print "    trigger                show all triggers"
-        print "    trigger [group] [bool] enabled/disable trigger group"
-        print "    trigger [group] switch [bool] set group switch type"
-        print
+        self.triggers()
         print "  Actions can either be a path to a command or url"
         print
         print "  Trigger actions examples:"

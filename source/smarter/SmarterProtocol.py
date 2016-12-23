@@ -80,6 +80,8 @@ class SmarterProtocolLegacy:
         print
         print
         print "You might receive other HELLOAPP commands at later points as other apps on the network connect to the kettle."
+        print
+        print "If the kettle stops warming or heating the buttons go off"
     
     Port       = 2000
     DirectHost = "192.168.4.1"
@@ -109,6 +111,7 @@ class SmarterProtocolLegacy:
     textGetHandshake    = "Offer hand"
 
     # Shared between status and command
+    textTempOff         = "Nothing selected"
     text100c            = "100°C selected"
     text95c             = "95°C selected"
     text80c             = "80°C selected"
@@ -118,7 +121,7 @@ class SmarterProtocolLegacy:
     textWarm10m         = "Keep water warm timer is set to 10 minutes"
     textWarm20m         = "Keep water warm timer is set to 20 minutes"
 
-    textGetStatus          = "Get status"
+    textGetStatus       = "Get status"
     textSelect100c      = "Select 100°C"
     textSelect95c       = "Select 95°C"
     textSelect80c       = "Select 80°C"
@@ -150,6 +153,9 @@ class SmarterProtocolLegacy:
     statusHeated        = "sys status 0x3"
     statusOverheat      = "sys status 0x2"
     statusKettleRemoved = "sys status 0x1"
+    
+    # Does not exists
+    statusTempOff       = "sys temp off"
     
     responseStatus      = "sys status key="
 
@@ -215,39 +221,41 @@ class SmarterProtocolLegacy:
             return self.textOverheat
         elif status == self.statusKettleRemoved:
             return self.textKettleRemoved
+        elif status == self.statusTempOff:
+            return self.textTempOff
         else:
             return "Unknown status! Help! Please post an issues on GitHub" + str([status])
 
     def command_to_string(self,command):
-        if SmarterLegacy.commandStop == command:      return "Stop"
-        elif SmarterLegacy.command65c == command:     return "65"
-        elif SmarterLegacy.command80c == command:     return "80"
-        elif SmarterLegacy.command95c == command:     return "95"
-        elif SmarterLegacy.command100c == command:    return "100"
-        elif SmarterLegacy.commandWarm == command:    return "Warm"
-        elif SmarterLegacy.commandHeat == command:    return "Heat"
-        elif SmarterLegacy.commandWarm5m == command:  return "5"
-        elif SmarterLegacy.commandWarm10m == command: return "10"
-        elif SmarterLegacy.commandWarm20m == command: return "20"
-        elif SmarterLegacy.commandStatus == command:  return "Status"
-        elif SmarterLegacy.commandHandshake == command:return "Handshake"
+        if self.commandStop == command:      return "Stop"
+        elif self.command65c == command:     return "65C"
+        elif self.command80c == command:     return "80C"
+        elif self.command95c == command:     return "95C"
+        elif self.command100c == command:    return "100C"
+        elif self.commandWarm == command:    return "Warm"
+        elif self.commandHeat == command:    return "Heat"
+        elif self.commandWarm5m == command:  return "5m"
+        elif self.commandWarm10m == command: return "10m"
+        elif self.commandWarm20m == command: return "20m"
+        elif self.commandStatus == command:  return "Status"
+        elif self.commandHandshake == command:return "Handshake"
         else:
             raise SmarterErrorOld("Unknown command: (%s)" % command)
 
     def string_to_command(self,string):
         action = string.lower()
-        if action == "stop":                        return SmarterLegacy.commandStop
-        elif action == "heat" or action == "start": return SmarterLegacy.commandHeat
-        elif action == "status":                    return SmarterLegacy.commandStatus
-        elif action == "65":                        return SmarterLegacy.command65c
-        elif action == "80":                        return SmarterLegacy.command80c
-        elif action == "95":                        return SmarterLegacy.command95c
-        elif action == "100":                       return SmarterLegacy.command100c
-        elif action == "handshake":                 return SmarterLegacy.commandHandshake
-        elif action == "warm":                      return SmarterLegacy.commandWarm
-        elif action == "5":                         return SmarterLegacy.commandWarm5m
-        elif action == "10":                        return SmarterLegacy.commandWarm10m
-        elif action == "20":                        return SmarterLegacy.commandWarm20m
+        if action == "stop":                        return self.commandStop
+        elif action == "heat" or action == "start": return self.commandHeat
+        elif action == "status":                    return self.commandStatus
+        elif action == "65c":                        return self.command65c
+        elif action == "80c":                        return self.command80c
+        elif action == "95c":                        return self.command95c
+        elif action == "100c":                       return self.command100c
+        elif action == "handshake":                 return self.commandHandshake
+        elif action == "warm":                      return self.commandWarm
+        elif action == "5m":                         return self.commandWarm5m
+        elif action == "10m":                        return self.commandWarm10m
+        elif action == "20m":                        return self.commandWarm20m
         else:
             raise SmarterErrorOld("Unknown command: (%s)" % action)
 
@@ -256,21 +264,112 @@ class SmarterProtocolLegacy:
 
     def string_to_commandText(self,string):
         action = string.lower()
-        if action == "stop":                        return SmarterLegacy.textStop
-        elif action == "heat" or action == "start": return SmarterLegacy.textHeat
-        elif action == "status":                    return SmarterLegacy.textGetStatus
-        elif action == "65":                        return SmarterLegacy.textSelect65c
-        elif action == "80":                        return SmarterLegacy.textSelect80c
-        elif action == "95":                        return SmarterLegacy.textSelect95c
-        elif action == "handshake":                 return SmarterLegacy.textGetHandshake
-        elif action == "100":                       return SmarterLegacy.text100c
-        elif action == "warm":                      return SmarterLegacy.textStartWarm
-        elif action == "5":                         return SmarterLegacy.textSelectWarm5m
-        elif action == "10":                        return SmarterLegacy.textSelectWarm10m
-        elif action == "20":                        return SmarterLegacy.textSelectWarm20m
+        if action == "stop":                        return self.textStop
+        elif action == "heat" or action == "start": return self.textHeat
+        elif action == "status":                    return self.textGetStatus
+        elif action == "65c":                        return self.textSelect65c
+        elif action == "80c":                        return self.textSelect80c
+        elif action == "95c":                        return self.textSelect95c
+        elif action == "handshake":                 return self.textGetHandshake
+        elif action == "100c":                       return self.text100c
+        elif action == "warm":                      return self.textStartWarm
+        elif action == "5m":                         return self.textSelectWarm5m
+        elif action == "10m":                        return self.textSelectWarm10m
+        elif action == "20m":                        return self.textSelectWarm20m
         else:
             raise SmarterErrorOld("Unknown command: (%s)" % action)
 
+    ### WE NEED  A TRIGGER CLASS BUT I AM TOO LAZY YO WRITE IT... DOUBLE CODE from here!!!
+
+    trigger65c            = 0
+    trigger80c            = 1
+    trigger95c            = 2
+    trigger100c           = 3
+    triggerTempOff        = 18
+    triggerTemperatureSelect = 16
+    triggerKeepwarmSelect = 17
+    triggerWarm5m         = 4
+    triggerWarm10m        = 5
+    triggerWarm20m        = 6
+    triggerReady          = 7
+    triggerHeating        = 8
+    triggerHeated         = 9
+    triggerOverheat       = 10
+    triggerWarmFinished   = 11
+    triggerWarm           = 12
+    triggerKettleRemoved  = 13
+    triggerBusyKettle     = 14
+    
+    
+    triggersKettle = {
+        triggerTempOff              : ["TempOff","SWITCH Temperature off"],
+        trigger65c                  : ["65c","SWITCH "+text65c],
+        trigger80c                  : ["80c","SWITCH "+text80c],
+        trigger95c                  : ["95c","SWITCH "+text95c],
+        trigger100c                 : ["100c","SWITCH "+text100c],
+        triggerWarm5m               : ["5m","SWITCH"],
+        triggerWarm10m              : ["10m","SWITCH"],
+        triggerWarm20m              : ["20m","SWITCH"],
+        triggerHeating              : ["Heating","SWITCH"],
+        triggerHeated               : ["HeatingDone","SWITCH"],
+        triggerOverheat             : ["Overheated","SWITCH"],
+        triggerWarmFinished         : ["KeepwarmDone","SWITCH"],
+        triggerWarm                 : ["Keepwarm","SWITCH"],
+        triggerKettleRemoved        : ["Onbase","SWITCH"],
+        triggerBusyKettle           : ["Busy","SWITCH"],
+        triggerTemperatureSelect    : ["TemperatureSelect","TEXT"],
+        triggerKeepwarmSelect       : ["KeepwarmSelect","TEXT"]
+    }
+
+
+    def triggerID(self,trigger):
+        for i in self.triggersKettle.keys():
+            if trigger.upper() == self.triggersKettle[i][0].upper():
+                return i
+        raise SmarterErrorOld("Trigger does not exists")
+
+
+    def triggerName(self,trigger):
+        if trigger in self.triggersKettle:
+            return self.triggersKettle[trigger][0].upper()
+        raise SmarterErrorOld("Trigger does not exists")
+
+    def triggerDescription(self,trigger):
+        if trigger in self.triggersKettle:
+            return self.triggersKettle[trigger][1]
+        raise SmarterErrorOld("Trigger does not exists")
+
+
+    triggerBooleans = [("ON","OFF"),("On","Off"),("on","off"),("1","0"),("TRUE","FALSE"),("True","False"),("true","false"),("ENABLED","DISABLED"),("Enabled,Disabled"),("enabled","disabled")]
+    
+    
+    def triggerCheckBooleans(self,boolean):
+        try:
+            self.string_to_bool(boolean)
+        except:
+            SmarterErrorOld("Trigger switch type not recognized")
+        for i in self.triggerBooleans:
+            if i[0] == boolean or i[1] == boolean:
+                return i
+
+    def print_triggers(self):
+        print
+        print "Trigger actions"
+        print
+        print "Legacy iKettle Trigger".rjust(25, ' ') + " Sensor Description"
+        print "______________________".rjust(25, ' ') + "___________________"
+        for i in self.triggersKettle:
+            print self.triggersKettle[i][0].upper().rjust(25, ' ') + " " + self.triggersKettle[i][1]
+        print
+
+
+    def print_states(self):
+        print
+        print "Switch types for trigger actions"
+        print
+        for i in self.triggerBooleans:
+            print i[0] + ": (" + i[0] + "," + i[1] + ")"
+        print
 
 
 #------------------------------------------------------
