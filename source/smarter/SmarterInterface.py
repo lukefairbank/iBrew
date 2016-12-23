@@ -775,9 +775,6 @@ class SmarterInterfaceLegacy():
 
     @_threadsafe_function
     def __write_triggers(self):
-    
-        self.print_groups()
-        self.print_triggers()
         
         if self.dump:
             logging.debug("Write Triggers: [" + self.host + ":" + str(self.port) + "]" )
@@ -816,10 +813,11 @@ class SmarterInterfaceLegacy():
                 config.set(section+"."+i, "Switch", str(self.triggersGroups[self.__findGroup(i)][2][0]))
             except Exception:
                 pass # logging.warning("Error reading triggers " + str(e))
-
-            for j in Smarter.triggersKettle:
+         
+            for j in SmarterLegacy.triggersKettle:
                 try:
-                    config.set(section+"."+i, Smarter.triggerName(j),self.triggerGet(i,Smarter.triggerName(j)))
+                    print self.triggerGet(i,SmarterLegacy.triggerName(j))
+                    config.set(section+"."+i, SmarterLegacy.triggerName(j),self.triggerGet(i,SmarterLegacy.triggerName(j)))
                 except Exception, e:
                     pass # logging.warning("Error reading triggers " + str(e))
             
@@ -885,11 +883,11 @@ class SmarterInterfaceLegacy():
                     pass # logging.warning("Error reading triggers " + str(e))
                 
                 if not self.isTriggersGroup(i):
-                    self.triggersGroups += [[i,Smarter.string_to_bool(a),Smarter.triggerCheckBooleans(s)]]
+                    self.triggersGroups += [[i,SmarterLegacy.string_to_bool(a),SmarterLegacy.triggerCheckBooleans(s)]]
              
-                for j in Smarter.triggersKettle:
+                for j in SmarterLegacy.triggersKettle:
                     try:
-                        s = config.get(section+"."+i, Smarter.triggerName(j))
+                        s = config.get(section+"."+i, SmarterLegacy.triggerName(j))
                         if s != "":
                             self.triggersKettle[j] = [(i,s)]
                     except Exception:
@@ -912,8 +910,8 @@ class SmarterInterfaceLegacy():
     def triggerGroupDelete(self,group):
         if self.dump:
             logging.debug("Deleting trigger group: " + group )
-        for k in Smarter.triggersKettle:
-            self.__triggerDelete(group,Smarter.triggersKettle[k][0])
+        for k in SmarterLegacy.triggersKettle:
+            self.__triggerDelete(group,SmarterLegacy.triggersKettle[k][0])
         
         for i in range(0,len(self.triggersGroups)):
             if group == self.triggersGroups[i][0]:
@@ -925,7 +923,7 @@ class SmarterInterfaceLegacy():
     def __triggerDelete(self,group,trigger):
         if self.dump:
             logging.debug("Deleting trigger " + trigger.upper() + " from group: " + group )
-        id = Smarter.triggerID(trigger.upper())
+        id = SmarterLegacy.triggerID(trigger.upper())
         if self.isTriggersGroup(group):
             if id in self.triggersKettle:
                 if len(self.triggersKettle[id]) != 0:
@@ -944,7 +942,7 @@ class SmarterInterfaceLegacy():
 
     
     def triggerGet(self,group,trigger):
-        id = Smarter.triggerID(trigger)
+        id = SmarterLegacy.triggerID(trigger)
         if id in self.triggersKettle:
             if self.triggersKettle[id] is not None:
                 for i in self.triggersKettle[id]:
@@ -953,12 +951,12 @@ class SmarterInterfaceLegacy():
 
 
     def __triggerHeartBeats(self):
-        for j in Smarter.triggersKettle:
+        for j in SmarterLegacy.triggersKettle:
             self.__triggerHeartBeat(j)
 
 
     def eventStringRaw(self,trigger):
-        return self.__triggerStringRaw(Smarter.triggerID(trigger))
+        return self.__triggerStringRaw(SmarterLegacy.triggerID(trigger))
 
 
     def __triggerStringRaw(self,triggerID):
@@ -991,8 +989,8 @@ class SmarterInterfaceLegacy():
     
     
     def triggerSet(self,group,trigger,action):
-        id = Smarter.triggerID(trigger.upper())
-        if id in Smarter.triggersKettle:
+        id = SmarterLegacy.triggerID(trigger.upper())
+        if id in SmarterLegacy.triggersKettle:
             if len(self.triggersKettle[id]) != 0:
                 for i in range(0,len(self.triggersKettle[id])):
                     if self.triggersKettle[id][i][0] == group:
@@ -1040,8 +1038,8 @@ class SmarterInterfaceLegacy():
     
     def boolsGroup(self,group,bools):
         if self.isTriggersGroup(group):
-            print "Trigger group " + group + " setting switch type " + "/".join(Smarter.triggerCheckBooleans(bools))
-            self.getGroup(group)[2] = Smarter.triggerCheckBooleans(bools)
+            print "Trigger group " + group + " setting switch type " + "/".join(SmarterLegacy.triggerCheckBooleans(bools))
+            self.getGroup(group)[2] = SmarterLegacy.triggerCheckBooleans(bools)
             self.__write_triggers()
             return
         raise SmarterErrorOld("Trigger group not found")
@@ -1082,6 +1080,27 @@ class SmarterInterfaceLegacy():
         raise SmarterErrorOld("Trigger action group not found")
 
 
+    def print_trigger(self,group):
+        print
+        print
+        print "Triggers"
+        print
+        if not self.isTriggersGroup(group):
+            print "No Triggers for [" + self.host + ":" + str(self.port) + "]"
+            print
+            return
+        
+        j = self.getGroup(group)
+        print "Triggers " + j[0]
+        print "_".rjust(25, "_")
+        for i in SmarterLegacy.triggersKettle:
+            s = self.triggerGet(j[0],SmarterLegacy.triggersKettle[i][0].upper())
+            if s != "":
+                print SmarterLegacy.triggersKettle[i][0].rjust(25,' ') + " " + s
+        print
+        print
+
+
     def print_triggers(self):
         print
         print
@@ -1094,10 +1113,10 @@ class SmarterInterfaceLegacy():
         for j in self.triggersGroups:
             print "Triggers " + j[0]
             print "_".rjust(25, "_")
-            for i in Smarter.triggersKettle:
-                s = self.triggerGet(j[0],Smarter.triggersKettle[i][0].upper())
+            for i in SmarterLegacy.triggersKettle:
+                s = self.triggerGet(j[0],SmarterLegacy.triggersKettle[i][0].upper())
                 if s != "":
-                    print Smarter.triggersKettle[i][0].rjust(25,' ') + " " + s
+                    print SmarterLegacy.triggersKettle[i][0].rjust(25,' ') + " " + s
             print
             print
         
@@ -1107,7 +1126,7 @@ class SmarterInterfaceLegacy():
         for i in self.triggersGroups:
             if i[1]:
                 
-                s = self.triggerGet(i[0],Smarter.triggerName(triggerID))
+                s = self.triggerGet(i[0],SmarterLegacy.triggerName(triggerID))
                 if s != "":
                     n = new
                     if type(new) == type(True):
@@ -1127,7 +1146,7 @@ class SmarterInterfaceLegacy():
                             print r
                     
                     if self.dump and self.dump_status:
-                        logging.debug("Trigger: " + Smarter.triggersKettle[triggerID][0] + " - old:" + str(old) + " new:" + str(new) + " " + i[0] + " " + s)
+                        logging.debug("Trigger: " + SmarterLegacy.triggersKettle[triggerID][0] + " - old:" + str(old) + " new:" + str(new) + " " + i[0] + " " + s)
 
 
     #------------------------------------------------------
@@ -3630,9 +3649,6 @@ class SmarterInterface:
 
     @_threadsafe_function
     def __write_triggers(self):
-    
-        self.print_groups()
-        self.print_triggers()
         
         if self.dump:
             logging.debug("Write Triggers: [" + self.host + ":" + str(self.port) + "]" )
@@ -4078,7 +4094,31 @@ class SmarterInterface:
                 return
         raise SmarterErrorOld("Trigger action group not found")
 
-
+    def print_trigger(self,group):
+        print
+        print
+        print "Triggers"
+        print
+        if not self.isTriggersGroup(group):
+            print "No Triggers for [" + self.host + ":" + str(self.port) + "]"
+            print
+            return
+        
+        j = self.getGroup(group)
+        print "Triggers " + j[0]
+        print "_".rjust(25, "_")
+        for i in Smarter.triggersKettle:
+            s = self.triggerGet(j[0],Smarter.triggersKettle[i][0].upper())
+            if s != "":
+                print Smarter.triggersKettle[i][0].rjust(25,' ') + " " + s
+        for i in Smarter.triggersCoffee:
+            s = self.triggerGet(j[0],Smarter.triggersCoffee[i][0].upper())
+            if s != "":
+                print Smarter.triggersCoffee[i][0].rjust(25,' ') + " " + s
+        print
+        print
+    
+    
     def print_triggers(self):
         print
         print
