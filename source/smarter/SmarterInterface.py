@@ -855,8 +855,9 @@ class SmarterInterfaceLegacy():
         if self.dump:
             logging.debug("Read Triggers: [" + self.host + ":" + str(self.port) + "]" )
         section = self.host + "." + str(self.port) + ".triggers"
-
+        
         self.__initTriggers()
+        
         config = SafeConfigParser()
         if not os.path.exists(self.settingsPath):
             os.makedirs(self.settingsPath)
@@ -870,7 +871,10 @@ class SmarterInterfaceLegacy():
         try:
             g = config.get(section, "groups").split(",")
 
+
             for i in g:
+                a = ""
+                s = ""
                 try:
                     a = config.get(section+"."+i, "Active")
                     s = config.get(section+"."+i, "Switch")
@@ -3794,9 +3798,9 @@ class SmarterInterface:
         #else:
         #    return
 
+
         self.__initTriggers()
 
-  
         config = SafeConfigParser()
 
         if not os.path.exists(self.settingsPath):
@@ -3812,18 +3816,20 @@ class SmarterInterface:
 
         try:
             g = config.get(section, "groups").split(",")
-
             for i in g:
-        
+                
+                a = ""
+                s = ""
                 try:
                     a = config.get(section+"."+i, "Active")
                     s = config.get(section+"."+i, "Switch")
                 except:
                     pass # logging.warning("Error reading triggers " + str(e))
                 
+
                 if not self.isTriggersGroup(i):
                     self.triggersGroups += [[i,Smarter.string_to_bool(a),Smarter.triggerCheckBooleans(s)]]
-             
+                
                 for j in Smarter.triggersKettle:
                     try:
                         s = config.get(section+"."+i, Smarter.triggerName(j))
