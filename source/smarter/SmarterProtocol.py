@@ -56,10 +56,10 @@ class SmarterProtocolLegacy:
         print "".rjust(rj-1,"_")
         print ("[" + self.responseHandshake + "\\r] ").rjust(rj) + self.textHandshake
         print ("[" + self.responseStatus + "\\r] ").rjust(rj) + self.textStatus
-        print ("[" + self.status65c + "\\r] ").rjust(rj) + self.text65c
-        print ("[" + self.status80c + "\\r] ").rjust(rj) + self.text80c
-        print ("[" + self.status95c + "\\r] ").rjust(rj) + self.text95c
-        print ("[" + self.status100c + "\\r] ").rjust(rj) + self.text100c
+        print ("[" + self.status65c + "\\r] ").rjust(rj) + self.text65c + " selected"
+        print ("[" + self.status80c + "\\r] ").rjust(rj) + self.text80c + " selected"
+        print ("[" + self.status95c + "\\r] ").rjust(rj) + self.text95c + " selected"
+        print ("[" + self.status100c + "\\r] ").rjust(rj) + self.text100c + " selected"
         print ("[" + self.statusWarm5m + "\\r] ").rjust(rj) + self.textWarm5m
         print ("[" + self.statusWarm10m + "\\r] ").rjust(rj) + self.textWarm10m
         print ("[" + self.statusWarm20m + "\\r] ").rjust(rj) + self.textWarm20m
@@ -112,23 +112,25 @@ class SmarterProtocolLegacy:
 
     # Shared between status and command
     textTempOff         = "Nothing selected"
-    text100c            = "100°C selected"
-    text95c             = "95°C selected"
-    text80c             = "80°C selected"
-    text65c             = "65°C selected"
+
+    text100c            = "100°C"
+    text95c             = "95°C"
+    text80c             = "80°C"
+    text65c             = "65°C"
+
     textWarm            = "Keep water warm" # for 30 minutes???
-    textWarm5m          = "Keep water warm timer is set to 5 minutes"
-    textWarm10m         = "Keep water warm timer is set to 10 minutes"
-    textWarm20m         = "Keep water warm timer is set to 20 minutes"
+    textWarm5m          = "5 minutes"
+    textWarm10m         = "10 minutes"
+    textWarm20m         = "20 minutes"
 
     textGetStatus       = "Get status"
-    textSelect100c      = "Select 100°C"
-    textSelect95c       = "Select 95°C"
-    textSelect80c       = "Select 80°C"
-    textSelect65c       = "Select 65°C"
-    textSelectWarm5m    = "Select keep water warm timer is set to 5 minutes"
-    textSelectWarm10m   = "Select keep water warm timer is set to 10 minutes"
-    textSelectWarm20m   = "Select keep water warm timer is set to 20 minutes"
+    textSelect100c      = "Select temperature 100°C"
+    textSelect95c       = "Select temperature 95°C"
+    textSelect80c       = "Select temperature 80°C"
+    textSelect65c       = "Select temperature 65°C"
+    textSelectWarm5m    = "Select 5 minutes keep water warm"
+    textSelectWarm10m   = "Select 10 minutes keep water warm"
+    textSelectWarm20m   = "Select 20 minutes keep water warm"
 
     # Status text
     textHeating         = "Heating water"
@@ -271,7 +273,7 @@ class SmarterProtocolLegacy:
         elif action == "80c":                        return self.textSelect80c
         elif action == "95c":                        return self.textSelect95c
         elif action == "handshake":                 return self.textGetHandshake
-        elif action == "100c":                       return self.text100c
+        elif action == "100c":                       return self.textSelect100c
         elif action == "warm":                      return self.textStartWarm
         elif action == "5m":                         return self.textSelectWarm5m
         elif action == "10m":                        return self.textSelectWarm10m
@@ -298,27 +300,25 @@ class SmarterProtocolLegacy:
     triggerWarmFinished   = 11
     triggerWarm           = 12
     triggerKettleRemoved  = 13
-    triggerBusyKettle     = 14
     
     
     triggersKettle = {
-        triggerTempOff              : ["TempOff","SWITCH Temperature off"],
-        trigger65c                  : ["65c","SWITCH "+text65c],
-        trigger80c                  : ["80c","SWITCH "+text80c],
-        trigger95c                  : ["95c","SWITCH "+text95c],
-        trigger100c                 : ["100c","SWITCH "+text100c],
-        triggerWarm5m               : ["5m","SWITCH"],
-        triggerWarm10m              : ["10m","SWITCH"],
-        triggerWarm20m              : ["20m","SWITCH"],
         triggerHeating              : ["Heating","SWITCH"],
         triggerHeated               : ["HeatingDone","SWITCH"],
-        triggerOverheat             : ["Overheated","SWITCH"],
-        triggerWarmFinished         : ["KeepwarmDone","SWITCH"],
+        triggerKeepwarmSelect       : ["KeepwarmSelect","TEXT"],
         triggerWarm                 : ["Keepwarm","SWITCH"],
+        triggerWarm5m               : ["Keepwarm5m","SWITCH"],
+        triggerWarm10m              : ["Keepwarm10m","SWITCH"],
+        triggerWarm20m              : ["Keepwarm20m","SWITCH"],
+        triggerWarmFinished         : ["KeepwarmDone","SWITCH"],
         triggerKettleRemoved        : ["Onbase","SWITCH"],
-        triggerBusyKettle           : ["Busy","SWITCH"],
-        triggerTemperatureSelect    : ["TemperatureSelect","TEXT"],
-        triggerKeepwarmSelect       : ["KeepwarmSelect","TEXT"]
+        triggerOverheat             : ["Overheated","SWITCH"],
+        trigger65c                  : ["Temperature65c","SWITCH "+text65c],
+        trigger80c                  : ["Temperature80c","SWITCH "+text80c],
+        trigger95c                  : ["Temperature95c","SWITCH "+text95c],
+        trigger100c                 : ["Temperature100c","SWITCH "+text100c],
+        triggerTempOff              : ["TemperatureOff","SWITCH Temperature off"],
+        triggerTemperatureSelect    : ["TemperatureSelect","TEXT"]
     }
 
 
@@ -1970,28 +1970,24 @@ class SmarterProtocol:
     
     # format {(group,sensorid,command),...(group,sensorid,command)}
     triggersKettle = {
-        triggerKettleStatus                 : ["KettleStatus","TEXT"],
-        triggerChangeWaterSensorBase        : ["BaseChanged","TRIGGER"],
-        triggerChangeKettleDefaultSettings  : ["KettleDefaultChanged","TRIGGER"],
-    
-        # Operational sensors (boolean)
-        triggerBusyKettle                   : ["KettleBusy","SWITCH true if either heater or formula cooling"],
-        triggerKeepWarm                     : ["KeepWarm","SWITCH"],
-        triggerHeaterKettle                 : ["KettleHeater","SWITCH"],
-        triggerFormulaCooling               : ["FormulaCooling","SWITCH"],
-        triggerOnBase                       : ["OnBase","SWITCH"],
-        
-        # Data sensors
         triggerWaterSensorBase              : ["Base","NUMBER"],
-        triggerDefaultKeepWarmTime          : ["DefaultKeepWarm","NUMBER"],
-        triggerDefaultTemperature           : ["DefaultTemperature","NUMBER (0..100)"],
+        triggerChangeWaterSensorBase        : ["BaseChanged","TRIGGER"],
         triggerDefaultFormulaTemperature    : ["DefaultFormulaTemperature","NUMBER (0..100)"],
-        triggerTemperature                  : ["TemperatureRaw","NUMBER"],
-        triggerWaterSensor                  : ["WaterSensorRaw","NUMBER"],
-        triggerTemperatureStable            : ["Temperature","NUMBER"],
-        triggerWaterSensorStable            : ["WaterSensor","NUMBER"],
+        triggerDefaultKeepWarmTime          : ["DefaultKeepWarm","NUMBER"],
         triggerDefaultKeepwarmText          : ["DefaultKeepwarmText","TEXT"],
-        triggerUnknownKettle                : ["KettleUnknown","NUMBER"]
+        triggerDefaultTemperature           : ["DefaultTemperature","NUMBER (0..100)"],
+        triggerFormulaCooling               : ["FormulaCooling","SWITCH"],
+        triggerKeepWarm                     : ["KeepWarm","SWITCH"],
+        triggerBusyKettle                   : ["KettleBusy","SWITCH true if either heater or formula cooling"],
+        triggerChangeKettleDefaultSettings  : ["KettleDefaultChanged","TRIGGER"],
+        triggerHeaterKettle                 : ["KettleHeater","SWITCH"],
+        triggerKettleStatus                 : ["KettleStatus","TEXT"],
+        triggerUnknownKettle                : ["KettleUnknown","NUMBER"],
+        triggerOnBase                       : ["OnBase","SWITCH"],
+        triggerTemperatureStable            : ["Temperature","NUMBER"],
+        triggerTemperature                  : ["TemperatureRaw","NUMBER"],
+        triggerWaterSensorStable            : ["WaterSensor","NUMBER"],
+        triggerWaterSensor                  : ["WaterSensorRaw","NUMBER"]
 
     }
     
@@ -2006,32 +2002,32 @@ class SmarterProtocol:
         triggerHeaterCoffee                 : ["CoffeeHeater","SWITCH"],
 
         # Data sensors
-        triggerCarafeRequired               : ["CarafeRequired","SWITCH: if carafe is needed"],
-        triggerMode                         : ["Mode","SWITCH false is carafe mode, true is cup mode"],
-        triggerGrind                        : ["Grind","SWITCH false is filter, true if beans"],
-        triggerWaterEnough                  : ["EnoughWater","SWITCH if there is enough water"],
         triggerCarafe                       : ["Carafe","SWITCH if carafe is present"],
-        triggerWaterLevel                   : ["Waterlevel","NUMBER (0..3) representing empty .. full"],
-        triggerStrength                     : ["Strength","NUMBER (0..2) representing (weak,normal,strong)"],
-        triggerCups                         : ["Cups","NUMBER (1..12) or (1..3) in cup mode"],
-        triggerCupsBrew                     : ["CupsBrew","NUMBER"],
-        triggerUnknownCoffee                : ["CoffeeUnknown","NUMBER"],
-        triggerDefaultStrength              : ["DefaultStrength","NUMBER (0..2) representing (weak,normal,strong)"],
-        triggerDefaultCups                  : ["DefaultCups","NUMBER (1..12)"],
-        triggerDefaultGrind                 : ["DefaultGrind","SWITCH false is filter, true if beans"],
-        triggerDefaultHotplate              : ["DefaultHotplate","NUMBER 0,5-35 minutes in v21 and below or 0,5-40 minutes in v22"],
-        triggerCoffeeStatus                 : ["CoffeeStatus","TEXT"],
-        triggerDefaultStrengthText          : ["DefaultStrengthText","TEXT"],
-        triggerStrengthText                 : ["StrengthText","TEXT"],
-        triggerDefaultGrindText             : ["DefaultGrindText","TEXT"],
-        triggerGrindText                    : ["GrindText","TEXT"],
-        triggerWaterLevelText               : ["WaterlevelText","TEXT"],
+        triggerCarafeRequired               : ["CarafeRequired","SWITCH: if carafe is needed"],
         triggerChangeCoffeeDefaultSettings  : ["CoffeeDefaultChanged","TRIGGER"],
         triggerChangeCoffeeSettings         : ["CoffeeSettingsChanged","TRIGGER"],
-        triggerModeText                     : ["ModeText","TEXT"],
+        triggerCoffeeStatus                 : ["CoffeeStatus","TEXT"],
+        triggerUnknownCoffee                : ["CoffeeUnknown","NUMBER"],
+        triggerCups                         : ["Cups","NUMBER (1..12) or (1..3) in cup mode"],
         triggerCupsText                     : ["CupsText","TEXT"],
+        triggerCupsBrew                     : ["CupsBrew","NUMBER"],
+        triggerDefaultCups                  : ["DefaultCups","NUMBER (1..12)"],
+        triggerDefaultCupsText              : ["DefaultCupsText","TEXT"],
+        triggerDefaultGrind                 : ["DefaultGrind","SWITCH false is filter, true if beans"],
+        triggerDefaultGrindText             : ["DefaultGrindText","TEXT"],
+        triggerDefaultHotplate              : ["DefaultHotplate","NUMBER 0,5-35 minutes in v21 and below or 0,5-40 minutes in v22"],
         triggerDefaultHotplateText          : ["DefaultHotplateText","TEXT"],
-        triggerDefaultCupsText              : ["DefaultCupsText","TEXT"]
+        triggerDefaultStrength              : ["DefaultStrength","NUMBER (0..2) representing (weak,normal,strong)"],
+        triggerDefaultStrengthText          : ["DefaultStrengthText","TEXT"],
+        triggerWaterEnough                  : ["EnoughWater","SWITCH if there is enough water"],
+        triggerGrind                        : ["Grind","SWITCH false is filter, true if beans"],
+        triggerGrindText                    : ["GrindText","TEXT"],
+        triggerMode                         : ["Mode","SWITCH false is carafe mode, true is cup mode"],
+        triggerModeText                     : ["ModeText","TEXT"],
+        triggerStrength                     : ["Strength","NUMBER (0..2) representing (weak,normal,strong)"],
+        triggerStrengthText                 : ["StrengthText","TEXT"],
+        triggerWaterLevel                   : ["Waterlevel","NUMBER (0..3) representing empty .. full"],
+        triggerWaterLevelText               : ["WaterlevelText","TEXT"]
 
     }
 

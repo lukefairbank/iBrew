@@ -2,6 +2,12 @@
 
 iKettle, [iKettle 2.0](http://smarter.am/ikettle) and [Smarter Coffee](http://smarter.am/coffee) Interface
 
+
+> “The only way to get any smarter is to play a smarter opponent.”
+
+Comming soon the iKettle emulator and the iKettle 2.0 emulator! 
+
+
 ## Needed remote access to iKettle 1, to test new code!
 
 To test and finish: 
@@ -92,6 +98,7 @@ __For smarthome fans!__
  * HomeKit support 
  * Relay
  * Simulator
+ * HTTP push!
 
 #### Usefull links
 Check out [ikettle-brute-forcer](https://github.com/C0smos/ikettle-brute-forcer)
@@ -318,12 +325,13 @@ See the console section for the commands.
     port                   port of appliance, optional, only use if alternative port
 
 
-  iBrew iKettle Legacy Command Line
+  iBrew Legacy iKettle Command Line
   _________________________________
 
-  Usage: ibrew (dump) legacy command (host(:port))
+  Usage: ibrew (dump) (events) legacy command (host(:port))
 
     command                iKettle command, action to take!
+    events                 enable trigger events (monitor, relay)
     host                   host address of the appliance (format: ip4, ip6, fqdn)
     port                   port of appliance, optional, only use if alternative port
 
@@ -362,19 +370,21 @@ The following commands are available, note that [] are manditory arguments and (
   iKettle Commands
     heat                   start heating water
     stop                   stop heating water
-    65                     select 65°c
-    80                     select 80°c
-    95                     select 95°c
-    100                    select 100°c
+    65C                    select temperature 65°c
+    80C                    select temperature 80°c
+    95C                    select temperature 95°c
+    100C                   select temperature 100°c
     warm                   start keep water warm
-    5                      select keep water warm timer is set to 5 minutes
-    10                     select keep water warm timer is set to 10 minutes
-    20                     select keep water warm timer is set to 20 minutes
+    5m                     select 5 minutes keep water warm
+    10m                    select 10 minutes keep water warm
+    20m                    select 20 minutes keep water warm
     status                 Get status
 
     protocol               protocol information
     simulate               start kettle simulation
     relay ((ip:)port)      start relay
+    trigger                see triggers section
+    triggers               overview of legacy triggers
 
   iKettle 2.0 & Smarter Coffee Commands
     default                set default settings
