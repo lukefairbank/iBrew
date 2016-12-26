@@ -81,7 +81,7 @@ class iBrewDomoticz:
 
     # Check if hardware exists and add if not..
 
-    def __init__(self,connection="127.0.0.1:8080",name="iBrew"):
+    def __init__(self,connection="127.0.0.1:8080",name="NaNa"):
         self.domoticzurl = connection
         self.hardwarename = name
         self.write_config = False
@@ -172,16 +172,20 @@ class iBrewDomoticz:
 
 
         
-    def setup(self,client,connection,prefix="",name="iBrew"):
+    def setup(self,client,connection,prefix="",name=""):
         self.dump = client.dump
         self.prefix = prefix
         #client.dump = True
         print "iBrew: Domoticz Setup"
-        if name == "iBrew":
-            if client.isKettle: self.hardwarename == "iKettle 2.0"
-            if client.isCoffee: self.hardwarename == "Smarter Coffee"
-        self.domoticzurl = connection
         client.device_type()
+        if name == "":
+            if client.isKettle: self.hardwarename = "iKettle 2.0"
+            elif client.isCoffee: self.hardwarename = "Smarter Coffee"
+            else:
+                return "iBrew: Device not supported"
+            
+        self.domoticzurl = connection
+       
         
         print "Appliance: " + Smarter.device_info(client.deviceId,client.version) + " [" + client.host + ":" + str(client.port) + "]"
         print "Domoticz connection: [" + connection + "]"
