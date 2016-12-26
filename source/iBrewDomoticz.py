@@ -177,12 +177,11 @@ class iBrewDomoticz:
         self.prefix = prefix
         #client.dump = True
         print "iBrew: Domoticz Setup"
-        self.domoticzurl = connection
-        self.hardwarename = name
-        client.device_type()
         if name == "iBrew":
             if client.isKettle: self.hardwarename == "iKettle 2.0"
-            if client.isKettle: self.hardwarename == "Smarter Coffee"
+            if client.isCoffee: self.hardwarename == "Smarter Coffee"
+        self.domoticzurl = connection
+        client.device_type()
         
         print "Appliance: " + Smarter.device_info(client.deviceId,client.version) + " [" + client.host + ":" + str(client.port) + "]"
         print "Domoticz connection: [" + connection + "]"
