@@ -176,7 +176,28 @@ Alpha!
 
 ## Guides
 
+
+
 ### [Domoticz](http://www.domoticz.com/)
+
+
+Setting up iBrew for domoticz is very simple!
+ 
+```
+ibrew domoticz user:password@127.0.0.1:8080 10.0.0.99
+```
+
+or
+
+```
+ibrew domoticz 192.168.0.30:8080 10.0.0.98
+```
+
+See ibrew commands for help!
+Below is the old refernce guide to do it manually.
+
+#### Manually
+
 [iBrew Forum Thread](http://domoticz.com/forum/viewtopic.php?f=56&t=12985)
 
 Lets set up a kettle temperature sensor and a on base sensor!
@@ -285,40 +306,6 @@ __Text based triggers__
 
 Make sure you change the switch state type for the sensor group of domoticz (Domoticz), you can leave the user variable group (DomoticzUser) as it is!
  
-```
-sudo ibrew trigger Domoticz switch On 10.0.0.99
-```
-
-#### iKettle 2.0 example 
-
-These are the example commands to add triggers which update Domoticz. Assuming linux and running as a service (else drop the sudo): Use your own sensors idx's & iKettle 2.0 host, Domoticz host, login & password :-)
-
-__Sensors__
-```
-sudo ibrew trigger add Domoticz TEMPERATURE "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=149&nvalue=0&svalue=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz WATERSENSOR "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=198&nvalue=0&svalue=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz KETTLEBUSY "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=199&switchcmd=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz KEEPWARM "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=202&switchcmd=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz KETTLEHEATER "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=201&switchcmd=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz FORMULACOOLING "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=200&switchcmd=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz ONBASE "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=150&switchcmd=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz KETTLESTATUS "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=205&nvalue=0&svalue=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz KETTLEDEFAULTCHANGED "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=222&switchcmd=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz BASECHANGED "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=225&nvalue=0&svalue=§N" 10.0.0.99
-```
-
-__User Variables__
-```
-sudo ibrew trigger add DomoticzUser BASE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Base&vtype=0&vvalue=§N" 10.0.0.99
-sudo ibrew trigger add DomoticzUser DEFAULTTEMPERATURE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Temperature&vtype=0&vvalue=§N" 10.0.0.99
-sudo ibrew trigger add DomoticzUser DEFAULTFORMULATEMPERATURE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Formula Temperature&vtype=0&vvalue=§N" 10.0.0.99
-sudo ibrew trigger add DomoticzUser DEFAULTKEEPWARM "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Keepwarm&vtype=0&vvalue=§N" 10.0.0.99
-```
-
-__Switch State Type__
-
-Very important step, do not forget!
-
 ```
 sudo ibrew trigger Domoticz switch On 10.0.0.99
 ```
