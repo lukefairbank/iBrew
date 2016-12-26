@@ -33,7 +33,7 @@ url_sensor_add = 'http://%s/json.htm?type=createvirtualsensor&idx=%s&sensorname=
 url_sensor_ren = 'http://%s/json.htm?type=command&param=renamedevice&idx=%s&name=%s'
 url_trigger_value = 'http://%s/json.htm?type=command&param=udevice&idx=%s&nvalue=0&svalue=§N'
 url_trigger_switch = 'http://%s/json.htm?type=command&param=switchlight&idx=%s&switchcmd=§N'
-#url_trigger_user = 'http://%s/json.htm?type=command&param=updateuservariable&vname=%s&vtype=0&vvalue=§N'
+url_trigger_user = 'http://%s/json.htm?type=command&param=updateuservariable&vname=%s&vtype=0&vvalue=§N'
 
 url_switch_type = 'http://%s/json.htm?type=setused&idx=%s&switchtype=%s&name=%s&description=&strparam1=&strparam2=&protected=false&customimage=%s&used=true&addjvalue=0&options='
 url_custom_type = 'http://%s/json.htm?type=setused&idx=%s&switchtype=0&name=%s&description=&customimage=%s&used=true'
@@ -183,6 +183,8 @@ class iBrewDomoticz:
             elif client.isCoffee: self.hardwarename = "Smarter Coffee"
             else:
                 return "iBrew: Device not supported"
+        else:
+            self.hardwarename = name
             
         self.domoticzurl = connection
        
@@ -236,15 +238,16 @@ class iBrewDomoticz:
             self.set_switch_type(id,'Calibration Changed',self.SwitchTypeMotion,self.CustomImageNormal)
             client.triggerAdd("Domoticz","BASECHANGED",url_trigger_switch % (self.domoticzurl,id))
             id = self.get_id('BASE','Calibration Base',self.SensorCustom,";")
+            self.set_switch_type(id,'Calibration Base',self.SwitchTypeNormal,self.CustomimageWater)
             client.triggerAdd("Domoticz","BASE",url_trigger_value % (self.domoticzurl,id))
             id = self.get_id('DEFAULTTEMPERATURE','Default Temperature',self.SensorTemperature)
             client.triggerAdd("Domoticz","DEFAULTTEMPERATURE",url_trigger_value % (self.domoticzurl,id))
             id = self.get_id('DEFAULTFORMULATEMPERATURE','Default Formula Temperature',self.SensorTemperature)
             client.triggerAdd("Domoticz","DEFAULTFORMULATEMPERATURE",url_trigger_value % (self.domoticzurl,id))
-            id = self.get_id('DEFAULTKEEPWARM','Default Keep Warm Value',self.SensorCustom,";minutes")
+            id = self.get_id('DEFAULTKEEPWARM','Default Keep Warm',self.SensorCustom,";minutes")
             client.triggerAdd("Domoticz","DEFAULTKEEPWARM",url_trigger_value % (self.domoticzurl,id))
-            id = self.get_id('DEFAULTKEEPWARMTEXT','Default Keep Warm',self.SensorCustom,";minutes")
-            client.triggerAdd("Domoticz","DEFAULTKEEPWARMTEXT",url_trigger_value % (self.domoticzurl,id))
+            #id = self.get_id('DEFAULTKEEPWARMTEXT','Default Keep Warm',self.SensorCustom,";minutes")
+            #client.triggerAdd("Domoticz","DEFAULTKEEPWARMTEXT",url_trigger_value % (self.domoticzurl,id))
 
         if client.isCoffee:
             id = self.get_id('COFFEESTATUS','Status',self.SensorText)
@@ -324,10 +327,10 @@ class iBrewDomoticz:
             client.triggerAdd("Domoticz","DEFAULTSTRENGTHTEXT",url_trigger_value % (self.domoticzurl,id))
             id = self.get_id('DEFAULTGRINDTEXT','Default Grind',self.SensorText)
             client.triggerAdd("Domoticz","DEFAULTGRINDTEXT",url_trigger_value % (self.domoticzurl,id))
-            id = self.get_id('DEFAULTHOTPLATE','Default Hotplate Time Value',self.SensorCustom,";minutes")
+            id = self.get_id('DEFAULTHOTPLATE','Default Hotplate Time',self.SensorCustom,";minutes")
             client.triggerAdd("Domoticz","DEFAULTHOTPLATE",url_trigger_value % (self.domoticzurl,id))
-            id = self.get_id('DEFAULTHOTPLATETEXT','Default Hotplate Time',self.SensorText)
-            client.triggerAdd("Domoticz","DEFAULTHOTPLATETEXT",url_trigger_value % (self.domoticzurl,id))
+            #id = self.get_id('DEFAULTHOTPLATETEXT','Default Hotplate Time',self.SensorText)
+            #client.triggerAdd("Domoticz","DEFAULTHOTPLATETEXT",url_trigger_value % (self.domoticzurl,id))
 
         #client.dump = self.dump
 

@@ -816,6 +816,10 @@ class iBrewConsole:
                                             elif numarg == 2:
                                                 Domoticz.setup(self.client,arguments[1],arguments[0])
                                             else:
+                                                print 'dsdsd'
+                                                print arguments[0]
+                                                print arguments[1]
+                                                print 'ddd'
                                                 Domoticz.setup(self.client,arguments[2],arguments[0],arguments[1])
             elif command == "triggers":     Smarter.print_triggers()
             elif command == "switches":     Smarter.print_states()
