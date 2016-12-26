@@ -857,7 +857,6 @@ class SmarterInterfaceLegacy():
         section = self.host + "." + str(self.port) + ".triggers"
         
         self.__initTriggers()
-        
         config = SafeConfigParser()
         if not os.path.exists(self.settingsPath):
             os.makedirs(self.settingsPath)
@@ -870,8 +869,6 @@ class SmarterInterfaceLegacy():
 
         try:
             g = config.get(section, "groups").split(",")
-
-
             for i in g:
                 a = False
                 s = "0"
@@ -1044,7 +1041,8 @@ class SmarterInterfaceLegacy():
 
     def stringboolsGroup(self,group,bools):
         i = self.getGroup(group)[2]
-        if bool(bools):
+
+        if str(bools) == "True":
             return i[0]
         else:
             return i[1]
@@ -1130,7 +1128,7 @@ class SmarterInterfaceLegacy():
                     o = str(old)
                     if n == "True" or n == "False":
                         n = self.stringboolsGroup(i[0],n)
-                    if o == "True" or n == "False":
+                    if o == "True" or o == "False":
                         o = self.stringboolsGroup(i[0],o)
                     
                     s = s.replace("§O",str(o)).replace("§N",str(n))
@@ -3797,13 +3795,10 @@ class SmarterInterface:
 
         self.__initTriggers()
         config = SafeConfigParser()
-
         if not os.path.exists(self.settingsPath):
             os.makedirs(self.settingsPath)
-        
         config.read(self.settingsPath+'ibrew.conf')
       
-                
         try:
             config.add_section(section)
         except DuplicateSectionError:
@@ -4058,7 +4053,7 @@ class SmarterInterface:
 
     def stringboolsGroup(self,group,bools):
         i = self.getGroup(group)[2]
-        if bool(bools):
+        if str(bools) == "True":
             return i[0]
         else:
             return i[1]
@@ -4153,7 +4148,7 @@ class SmarterInterface:
                     o = str(old)
                     if n == "True" or n == "False":
                         n = self.stringboolsGroup(i[0],n)
-                    if o == "True" or n == "False":
+                    if o == "True" or o == "False":
                         o = self.stringboolsGroup(i[0],o)
 
                     s = s.replace("§O",str(o)).replace("§N",str(n))
