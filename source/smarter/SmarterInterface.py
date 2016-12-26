@@ -905,13 +905,13 @@ class SmarterInterfaceLegacy():
             logging.debug("Trigger " + trigger.upper() + " added to group " + group + " with action " + action )
         self.__write_triggers()
 
-
+    
     def triggerGroupDelete(self,group):
         if self.dump:
             logging.debug("Deleting trigger group: " + group )
         for k in SmarterLegacy.triggersKettle:
             self.__triggerDelete(group,SmarterLegacy.triggersKettle[k][0])
-        
+
         for i in range(0,len(self.triggersGroups)):
             if group == self.triggersGroups[i][0]:
                 del self.triggersGroups[i]
@@ -982,7 +982,7 @@ class SmarterInterfaceLegacy():
     
     
     def __triggerHeartBeat(self,triggerID):
-        s = str(self.__triggerStringRaw(triggerID))
+        s = self.__triggerStringRaw(triggerID)
         self.__trigger(triggerID,s,s)
     
     
@@ -1126,11 +1126,14 @@ class SmarterInterfaceLegacy():
                 
                 s = self.triggerGet(i[0],SmarterLegacy.triggerName(triggerID))
                 if s != "":
-                    n = new
-                    if type(new) == type(True):
-                        n = self.stringboolsGroup(i[0],new)
-                
-                    s = s.replace("§O",str(old)).replace("§N",str(n))
+                    n = str(new)
+                    o = str(old)
+                    if n == "True" or n == "False":
+                        n = self.stringboolsGroup(i[0],n)
+                    if o == "True" or n == "False":
+                        o = self.stringboolsGroup(i[0],o)
+                    
+                    s = s.replace("§O",str(o)).replace("§N",str(n))
                     
                     if s[0:4] == "http":
                         try:
@@ -1144,7 +1147,7 @@ class SmarterInterfaceLegacy():
                             print r
                     
                     if self.dump and self.dump_status:
-                        logging.debug("Trigger: " + SmarterLegacy.triggersKettle[triggerID][0] + " - old:" + str(old) + " new:" + str(new) + " " + i[0] + " " + s)
+                        logging.debug("Trigger: " + SmarterLegacy.triggersKettle[triggerID][0] + " - old:" + str(o) + " new:" + str(n) + " " + i[0] + " " + s)
 
 
     #------------------------------------------------------
@@ -3647,7 +3650,6 @@ class SmarterInterface:
 
     @_threadsafe_function
     def __write_triggers(self):
-        
         if self.dump:
             logging.debug("Write Triggers: [" + self.host + ":" + str(self.port) + "]" )
         section = self.host + "." + str(self.port) + ".triggers"
@@ -3822,7 +3824,7 @@ class SmarterInterface:
                 
                 if not self.isTriggersGroup(i):
                     self.triggersGroups += [[i,Smarter.string_to_bool(a),Smarter.triggerCheckBooleans(s)]]
-                
+
                 for j in Smarter.triggersKettle:
                     try:
                         s = config.get(section+"."+i, Smarter.triggerName(j))
@@ -3984,7 +3986,7 @@ class SmarterInterface:
     
     
     def __triggerHeartBeat(self,triggerID):
-        s = str(self.__triggerStringRaw(triggerID))
+        s = self.__triggerStringRaw(triggerID)
         self.__trigger(triggerID,s,s)
     
     
@@ -4142,16 +4144,19 @@ class SmarterInterface:
         if not self.events: return
         
         for i in self.triggersGroups:
+            
             if i[1]:
                 s = self.triggerGet(i[0],Smarter.triggerName(triggerID))
                 
                 if s != "":
-                    n = new
-          
-                    if type(new) == type(True):
-                        n = self.stringboolsGroup(i[0],new)
-          
-                    s = s.replace("§O",str(old)).replace("§N",str(n))
+                    n = str(new)
+                    o = str(old)
+                    if n == "True" or n == "False":
+                        n = self.stringboolsGroup(i[0],n)
+                    if o == "True" or n == "False":
+                        o = self.stringboolsGroup(i[0],o)
+
+                    s = s.replace("§O",str(o)).replace("§N",str(n))
 
                     if s[0:4] == "http":
                         try:
@@ -4165,7 +4170,7 @@ class SmarterInterface:
                             print r
                     
                     if self.dump and self.dump_status:
-                        logging.debug("Trigger: " + Smarter.triggerName(triggerID) + " - old:" + str(old) + " new:" + str(new) + " " + i[0] + " " + s)
+                        logging.debug("Trigger: " + Smarter.triggerName(triggerID) + " - old:" + str(o) + " new:" + str(n) + " " + i[0] + " " + s)
 
     #------------------------------------------------------
     # MESSAGE RESPONSE DECODERS
