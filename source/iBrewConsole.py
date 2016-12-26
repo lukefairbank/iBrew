@@ -17,6 +17,7 @@ from smarter.SmarterProtocol import *
 from iBrewWeb import *
 from iBrewJokes import *
 from iBrewFolders import AppFolders
+from iBrewDomoticz import *
 
 import re
 import random
@@ -416,7 +417,7 @@ class iBrewConsole:
 
             # 3 times I went bug hunting forgotting the "s"
             if command == "event": command = "events"
-            if command == "events":
+            if command == "events" or "domoticz":
                 if self.console:
                     if self.client.events == False:
                         self.client.iKettle.events = True
@@ -427,15 +428,17 @@ class iBrewConsole:
                         self.client.events = False
                         print "iBrew: Trigger events disabled"
                     return
-                elif numarg != 0:
+                elif numarg != 0 and command != "domoticz":
                     self.client.events = True
+                    self.client.iKettle.events = True
                     command = arguments[0].lower()
                     arguments = arguments[1:]
                     numarg -= 1
                 else:
                     self.client.events = True
                     self.client.iKettle.events = True
-                    command = "monitor"
+                    if command != "domoticz":
+                        command = "monitor"
                     
             if command == "legacy":
                 if numarg == 0:
@@ -754,7 +757,6 @@ class iBrewConsole:
             if command == "console" or command == "connect":
                 return
 
-
             if command == "help" or command == "?":
                                             self.app_info()
                                             self.usage()
@@ -805,6 +807,14 @@ class iBrewConsole:
                                                 
                                             else:
                                                 print "iBrew: Use additional command: info, block or unblock"
+            elif command == "domoticz":
+                                            if numarg == 0:
+                                                print "iBrew: Domoticz: No connection string"
+                                                #Domoticz.setup(self.client)
+                                            elif numarg == 1:
+                                                Domoticz.setup(self.client,arguments[0])
+                                            else:
+                                                Domoticz.setup(self.client,arguments[1],arguments[0])
             elif command == "triggers":     Smarter.print_triggers()
             elif command == "switches":     Smarter.print_states()
             elif command == "trigger":
@@ -1324,6 +1334,12 @@ class iBrewConsole:
         print "    trigger [group] [bool] enabled/disable trigger group"
         print "    trigger [group] switch [bool] set group switch type"
         print
+        print "  Smarthome Controllers"
+        print "    domoticz (name) [connection] set up Domoticz hardware (name) with [connection]"
+        print "                           Connection Examples"
+        print "                           127.0.0.1:8080"
+        print "                           password:username@192.168.1.23:8080"
+        print
     
     def commands(self):
         print
@@ -1379,7 +1395,7 @@ class iBrewConsole:
         print "    rejoin                 rejoins current wireless network [not in direct mode]"
         print "    scan                   scan wireless networks"
         print
-        print "  Smarter Network Commands"
+        print "  Communication Commands"
         print "    connect (host) (rules&modifiers) connect to appliance"
         print "    block [rules]          block messages with groups or ids"
         print "    disconnect             disconnect connected appliance"

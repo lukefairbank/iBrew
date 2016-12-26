@@ -3731,7 +3731,7 @@ class SmarterInterface:
             
             # Data sensors
             Smarter.triggerWaterSensorBase              : [],
-            Smarter.triggerDefaultKeepWarmTime          : [],
+            Smarter.triggerDefaultKeepwarmTime          : [],
             Smarter.triggerDefaultTemperature           : [],
             Smarter.triggerDefaultFormulaTemperature    : [],
             Smarter.triggerTemperature                  : [],
@@ -3927,7 +3927,7 @@ class SmarterInterface:
             elif triggerID == Smarter.triggerBusyKettle:                   return self.busy
             elif triggerID == Smarter.triggerDefaultTemperature:           return self.defaultTemperature
             elif triggerID == Smarter.triggerDefaultFormulaTemperature:    return self.defaultFormulaTemperature
-            elif triggerID == Smarter.triggerDefaultKeepWarmTime:          return self.defaultKeepWarmTime
+            elif triggerID == Smarter.triggerDefaultKeepwarmTime:          return self.defaultKeepWarmTime
             
             elif triggerID == Smarter.triggerWaterSensorBase:              return self.waterSensorBase
             elif triggerID == Smarter.triggerKeepWarm:                     return self.keepWarmOn
@@ -4222,7 +4222,7 @@ class SmarterInterface:
         change = False
         v = Smarter.raw_to_number(message[2])
         if v != self.defaultKeepWarmTime:
-            self.__trigger(Smarter.triggerDefaultKeepWarmTime,self.defaultKeepWarmTime,v)
+            self.__trigger(Smarter.triggerDefaultKeepwarmTime,self.defaultKeepWarmTime,v)
             self.__trigger(Smarter.triggerDefaultKeepwarmText,Smarter.keepwarm_to_string(self.defaultKeepWarmTime),Smarter.keepwarm_to_string(v))
             self.defaultKeepWarmTime = v
             change = True
@@ -4817,11 +4817,15 @@ class SmarterInterface:
 
 
 
+    def device_type(self):
+        if not self.isKettle and not self.isCoffee:
+            self.__read()
+    
+
     def __device_check(self):
         if not self.isKettle and not self.isCoffee:
             self.fast = False
             self.device_info()
-
 
 
     def device_store_settings(self,v1,v2,v3,v4):
@@ -5807,8 +5811,9 @@ class SmarterInterface:
         print s + Smarter.string_kettle_status(self.onBase,self.kettleStatus,self.temperature,self.waterSensor)
 
 
+    
     def print_short_status(self):
-        self.__read()
+        self.device_type()
         if self.isKettle:
             self.print_short_kettle_status()
         elif self.isCoffee:
