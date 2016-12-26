@@ -1018,7 +1018,7 @@ class SmarterInterfaceLegacy():
     def enableGroup(self,group):
         if self.isTriggersGroup(group):
             print "Trigger group enabled " + group
-            self.getGroup(group)[1] = True
+            self.triggersGroups[self.__findGroup(group)][1] = True
             self.__write_triggers()
             return
         raise SmarterErrorOld("Trigger group not found")
@@ -1027,7 +1027,7 @@ class SmarterInterfaceLegacy():
     def disableGroup(self,group):
         if self.isTriggersGroup(group):
             print "Trigger group disabled " + group
-            self.getGroup(group)[1] = False
+            self.triggersGroups[self.__findGroup(group)][1] = False
             self.__write_triggers()
             return
         raise SmarterErrorOld("Trigger group not found")
@@ -1037,7 +1037,7 @@ class SmarterInterfaceLegacy():
     def boolsGroup(self,group,bools):
         if self.isTriggersGroup(group):
             print "Trigger group " + group + " setting switch type " + "/".join(SmarterLegacy.triggerCheckBooleans(bools))
-            self.getGroup(group)[2] = SmarterLegacy.triggerCheckBooleans(bools)
+            self.triggersGroups[self.__findGroup(group)][2] = SmarterLegacy.triggerCheckBooleans(bools)
             self.__write_triggers()
             return
         raise SmarterErrorOld("Trigger group not found")
@@ -4030,7 +4030,7 @@ class SmarterInterface:
     def enableGroup(self,group):
         if self.isTriggersGroup(group):
             print "Trigger group enabled " + group
-            self.getGroup(group)[1] = True
+            self.triggersGroups[self.__findGroup(group)][1] = True
             self.__write_triggers()
             return
         raise SmarterErrorOld("Trigger group not found")
@@ -4039,7 +4039,7 @@ class SmarterInterface:
     def disableGroup(self,group):
         if self.isTriggersGroup(group):
             print "Trigger group disabled " + group
-            self.getGroup(group)[1] = False
+            self.triggersGroups[self.__findGroup(group)][1] = False
             self.__write_triggers()
             return
         raise SmarterErrorOld("Trigger group not found")
@@ -4049,7 +4049,7 @@ class SmarterInterface:
     def boolsGroup(self,group,bools):
         if self.isTriggersGroup(group):
             print "Trigger group " + group + " setting switch type " + "/".join(Smarter.triggerCheckBooleans(bools))
-            self.getGroup(group)[2] = Smarter.triggerCheckBooleans(bools)
+            self.triggersGroups[self.__findGroup(group)][2] = Smarter.triggerCheckBooleans(bools)
             self.__write_triggers()
             return
         raise SmarterErrorOld("Trigger group not found")
