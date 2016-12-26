@@ -181,8 +181,8 @@ class iBrewDomoticz:
         self.hardwarename = name
         client.device_type()
         if name == "iBrew":
-            if client.isKettle: name == "iKettle 2.0"
-            if client.isKettle: name == "Smarter Coffee"
+            if client.isKettle: self.hardwarename == "iKettle 2.0"
+            if client.isKettle: self.hardwarename == "Smarter Coffee"
         
         print "Appliance: " + Smarter.device_info(client.deviceId,client.version) + " [" + client.host + ":" + str(client.port) + "]"
         print "Domoticz connection: [" + connection + "]"
