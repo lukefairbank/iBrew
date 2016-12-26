@@ -308,6 +308,18 @@ Adding user variables
 
 ![vars](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/domoticz/variables.png)
 
+for numbers
+
+```
+sudo ibrew trigger add DomoticzUser DEFAULTTEMPERATURE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Temperature&vtype=0&vvalue=§N" 10.0.0.99
+```
+
+or for text
+
+```
+sudo ibrew trigger add DomoticzUser KETTLESTATUS "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Status&vtype=2&vvalue=§N" 10.0.0.98
+```
+
 ####  Domoticz Technical Stuff
 
 [Domoticz JSON API](https://www.domoticz.com/wiki/Domoticz_API/JSON_URL's)
