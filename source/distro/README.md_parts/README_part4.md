@@ -193,6 +193,8 @@ or
 ibrew domoticz 192.168.0.30:8080 10.0.0.98
 ```
 
+Where you fill in your own Domoticz connection string.
+
 See ibrew commands for help!
 Below is the old refernce guide to do it manually.
 
@@ -232,7 +234,7 @@ Use the _idx_ of the sensor to add a trigger
 ibrew trigger add Domoticz Temperature "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=149&nvalue=0&svalue=§N" 10.0.0.99
 ```
 
-Now we also add an on base motion sensor 
+Now we also add an off base motion sensor 
 
 ![switch](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/domoticz/switch.png)
 
@@ -253,7 +255,7 @@ Look up the idx in `Setup -> Devices`
 Use the _idx_ of the sensor to add a trigger
 
 ```
-ibrew trigger add Domoticz OnBase "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=99&switchcmd=§N" 10.0.0.99
+ibrew trigger add Domoticz OffBase "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=99&switchcmd=§N" 10.0.0.99
 ```
 
 We need to set up the right switch state type, domoticz uses the format _On_ or _Off_

@@ -812,11 +812,11 @@ class iBrewConsole:
                                                 print "iBrew: Domoticz: No connection string"
                                                 #Domoticz.setup(self.client)
                                             elif numarg == 1:
-                                                Domoticz.setup(self.client,"",arguments[0])
+                                                Domoticz.setup(self.client,arguments[0],"")
                                             elif numarg == 2:
                                                 Domoticz.setup(self.client,arguments[1],arguments[0])
                                             else:
-                                                Domoticz.setup(self.client,arguments[1],arguments[2],arguments[0])
+                                                Domoticz.setup(self.client,arguments[2],arguments[0],arguments[1])
             elif command == "triggers":     Smarter.print_triggers()
             elif command == "switches":     Smarter.print_states()
             elif command == "trigger":
