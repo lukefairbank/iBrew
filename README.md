@@ -7,7 +7,6 @@ iKettle, [iKettle 2.0](http://smarter.am/ikettle) and [Smarter Coffee](http://sm
 
 Comming soon the iKettle emulator and the iKettle 2.0 emulator! 
 
-
 ## Needed remote access to iKettle 1, to test new code!
 
 To test and finish: 
@@ -31,6 +30,8 @@ Contact <tristan@monkeycat.nl>!
 ## Hot! News
 
 Now! macOS & windows apps! With nice icon in the taskbar! :-)
+
+__Domoticz__ Automatic Sensor Setup!
 
 __Trigger! You can now push your data or run commands!__
 It is now possible to push sensor values and states of the appliances to other smarthome controllers using HTTP or run commands!
