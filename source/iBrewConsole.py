@@ -1342,7 +1342,7 @@ class iBrewConsole:
         print
         print "                           Connection Examples"
         print "                           127.0.0.1:8080"
-        print "                           password:username@192.168.1.23:8080"
+        print "                           username:password@192.168.1.23:8080"
         print
     
     def commands(self):

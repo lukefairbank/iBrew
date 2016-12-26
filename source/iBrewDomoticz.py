@@ -187,7 +187,7 @@ class iBrewDomoticz:
         self.domoticzurl = connection
        
         
-        print "Appliance: " + Smarter.device_info(client.deviceId,client.version) + " [" + client.host + ":" + str(client.port) + "]"
+        print "Appliance: " + Smarter.device_to_string(client.deviceId) + " [" + client.host + ":" + str(client.port) + "]"
         print "Domoticz connection: [" + connection + "]"
         if self.check_hardware():
             print "Domoticz hardware: " + self.hardwarename + " [" + str(self.hardwareid) + "]"
