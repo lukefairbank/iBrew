@@ -778,7 +778,7 @@ or
 ibrew domoticz 192.168.0.30:8080 10.0.0.98
 ```
 
-Below is the old refernce guide to do it manually.
+Below is the guide to do it manually!
 
 #### Manually
 
