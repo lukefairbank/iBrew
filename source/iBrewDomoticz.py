@@ -156,7 +156,7 @@ class iBrewDomoticz:
         return rid
 
     def set_switch_type(self,idx,name,switchType,switchImage):
-        n = ""
+        n = name
         if self.prefix != "":
             n = self.prefix + " " + name
         url = url_switch_type % (self.domoticzurl,idx,str(switchType),n.replace(' ', '%20'),str(switchImage))
@@ -164,7 +164,7 @@ class iBrewDomoticz:
 
 
     def set_custom_type(self,idx,name,switchImage):
-        n = ""
+        n = name
         if self.prefix != "":
             n = self.prefix + " " + name
         url = url_custom_type % (self.domoticzurl,idx,n.replace(' ', '%20'),str(switchType))

@@ -1044,7 +1044,7 @@ class SmarterInterfaceLegacy():
 
     def stringboolsGroup(self,group,bools):
         i = self.getGroup(group)[2]
-        if bools:
+        if bool(bools):
             return i[0]
         else:
             return i[1]
@@ -4058,7 +4058,7 @@ class SmarterInterface:
 
     def stringboolsGroup(self,group,bools):
         i = self.getGroup(group)[2]
-        if bools:
+        if bool(bools):
             return i[0]
         else:
             return i[1]
