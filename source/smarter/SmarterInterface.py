@@ -3763,6 +3763,7 @@ class SmarterInterface:
             Smarter.triggerCups                         : [],
             Smarter.triggerCupsBrew                     : [],
             Smarter.triggerUnknownCoffee                : [],
+            Smarter.triggerCupsBrewText                 : [],
             Smarter.triggerDefaultStrength              : [],
             Smarter.triggerDefaultCups                  : [],
             Smarter.triggerDefaultGrind                 : [],
@@ -3957,6 +3958,7 @@ class SmarterInterface:
             elif triggerID == Smarter.triggerCups:                         return self.cups
             elif triggerID == Smarter.triggerCupsText:                     return Smarter.cups_to_string(self.cups)
             elif triggerID == Smarter.triggerCupsBrew:                     return self.cupsBrew
+            elif triggerID == Smarter.triggerCupsBrewText:                 return Smarter.cups_to_string(self.cupsBrew)
             elif triggerID == Smarter.triggerUnknownCoffee:                return self.unknown
             elif triggerID == Smarter.triggerCarafe:                       return self.carafe
             elif triggerID == Smarter.triggerGrinder:                      return self.grinderOn
@@ -4467,7 +4469,9 @@ class SmarterInterface:
 
         v = Smarter.raw_to_cups_brew(message[5])
         if v != self.cupsBrew:
+            self.__trigger(Smarter.triggerCupsBrew,Smarter.cups_to_string(self.cupsBrew),Smarter.cups_to_string(v))
             self.__trigger(Smarter.triggerCupsBrew,self.cupsBrew,v)
+            
             self.cupsBrew = v
 
         v = Smarter.raw_to_number(message[3])

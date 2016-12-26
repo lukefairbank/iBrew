@@ -1544,7 +1544,7 @@ class SmarterProtocol:
 
     def cups_to_string(self,cups):
         if cups == 1:
-            return "a cup"
+            return "1 cup"
         else:
             return str(cups) + " cups"
 
@@ -1963,6 +1963,7 @@ class SmarterProtocol:
     triggerCupsText                     = 51
     triggerDefaultHotplateText          = 52
     triggerDefaultCupsText              = 53
+    triggerCupsBrewText                 = 54
 
     # Maybe add these...
     #triggerChangeKettleDefaultSettingsText  = 2
@@ -2013,6 +2014,7 @@ class SmarterProtocol:
         triggerUnknownCoffee                : ["CoffeeUnknown","NUMBER"],
         triggerCups                         : ["Cups","NUMBER (1..12) or (1..3) in cup mode"],
         triggerCupsText                     : ["CupsText","TEXT"],
+        triggerCupsBrewText                 : ["CupsBrewText","TEXT"],
         triggerCupsBrew                     : ["CupsBrew","NUMBER"],
         triggerDefaultCups                  : ["DefaultCups","NUMBER (1..12)"],
         triggerDefaultCupsText              : ["DefaultCupsText","TEXT"],
