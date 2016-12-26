@@ -896,7 +896,7 @@ class SmarterInterfaceLegacy():
 
     def triggerAdd(self,group,trigger,action):
         if not self.isTriggersGroup(group):
-            self.triggersGroups += [[group,True,"1"]]
+            self.triggersGroups += [[group,True,["1","0"]]]
         self.triggerSet(group,trigger.upper(),action)
         if self.dump:
             logging.debug("Trigger " + trigger.upper() + " added to group " + group + " with action " + action )
@@ -3648,6 +3648,7 @@ class SmarterInterface:
 
     @_threadsafe_function
     def __write_triggers(self):
+
         if self.dump:
             logging.debug("Write Triggers: [" + self.host + ":" + str(self.port) + "]" )
         section = self.host + "." + str(self.port) + ".triggers"
@@ -3844,7 +3845,7 @@ class SmarterInterface:
 
     def triggerAdd(self,group,trigger,action):
         if not self.isTriggersGroup(group):
-            self.triggersGroups += [[group,True,"1"]]
+            self.triggersGroups += [[group,True,["1","0"]]]
         self.triggerSet(group,trigger.upper(),action)
         if self.dump:
             logging.debug("Trigger " + trigger.upper() + " added to group " + group + " with action " + action )

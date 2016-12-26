@@ -208,6 +208,7 @@ class iBrewDomoticz:
         if client.isKettle:
             id = self.get_id('TEMPERATURE','Temperature',self.SensorTemperature)
             client.triggerAdd("Domoticz","TEMPERATURE",url_trigger_value % (self.domoticzurl,id))
+            client.boolsGroup("Domoticz","On")
             id = self.get_id('WATERSENSOR','Water Level',self.SensorCustom,";")
             self.set_switch_type(id,'Water Level',self.SwitchTypeNormal,self.CustomimageWater)
             client.triggerAdd("Domoticz","WATERSENSOR",url_trigger_value % (self.domoticzurl,id))
@@ -246,6 +247,9 @@ class iBrewDomoticz:
             client.triggerAdd("Domoticz","DEFAULTKEEPWARMTEXT",url_trigger_value % (self.domoticzurl,id))
 
         if client.isCoffee:
+            id = self.get_id('COFFEESTATUS','Status',self.SensorText)
+            client.triggerAdd("Domoticz","COFFEESTATUS",url_trigger_value % (self.domoticzurl,id))
+            client.boolsGroup("Domoticz","On")
             id = self.get_id('CARAFE','Carafe',self.SensorSwitch)
             self.set_switch_type(id,'Carafe',self.SwitchTypeMotion,self.CustomImageNormal)
             client.triggerAdd("Domoticz","CARAFE",url_trigger_switch % (self.domoticzurl,id))
@@ -289,8 +293,6 @@ class iBrewDomoticz:
             self.set_switch_type(id,'Mode Value',self.SwitchTypeMotion,self.CustomImageNormal)
             client.triggerAdd("Domoticz","MODE",url_trigger_switch % (self.domoticzurl,id))
 
-            id = self.get_id('COFFEESTATUS','Status',self.SensorText)
-            client.triggerAdd("Domoticz","COFFEESTATUS",url_trigger_value % (self.domoticzurl,id))
             id = self.get_id('WATERLEVELTEXT','Water Level',self.SensorText)
             client.triggerAdd("Domoticz","WATERLEVELTEXT",url_trigger_value % (self.domoticzurl,id))
             id = self.get_id('MODETEXT','Mode',self.SensorText)
@@ -327,7 +329,6 @@ class iBrewDomoticz:
             id = self.get_id('DEFAULTHOTPLATETEXT','Default Hotplate Time',self.SensorText)
             client.triggerAdd("Domoticz","DEFAULTHOTPLATETEXT",url_trigger_value % (self.domoticzurl,id))
 
-        client.boolsGroup("Domoticz","On")
         #client.dump = self.dump
 
 
