@@ -20,6 +20,11 @@ So if you have an original iKettle filled up with water! And some time to spare!
 
 Contact <tristan@monkeycat.nl>!
 
+## Needed with html code
+Were talking about CSS for tablet, phones and displays... *ugh*. 
+
+Contact <tristan@monkeycat.nl>!
+
 
 ## Downloads
   * [Windows x86](https://dl.dropboxusercontent.com/u/12474226/32/iBrew.exe)
