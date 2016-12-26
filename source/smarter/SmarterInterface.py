@@ -1033,7 +1033,7 @@ class SmarterInterfaceLegacy():
         raise SmarterErrorOld("Trigger group not found")
 
      
-    
+    # Should split...
     def boolsGroup(self,group,bools):
         if self.isTriggersGroup(group):
             print "Trigger group " + group + " setting switch type " + "/".join(SmarterLegacy.triggerCheckBooleans(bools))
@@ -3727,7 +3727,7 @@ class SmarterInterface:
             Smarter.triggerKeepWarm                     : [],
             Smarter.triggerHeaterKettle                 : [],
             Smarter.triggerFormulaCooling               : [],
-            Smarter.triggerOnBase                       : [],
+            Smarter.triggerOffBase                      : [],
             
             # Data sensors
             Smarter.triggerWaterSensorBase              : [],
@@ -3935,7 +3935,7 @@ class SmarterInterface:
             elif triggerID == Smarter.triggerFormulaCooling:               return self.formulaCoolingOn
             elif triggerID == Smarter.triggerTemperature:                  return self.temperature
             elif triggerID == Smarter.triggerWaterSensor:                  return self.waterSensor
-            elif triggerID == Smarter.triggerOnBase:                       return self.onBase
+            elif triggerID == Smarter.triggerOffBase:                      return not self.onBase
             elif triggerID == Smarter.triggerUnknownKettle:                return self.unknown
 
             # Coffee
@@ -4393,7 +4393,7 @@ class SmarterInterface:
                 self.countKettleRemoved += 1
             if self.emulate:
                     self.iKettle.emu_trigger_onbase(v)
-            self.__trigger(Smarter.triggerOnBase,self.onBase,v)
+            self.__trigger(Smarter.triggerOffBase,not self.onBase,not v)
             self.onBase = v
             
         v = Smarter.raw_to_number(message[5])

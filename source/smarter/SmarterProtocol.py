@@ -314,7 +314,7 @@ class SmarterProtocolLegacy:
         triggerWarm10m              : ["Keepwarm10m","SWITCH"],
         triggerWarm20m              : ["Keepwarm20m","SWITCH"],
         triggerWarmFinished         : ["KeepwarmDone","SWITCH"],
-        triggerKettleRemoved        : ["Onbase","SWITCH"],
+        triggerKettleRemoved        : ["Offbase","SWITCH"],
         triggerOverheat             : ["Overheated","SWITCH"],
         trigger65c                  : ["Temperature65c","SWITCH "+text65c],
         trigger80c                  : ["Temperature80c","SWITCH "+text80c],
@@ -1926,7 +1926,7 @@ class SmarterProtocol:
     triggerFormulaCooling               = 16
     triggerTemperature                  = 17
     triggerWaterSensor                  = 18
-    triggerOnBase                       = 19
+    triggerOffBase                      = 19
     triggerUnknownKettle                = 20
 
     # Coffee
@@ -1986,7 +1986,7 @@ class SmarterProtocol:
         triggerHeaterKettle                 : ["KettleHeater","SWITCH"],
         triggerKettleStatus                 : ["KettleStatus","TEXT"],
         triggerUnknownKettle                : ["KettleUnknown","NUMBER"],
-        triggerOnBase                       : ["OnBase","SWITCH"],
+        triggerOffBase                      : ["OffBase","SWITCH"],
         triggerTemperatureStable            : ["Temperature","NUMBER"],
         triggerTemperature                  : ["TemperatureRaw","NUMBER"],
         triggerWaterSensorStable            : ["WaterSensor","NUMBER"],

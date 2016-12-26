@@ -417,7 +417,7 @@ class iBrewConsole:
 
             # 3 times I went bug hunting forgotting the "s"
             if command == "event": command = "events"
-            if command == "events" or "domoticz":
+            if command == "events" or command == "domoticz":
                 if self.console:
                     if self.client.events == False:
                         self.client.iKettle.events = True
@@ -812,9 +812,11 @@ class iBrewConsole:
                                                 print "iBrew: Domoticz: No connection string"
                                                 #Domoticz.setup(self.client)
                                             elif numarg == 1:
-                                                Domoticz.setup(self.client,arguments[0])
-                                            else:
+                                                Domoticz.setup(self.client,"",arguments[0])
+                                            elif numarg == 2:
                                                 Domoticz.setup(self.client,arguments[1],arguments[0])
+                                            else:
+                                                Domoticz.setup(self.client,arguments[1],arguments[2],arguments[0])
             elif command == "triggers":     Smarter.print_triggers()
             elif command == "switches":     Smarter.print_states()
             elif command == "trigger":
@@ -1335,7 +1337,9 @@ class iBrewConsole:
         print "    trigger [group] switch [bool] set group switch type"
         print
         print "  Smarthome Controllers"
-        print "    domoticz (name) [connection] set up Domoticz hardware (name) with [connection]"
+        print "    domoticz (prefix (name)) [connection] set up Domoticz hardware (name) with [connection]"
+        print "                           and sensors using (prefix)"
+        print
         print "                           Connection Examples"
         print "                           127.0.0.1:8080"
         print "                           password:username@192.168.1.23:8080"
