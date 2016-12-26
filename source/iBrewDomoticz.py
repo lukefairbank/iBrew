@@ -180,6 +180,10 @@ class iBrewDomoticz:
         self.domoticzurl = connection
         self.hardwarename = name
         client.device_type()
+        if name == "iBrew":
+            if client.isKettle: name == "iKettle 2.0"
+            if client.isKettle: name == "Smarter Coffee"
+        
         print "Appliance: " + Smarter.device_info(client.deviceId,client.version) + " [" + client.host + ":" + str(client.port) + "]"
         print "Domoticz connection: [" + connection + "]"
         if self.check_hardware():
@@ -199,7 +203,7 @@ class iBrewDomoticz:
 
             
         if client.isKettle:
-            if self.prefix == "":   self.prefix = "iKettle 2.0"
+            #if self.prefix == "":   self.prefix = "iKettle 2.0"
             id = self.get_id('TEMPERATURE','Temperature',self.SensorTemperature)
             client.triggerAdd("Domoticz","TEMPERATURE",url_trigger_value % (self.domoticzurl,id))
             id = self.get_id('WATERSENSOR','Water Level',self.SensorCustom,";")
@@ -240,7 +244,7 @@ class iBrewDomoticz:
             client.triggerAdd("Domoticz","DEFAULTKEEPWARMTEXT",url_trigger_value % (self.domoticzurl,id))
 
         if client.isCoffee:
-            if self.prefix == "":   self.prefix = "Smarter Coffee"
+            #if self.prefix == "":   self.prefix = "Smarter Coffee"
             client.triggerAdd("Domoticz","CARAFE",url_trigger_switch % (self.domoticzurl,id))
             client.triggerAdd("Domoticz","READY",url_trigger_switch % (self.domoticzurl,id))
             client.triggerAdd("Domoticz","WORKING",url_trigger_switch % (self.domoticzurl,id))
