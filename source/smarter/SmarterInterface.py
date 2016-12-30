@@ -116,7 +116,8 @@ class SmarterInterfaceLegacy():
         
         self.simulation         = False
         self.emulation          = False
-        self.bridge             = False
+        self.passthrough        = False
+        self.iKettle2           = None
         
         self.relay              = False
         self.relayHost         = ''
@@ -183,28 +184,40 @@ class SmarterInterfaceLegacy():
     def normal(self):
         self.relay_stop()
         self.emulation = False
+        self.passthrough = False
         self.simulation = False
-    
+        self.iKettle = None
     
     def simulate(self):
-        self.simulation = True
         self.relay_stop()
         self.disconnect()
-        self.setHost("simulation")
+        self.simulation = True
+        self.passthrough = False
+        self.emulation = False
+#        self.setHost("simulation")
         self.relay_start()
+        self.iKettle = None
 
-
-    def bridge(self,iKettle2,host="",port=SmarterLegacy.Port):
-        ##self.relay_stop()
-        ##self.disconnect()
+    def passthrough(self,iKettle2=None):
+        self.relay_stop()
+        self.passthrough = True
+        self.emulation = False
+        self.simulation = False
+        self.iKettle2 = iKettle2
         self.connect()
+        # do stuff to ikettle 2
+    
+    def emulation(self,iKettle2=None):
+        self.relay_stop()
+        self.disconnect()
         self.emulation = True
         self.simulation = False
+        self.passthrough = False
         self.iKettle2 = iKettle2
         self.emuOnBase = iKettle2.onBase
         self.emuHeaterOn = iKettle2.heaterOn
         self.emuKeepwarmOn = iKettle2.keepWarmOn
-        #self.relay_start(host,port)
+        self.relay_start()
     
     
     #------------------------------------------------------
@@ -263,8 +276,8 @@ class SmarterInterfaceLegacy():
             raise SmarterErrorOld("No kettle found at " + self.host + ":" +  str(self.port))
         self.connected = True
         
-        """
-        if False: #not self.fast:
+        
+        if not self.fast:
             try:
                 self.monitor = threading.Thread(target=self.__monitor_device)
                 self.monitor.start()
@@ -274,7 +287,7 @@ class SmarterInterfaceLegacy():
                 loggins.debug(e)
                 logging.error("[" + self.host + "] Could not start monitor")
                 raise SmarterError(0,"Could not start monitor")
-        """
+
 
 
 
@@ -302,14 +315,13 @@ class SmarterInterfaceLegacy():
         return data[:-1]
 
 
-
     def send(self,command):
         if self.emulation:
-            response = self.emu_response(command)
+            response = self.emu_responses(command)
             for data in response:
                 self.__decode_response(data)
         elif self.simulation:
-            response = self.sim_response(command)
+            response = self.sim_responses(command)
  
             for data in response:
                 self.__decode_response(data)
@@ -475,14 +487,15 @@ class SmarterInterfaceLegacy():
 
 
     #------------------------------------------------------
-    # EMULATION: iKettle
+    # EMULATION: RELAY PASSTHROUGH: iKettle
     #------------------------------------------------------
-    # From iKettle 2.0
+    # To iKettle 2.0 from emulate iKettle
 
 
-    def emu_passthrough(self,command):
+    # FIX send to ikettle 2
+    def emu_bridge(self,command):
         if self.dump:
-            logging.debug("[" + self.host + ":" + str(self.port) + "] Passthrough command: " + SmarterLegacy.command_to_string(command))
+            logging.debug("[" + self.host + ":" + str(self.port) + "] passthrough command: " + SmarterLegacy.command_to_string(command))
         if command == SmarterLegacy.commandStop:
             self.iKettle2.kettle_stop()
         elif command == SmarterLegacy.commandHeat:
@@ -521,10 +534,17 @@ class SmarterInterfaceLegacy():
             if command == SmarterLegacy.commandWarm10m:     self.emuKeepwarm = SmarterLegacy.statusWarm10m
             if command == SmarterLegacy.commandWarm20m:     self.emuKeepwarm = SmarterLegacy.statusWarm20m
         else:
-            raise SmarterErrorOld("Legacy passthrough of command " + command + " not implemented")
-        return self.emu_response(command)
+            raise SmarterErrorOld("Legacy emulation of command " + command + " not implemented")
+        return self.emu_responses(command)
     
-    def emu_response(self,command):
+
+    #------------------------------------------------------
+    # EMULATION BRIGE: iKettle
+    #------------------------------------------------------
+    # From iKettle 2.0 to emulate iKettle
+    
+    
+    def emu_responses(self,command):
         if self.dump:
             logging.debug("[" + self.host + ":" + str(self.port) + "] Emulating command: " + SmarterLegacy.command_to_string(command))
 
@@ -601,18 +621,26 @@ class SmarterInterfaceLegacy():
 
     def emu_trigger_stop(self):
         if self.dump:
-            logging.debug("[" + self.host + ":" + str(self.port) + "] Emulation trigger command stop ")
+            logging.debug("[" + self.host + ":" + str(self.port) + "] Emulation trigger command stop")
         self.emuKeepwarmFinished = False
         self.emuHeatingFinished = True
         self.emuKeepwarmOn = False
         self.emuOverheated = False
 
+    def emu_trigger_start(self,temperature):
+        self.emu_trigger_temperature(temperature)
+        if self.dump:
+            logging.debug("[" + self.host + ":" + str(self.port) + "] Emulation trigger command start")
+        self.emuKeepwarmFinished = False
+        self.emuHeatingFinished = False
+        self.emuKeepwarmOn = False
+        self.emuOverheated = False
 
     #------------------------------------------------------
     # SIMULATION: iKettle
     #------------------------------------------------------
 
-    def sim_response(self,command):
+    def sim_responses(self,command):
         if self.dump:
             logging.debug("[" + self.host + ":" + str(self.port) + "] Simulating command: " + SmarterLegacy.command_to_string(command))
 
@@ -707,9 +735,9 @@ class SmarterInterfaceLegacy():
             self.__clients[(clientsock, addr)].acquire()
 
             if self.simulation:
-                responses = self.sim_response(command)
-            if self.emulation:
-                responses = self.emu_passthrough(command)
+                responses = self.sim_responses(command)
+            elif self.emulation:
+                responses = self.emu_bridge(command)
             else:
                 try:
                     responses = self.send(command)
@@ -5120,10 +5148,8 @@ class SmarterInterface:
             t = temperature
 
         if self.fast or self.isKettle:
-            #if self.virtual:
-            #    self.iKettle.heat_temp(t)
             if self.emulate:
-                self.iKettle.emu_trigger_temperature(t)
+                self.iKettle.emu_start(t)
             self.__send_command(Smarter.CommandHeat,Smarter.temperature_to_raw(t)+Smarter.keepwarm_to_raw(kw))
         else:
             raise SmarterError(KettleNoMachineHeat,"You need a kettle to heat it")
@@ -5201,9 +5227,7 @@ class SmarterInterface:
         """
         if self.fast or self.isKettle:
             if self.emulate:
-                self.iKettle.emu_trigger_temperature(self.defaultTemperature)
-            #if self.virtual:
-            #    self.iKettle.heat_temp(self.defaultTemperature)
+                self.iKettle.emu_start(self.defaultTemperature)
             self.__send_command(Smarter.CommandHeatDefault)
         else:
             raise SmarterError(KettleNoMachineHeat,"You need a kettle to heat it")
@@ -5229,9 +5253,7 @@ class SmarterInterface:
         
         if self.fast or self.isKettle:
             if self.emulate:
-                self.iKettle.emu_trigger_temperature(t)
-            #if self.virtual:
-            #    self.iKettle.heat_temp(t)
+                self.iKettle.emu_start(t)
             self.__send_command(Smarter.CommandHeatFormula,Smarter.temperature_to_raw(t)+Smarter.keepwarm_to_raw(kw))
         else:
             raise SmarterError(KettleNoMachineHeatFormula,"You need a kettle to heat in formula mode")
@@ -5245,8 +5267,6 @@ class SmarterInterface:
         if self.fast or self.isKettle:
             if self.emulate:
                 self.iKettle.emu_trigger_stop()
-            #if self.virtual:
-            #    self.iKettle.stop()
             self.__send_command(Smarter.CommandKettleStop)
         else:
             raise SmarterError(KettleNoMachineStop,"You need a kettle to stop heating")
