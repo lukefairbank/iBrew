@@ -7,7 +7,6 @@ iKettle, [iKettle 2.0](http://smarter.am/ikettle) and [Smarter Coffee](http://sm
 
 Comming soon the iKettle emulator and the iKettle 2.0 emulator! 
 
-
 ## Needed remote access to iKettle 1, to test new code!
 
 To test and finish: 
@@ -21,6 +20,11 @@ So if you have an original iKettle filled up with water! And some time to spare!
 
 Contact <tristan@monkeycat.nl>!
 
+## Needed help with Website layout! CSS!
+Were talking about CSS for tablet, phones and displays... *ugh*. 
+
+Contact <tristan@monkeycat.nl>!
+
 
 ## Downloads
   * [Windows x86](https://dl.dropboxusercontent.com/u/12474226/32/iBrew.exe)
@@ -31,6 +35,8 @@ Contact <tristan@monkeycat.nl>!
 ## Hot! News
 
 Now! macOS & windows apps! With nice icon in the taskbar! :-)
+
+__Domoticz__ Automatic Sensor Setup!
 
 __Trigger! You can now push your data or run commands!__
 It is now possible to push sensor values and states of the appliances to other smarthome controllers using HTTP or run commands!
@@ -120,11 +126,13 @@ Since the console it nearly done, protocol almost fully mapped out. It is time t
 
 If you have jokes on coffee, tea, hot chocolade, coffee machines or kettles, please post in the issues!
 
-### Other stuff 
+## Other Nice Smarthome stuff!!
 
-[iSamsungTV](https://github.com/Tristan79/iSamsungTV) the command line interface to Samsung TV series C, D, E, F and Blue Ray Disc Players with Smart Hub feature.
+ * [iSamsungTV](https://github.com/Tristan79/iSamsungTV) the command line interface to Samsung TV series C, D, E, F and Blue Ray Disc Players with Smart Hub feature.
+ * [Medisana Scale](https://github.com/keptenkurk/BS440) Domoticz bridge (easily adaptible) to Medisana BS440, BS430,... weight scales.
+ * [Xiaomi Mi Plant Sensor](https://github.com/open-homeautomation/miflora) with Domoticz [bridge](http://domoticz.com/forum/viewtopic.php?f=56&t=13306&hilit=mi+flora&start=20#p105255) (easily adaptible) 
+ * [Vento](https://github.com/Tristan79/Vento)  The itho, duco, orcon, zehnder, storkair: arduino [mysensors 2.0](https://www.mysensors.org) controller!!!
 
- 
 ## Installing
 
 ### Source
@@ -157,8 +165,9 @@ Go into the source folder and use `make setupwin` to setup, use `make win` to cr
 ### MacOS
   * [MacOS](https://dl.dropboxusercontent.com/u/12474226/64/iBrew.dmg)
 
+By default, make sure that you give access in system preferences, security & privacy! The app is NOT signed and will NOT run until you give permission.
 
-Once you start the app from the MacOS package (drag it to your application folder first) it will auto link iBrew in your terminal.
+Once you start the app from the MacOS package (drag it to your application folder first) it will auto link iBrew in your terminal (due to a bug, this only works if you have brew installed, please run `sudo ln -s /Applications/iBrew.app/Contents/MacOS/iBrewConsole /usr/local/bin/ibrew`).
 Open a terminal and run ```ibrew``` and you're all set, good to go!
 
 _it creates a soft symlink to /usr/local/bin/ibrew,... :-)_

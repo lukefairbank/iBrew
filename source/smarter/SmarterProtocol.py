@@ -78,10 +78,13 @@ class SmarterProtocolLegacy:
         print
         print "Send HELLOKETTLE\\n receive HELLOAPP\\r"
         print
-        print
         print "You might receive other HELLOAPP commands at later points as other apps on the network connect to the kettle."
         print
         print "If the kettle stops warming or heating the buttons go off"
+        print
+        print "Telnet on port 23 containts the esp8266 AT protocol, you can leave/join wireless network there."
+        print "Password on the telnet, connection set when using the iOS app is 6 digits. You can brute force that."
+        print
     
     Port       = 2000
     DirectHost = "192.168.4.1"
@@ -311,7 +314,7 @@ class SmarterProtocolLegacy:
         triggerWarm10m              : ["Keepwarm10m","SWITCH"],
         triggerWarm20m              : ["Keepwarm20m","SWITCH"],
         triggerWarmFinished         : ["KeepwarmDone","SWITCH"],
-        triggerKettleRemoved        : ["Onbase","SWITCH"],
+        triggerKettleRemoved        : ["Offbase","SWITCH"],
         triggerOverheat             : ["Overheated","SWITCH"],
         trigger65c                  : ["Temperature65c","SWITCH "+text65c],
         trigger80c                  : ["Temperature80c","SWITCH "+text80c],
@@ -1541,7 +1544,7 @@ class SmarterProtocol:
 
     def cups_to_string(self,cups):
         if cups == 1:
-            return "a cup"
+            return "1 cup"
         else:
             return str(cups) + " cups"
 
@@ -1916,14 +1919,14 @@ class SmarterProtocol:
     triggerBusyKettle                   = 9
     triggerDefaultTemperature           = 10
     triggerDefaultFormulaTemperature    = 11
-    triggerDefaultKeepWarmTime          = 12
+    triggerDefaultKeepwarmTime          = 12
     triggerWaterSensorBase              = 13
     triggerKeepWarm                     = 14
     triggerHeaterKettle                 = 15
     triggerFormulaCooling               = 16
     triggerTemperature                  = 17
     triggerWaterSensor                  = 18
-    triggerOnBase                       = 19
+    triggerOffBase                      = 19
     triggerUnknownKettle                = 20
 
     # Coffee
@@ -1960,6 +1963,7 @@ class SmarterProtocol:
     triggerCupsText                     = 51
     triggerDefaultHotplateText          = 52
     triggerDefaultCupsText              = 53
+    triggerCupsBrewText                 = 54
 
     # Maybe add these...
     #triggerChangeKettleDefaultSettingsText  = 2
@@ -1973,7 +1977,7 @@ class SmarterProtocol:
         triggerWaterSensorBase              : ["Base","NUMBER"],
         triggerChangeWaterSensorBase        : ["BaseChanged","TRIGGER"],
         triggerDefaultFormulaTemperature    : ["DefaultFormulaTemperature","NUMBER (0..100)"],
-        triggerDefaultKeepWarmTime          : ["DefaultKeepWarm","NUMBER"],
+        triggerDefaultKeepwarmTime          : ["DefaultKeepWarm","NUMBER"],
         triggerDefaultKeepwarmText          : ["DefaultKeepwarmText","TEXT"],
         triggerDefaultTemperature           : ["DefaultTemperature","NUMBER (0..100)"],
         triggerFormulaCooling               : ["FormulaCooling","SWITCH"],
@@ -1983,7 +1987,7 @@ class SmarterProtocol:
         triggerHeaterKettle                 : ["KettleHeater","SWITCH"],
         triggerKettleStatus                 : ["KettleStatus","TEXT"],
         triggerUnknownKettle                : ["KettleUnknown","NUMBER"],
-        triggerOnBase                       : ["OnBase","SWITCH"],
+        triggerOffBase                      : ["OffBase","SWITCH"],
         triggerTemperatureStable            : ["Temperature","NUMBER"],
         triggerTemperature                  : ["TemperatureRaw","NUMBER"],
         triggerWaterSensorStable            : ["WaterSensor","NUMBER"],
@@ -2010,6 +2014,7 @@ class SmarterProtocol:
         triggerUnknownCoffee                : ["CoffeeUnknown","NUMBER"],
         triggerCups                         : ["Cups","NUMBER (1..12) or (1..3) in cup mode"],
         triggerCupsText                     : ["CupsText","TEXT"],
+        triggerCupsBrewText                 : ["CupsBrewText","TEXT"],
         triggerCupsBrew                     : ["CupsBrew","NUMBER"],
         triggerDefaultCups                  : ["DefaultCups","NUMBER (1..12)"],
         triggerDefaultCupsText              : ["DefaultCupsText","TEXT"],

@@ -855,7 +855,7 @@ class SmarterInterfaceLegacy():
         if self.dump:
             logging.debug("Read Triggers: [" + self.host + ":" + str(self.port) + "]" )
         section = self.host + "." + str(self.port) + ".triggers"
-
+        
         self.__initTriggers()
         config = SafeConfigParser()
         if not os.path.exists(self.settingsPath):
@@ -869,8 +869,9 @@ class SmarterInterfaceLegacy():
 
         try:
             g = config.get(section, "groups").split(",")
-
             for i in g:
+                a = False
+                s = "0"
                 try:
                     a = config.get(section+"."+i, "Active")
                     s = config.get(section+"."+i, "Switch")
@@ -895,19 +896,19 @@ class SmarterInterfaceLegacy():
 
     def triggerAdd(self,group,trigger,action):
         if not self.isTriggersGroup(group):
-            self.triggersGroups += [(group,True,"1")]
+            self.triggersGroups += [[group,True,["1","0"]]]
         self.triggerSet(group,trigger.upper(),action)
         if self.dump:
             logging.debug("Trigger " + trigger.upper() + " added to group " + group + " with action " + action )
         self.__write_triggers()
 
-
+    
     def triggerGroupDelete(self,group):
         if self.dump:
             logging.debug("Deleting trigger group: " + group )
         for k in SmarterLegacy.triggersKettle:
             self.__triggerDelete(group,SmarterLegacy.triggersKettle[k][0])
-        
+
         for i in range(0,len(self.triggersGroups)):
             if group == self.triggersGroups[i][0]:
                 del self.triggersGroups[i]
@@ -978,7 +979,7 @@ class SmarterInterfaceLegacy():
     
     
     def __triggerHeartBeat(self,triggerID):
-        s = str(self.__triggerStringRaw(triggerID))
+        s = self.__triggerStringRaw(triggerID)
         self.__trigger(triggerID,s,s)
     
     
@@ -1014,7 +1015,7 @@ class SmarterInterfaceLegacy():
     def enableGroup(self,group):
         if self.isTriggersGroup(group):
             print "Trigger group enabled " + group
-            self.getGroup(group)[1] = True
+            self.triggersGroups[self.__findGroup(group)][1] = True
             self.__write_triggers()
             return
         raise SmarterErrorOld("Trigger group not found")
@@ -1023,24 +1024,25 @@ class SmarterInterfaceLegacy():
     def disableGroup(self,group):
         if self.isTriggersGroup(group):
             print "Trigger group disabled " + group
-            self.getGroup(group)[1] = False
+            self.triggersGroups[self.__findGroup(group)][1] = False
             self.__write_triggers()
             return
         raise SmarterErrorOld("Trigger group not found")
 
      
-    
+    # Should split...
     def boolsGroup(self,group,bools):
         if self.isTriggersGroup(group):
             print "Trigger group " + group + " setting switch type " + "/".join(SmarterLegacy.triggerCheckBooleans(bools))
-            self.getGroup(group)[2] = SmarterLegacy.triggerCheckBooleans(bools)
+            self.triggersGroups[self.__findGroup(group)][2] = SmarterLegacy.triggerCheckBooleans(bools)
             self.__write_triggers()
             return
         raise SmarterErrorOld("Trigger group not found")
 
     def stringboolsGroup(self,group,bools):
         i = self.getGroup(group)[2]
-        if bools:
+
+        if str(bools) == "True":
             return i[0]
         else:
             return i[1]
@@ -1122,11 +1124,14 @@ class SmarterInterfaceLegacy():
                 
                 s = self.triggerGet(i[0],SmarterLegacy.triggerName(triggerID))
                 if s != "":
-                    n = new
-                    if type(new) == type(True):
-                        n = self.stringboolsGroup(i[0],new)
-                
-                    s = s.replace("§O",str(old)).replace("§N",str(n))
+                    n = str(new)
+                    o = str(old)
+                    if n == "True" or n == "False":
+                        n = self.stringboolsGroup(i[0],n)
+                    if o == "True" or o == "False":
+                        o = self.stringboolsGroup(i[0],o)
+                    
+                    s = s.replace("§O",str(o)).replace("§N",str(n))
                     
                     if s[0:4] == "http":
                         try:
@@ -1140,7 +1145,7 @@ class SmarterInterfaceLegacy():
                             print r
                     
                     if self.dump and self.dump_status:
-                        logging.debug("Trigger: " + SmarterLegacy.triggersKettle[triggerID][0] + " - old:" + str(old) + " new:" + str(new) + " " + i[0] + " " + s)
+                        logging.debug("Trigger: " + SmarterLegacy.triggersKettle[triggerID][0] + " - old:" + str(o) + " new:" + str(n) + " " + i[0] + " " + s)
 
 
     #------------------------------------------------------
@@ -1243,7 +1248,7 @@ class SmarterInterface:
         self.waterSensorBase            = 974
         
         self.waterSensor                = 2010
-        self.waterSensorStable          = 2010
+        self.waterSensorStable          = 2010 - self.waterSensorBase
 
         # status
         self.kettleStatus               = Smarter.KettleReady
@@ -1845,7 +1850,7 @@ class SmarterInterface:
         previousTemperature = self.temperature
         previousAverage = self.temperature
         
-        self.waterSensorStable  = self.waterSensor
+        self.waterSensorStable  = self.waterSensor - self.waterSensorBase
         self.temperatureStable  = self.temperature
         
         monitorCount = 0
@@ -1948,9 +1953,9 @@ class SmarterInterface:
 
 
                 if previousWaterSensor - 3 > self.waterSensor or previousWaterSensor + 3 < self.waterSensor:
-                    if self.waterSensorStable != self.waterSensor:
-                        self.__trigger(Smarter.triggerWaterSensorStable,self.waterSensorStable,self.waterSensor)
-                        self.waterSensorStable = self.waterSensor
+                    if self.waterSensorStable != self.waterSensor - self.waterSensorBase:
+                        self.__trigger(Smarter.triggerWaterSensorStable,self.waterSensorStable,self.waterSensor - self.waterSensorBase)
+                        self.waterSensorStable = self.waterSensor - self.waterSensorBase
             
                     previousWaterSensor = self.waterSensor
                 
@@ -2221,7 +2226,7 @@ class SmarterInterface:
             print "[" + self.host +  ":" + '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now()) + "] Connecting appliance"
         self.__init()
         self.__write_stats()
-        
+
         if self.host == "":
             self.setHost(Smarter.DirectHost)
         
@@ -3643,7 +3648,7 @@ class SmarterInterface:
 
     @_threadsafe_function
     def __write_triggers(self):
-        
+
         if self.dump:
             logging.debug("Write Triggers: [" + self.host + ":" + str(self.port) + "]" )
         section = self.host + "." + str(self.port) + ".triggers"
@@ -3723,11 +3728,11 @@ class SmarterInterface:
             Smarter.triggerKeepWarm                     : [],
             Smarter.triggerHeaterKettle                 : [],
             Smarter.triggerFormulaCooling               : [],
-            Smarter.triggerOnBase                       : [],
+            Smarter.triggerOffBase                      : [],
             
             # Data sensors
             Smarter.triggerWaterSensorBase              : [],
-            Smarter.triggerDefaultKeepWarmTime          : [],
+            Smarter.triggerDefaultKeepwarmTime          : [],
             Smarter.triggerDefaultTemperature           : [],
             Smarter.triggerDefaultFormulaTemperature    : [],
             Smarter.triggerTemperature                  : [],
@@ -3759,6 +3764,7 @@ class SmarterInterface:
             Smarter.triggerCups                         : [],
             Smarter.triggerCupsBrew                     : [],
             Smarter.triggerUnknownCoffee                : [],
+            Smarter.triggerCupsBrewText                 : [],
             Smarter.triggerDefaultStrength              : [],
             Smarter.triggerDefaultCups                  : [],
             Smarter.triggerDefaultGrind                 : [],
@@ -3787,24 +3793,13 @@ class SmarterInterface:
         if self.dump:
             logging.debug("Read Triggers: [" + self.host + ":" + str(self.port) + "]" )
         section = self.host + "." + str(self.port) + ".triggers"
-        #if self.isKettle:
-        #    section += ".kettle"
-        #elif self.isCoffee:
-        #    section += ".coffee"
-        #else:
-        #    return
 
         self.__initTriggers()
-
-  
         config = SafeConfigParser()
-
         if not os.path.exists(self.settingsPath):
             os.makedirs(self.settingsPath)
-        
         config.read(self.settingsPath+'ibrew.conf')
       
-                
         try:
             config.add_section(section)
         except DuplicateSectionError:
@@ -3812,9 +3807,11 @@ class SmarterInterface:
 
         try:
             g = config.get(section, "groups").split(",")
-
             for i in g:
-        
+            
+                a = False
+                s = "0"
+                
                 try:
                     a = config.get(section+"."+i, "Active")
                     s = config.get(section+"."+i, "Switch")
@@ -3823,7 +3820,7 @@ class SmarterInterface:
                 
                 if not self.isTriggersGroup(i):
                     self.triggersGroups += [[i,Smarter.string_to_bool(a),Smarter.triggerCheckBooleans(s)]]
-             
+
                 for j in Smarter.triggersKettle:
                     try:
                         s = config.get(section+"."+i, Smarter.triggerName(j))
@@ -3831,23 +3828,24 @@ class SmarterInterface:
                             self.triggersKettle[j] = [(i,s)]
                     except Exception:
                         pass # logging.warning("Error reading triggers " + str(e))
-                
+            
                 for j in Smarter.triggersCoffee:
                     try:
                         s = config.get(section+"."+i, Smarter.triggerName(j))
                         if s != "":
                             self.triggersCoffee[j] = [(i,s)]
-                    except Exception:
+                    except Exception, e:
                         pass # logging.warning("Error reading triggers " + str(e))
 
         except Exception, e:
+            #print str(e)
             pass #logging.warning("Error reading triggers " + str(e))
 
 
 
     def triggerAdd(self,group,trigger,action):
         if not self.isTriggersGroup(group):
-            self.triggersGroups += [(group,True,"1")]
+            self.triggersGroups += [[group,True,["1","0"]]]
         self.triggerSet(group,trigger.upper(),action)
         if self.dump:
             logging.debug("Trigger " + trigger.upper() + " added to group " + group + " with action " + action )
@@ -3928,7 +3926,7 @@ class SmarterInterface:
             elif triggerID == Smarter.triggerBusyKettle:                   return self.busy
             elif triggerID == Smarter.triggerDefaultTemperature:           return self.defaultTemperature
             elif triggerID == Smarter.triggerDefaultFormulaTemperature:    return self.defaultFormulaTemperature
-            elif triggerID == Smarter.triggerDefaultKeepWarmTime:          return self.defaultKeepWarmTime
+            elif triggerID == Smarter.triggerDefaultKeepwarmTime:          return self.defaultKeepWarmTime
             
             elif triggerID == Smarter.triggerWaterSensorBase:              return self.waterSensorBase
             elif triggerID == Smarter.triggerKeepWarm:                     return self.keepWarmOn
@@ -3936,7 +3934,7 @@ class SmarterInterface:
             elif triggerID == Smarter.triggerFormulaCooling:               return self.formulaCoolingOn
             elif triggerID == Smarter.triggerTemperature:                  return self.temperature
             elif triggerID == Smarter.triggerWaterSensor:                  return self.waterSensor
-            elif triggerID == Smarter.triggerOnBase:                       return self.onBase
+            elif triggerID == Smarter.triggerOffBase:                      return not self.onBase
             elif triggerID == Smarter.triggerUnknownKettle:                return self.unknown
 
             # Coffee
@@ -3958,6 +3956,7 @@ class SmarterInterface:
             elif triggerID == Smarter.triggerCups:                         return self.cups
             elif triggerID == Smarter.triggerCupsText:                     return Smarter.cups_to_string(self.cups)
             elif triggerID == Smarter.triggerCupsBrew:                     return self.cupsBrew
+            elif triggerID == Smarter.triggerCupsBrewText:                 return Smarter.cups_to_string(self.cupsBrew)
             elif triggerID == Smarter.triggerUnknownCoffee:                return self.unknown
             elif triggerID == Smarter.triggerCarafe:                       return self.carafe
             elif triggerID == Smarter.triggerGrinder:                      return self.grinderOn
@@ -3983,7 +3982,7 @@ class SmarterInterface:
     
     
     def __triggerHeartBeat(self,triggerID):
-        s = str(self.__triggerStringRaw(triggerID))
+        s = self.__triggerStringRaw(triggerID)
         self.__trigger(triggerID,s,s)
     
     
@@ -4029,7 +4028,7 @@ class SmarterInterface:
     def enableGroup(self,group):
         if self.isTriggersGroup(group):
             print "Trigger group enabled " + group
-            self.getGroup(group)[1] = True
+            self.triggersGroups[self.__findGroup(group)][1] = True
             self.__write_triggers()
             return
         raise SmarterErrorOld("Trigger group not found")
@@ -4038,7 +4037,7 @@ class SmarterInterface:
     def disableGroup(self,group):
         if self.isTriggersGroup(group):
             print "Trigger group disabled " + group
-            self.getGroup(group)[1] = False
+            self.triggersGroups[self.__findGroup(group)][1] = False
             self.__write_triggers()
             return
         raise SmarterErrorOld("Trigger group not found")
@@ -4048,14 +4047,14 @@ class SmarterInterface:
     def boolsGroup(self,group,bools):
         if self.isTriggersGroup(group):
             print "Trigger group " + group + " setting switch type " + "/".join(Smarter.triggerCheckBooleans(bools))
-            self.getGroup(group)[2] = Smarter.triggerCheckBooleans(bools)
+            self.triggersGroups[self.__findGroup(group)][2] = Smarter.triggerCheckBooleans(bools)
             self.__write_triggers()
             return
         raise SmarterErrorOld("Trigger group not found")
 
     def stringboolsGroup(self,group,bools):
         i = self.getGroup(group)[2]
-        if bools:
+        if str(bools) == "True":
             return i[0]
         else:
             return i[1]
@@ -4140,25 +4139,21 @@ class SmarterInterface:
     def __trigger(self,triggerID,old,new):
         if not self.events: return
         
-        #if self.dump and self.dump_status:
-        #    if self.isKettle:
-        #        logging.debug("Trigger: " + Smarter.triggersKettle[trigger][0] + " - old:" + str(old) + " new:" + str(new))
-                
-        #    if self.isCoffee:
-        #        logging.debug("Trigger: " + Smarter.triggersCoffee[trigger][0] + " - old:" + str(old) + " new:" + str(new))
-
-
         for i in self.triggersGroups:
+            
             if i[1]:
-                
                 s = self.triggerGet(i[0],Smarter.triggerName(triggerID))
-                if s != "":
-                    n = new
-                    if type(new) == type(True):
-                        n = self.stringboolsGroup(i[0],new)
                 
-                    s = s.replace("§O",str(old)).replace("§N",str(n))
-                    
+                if s != "":
+                    n = str(new)
+                    o = str(old)
+                    if n == "True" or n == "False":
+                        n = self.stringboolsGroup(i[0],n)
+                    if o == "True" or o == "False":
+                        o = self.stringboolsGroup(i[0],o)
+
+                    s = s.replace("§O",str(o)).replace("§N",str(n))
+
                     if s[0:4] == "http":
                         try:
                             response = urllib.urlopen(s)
@@ -4171,11 +4166,7 @@ class SmarterInterface:
                             print r
                     
                     if self.dump and self.dump_status:
-                         if self.isKettle:
-                            logging.debug("Trigger: " + Smarter.triggersKettle[triggerID][0] + " - old:" + str(old) + " new:" + str(new) + " " + i[0] + " " + s)
-                         if self.isCoffee:
-                            logging.debug("Trigger: " + Smarter.triggersCoffee[triggerID][0] + " - old:" + str(old) + " new:" + str(new) + " " + i[0] + " " + s)
-
+                        logging.debug("Trigger: " + Smarter.triggerName(triggerID) + " - old:" + str(o) + " new:" + str(n) + " " + i[0] + " " + s)
 
     #------------------------------------------------------
     # MESSAGE RESPONSE DECODERS
@@ -4234,7 +4225,7 @@ class SmarterInterface:
         change = False
         v = Smarter.raw_to_number(message[2])
         if v != self.defaultKeepWarmTime:
-            self.__trigger(Smarter.triggerDefaultKeepWarmTime,self.defaultKeepWarmTime,v)
+            self.__trigger(Smarter.triggerDefaultKeepwarmTime,self.defaultKeepWarmTime,v)
             self.__trigger(Smarter.triggerDefaultKeepwarmText,Smarter.keepwarm_to_string(self.defaultKeepWarmTime),Smarter.keepwarm_to_string(v))
             self.defaultKeepWarmTime = v
             change = True
@@ -4405,7 +4396,7 @@ class SmarterInterface:
                 self.countKettleRemoved += 1
             if self.emulate:
                     self.iKettle.emu_trigger_onbase(v)
-            self.__trigger(Smarter.triggerOnBase,self.onBase,v)
+            self.__trigger(Smarter.triggerOffBase,not self.onBase,not v)
             self.onBase = v
             
         v = Smarter.raw_to_number(message[5])
@@ -4479,7 +4470,9 @@ class SmarterInterface:
 
         v = Smarter.raw_to_cups_brew(message[5])
         if v != self.cupsBrew:
+            self.__trigger(Smarter.triggerCupsBrew,Smarter.cups_to_string(self.cupsBrew),Smarter.cups_to_string(v))
             self.__trigger(Smarter.triggerCupsBrew,self.cupsBrew,v)
+            
             self.cupsBrew = v
 
         v = Smarter.raw_to_number(message[3])
@@ -4829,11 +4822,15 @@ class SmarterInterface:
 
 
 
+    def device_type(self):
+        if not self.isKettle and not self.isCoffee:
+            self.__read()
+    
+
     def __device_check(self):
         if not self.isKettle and not self.isCoffee:
             self.fast = False
             self.device_info()
-
 
 
     def device_store_settings(self,v1,v2,v3,v4):
@@ -5819,8 +5816,9 @@ class SmarterInterface:
         print s + Smarter.string_kettle_status(self.onBase,self.kettleStatus,self.temperature,self.waterSensor)
 
 
+    
     def print_short_status(self):
-        self.__read()
+        self.device_type()
         if self.isKettle:
             self.print_short_kettle_status()
         elif self.isCoffee:

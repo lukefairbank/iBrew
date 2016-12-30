@@ -7,7 +7,6 @@ iKettle, [iKettle 2.0](http://smarter.am/ikettle) and [Smarter Coffee](http://sm
 
 Comming soon the iKettle emulator and the iKettle 2.0 emulator! 
 
-
 ## Needed remote access to iKettle 1, to test new code!
 
 To test and finish: 
@@ -21,6 +20,11 @@ So if you have an original iKettle filled up with water! And some time to spare!
 
 Contact <tristan@monkeycat.nl>!
 
+## Needed help with Website layout! CSS!
+Were talking about CSS for tablet, phones and displays... *ugh*. 
+
+Contact <tristan@monkeycat.nl>!
+
 
 ## Downloads
   * [Windows x86](https://dl.dropboxusercontent.com/u/12474226/32/iBrew.exe)
@@ -31,6 +35,8 @@ Contact <tristan@monkeycat.nl>!
 ## Hot! News
 
 Now! macOS & windows apps! With nice icon in the taskbar! :-)
+
+__Domoticz__ Automatic Sensor Setup!
 
 __Trigger! You can now push your data or run commands!__
 It is now possible to push sensor values and states of the appliances to other smarthome controllers using HTTP or run commands!
@@ -120,11 +126,13 @@ Since the console it nearly done, protocol almost fully mapped out. It is time t
 
 If you have jokes on coffee, tea, hot chocolade, coffee machines or kettles, please post in the issues!
 
-### Other stuff 
+## Other Nice Smarthome stuff!!
 
-[iSamsungTV](https://github.com/Tristan79/iSamsungTV) the command line interface to Samsung TV series C, D, E, F and Blue Ray Disc Players with Smart Hub feature.
+ * [iSamsungTV](https://github.com/Tristan79/iSamsungTV) the command line interface to Samsung TV series C, D, E, F and Blue Ray Disc Players with Smart Hub feature.
+ * [Medisana Scale](https://github.com/keptenkurk/BS440) Domoticz bridge (easily adaptible) to Medisana BS440, BS430,... weight scales.
+ * [Xiaomi Mi Plant Sensor](https://github.com/open-homeautomation/miflora) with Domoticz [bridge](http://domoticz.com/forum/viewtopic.php?f=56&t=13306&hilit=mi+flora&start=20#p105255) (easily adaptible) 
+ * [Vento](https://github.com/Tristan79/Vento)  The itho, duco, orcon, zehnder, storkair: arduino [mysensors 2.0](https://www.mysensors.org) controller!!!
 
- 
 ## Installing
 
 ### Source
@@ -157,8 +165,9 @@ Go into the source folder and use `make setupwin` to setup, use `make win` to cr
 ### MacOS
   * [MacOS](https://dl.dropboxusercontent.com/u/12474226/64/iBrew.dmg)
 
+By default, make sure that you give access in system preferences, security & privacy! The app is NOT signed and will NOT run until you give permission.
 
-Once you start the app from the MacOS package (drag it to your application folder first) it will auto link iBrew in your terminal.
+Once you start the app from the MacOS package (drag it to your application folder first) it will auto link iBrew in your terminal (due to a bug, this only works if you have brew installed, please run `sudo ln -s /Applications/iBrew.app/Contents/MacOS/iBrewConsole /usr/local/bin/ibrew`).
 Open a terminal and run ```ibrew``` and you're all set, good to go!
 
 _it creates a soft symlink to /usr/local/bin/ibrew,... :-)_
@@ -433,7 +442,7 @@ The following commands are available, note that [] are manditory arguments and (
     rejoin                 rejoins current wireless network [not in direct mode]
     scan                   scan wireless networks
 
-  Smarter Network Commands
+  Communication Commands
     connect (host) (rules&modifiers) connect to appliance
     block [rules]          block messages with groups or ids
     disconnect             disconnect connected appliance
@@ -476,6 +485,14 @@ The following commands are available, note that [] are manditory arguments and (
     trigger                show all triggers
     trigger [group] [bool] enabled/disable trigger group
     trigger [group] switch [bool] set group switch type
+
+  Smarthome Controllers
+    domoticz (prefix (name)) [connection] set up Domoticz hardware (name) with [connection]
+                           and sensors using (prefix)
+
+                           Connection Examples
+                           127.0.0.1:8080
+                           username:password@192.168.1.23:8080
 
   Actions can either be a path to a command or url
 
@@ -721,7 +738,52 @@ Alpha!
 
 ## Guides
 
+
+
 ### [Domoticz](http://www.domoticz.com/)
+
+
+Setting up iBrew for domoticz is very simple! 
+
+```
+ibrew domoticz (prefix (name)) [connection]
+```
+ 
+This command will set up all sensors in domoticz automatically.
+
+Name is the optional hardware name, and prefix is a prefix string to the sensor names. 
+Use as prefix "" to select none if you want to choose a hardware name and no prefix.
+
+Domoticz connection string format
+
+```
+<username:password@>domoticz-ip<:port>
+```
+
+where 
+
+```
+<username:password@> = the username and password to access Domoticz, this is optional.
+domoticz-ip = the IP-address or hostname of your Domoticz installation.
+<:port> = the port number of your Domoticz installation, this is optional.                           
+```
+
+examples 
+ 
+```
+ibrew domoticz user:password@127.0.0.1:8080 10.0.0.99
+```
+
+or
+
+```
+ibrew domoticz 192.168.0.30:8080 10.0.0.98
+```
+
+Below is the guide to do it manually!
+
+#### Manually
+
 [iBrew Forum Thread](http://domoticz.com/forum/viewtopic.php?f=56&t=12985)
 
 Lets set up a kettle temperature sensor and a on base sensor!
@@ -756,7 +818,7 @@ Use the _idx_ of the sensor to add a trigger
 ibrew trigger add Domoticz Temperature "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=149&nvalue=0&svalue=§N" 10.0.0.99
 ```
 
-Now we also add an on base motion sensor 
+Now we also add an off base motion sensor 
 
 ![switch](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/domoticz/switch.png)
 
@@ -777,7 +839,7 @@ Look up the idx in `Setup -> Devices`
 Use the _idx_ of the sensor to add a trigger
 
 ```
-ibrew trigger add Domoticz OnBase "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=99&switchcmd=§N" 10.0.0.99
+ibrew trigger add Domoticz OffBase "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=99&switchcmd=§N" 10.0.0.99
 ```
 
 We need to set up the right switch state type, domoticz uses the format _On_ or _Off_
@@ -808,6 +870,18 @@ Adding user variables
 
 ![vars](https://raw.githubusercontent.com/Tristan79/iBrew/master/source/distro/images/domoticz/variables.png)
 
+for numbers
+
+```
+sudo ibrew trigger add DomoticzUser DEFAULTTEMPERATURE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Temperature&vtype=0&vvalue=§N" 10.0.0.99
+```
+
+or for text
+
+```
+sudo ibrew trigger add DomoticzUser KETTLESTATUS "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Status&vtype=2&vvalue=§N" 10.0.0.98
+```
+
 ####  Domoticz Technical Stuff
 
 [Domoticz JSON API](https://www.domoticz.com/wiki/Domoticz_API/JSON_URL's)
@@ -832,89 +906,6 @@ Make sure you change the switch state type for the sensor group of domoticz (Dom
  
 ```
 sudo ibrew trigger Domoticz switch On 10.0.0.99
-```
-
-#### iKettle 2.0 example 
-
-These are the example commands to add triggers which update Domoticz. Assuming linux and running as a service (else drop the sudo): Use your own sensors idx's & iKettle 2.0 host, Domoticz host, login & password :-)
-
-__Sensors__
-```
-sudo ibrew trigger add Domoticz TEMPERATURE "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=149&nvalue=0&svalue=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz WATERSENSOR "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=198&nvalue=0&svalue=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz KETTLEBUSY "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=199&switchcmd=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz KEEPWARM "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=202&switchcmd=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz KETTLEHEATER "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=201&switchcmd=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz FORMULACOOLING "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=200&switchcmd=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz ONBASE "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=150&switchcmd=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz KETTLESTATUS "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=205&nvalue=0&svalue=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz KETTLEDEFAULTCHANGED "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=222&switchcmd=§N" 10.0.0.99
-sudo ibrew trigger add Domoticz BASECHANGED "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=225&nvalue=0&svalue=§N" 10.0.0.99
-```
-
-__User Variables__
-```
-sudo ibrew trigger add DomoticzUser BASE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Base&vtype=0&vvalue=§N" 10.0.0.99
-sudo ibrew trigger add DomoticzUser DEFAULTTEMPERATURE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Temperature&vtype=0&vvalue=§N" 10.0.0.99
-sudo ibrew trigger add DomoticzUser DEFAULTFORMULATEMPERATURE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Formula Temperature&vtype=0&vvalue=§N" 10.0.0.99
-sudo ibrew trigger add DomoticzUser DEFAULTKEEPWARM "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Kettle Default Keepwarm&vtype=0&vvalue=§N" 10.0.0.99
-```
-
-__Switch State Type__
-
-Very important step, do not forget!
-
-```
-sudo ibrew trigger Domoticz switch On 10.0.0.99
-```
-
-#### Smarter Coffee Example
-
-These are the example commands to add triggers which update Domoticz. Assuming linux and running as a service (else drop the sudo): Use your own sensors idx's & iKettle 2.0 host, Domoticz host, login & password :-)
- 
-__Sensors__
-```
-sudo ibrew trigger add Domoticz CARAFE "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=197&switchcmd=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz READY "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=211&switchcmd=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz WORKING "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=221&switchcmd=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz ENOUGHWATER "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=213&switchcmd=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz CARAFEREQUIRED "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=219&switchcmd=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz COFFEEBUSY "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=196&switchcmd=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz COFFEEHEATER "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=215&switchcmd=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz GRINDER "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=214&switchcmd=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz HOTPLATE "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=218&switchcmd=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz COFFEESTATUS "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=216&nvalue=0&svalue=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz COFFEEDEFAULTCHANGED "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=223&switchcmd=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz COFFEESETTINGSCHANGED "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=224&switchcmd=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz WATERLEVELTEXT "http://127.0.0.1:8080/json.htm?type=command&param=udevice&idx=227&nvalue=0&svalue=§N" 10.0.0.98
-sudo ibrew trigger add Domoticz MODETEXT "http://127.0.0.1:8080/json.htm?type=command&param=switchlight&idx=209&switchcmd=§N" 10.0.0.98
-
-```
-
-__User Variables__
-```
-sudo ibrew trigger add DomoticzUser GRINDTEXT "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Grind Text&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add DomoticzUser MODE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Mode&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add DomoticzUser CUPS "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Cups&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add DomoticzUser STRENGTH "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Strength&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add DomoticzUser STRENGTHTEXT "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Strength Text&vtype=2&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add DomoticzUser HOTPLATE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Hotplate&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add DomoticzUser GRIND "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Grind&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add DomoticzUser WATERLEVEL "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Waterlevel&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add DomoticzUser DEFAULTCUPS "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Cups&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add DomoticzUser DEFAULTSTRENGTH "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Strength&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add DomoticzUser DEFAULTSTRENGTHTEXT "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Strength Text&vtype=2&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add DomoticzUser DEFAULTGRIND "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Grind&vtype=0&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add DomoticzUser DEFAULTGRINDTEXT "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Grind Text&vtype=2&vvalue=§N" 10.0.0.98
-sudo ibrew trigger add DomoticzUser DEFAULTHOTPLATE "http://127.0.0.1:8080/json.htm?type=command&param=updateuservariable&vname=Coffee Default Hotplate&vtype=0&vvalue=§N" 10.0.0.98
-```
-
-__Switch State Type__
-
-Very important step, do not forget!
-
-```
-sudo ibrew trigger Domoticz switch On 10.0.0.98
 ```
 
 ### HomeKit ~ [HomeBridge](https://github.com/nfarina/homebridge)

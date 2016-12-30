@@ -848,7 +848,6 @@ class BlockHandler(GenericAPIHandler):
             client = self.application.clients[ip]
             if block[-1] == '/':
                 block = block[0:-1]
-            print block
             client.block(block)
             response = encodeRules(client.rulesIn,client.rulesOut)
         else:
@@ -863,7 +862,6 @@ class UnblockHandler(GenericAPIHandler):
             client = self.application.clients[ip]
             if unblock[-1] == '/':
                 unblock = unblock[0:-1]
-            print unblock
             client.unblock(unblock)
             response = encodeRules(client.rulesIn,client.rulesOut)
         else:
@@ -1008,11 +1006,6 @@ class TriggerHandler(GenericAPIHandler):
         if ip in self.application.clients:
             client = self.application.clients[ip]
             try:
-                print "$$$$$$$"
-                print "$$$$$$$"
-                print http+url
-                print "$$$$$$$"
-                print "$$$$$$$"
                 client.triggerAdd(group,trigger,http+url)
                 response = { 'command' : 'success' }
             except Exception, e:
