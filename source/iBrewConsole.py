@@ -345,7 +345,6 @@ class iBrewConsole:
                 if command == "simulate":
                     command = "relay"
                 for i in range(0,numarg):
-                    print arguments[i]
                     if arguments[i] == "simulate":
                         arguments[i] = "relay"
                         break
@@ -489,7 +488,7 @@ class iBrewConsole:
                                 numarg -= 1
                                 arguments = arguments[0:numarg]
             
-            
+            """
             print "Server"
             print self.serverBind
             print str(self.serverPort)
@@ -500,7 +499,8 @@ class iBrewConsole:
             print self.client.iKettle.host
             print str(self.client.iKettle.port)
             print
-            
+            """
+
             # 3 times I went bug hunting forgotting the "s"
             if command == "event": command = "events"
             if command == "events" or command == "domoticz":
@@ -549,18 +549,14 @@ class iBrewConsole:
                     if command == "switches":
                         SmarterLegacy.print_states()
                         return
-                    
-                    if arguments[0] == "simulate":
-                        self.client.iKettle.simulate()
-                        self.monitor()
-                        return
-                        
+                
                     if arguments[0] == "relay":
                         if numarg >= 2:
                             if arguments[1] == "stop":
                                 self.client.iKettle.relay_stop()
                                 return
-                        self.client.iKettle.connect()
+                        if not self.client.iKettle.simulation:
+                            self.client.iKettle.connect()
                         self.client.iKettle.relay_start()
                         self.monitor()
                         return
@@ -736,7 +732,6 @@ class iBrewConsole:
                         print "iBrew: Temperature in celsius"
                         return
 
-            print command
             if command == "relay" and self.client.simulation:
                 if self.client.isCoffee:
                     self.client.switch_coffee_device()

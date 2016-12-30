@@ -736,7 +736,6 @@ class SmarterInterfaceLegacy():
         self.relay_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         # settimeout at least 2
         self.relay_socket.settimeout(5)
-        print self.relayPort
         try:
             self.relay_socket.bind((self.relayHost,self.relayPort))
             self.relay_socket.listen(20)
