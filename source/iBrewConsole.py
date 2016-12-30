@@ -337,6 +337,19 @@ class iBrewConsole:
             self.serverBind = ""
             self.serverPort = Smarter.Port - 1
             
+            if "simulate" in arguments or command == "simulate":
+                if command == "legacy":
+                    self.client.iKettle.simulate()
+                else:
+                    self.client.simulate()
+                if command == "simulate":
+                    command = "relay"
+                for i in range(0,numarg):
+                    print arguments[i]
+                    if arguments[i] == "simulate":
+                        arguments[i] = "relay"
+                        break
+            
             if "relay" in arguments or command == "relay":
                 if command == "legacy":
                     self.client.iKettle.relayPort = SmarterLegacy.Port
@@ -346,9 +359,9 @@ class iBrewConsole:
                     self.client.relayHost = self.serverBind
                 
             if numarg > 0:
-                if arguments[numarg-1] == "simulate":
-                    self.client.setHost("simulation")
-                else:
+                #if arguments[numarg-1] == "simulate":
+                #    self.client.setHost("simulation")
+                #else:
                     connection = str.split(arguments[numarg-1],':')
                     if self.is_valid_ipv4_address(connection[0]) or self.is_valid_ipv6_address(connection[0]) or (("server" in arguments or command == "server" or "relay" in arguments or command == "relay") and connection[0] == ""):
                         
@@ -403,8 +416,6 @@ class iBrewConsole:
                             except IndexError:
                                 noport = True
 
-                            print "." + str(self.client.iKettle.relayPort) + "."
-                            print type(self.client.iKettle.relayPort)
                         
                             isvalid = self.is_valid_ipv4_address(connection[0]) or self.is_valid_ipv6_address(connection[0])
                             if not noport and (connection[0] == "" or isvalid):
@@ -477,7 +488,8 @@ class iBrewConsole:
 
                                 numarg -= 1
                                 arguments = arguments[0:numarg]
-            """
+            
+            
             print "Server"
             print self.serverBind
             print str(self.serverPort)
@@ -488,7 +500,6 @@ class iBrewConsole:
             print self.client.iKettle.host
             print str(self.client.iKettle.port)
             print
-            """
             
             # 3 times I went bug hunting forgotting the "s"
             if command == "event": command = "events"
@@ -549,16 +560,6 @@ class iBrewConsole:
                             if arguments[1] == "stop":
                                 self.client.iKettle.relay_stop()
                                 return
-                            #connection = str.split(arguments[1],':')
-                            #if self.is_valid_ipv4_address(connection[1]) or self.is_valid_ipv6_address(connection[0]):
-                            #    self.client.iKettle.relayHost = connection[1]
-                            #try:
-                            #    p = int(connection[1])
-                            #    self.client.iKettle.relayPort = p
-                            #except ValueError:
-                            #    pass
-                            #except IndexError:
-                            #    pass
                         self.client.iKettle.connect()
                         self.client.iKettle.relay_start()
                         self.monitor()
@@ -735,10 +736,8 @@ class iBrewConsole:
                         print "iBrew: Temperature in celsius"
                         return
 
-            if command == "simulate":
-                self.client.simulate()
-                
-                command = "relay"
+            print command
+            if command == "relay" and self.client.simulation:
                 if self.client.isCoffee:
                     self.client.switch_coffee_device()
                     numarg = 1
@@ -763,8 +762,8 @@ class iBrewConsole:
             if command == "monitor" or command == "events":
                 self.client.fast = False
 
-            if (command == "relay" and not self.console) or ((not self.client.connected or self.haveHost) and command != "help" and command != "?" and command != "list" and command != "message" and command != "usage" and command != "commands" and command != "server" and command != "joke" and command != "license" and command != "protocol" and command != "structure" and command != "notes" and command != "groups" and command != "group" and command != "examples" and command != "switches" and command != "triggers" and command != "messages" and command != "rules" and command != "rule" and command != "web" and command != "legacy"  and command != "trigger"):
 
+            if (command == "relay" and not self.console) or ((not self.client.connected or self.haveHost) and command != "help" and command != "?" and command != "list" and command != "message" and command != "usage" and command != "commands" and command != "server" and command != "joke" and command != "license" and command != "protocol" and command != "structure" and command != "notes" and command != "groups" and command != "group" and command != "examples" and command != "switches" and command != "triggers" and command != "messages" and command != "rules" and command != "rule" and command != "web" and command != "legacy"  and command != "trigger"):
 
                 if not self.haveHost and command != "relay":
                     devices, relay = Smarter.find_devices(self.client.port)
@@ -779,13 +778,12 @@ class iBrewConsole:
                     self.client.fast = False
                     self.client.shout = False
                 
-
                 try:
                     if not self.client.dump:
                         print
                         print "  Starting please wait..."
                         print
-                    if not (self.console and command == "relay") and not self.client.simulate:
+                    if not (self.console and command == "relay") and not self.client.simulation:
                         self.client.connect()
                 except Exception, e:
                     logging.debug(e)

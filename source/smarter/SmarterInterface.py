@@ -186,7 +186,7 @@ class SmarterInterfaceLegacy():
         self.simulation = False
     
     
-    def simulate(self,host="",port=SmarterLegacy.Port):
+    def simulate(self):
         self.simulation = True
         self.relay_stop()
         self.disconnect()
@@ -1446,7 +1446,7 @@ class SmarterInterface:
         self.relay                        = False
         self.relayVersion                 = 1
         
-        self.simulate                   = False
+        self.simulation                 = False
         self.bridge                     = False
 
         # firewall or message blocking rules
@@ -1497,7 +1497,7 @@ class SmarterInterface:
         self.__write_stats()
 
     def emulate(self):
-        self.simulate = True
+        self.simulation = True
         self.iKettle.dump = True
         self.iKettle.bridge(self)
         self.iKettle.emu_trigger_heating(self.heaterOn)
@@ -1506,7 +1506,7 @@ class SmarterInterface:
         self.emulate = True
 
     def simulate(self):
-        self.simulate = True
+        self.simulation = True
         self.setHost("simulation")
                 
     #------------------------------------------------------
@@ -2146,7 +2146,6 @@ class SmarterInterface:
                 self.__decode(message)
             return responses
         
-        
         if not self.connected:
             raise SmarterError(0,"Could not write message not connected")
         try:
@@ -2155,6 +2154,7 @@ class SmarterInterface:
             logging.debug(str(e))
             logging.debug(traceback.format_exc())
             raise SmarterError(0,"Could not write message")
+
 
         if self.connected:
             command = Smarter.raw_to_number(message[0])
@@ -2249,6 +2249,7 @@ class SmarterInterface:
         """
         if self.dump:
             print "[" + self.host +  ":" + '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now()) + "] Connecting appliance"
+
         self.__init()
         self.__write_stats()
 
@@ -2359,7 +2360,7 @@ class SmarterInterface:
     @_threadsafe_function
     def __write_block(self):
 
-        if self.simulate:
+        if self.simulation:
             return
         
         section = self.host + "." + str(self.port)
@@ -2397,7 +2398,7 @@ class SmarterInterface:
     @_threadsafe_function
     def __read_block(self):
     
-        if self.simulate:
+        if self.simulation:
             return
        
         section = self.host + "." + str(self.port)
