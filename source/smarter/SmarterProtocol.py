@@ -521,6 +521,8 @@ class SmarterProtocol:
     CommandRelayUnblock   = 0x73
     CommandRelayModifiersInfo = 0x74
     CommandRelayPatch     = 0x76
+    CommandTriggerGroups    = 0x77
+
 
 
     # device
@@ -530,6 +532,7 @@ class SmarterProtocol:
     ResponseDeviceInfo        = 0x65
     ResponseRelayInfo         = 0x71
     ResponseRelayModifiersInfo = 0x75
+    ResponseTriggerGroups       = 0x78
     ResponseWifiFirmware      = 0x6b
 
     # coffee
@@ -547,6 +550,7 @@ class SmarterProtocol:
     
     # format kettle? coffee? response to command, description
     CommandMessages = {
+        CommandTriggerGroups      : (True,True,[ResponseTriggerGroups],"Get iBrew trigger groups"),
         CommandRelayInfo        : (True,True,[ResponseRelayInfo],"Get iBrew relay info"),
         CommandRelayModifiersInfo   : (True,True,[ResponseRelayModifiersInfo],"Get iBrew relay message block info"),
         CommandRelayBlock       : (True,True,[ResponseRelayModifiersInfo],"iBrew block relay message"),
@@ -644,6 +648,7 @@ class SmarterProtocol:
         ResponseKettleStatus    : (True,False,7,[],"Kettle status",[]),
         ResponseDeviceInfo      : (True,True,4,[CommandDeviceInfo],"Appliance info",[]),
         ResponseRelayInfo       : (True,True,0,[CommandRelayInfo],"iBrew remote relay info",[]),
+        ResponseTriggerGroups     : (True,True,0,[CommandTriggerGroups],"iBrew remote trigger groups",[]),
         ResponseRelayModifiersInfo  : (True,True,0,[CommandRelayModifiersInfo,CommandRelayBlock,CommandRelayUnblock,CommandRelayPatch],"iBrew relay rules block messages info",[]),
         ResponseWifiFirmware    : (True,True,0,[CommandWifiFirmware],"Wifi firmware info",[]),
         ResponseCarafe          : (False,True,3,[CommandCarafe],"Carafe required",[]),
@@ -822,11 +827,15 @@ class SmarterProtocol:
     GroupUser           = 18
     MessagesUser        = MessagesNormal
 
+    GroupTrigger        = 41
+    MessagesTrigger     = [CommandTriggerGroups, ResponseTriggerGroups]
+
+
     GroupRelay         = 40
     MessagesRelay      = [CommandRelayInfo, ResponseRelayInfo, CommandRelayPatch, CommandRelayBlock, CommandRelayUnblock, CommandRelayModifiersInfo, ResponseRelayModifiersInfo]
 
     GroupAdmin          = 19
-    MessagesAdmin       = MessagesSetup + MessagesNormal + MessagesRelay
+    MessagesAdmin       = MessagesSetup + MessagesNormal + MessagesRelay + MessagesTrigger
     GroupGod            = 20
     MessagesGod         = MessagesAdmin + MessagesDebug
     
@@ -893,6 +902,7 @@ class SmarterProtocol:
         GroupDeviceInfo  : ("ApplianceInfo",MessagesDeviceInfo),
         GroupStore       : ("SettingsStore",MessagesStore),
         GroupRelay       : ("Relay",MessagesRelay),
+        GroupTrigger     : ("Trigger",MessagesTrigger),
         GroupGet         : ("SettingsGet",MessagesGet),
         GroupAll         : ("Settings",MessagesAll),
         GroupKettleStore : ("KettleStore",MessagesKettleStore),
@@ -2163,6 +2173,7 @@ class SmarterProtocol:
     ArgRelayVersion   = 1056
     ArgRelayHost = 1057
     ArgRelayModifiers = 1058
+    ArgTriggerGroups = 1059
 
     ArgPayloadTimer            = 1026
     ArgPayloadCoffeeHistory    = 1028
@@ -2312,6 +2323,8 @@ class SmarterProtocol:
         ArgList                     : ('PAYLOAD',"LIST","}",[]),
 
 
+        ResponseTriggerGroups          : ('PROTOCOL',[ArgTriggerGroups],"",""),
+
         ResponseRelayInfo          : ('PROTOCOL',[ArgRelayVersion,ArgRelayHost],"0131302e302e302e3939","Get the version of the firmware of relay connected to (if connected) It is used for auto discovery over UDP broadcast by iBrew. This fails on some routers, which don't propagate UDP broadcasts."),
 
         ResponseRelayModifiersInfo          : ('PROTOCOL',[ArgRelayModifiers],"","[in:|out:|mod]rule(,[in:|out:|mod:]rule)* where rule: message id, group name or in: and out: and rule is a patch for mod:"),
@@ -2330,6 +2343,7 @@ class SmarterProtocol:
         CommandResetSettings        : ('PROTOCOL',[],"","For the kettle these are the default user settings: keepwarm 0 minutes, temperature 100ºC, formula mode off and formula temperature 75ºC. The Smarter Coffee does nothing."),
     
         CommandDeviceInfo           : ('PROTOCOL',[],"",""),
+        CommandTriggerGroups          : ('PROTOCOL',[],"",""),
         CommandRelayInfo            : ('PROTOCOL',[],"",""),
         CommandRelayModifiersInfo       : ('PROTOCOL',[],"",""),
         CommandRelayBlock           : ('PROTOCOL',[ArgRelayModifiers],"","[in:|out:]rule(,[in:|out:]rule)* where rule: message id, group name"),
@@ -2461,6 +2475,7 @@ class SmarterProtocol:
         ArgPassword       : ('TEXT',"Password","wireless network password"),
         ArgRelayHost      : ('TEXT',"Host","Host of the appliance connected with the relay, empty if not connected"),
         ArgRelayModifiers     : ('TEXT',"Block","FIX"),
+        ArgTriggerGroups  : ('TEXT',"Groups","Group names sperated with , (comma)"),
         ArgDB             : ('TEXT',"DB","in dBm"),
         ArgWifiFirmware   : ('TEXT',"WifiFirmware","wifi firmware string"),
         ArgSSID           : ('TEXT',"SSID","wireless network name"),

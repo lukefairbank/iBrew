@@ -195,15 +195,16 @@ class SmarterInterfaceLegacy():
 
 
     def bridge(self,iKettle2,host="",port=SmarterLegacy.Port):
-        self.relay_stop()
-        self.disconnect()
+        ##self.relay_stop()
+        ##self.disconnect()
+        self.connect()
         self.emulation = True
         self.simulation = False
         self.iKettle2 = iKettle2
         self.emuOnBase = iKettle2.onBase
         self.emuHeaterOn = iKettle2.heaterOn
         self.emuKeepwarmOn = iKettle2.keepWarmOn
-        self.relay_start(host,port)
+        #self.relay_start(host,port)
     
     
     #------------------------------------------------------
@@ -1350,6 +1351,7 @@ class SmarterInterface:
         self.remoteRelay               = False
         self.remoteRulesIn             = []
         self.remoteRulesOut            = []
+        self.remoteTriggerGroups       = []
    
    
     
@@ -1752,8 +1754,12 @@ class SmarterInterface:
                 response = self.__block_command(data)
             else:
                 # relay
-                
-                if command == Smarter.CommandRelayInfo:
+                if command == Smarter.CommandTriggerGroups:
+                    j = []
+                    for i in self.triggersGroups:
+                        j += [i[0]]
+                    response = self.__encode_TriggerGroups(",".join(j))
+                elif command == Smarter.CommandRelayInfo:
                     if self.connected:
                         response = self.__encode_RelayInfo(self.relayVersion,self.host)
                     else:
@@ -2470,7 +2476,6 @@ class SmarterInterface:
     def print_remote_rules_short(self):
         print "Remote appliance blocks (in): " + self.string_rules(self.remoteRulesIn)
         print "Remote relay blocks (out): " + self.string_rules(self.remoteRulesOut)
- 
 
     def print_rules(self):
         print
@@ -3498,6 +3503,14 @@ class SmarterInterface:
 
 
 
+    def __encode_TriggerGroups(self,groups):
+        """
+        Encode trigger device info response message
+        """
+        return [Smarter.number_to_raw(Smarter.ResponseTriggerGroups) + Smarter.text_to_raw(groups) + Smarter.number_to_raw(Smarter.MessageTail)]
+
+
+
     def __encode_RelayModifiersInfo(self,modifiers):
         """
         Encode relay device info response message
@@ -4072,6 +4085,15 @@ class SmarterInterface:
         print
 
 
+    def print_trigger_groups(self):
+        print "Remote Trigger Groups"
+        print
+        print "Name".rjust(18,' ')
+        for i in self.remoteTriggerGroups:
+            print "".rjust(18,'_')
+            print i.rjust(18,' ')
+
+
     def print_group(self,group):
         print "Trigger Group"
         print
@@ -4200,6 +4222,7 @@ class SmarterInterface:
             elif id == Smarter.ResponseCoffeeSettings:  self.__decode_CoffeeSettings(message)
             elif id == Smarter.ResponseDeviceInfo:      self.__decode_DeviceInfo(message)
             elif id == Smarter.ResponseRelayInfo:       self.__decode_RelayInfo(message)
+            elif id == Smarter.ResponseTriggerGroups:     self.__decode_TriggerGroups(message)
             elif id == Smarter.ResponseRelayModifiersInfo:  self.__decode_RelayModifiersInfo(message)
             elif id == Smarter.ResponseWifiFirmware:    self.__decode_WifiFirmware(message)
             elif id == Smarter.ResponseWirelessNetworks:self.__decode_WirelessNetworks(message)
@@ -4209,6 +4232,7 @@ class SmarterInterface:
             logging.debug(str(e))
             logging.debug(traceback.format_exc())
             raise SmarterError(0,"Could not decode message")
+
 
         if self.dump:
             if self.dump_status:
@@ -4395,7 +4419,7 @@ class SmarterInterface:
             if self.onBase:
                 self.countKettleRemoved += 1
             if self.emulate:
-                    self.iKettle.emu_trigger_onbase(v)
+                self.iKettle.emu_trigger_onbase(v)
             self.__trigger(Smarter.triggerOffBase,not self.onBase,not v)
             self.onBase = v
             
@@ -4577,6 +4601,9 @@ class SmarterInterface:
         self.remoteRelayVersion = Smarter.raw_to_number(message[1])
         self.remoteRelayHost = Smarter.raw_to_text(message[1:])
 
+
+    def __decode_TriggerGroups(self,message):
+        self.remoteTriggerGroups = Smarter.raw_to_text(message[0:]).split(",")
 
 
     def __decode_RelayModifiersInfo(self,message):
@@ -4773,6 +4800,17 @@ class SmarterInterface:
         self.dump = dump
  
  
+
+    def trigger_info(self,group=""):
+        """
+        Retrieve remote relay info
+        """
+        if group == "":
+            self.__send_command(Smarter.CommandRelayInfo)
+        else:
+            self.__send_command(Smarter.CommandRelayInfo,group)
+
+
 
     def relay_info(self):
         """
@@ -5938,6 +5976,7 @@ class SmarterInterface:
     def print_message_read(self,message):
         id = Smarter.raw_to_number(message[0])
         print "[" + self.host +  ":" + '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now()) + "] Message Received [" + Smarter.message_description(id) + "] [" + Smarter.message_to_codes(message) + "]"
+        
         if   id == Smarter.ResponseCommandStatus:   print "Command replied: " + Smarter.status_command(self.commandStatus)
         elif id == Smarter.ResponseWirelessNetworks: self.print_wireless_networks()
         elif id == Smarter.ResponseWifiFirmware:    self.print_wifi_firmware()
@@ -5948,6 +5987,7 @@ class SmarterInterface:
         elif id == Smarter.ResponseCarafe:          self.print_carafe_required()
         elif id == Smarter.ResponseMode:            self.print_mode()
         elif id == Smarter.ResponseDeviceInfo:      self.print_info_device()
+        elif id == Smarter.ResponseTriggerGroups:   self.print_trigger_groups()
         elif id == Smarter.ResponseRelayInfo:       self.print_info_relay()
         elif id == Smarter.ResponseRelayModifiersInfo:  self.print_remote_rules_short()
         elif id == Smarter.ResponseBase:            self.print_watersensor_base()
