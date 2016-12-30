@@ -90,6 +90,7 @@ class SmarterInterfaceLegacy():
         self.dump               = False
         self.connected          = False
         self.settingsPath       = setting_path
+        self.fast               = False
        
         self.__init()
         self.__read_triggers()
@@ -191,7 +192,8 @@ class SmarterInterfaceLegacy():
         self.disconnect()
         self.setHost("simulation")
         self.port = SmarterLegacy.Port
-        self.relay_start(host,port)
+        
+        #self.relay_start(host,port)
 
 
     def bridge(self,iKettle2,host="",port=SmarterLegacy.Port):
@@ -212,7 +214,7 @@ class SmarterInterfaceLegacy():
     #------------------------------------------------------
     
     
-    def connect(self,monitor=False):
+    def connect(self):
         
         self.disconnect()
         
@@ -262,6 +264,20 @@ class SmarterInterfaceLegacy():
             logging.debug("No kettle found at " + self.host + ":" +  str(self.port))
             raise SmarterErrorOld("No kettle found at " + self.host + ":" +  str(self.port))
         self.connected = True
+        
+        """
+        if False: #not self.fast:
+            try:
+                self.monitor = threading.Thread(target=self.__monitor_device)
+                self.monitor.start()
+            except threading.ThreadError, e:
+                s = traceback.format_exc()
+                logging.debug(s)
+                loggins.debug(e)
+                logging.error("[" + self.host + "] Could not start monitor")
+                raise SmarterError(0,"Could not start monitor")
+        """
+
 
 
 
@@ -720,15 +736,20 @@ class SmarterInterfaceLegacy():
         self.relay_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         # settimeout at least 2
         self.relay_socket.settimeout(5)
+        print self.relayPort
         try:
             self.relay_socket.bind((self.relayHost,self.relayPort))
             self.relay_socket.listen(20)
         except socket.error, e:
+            print str(e)
             self.relay = False
+            
+            
             logging.debug("[" + self.host + ":" + str(self.port)  + "] " + str(e))
             logging.warning("[" + self.host + ":" + str(self.port)  + "] Legacy relay server failed (" + self.relayHost + ":" + str(self.relayPort) + ")")
             return
-        except Exception:
+        except Exception, e:
+            print str(e)
             logging.warning("[" + self.host + ":" + str(self.port)  + "] Legacy relay server failed (" + self.relayHost + ":" + str(self.relayPort) + ")")
             self.relay = False
             return
@@ -750,10 +771,8 @@ class SmarterInterfaceLegacy():
                 continue
 
 
-    def relay_start(self,host="",port=SmarterLegacy.Port):
+    def relay_start(self):
         self.connect()
-        self.relayHost = host
-        self.relayPort = port
         self.relay = True
         self.relayServer = threading.Thread(target=self.__relay)
         self.relayServer.start()

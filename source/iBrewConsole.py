@@ -337,41 +337,60 @@ class iBrewConsole:
             self.serverBind = ""
             self.serverPort = Smarter.Port - 1
             
+            if "relay" in arguments or command == "relay":
+                if command == "legacy":
+                    self.client.iKettle.relayPort = SmarterLegacy.Port
+                    self.client.iKettle.relayHost = self.serverBind
+                else:
+                    self.client.relayPort = Smarter.Port
+                    self.client.relayHost = self.serverBind
+                
             if numarg > 0:
                 if arguments[numarg-1] == "simulate":
                     self.client.setHost("simulation")
                 else:
                     connection = str.split(arguments[numarg-1],':')
-                    if self.is_valid_ipv4_address(connection[0]) or self.is_valid_ipv6_address(connection[0]) or (("server" in arguments or command == "server") and connection[0] == ""):
-                        if command == "legacy":
-                            self.client.iKettle.setHost(connection[0])
+                    if self.is_valid_ipv4_address(connection[0]) or self.is_valid_ipv6_address(connection[0]) or (("server" in arguments or command == "server" or "relay" in arguments or command == "relay") and connection[0] == ""):
                         
+                        if "relay" in arguments or command == "relay" or "server" in arguments or command == "server" or "web" in arguments or command == "web":
+                            self.serverBind = connection[0]
+                            if "relay" in arguments or command == "relay":
+                                if command == "legacy":
+                                    self.client.iKettle.relayHost = self.serverBind
+                                else:
+                                    self.client.relayHost = self.serverBind
                         else:
-                            if "server" in arguments or command == "server" or "web" in arguments or command == "web":
-                                self.serverBind = connection[0]
+                            if command == "legacy":
+                                self.client.iKettle.setHost(connection[0])
                             else:
                                 self.client.setHost(connection[0])
                         try:
                             self.portfound = False
                             p = int(connection[1])
-                            if command == "legacy":
-                                self.client.iKettle.port = p
+                            
+                            if "relay" in arguments or command == "relay" or "server" in arguments or command == "server" or "web" in arguments or command == "web":
+                                self.serverPort = p
+                                if "relay" in arguments or command == "relay":
+                                    if command == "legacy":
+                                        self.client.iKettle.relayPort = self.serverPort
+                                    else:
+                                        self.client.relayPort = self.serverPort
+                                self.portfound = True
                             else:
-                                if "server" in arguments or command == "server" or "web" in arguments or command == "web":
-                                    self.serverPort = connection[1]
-                                    self.portfound = True
+                                if command == "legacy":
+                                    self.client.iKettle.port = p
                                 else:
                                     self.client.port = p
                         except ValueError:
                             pass
                         except IndexError:
                             pass
-                        if "server" not in arguments and command != "server" and "web" not in arguments and command != "web":
+                        if "relay" not in arguments and command != "relay" and "server" not in arguments and command != "server" and "web" not in arguments and command != "web":
                             self.haveHost = True
                         numarg -= 1
                         arguments = arguments[0:numarg]
 
-                        if numarg > 0 and ("server" in arguments or command == "server" or "web" in arguments or command == "web"):
+                        if numarg > 0 and ("relay" in arguments or command == "relay" or "server" in arguments or command == "server" or "web" in arguments or command == "web"):
                             connection = str.split(arguments[numarg-1],':')
   
                             
@@ -384,37 +403,93 @@ class iBrewConsole:
                             except IndexError:
                                 noport = True
 
+                            print "." + str(self.client.iKettle.relayPort) + "."
+                            print type(self.client.iKettle.relayPort)
+                        
                             isvalid = self.is_valid_ipv4_address(connection[0]) or self.is_valid_ipv6_address(connection[0])
                             if not noport and (connection[0] == "" or isvalid):
                                 if self.serverBind == "":
-                                    self.client.setHost(Smarter.DirectHost)
+                                    if command == "legacy":
+                                        self.client.iKettle.setHost(Smarter.DirectHost)
+                                    else:
+                                        self.client.setHost(Smarter.DirectHost)
                                 else:
-                                    self.client.setHost(self.serverBind)
+                                    if command == "legacy":
+                                        self.client.iKettle.setHost(self.serverBind)
+                                    else:
+                                        self.client.setHost(self.serverBind)
+
                                 if self.portfound:
-                                    self.client.port = self.serverPort
+                                    if command == "legacy":
+                                        self.client.iKettle.port = self.serverPort
+                                    else:
+                                        self.client.port = self.serverPort
                                 else:
-                                    self.client.port = Smarter.Port
+                                    if command == "legacy":
+                                        self.client.iKettle.port = SmarterLegacy.Port
+                                    else:
+                                        self.client.port = Smarter.Port
                                 
                                 self.haveHost = True
-                                self.serverPort = connection[1]
+                                self.serverPort = p
                                 self.serverBind = connection[0]
+                                if "relay" in arguments or command == "relay":
+                                    if command == "legacy":
+                                        self.client.iKettle.relayPort = self.serverPort
+                                        self.client.iKettle.relayHost = self.serverBind
+                                    else:
+                                        self.client.relayPort = self.serverPort
+                                        self.client.relayHost = self.serverBind
                                 numarg -= 1
                                 arguments = arguments[0:numarg]
                             elif noport and isvalid:
                                 if self.serverBind == "":
-                                    self.client.setHost(Smarter.DirectHost)
+                                    if command == "legacy":
+                                        self.client.iKettle.setHost(Smarter.DirectHost)
+                                    else:
+                                        self.client.setHost(Smarter.DirectHost)
                                 else:
-                                    self.client.setHost(self.serverBind)
+                                    if command == "legacy":
+                                        self.client.iKettle.setHost(self.serverBind)
+                                    else:
+                                        self.client.setHost(self.serverBind)
                                 if self.portfound:
-                                    self.client.port = self.serverPort
+                                    if command == "legacy":
+                                        self.client.iKettle.port = self.serverPort
+                                    else:
+                                        self.client.port = self.serverPort
                                 else:
-                                    self.client.port = Smarter.Port
+                                    if command == "legacy":
+                                        self.client.iKettle.port = SmarterLegacy.Port
+                                    else:
+                                        self.client.port = Smarter.Port
                                 self.haveHost = True
                                 self.serverPort = Smarter.Port - 1
                                 self.serverBind = connection[0]
+
+                                if "relay" in arguments or command == "relay":
+                                    if command == "legacy":
+                                        self.client.iKettle.relayPort = SmarterLegacy.Port
+                                        self.client.iKettle.relayHost = self.serverBind
+                                    else:
+                                        self.client.relayPort = Smarter.Port
+                                        self.client.relayHost = self.serverBind
+
                                 numarg -= 1
                                 arguments = arguments[0:numarg]
-
+            """
+            print "Server"
+            print self.serverBind
+            print str(self.serverPort)
+            print "Normal"
+            print self.client.host
+            print str(self.client.port)
+            print "iKettle"
+            print self.client.iKettle.host
+            print str(self.client.iKettle.port)
+            print
+            """
+            
             # 3 times I went bug hunting forgotting the "s"
             if command == "event": command = "events"
             if command == "events" or command == "domoticz":
@@ -474,16 +549,16 @@ class iBrewConsole:
                             if arguments[1] == "stop":
                                 self.client.iKettle.relay_stop()
                                 return
-                            connection = str.split(arguments[1],':')
-                            if self.is_valid_ipv4_address(connection[1]) or self.is_valid_ipv6_address(connection[0]):
-                                self.client.iKettle.relayHost = connection[1]
-                            try:
-                                p = int(connection[1])
-                                self.client.iKettle.relayPort = p
-                            except ValueError:
-                                pass
-                            except IndexError:
-                                pass
+                            #connection = str.split(arguments[1],':')
+                            #if self.is_valid_ipv4_address(connection[1]) or self.is_valid_ipv6_address(connection[0]):
+                            #    self.client.iKettle.relayHost = connection[1]
+                            #try:
+                            #    p = int(connection[1])
+                            #    self.client.iKettle.relayPort = p
+                            #except ValueError:
+                            #    pass
+                            #except IndexError:
+                            #    pass
                         self.client.iKettle.connect()
                         self.client.iKettle.relay_start()
                         self.monitor()
@@ -543,6 +618,8 @@ class iBrewConsole:
 
                     if numarg == 1:
                         self.client.iKettle.dump = self.client.dump
+                        if not self.console:
+                            self.client.iKettle.fast = True
                         self.client.iKettle.normal()
                         try:
                             r = self.client.iKettle.send(SmarterLegacy.string_to_command(arguments[0]))
