@@ -1322,7 +1322,7 @@ class iBrewConsole:
         print "  iBrew Server"
         print "  ________________"
         print
-        print "  Usage: ibrew (dump) (events) (fahrenheid) server (host:(port) (host:(port))"
+        print "  Usage: ibrew (dump) (events) (fahrenheid) server (ip:(port) (host:(port))"
 #        print "  Usage: ibrew (energy) (dump) (fahrenheid) server (host:(port))"
         print
      #   print "    energy                 energy saver (stats not possible)"
@@ -1397,7 +1397,7 @@ class iBrewConsole:
         print
         print "    protocol               protocol information"
         print "    simulate               start kettle simulation"
-        print "    relay ((ip:)port)      start relay"
+        print "    relay [(ip:)port]      start relay, if no ip and port to bind to, use \"\" to use default bindings"
         print "    trigger                see triggers section"
         print "    triggers               overview of legacy triggers"
         print
@@ -1482,7 +1482,7 @@ class iBrewConsole:
         print "    disconnect             disconnect connected appliance"
         print "    events                 start trigger events only"
         print "    patch [rules]          patch messages"
-        print "    relay ((ip:)port)      start relay"
+        print "    relay [(ip:)port]      start relay, if no ip and port to bind to, use \"\" to use default bindings"
         print "    relay stop             stop relay"
         print "    remote info            info on remote relay"
         print "    remote block [rules]   remote block messages with groups or ids"
