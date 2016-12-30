@@ -339,9 +339,9 @@ class iBrewConsole:
             
             if "simulate" in arguments or command == "simulate":
                 if command == "legacy":
-                    self.client.iKettle.simulate()
+                    self.client.iKettle.simulation = True
                 else:
-                    self.client.simulate()
+                    self.client.simulation = True
                 if command == "simulate":
                     command = "relay"
                 for i in range(0,numarg):
@@ -557,7 +557,9 @@ class iBrewConsole:
                                 return
                         if not self.client.iKettle.simulation:
                             self.client.iKettle.connect()
-                        self.client.iKettle.relay_start()
+                            self.client.iKettle.relay_start()
+                        else:
+                            self.client.iKettle.simulate()
                         self.monitor()
                         return
                             

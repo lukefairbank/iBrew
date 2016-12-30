@@ -191,9 +191,7 @@ class SmarterInterfaceLegacy():
         self.relay_stop()
         self.disconnect()
         self.setHost("simulation")
-        self.port = SmarterLegacy.Port
-        
-        #self.relay_start(host,port)
+        self.relay_start()
 
 
     def bridge(self,iKettle2,host="",port=SmarterLegacy.Port):
@@ -312,6 +310,7 @@ class SmarterInterfaceLegacy():
                 self.__decode_response(data)
         elif self.simulation:
             response = self.sim_response(command)
+ 
             for data in response:
                 self.__decode_response(data)
         else:
@@ -454,6 +453,7 @@ class SmarterInterfaceLegacy():
     
 
     def __decode_response(self,status):
+  
         if status == SmarterLegacy.status100c:              self.__decode_temperature(SmarterLegacy.status100c)
         elif status == SmarterLegacy.status95c:             self.__decode_temperature(SmarterLegacy.status95c)
         elif status == SmarterLegacy.status80c:             self.__decode_temperature(SmarterLegacy.status80c)
@@ -472,7 +472,6 @@ class SmarterInterfaceLegacy():
         elif status[0:-1] == SmarterLegacy.responseStatus:  self.__decode_responseStatus(status)
         else:
             raise SmarterErrorOld("Unknown status! Help! Please post an issues on GitHub" + str([status]))
-
 
 
     #------------------------------------------------------
