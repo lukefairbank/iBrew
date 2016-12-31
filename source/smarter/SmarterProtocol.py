@@ -114,8 +114,6 @@ class SmarterProtocolLegacy:
     textGetHandshake    = "Offer hand"
 
     # Shared between status and command
-    textTempOff         = "Nothing selected"
-
     text100c            = "100°C"
     text95c             = "95°C"
     text80c             = "80°C"
@@ -158,9 +156,6 @@ class SmarterProtocolLegacy:
     statusHeated        = "sys status 0x3"
     statusOverheat      = "sys status 0x2"
     statusKettleRemoved = "sys status 0x1"
-    
-    # Does not exists
-    statusTempOff       = "sys temp off"
     
     responseStatus      = "sys status key="
 
@@ -226,8 +221,6 @@ class SmarterProtocolLegacy:
             return self.textOverheat
         elif status == self.statusKettleRemoved:
             return self.textKettleRemoved
-        elif status == self.statusTempOff:
-            return self.textTempOff
         else:
             return "Unknown status! Help! Please post an issues on GitHub" + str([status])
 
@@ -290,7 +283,6 @@ class SmarterProtocolLegacy:
     trigger80c            = 1
     trigger95c            = 2
     trigger100c           = 3
-    triggerTempOff        = 18
     triggerTemperatureSelect = 16
     triggerKeepwarmSelect = 17
     triggerWarm5m         = 4
@@ -320,7 +312,6 @@ class SmarterProtocolLegacy:
         trigger80c                  : ["Temperature80c","SWITCH "+text80c],
         trigger95c                  : ["Temperature95c","SWITCH "+text95c],
         trigger100c                 : ["Temperature100c","SWITCH "+text100c],
-        triggerTempOff              : ["TemperatureOff","SWITCH Temperature off"],
         triggerTemperatureSelect    : ["TemperatureSelect","TEXT"]
     }
 
