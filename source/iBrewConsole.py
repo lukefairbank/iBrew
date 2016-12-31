@@ -64,6 +64,7 @@ class iBrewConsole:
         dump = self.client.dump
         self.client.dump_status = True
         self.client.dump = True
+        self.client.iKettle.dump = True
         
         while True:
             try:
@@ -78,6 +79,7 @@ class iBrewConsole:
                 logging.debug(str(e))
                 break
         self.client.dump = dump
+        self.client.iKettle.dump = dump
         self.client.dump_status = False
         print
    
@@ -318,10 +320,12 @@ class iBrewConsole:
                 else:
                     if self.client.dump and numarg == 0:
                         self.client.dump = False
+                        self.client.iKettle.dump = False
                         if self.console:
                             print "iBrew: Dump raw messages disabled"
                     else:
                         self.client.dump = True
+                        self.client.iKettle = True
                         if self.console:
                             print "iBrew: Dump raw messages enabled"
                     
