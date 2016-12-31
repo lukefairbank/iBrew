@@ -174,29 +174,6 @@ class SmarterInterfaceLegacy():
                 monitorCount += 1
             except Exception, e:
                 print str(e)
-            try:
-                """
-                if monitorCount % timeout == timeout - 9:
-                    self.status()
-
-                if monitorCount % timeout == timeout - 19:
-                    self.status()
-                
-                if monitorCount % timeout == timeout - 29:
-                    self.status()
-                
-                if monitorCount % timeout == timeout - 39:
-                    self.status()
-                
-                if monitorCount % timeout == timeout - 49:
-                    self.status()
-                
-                if monitorCount % timeout == timeout - 50:
-                    self.status()
-                """
-            except Exception, e:
-                print str(e)
-
         if self.dump:
             logging.info("[" + self.host + "] Monitor Stopped")
  
@@ -260,23 +237,27 @@ class SmarterInterfaceLegacy():
         while self.simulator_run:
             time.sleep(1)
             
-            
-            logging.debug("[" + self.host + ":" + str(self.port) + "] Simulation Heating")
             if self.simHeaterOn:
                 self.simHeaterTimer += 1
                 if self.simHeaterTimer > 10:
                     self.simHeaterTimer = 0
                     self.simHeaterOn = False
                     logging.debug("[" + self.host + ":" + str(self.port) + "] Simulation Heating Stopped")
-                    self.__relaySend(SmarterLegacy.statusHeated)
+                    if not self.simKeepwarmOn:
+                        self.__relaySend(SmarterLegacy.statusHeated)
+                        self.__relaySend(SmarterLegacy.statusReady)
             
             if self.simKeepwarmOn:
                 self.simKeepwarmTimer += 1
                 if self.simKeepwarmTimer > 10:
                     self.simKeepwarmTimer = 0
-                    self.simKeepwarm = False
+                    self.simKeepwarmOn = False
+                    self.simHeaterOn = False
+                    self.simHeaterTimer = 0
                     logging.debug("[" + self.host + ":" + str(self.port) + "] Simulation Keepwarm Stopped")
                     self.__relaySend(SmarterLegacy.statusWarmFinished)
+                    self.__relaySend(SmarterLegacy.statusReady)
+                    self.__relaySend(SmarterLegacy.statusWarm5m)
             
         if self.dump:
             logging.info("[" + self.host + ":" + str(self.port) + "] Simulation Stopped")
@@ -383,7 +364,6 @@ class SmarterInterfaceLegacy():
                 self.__decode_response(data)
         elif self.simulation:
             response = self.sim_responses(command)
- 
             for data in response:
                 self.__decode_response(data)
         else:
@@ -531,7 +511,7 @@ class SmarterInterfaceLegacy():
         elif status == SmarterLegacy.statusWarm10m:         self.__decode_keepwarm(SmarterLegacy.statusWarm10m)
         elif status == SmarterLegacy.statusWarm20m:         self.__decode_keepwarm(SmarterLegacy.statusWarm20m)
         elif status == SmarterLegacy.responseHandshake:     pass
-        elif status[0:-1] == SmarterLegacy.responseStatus:  self.__decode_responseStatus(status)
+        elif status[0:len(SmarterLegacy.responseStatus)] == SmarterLegacy.responseStatus:  self.__decode_responseStatus(status)
         else:
             raise SmarterErrorOld("Unknown status! Help! Please post an issues on GitHub" + str([status]))
 
@@ -690,11 +670,11 @@ class SmarterInterfaceLegacy():
 
     def emu_trigger_keepwarm(self,keepwarm):
         if keepwarm >= 20:
-            emuKeepwarm = SmarterLegacy.status20m
+            emuKeepwarm = SmarterLegacy.statusWarm20m
         elif keepwarm >= 10:
-            emuKeepwarm = SmarterLegacy.status10m
+            emuKeepwarm = SmarterLegacy.statusWarm10m
         elif keepwarm >= 5:
-            emuKeepwarm = SmarterLegacy.status5m
+            emuKeepwarm = SmarterLegacy.statusWarm5m
         else:
             return
         # just send it... NOT if  self.emuKeepwarm != emuKeepwarm:
@@ -754,7 +734,7 @@ class SmarterInterfaceLegacy():
 
     def __sim_heat(self):
         self.simHeaterOn = True
-        return [SmarterLegacy.statusHeating] # + [self.simTemperature]
+        return [SmarterLegacy.statusHeating] + [self.simTemperature]
 
 
     def __sim_status(self):
@@ -764,20 +744,22 @@ class SmarterInterfaceLegacy():
         #    s = [SmarterLegacy.statusWarm]
         #else:
         s = [] #[SmarterLegacy.statusReady]
-        return s + self.__encode_status(self.simTemperature,self.simHeaterOn,self.simKeepwarmOn)
+        return self.__encode_status(self.simTemperature,self.simHeaterOn,self.simKeepwarmOn)
         # + #[self.simTemperature] + [self.simKeepwarm]
 
 
     def __encode_status(self,temperature,heaterOn,keepwarmOn):
+        # According to mark j. cox this should work, it ain't!
         #if not heaterOn and not keepwarmOn:
         #    return [SmarterLegacy.responseStatus]
         status = 0
         if heaterOn:                                    status += 1
         if keepwarmOn:                                  status += 2
-        if temperature == SmarterLegacy.status65c:      status += 4
-        if temperature == SmarterLegacy.status80c:      status += 8
-        if temperature == SmarterLegacy.status95c:      status += 16
-        if temperature == SmarterLegacy.status100c:     status += 32
+        if heaterOn or keepwarmOn:
+            if temperature == SmarterLegacy.status65c:      status += 4
+            if temperature == SmarterLegacy.status80c:      status += 8
+            if temperature == SmarterLegacy.status95c:      status += 16
+            if temperature == SmarterLegacy.status100c:     status += 32
         return [SmarterLegacy.responseStatus + Smarter.number_to_raw(status)]
 
 
@@ -865,8 +847,11 @@ class SmarterInterfaceLegacy():
             self.__clients[i].acquire()
             logging.debug("[" + self.host + ":" + str(self.port)  + "] [" + self.relayHost + ":" + str(self.relayPort) + "] [" + i[1][0] + ":" + str(i[1][1]) + "] Legacy response relay [" + status + "] " + SmarterLegacy.string_response(status))
             
-            
-            i[0].send(status+"\r")
+            try:
+                i[0].send(status+"\r")
+            except:
+                i[0].close()
+                del self.__clients[i]
             self.__clients[i].release()
     
     
