@@ -261,21 +261,22 @@ class SmarterInterfaceLegacy():
             time.sleep(1)
             
             
+            logging.debug("[" + self.host + ":" + str(self.port) + "] Simulation Heating")
             if self.simHeaterOn:
                 self.simHeaterTimer += 1
                 if self.simHeaterTimer > 10:
                     self.simHeaterTimer = 0
                     self.simHeaterOn = False
-                    self.__relaySend(SmarterLegacy.statusHeated)
                     logging.debug("[" + self.host + ":" + str(self.port) + "] Simulation Heating Stopped")
+                    self.__relaySend(SmarterLegacy.statusHeated)
             
-                    # self. STOP heater!!! and send messages...
             if self.simKeepwarmOn:
                 self.simKeepwarmTimer += 1
-                if self.simKeepwarmTimer > 10: #self.simKeepwarm:
+                if self.simKeepwarmTimer > 10:
                     self.simKeepwarmTimer = 0
-                    self.__relaySend(SmarterLegacy.statusWarmFinished)
+                    self.simKeepwarm = False
                     logging.debug("[" + self.host + ":" + str(self.port) + "] Simulation Keepwarm Stopped")
+                    self.__relaySend(SmarterLegacy.statusWarmFinished)
             
         if self.dump:
             logging.info("[" + self.host + ":" + str(self.port) + "] Simulation Stopped")
@@ -753,7 +754,7 @@ class SmarterInterfaceLegacy():
 
     def __sim_heat(self):
         self.simHeaterOn = True
-        return [SmarterLegacy.statusHeating] + [self.simTemperature]
+        return [SmarterLegacy.statusHeating] # + [self.simTemperature]
 
 
     def __sim_status(self):
@@ -788,7 +789,7 @@ class SmarterInterfaceLegacy():
             s = [SmarterLegacy.statusHeated]
         self.simHeaterOn = False
         self.simKeepwarmOn = False
-        return s # +  self.__sim_status()
+        return s + [SmarterLegacy.statusReady] # +  self.__sim_status()
 
 
     def __sim_temperature(self,command):
@@ -855,13 +856,16 @@ class SmarterInterfaceLegacy():
             self.__clients[(clientsock, addr)].release()
         logging.info("[" + self.relayHost + ":" + str(self.relayPort) + "] [" + addr[0] + ":" + str(addr[1]) + "] Legacy client disconnected")
         clientsock.close()
-        #del self.__clients[(clientsock, addr)]
-
+        del self.__clients[(clientsock, addr)]
+       
 
     def __relaySend(self,status):
         # this is probably broken...
         for i in self.__clients:
             self.__clients[i].acquire()
+            logging.debug("[" + self.host + ":" + str(self.port)  + "] [" + self.relayHost + ":" + str(self.relayPort) + "] [" + i[1][0] + ":" + str(i[1][1]) + "] Legacy response relay [" + status + "] " + SmarterLegacy.string_response(status))
+            
+            
             i[0].send(status+"\r")
             self.__clients[i].release()
     
