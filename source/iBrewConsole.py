@@ -325,7 +325,7 @@ class iBrewConsole:
                             print "iBrew: Dump raw messages disabled"
                     else:
                         self.client.dump = True
-                        self.client.iKettle = True
+                        self.client.iKettle.dump = True
                         if self.console:
                             print "iBrew: Dump raw messages enabled"
                     

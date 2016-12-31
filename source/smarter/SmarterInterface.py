@@ -149,7 +149,6 @@ class SmarterInterfaceLegacy():
         self.__read_triggers()
     
     def __monitor_device(self):
-        print self.dump
         if self.dump:
             logging.info("[" + self.host + "] Monitor Running")
         
@@ -243,9 +242,10 @@ class SmarterInterfaceLegacy():
     
     def __simulate_device(self):
         self.simulator_run = True
+        
         time.sleep(0.25)
         if self.dump:
-            logging.info("[" + self.host + "] Simulation Running")
+            logging.info("[" + self.host + ":" + str(self.port) + "] Simulation Running")
         while self.simulator_run:
             time.sleep(1)
             
@@ -264,7 +264,7 @@ class SmarterInterfaceLegacy():
                     self.__relaySend(SmarterLegacy.statusWarmFinished)
             
         if self.dump:
-            logging.info("[" + self.host + "] Simulation Stopped")
+            logging.info("[" + self.host + ":" + str(self.port) + "] Simulation Stopped")
 
     
 
@@ -327,7 +327,6 @@ class SmarterInterfaceLegacy():
             try:
                 self.monitor = threading.Thread(target=self.__monitor_device)
                 self.monitor.start()
-                print "HEREEEEEEEEEEEEEEEEEEEEEEE"
             except threading.ThreadError, e:
                 s = traceback.format_exc()
                 logging.debug(s)
@@ -340,6 +339,7 @@ class SmarterInterfaceLegacy():
 
 
     def disconnect(self):
+        self.monitor_run = False
         if self.connected and self.dump:
             logging.debug("[" + self.host + ":" + str(self.port) + "] Disconnecting")
         self.__init()
@@ -2912,7 +2912,7 @@ class SmarterInterface:
         self.simulator_run = True
         time.sleep(0.25)
         if self.dump:
-            logging.info("[" + self.host + "] Simulation Running")
+            logging.info("[" + self.host + ":" + str(self.port) + "] Simulation Running")
         while self.simulator_run:
             if self.deviceId == Smarter.DeviceKettle:
             
