@@ -160,11 +160,22 @@ class SmarterInterfaceLegacy():
             try:
                 time.sleep(1)
                 if not self.simulation and not self.emulation:
-                    self.__read()
+                    responses = []
+                    
+                    data = self.__read()
+                    while data is not None:
+                        responses += [data]
+                        data = self.__read()
+                    
+                    if self.emulation:
+                        for r in responses:
+                            self.__relaySend(r)
+                
                 monitorCount += 1
             except Exception, e:
                 print str(e)
             try:
+                """
                 if monitorCount % timeout == timeout - 9:
                     self.status()
 
@@ -182,7 +193,7 @@ class SmarterInterfaceLegacy():
                 
                 if monitorCount % timeout == timeout - 50:
                     self.status()
-                
+                """
             except Exception, e:
                 print str(e)
 
@@ -254,7 +265,9 @@ class SmarterInterfaceLegacy():
                 self.simHeaterTimer += 1
                 if self.simHeaterTimer > 10:
                     self.simHeaterTimer = 0
+                    self.simHeaterOn = False
                     self.__relaySend(SmarterLegacy.statusHeated)
+                    logging.debug("[" + self.host + ":" + str(self.port) + "] Simulation Heating Stopped")
             
                     # self. STOP heater!!! and send messages...
             if self.simKeepwarmOn:
@@ -262,12 +275,12 @@ class SmarterInterfaceLegacy():
                 if self.simKeepwarmTimer > 10: #self.simKeepwarm:
                     self.simKeepwarmTimer = 0
                     self.__relaySend(SmarterLegacy.statusWarmFinished)
+                    logging.debug("[" + self.host + ":" + str(self.port) + "] Simulation Keepwarm Stopped")
             
         if self.dump:
             logging.info("[" + self.host + ":" + str(self.port) + "] Simulation Stopped")
 
     
-
 
     #------------------------------------------------------
     # CONNECTION: iKettle
@@ -403,7 +416,7 @@ class SmarterInterfaceLegacy():
                 logging.debug(traceback.format_exc())
 
                 raise SmarterErrorOld("[" + self.host + ":" + str(self.port) + "] Connection timed out")
-                
+        
         return response
 
 
@@ -709,6 +722,7 @@ class SmarterInterfaceLegacy():
         self.emu_trigger_warm(keepwarm > 0)
         self.emuOverheated = False
 
+
     #------------------------------------------------------
     # SIMULATION: iKettle
     #------------------------------------------------------
@@ -734,7 +748,8 @@ class SmarterInterfaceLegacy():
 
     def __sim_handshake(self):
         self.simHeaterOn = True
-        return [SmarterLegacy.responseHandshake] + [self.simTemperature] + [self.simKeepwarm]
+        return [SmarterLegacy.responseHandshake]
+        # + [self.simTemperature] + [self.simKeepwarm]
 
     def __sim_heat(self):
         self.simHeaterOn = True
@@ -742,13 +757,14 @@ class SmarterInterfaceLegacy():
 
 
     def __sim_status(self):
-        if self.simHeaterOn:
-            s = [SmarterLegacy.statusHeating]
-        elif self.simKeepwarmOn:
-            s = [SmarterLegacy.statusWarm]
-        else:
-            s = [SmarterLegacy.statusReady]
-        return self.__encode_status(self.simTemperature,self.simHeaterOn,self.simKeepwarmOn) + s + [self.simTemperature] + [self.simKeepwarm]
+        #if self.simHeaterOn:
+        #    s = [SmarterLegacy.statusHeating]
+        #elif self.simKeepwarmOn:
+        #    s = [SmarterLegacy.statusWarm]
+        #else:
+        s = [] #[SmarterLegacy.statusReady]
+        return s + self.__encode_status(self.simTemperature,self.simHeaterOn,self.simKeepwarmOn)
+        # + #[self.simTemperature] + [self.simKeepwarm]
 
 
     def __encode_status(self,temperature,heaterOn,keepwarmOn):
@@ -765,14 +781,14 @@ class SmarterInterfaceLegacy():
 
 
     def __sim_stop(self):
-        s = [SmarterLegacy.statusReady] + [self.simTemperature]
-        if self.simHeaterOn:
-            s += [SmarterLegacy.statusHeated]
+        s = [] #[self.simTemperature]
         if self.simKeepwarmOn:
-            s += [SmarterLegacy.statusWarmFinished]
+            s = [SmarterLegacy.statusWarmFinished]
+        elif self.simHeaterOn:
+            s = [SmarterLegacy.statusHeated]
         self.simHeaterOn = False
         self.simKeepwarmOn = False
-        return s
+        return s # +  self.__sim_status()
 
 
     def __sim_temperature(self,command):
@@ -799,7 +815,6 @@ class SmarterInterfaceLegacy():
 
     def __sim_warm(self):
         self.simKeepwarmOn = True
-        
         return [SmarterLegacy.statusWarm] + [self.simKeepwarm]
 
 
@@ -823,17 +838,13 @@ class SmarterInterfaceLegacy():
 
             self.__clients[(clientsock, addr)].acquire()
 
-            if self.emulation:
-                responses = self.emu_bridge(command)
-            elif self.simulation:
-                responses = self.sim_responses(command)
-            else:
-                try:
-                    responses = self.send(command)
-                except Exception, e:
-                    self.disconnect()
-                    print str(e)
-                    raise SmarterErrorOld("Could not send command to device")
+
+            try:
+                responses = self.send(command)
+            except Exception, e:
+                self.disconnect()
+                print str(e)
+                raise SmarterErrorOld("Could not send command to device")
             
             for r in responses:
                 logging.debug("[" + self.host + ":" + str(self.port)  + "] [" + self.relayHost + ":" + str(self.relayPort) + "] [" + addr[0] + ":" + str(addr[1]) + "] Legacy response relay [" + r + "] " + SmarterLegacy.string_response(r))
@@ -1259,6 +1270,7 @@ class SmarterInterfaceLegacy():
         
     @_threadsafe_function
     def __trigger(self,triggerID,old,new):
+        
         if not self.events: return
         for i in self.triggersGroups:
             if i[1]:
@@ -1334,7 +1346,7 @@ class SmarterInterfaceLegacy():
 
 
     def boil(self):
-        return self.send(SmarterLegacy.command100c) + self.send(SmarterLegacy.commandHeat)
+        return self.send(SmarterLegacy.commandHeat) + self.send(SmarterLegacy.command100c)
 
 
     def heat(self):
@@ -1343,6 +1355,7 @@ class SmarterInterfaceLegacy():
 
     def heat_temp(self,temperature=100):
         #Smarter.check_temperature(temperature)
+        r = self.send(SmarterLegacy.commandHeat)
         if temperature < 73:
             response = self.send(SmarterLegacy.command65c)
         elif temperature < 88:
@@ -1351,7 +1364,7 @@ class SmarterInterfaceLegacy():
             response = self.send(SmarterLegacy.command95c)
         else:
             response = self.send(SmarterLegacy.command100c)
-        return response + self.send(SmarterLegacy.commandHeat)
+        return response + r
 
 
 class SmarterInterface:
