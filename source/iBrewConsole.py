@@ -356,7 +356,121 @@ class iBrewConsole:
                 else:
                     self.client.relayPort = Smarter.Port
                     self.client.relayHost = self.serverBind
-        
+
+            if command == "shout":
+                if self.console or numarg == 0:
+                    print "iBrew: Can't hear you. Drinking tea at a dinner on the other side of the universe!"
+                    return
+                if numarg > 0:
+                    command = arguments[0].lower()
+                    arguments = arguments[1:]
+                    numarg -= 1
+                if not self.console:
+                    self.client.shout      = True
+                    self.client.isKettle   = True
+                    self.client.isCoffee   = True
+                else:
+                    print "iBrew: \'shout\' not available in the console"
+
+
+            if command == "slow":
+                if self.console or numarg == 0:
+                    print "iBrew: As you command, but it can take a while!"
+                    return
+                if numarg > 0:
+                    command = arguments[0].lower()
+                    arguments = arguments[1:]
+                    numarg -= 1
+                if not self.console:
+                    self.client.fast = False
+                else:
+                    print "iBrew: \'kettle\' not available in the console"
+
+            emulate = False
+            if command == "emulate":
+                emulate = True
+                command = arguments[0].lower()
+                arguments = arguments[1:]
+                numarg -= 1
+                # ip port?
+                self.client.emulate()
+            
+            
+            if command == "coffee":
+                if numarg == 0:
+                    print "iBrew: Nah, I want hot chocolade!"
+                    return
+                if numarg > 0:
+                    command = arguments[0].lower()
+                    arguments = arguments[1:]
+                    numarg -= 1
+                #if not self.console:
+                self.client.switch_coffee_device()
+                #else:
+                #    print "iBrew: \'coffee\' not available in the console"
+
+
+            if command == "kettle":
+                if numarg == 0:
+                
+                    sim = ""
+                    blubtext = "*blub*"
+                    borreltext = "*borrel*"
+                    for i in range(1,random.randint(0,42*42)):
+                        if random.randint(0,1) == 0:
+                            if random.randint(0,4) == 0:
+                                sim += " ".rjust(random.randint(0,4)," ") + blubtext.upper()
+                            else:
+                                sim += " ".rjust(random.randint(0,4)," ") + blubtext
+
+                        else:
+                            if random.randint(0,5) == 0:
+                                sim += " ".rjust(random.randint(0,4)," ") + borreltext.upper()
+                            else:
+                                sim += " ".rjust(random.randint(0,4)," ") + borreltext
+                    print "iBrew: Starting simulation of boiling water!\n\n" + sim
+                    return
+                
+                if numarg > 0:
+                    command = arguments[0].lower()
+                    arguments = arguments[1:]
+                    numarg -= 1
+                #if not self.console:
+                self.client.switch_kettle_device()
+                #else:
+                #    print "iBrew: \'kettle\' not available in the console"
+
+
+            if command == "fahrenheid":
+                if numarg == 0 and not self.console:
+                    print "iBrew: Kelvin, stop that!"
+                    return
+                else:
+                    Smarter.fahrenheid = True
+                    if numarg > 0:
+                        command = arguments[0].lower()
+                        arguments = arguments[1:]
+                        numarg -= 1
+                    if self.console:
+                        print "iBrew: Temperature in fahrenheid"
+                        return
+
+
+            if command == "celsius":
+                if numarg == 0 and not self.console:
+                    print "iBrew: But i'm freezing and so confused. Please turn me on!"
+                    return
+                else:
+                    Smarter.fahrenheid = False
+                    if numarg > 0:
+                        command = arguments[0].lower()
+                        arguments = arguments[1:]
+                        numarg -= 1
+                    if self.console:
+                        print "iBrew: Temperature in celsius"
+                        return
+
+
             if numarg > 0:
                 connection = str.split(arguments[numarg-1],':')
                 if self.is_valid_ipv4_address(connection[0]) or self.is_valid_ipv6_address(connection[0]) or (("server" in arguments or command == "server" or "relay" in arguments or command == "relay") and connection[0] == ""):
@@ -546,15 +660,6 @@ class iBrewConsole:
                     if command != "domoticz":
                         command = "monitor"
 
-            emulate = False
-            if command == "emulate":
-                emulate = True
-                command = arguments[0].lower()
-                arguments = arguments[1:]
-                # ip port?
-                self.client.emulate()
-            
-            
             if command == "legacy":
                 if numarg == 0:
                     self.legacy()
@@ -663,111 +768,7 @@ class iBrewConsole:
                     else:
                         print "iBrew: Legacy iKettle: Unknown command"
 
-            if command == "shout":
-                if self.console or numarg == 0:
-                    print "iBrew: Can't hear you. Drinking tea at a dinner on the other side of the universe!"
-                    return
-                if numarg > 0:
-                    command = arguments[0].lower()
-                    arguments = arguments[1:]
-                    numarg -= 1
-                if not self.console:
-                    self.client.shout      = True
-                    self.client.isKettle   = True
-                    self.client.isCoffee   = True
-                else:
-                    print "iBrew: \'shout\' not available in the console"
-
-
-            if command == "slow":
-                if self.console or numarg == 0:
-                    print "iBrew: As you command, but it can take a while!"
-                    return
-                if numarg > 0:
-                    command = arguments[0].lower()
-                    arguments = arguments[1:]
-                    numarg -= 1
-                if not self.console:
-                    self.client.fast = False
-                else:
-                    print "iBrew: \'kettle\' not available in the console"
-
-
-            if command == "coffee":
-                if numarg == 0:
-                    print "iBrew: Nah, I want hot chocolade!"
-                    return
-                if numarg > 0:
-                    command = arguments[0].lower()
-                    arguments = arguments[1:]
-                    numarg -= 1
-                #if not self.console:
-                self.client.switch_coffee_device()
-                #else:
-                #    print "iBrew: \'coffee\' not available in the console"
-
-
-            if command == "kettle":
-                if numarg == 0:
-                
-                    sim = ""
-                    blubtext = "*blub*"
-                    borreltext = "*borrel*"
-                    for i in range(1,random.randint(0,42*42)):
-                        if random.randint(0,1) == 0:
-                            if random.randint(0,4) == 0:
-                                sim += " ".rjust(random.randint(0,4)," ") + blubtext.upper()
-                            else:
-                                sim += " ".rjust(random.randint(0,4)," ") + blubtext
-
-                        else:
-                            if random.randint(0,5) == 0:
-                                sim += " ".rjust(random.randint(0,4)," ") + borreltext.upper()
-                            else:
-                                sim += " ".rjust(random.randint(0,4)," ") + borreltext
-                    print "iBrew: Starting simulation of boiling water!\n\n" + sim
-                    return
-                
-                if numarg > 0:
-                    command = arguments[0].lower()
-                    arguments = arguments[1:]
-                    numarg -= 1
-                #if not self.console:
-                self.client.switch_kettle_device()
-                #else:
-                #    print "iBrew: \'kettle\' not available in the console"
-
-
-            if command == "fahrenheid":
-                if numarg == 0 and not self.console:
-                    print "iBrew: Kelvin, stop that!"
-                    return
-                else:
-                    Smarter.fahrenheid = True
-                    if numarg > 0:
-                        command = arguments[0].lower()
-                        arguments = arguments[1:]
-                        numarg -= 1
-                    if self.console:
-                        print "iBrew: Temperature in fahrenheid"
-                        return
-
-
-            if command == "celsius":
-                if numarg == 0 and not self.console:
-                    print "iBrew: But i'm freezing and so confused. Please turn me on!"
-                    return
-                else:
-                    Smarter.fahrenheid = False
-                    if numarg > 0:
-                        command = arguments[0].lower()
-                        arguments = arguments[1:]
-                        numarg -= 1
-                    if self.console:
-                        print "iBrew: Temperature in celsius"
-                        return
-
-            if command == "relay" and self.client.simulation:
+            if command == "relay" and (self.client.simulation and not self.client.emulation):
                 if self.client.isCoffee:
                     self.client.switch_coffee_device()
                     numarg = 1
@@ -839,8 +840,7 @@ class iBrewConsole:
                         except:
                             # very bad
                             pass
-                
-               
+
             if command == "status" and numarg > 0:
                 self.client.fast = False
                 try:
@@ -1375,7 +1375,7 @@ class iBrewConsole:
         print "  iBrew iKettle 2.0 & Smater Coffee Command Line"
         print "  ______________________________________________"
         print
-        print "  Usage: ibrew (dump) (events) (emulate (host:(port))) (shout|slow) (coffee|kettle) (fahrenheid) [command] (host(:port))"
+        print "  Usage: ibrew (dump) (events) (shout|slow) (coffee|kettle|emulate (host:(port))) (fahrenheid) [command] (host(:port))"
         print
         #print "    bridge                 emulate iKettle 2.0 using legacy iKettle (NOT IMPlEMENTED)"
         print "    emulate (host:(port)   emulates legacy iKettle"

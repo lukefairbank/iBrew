@@ -498,6 +498,7 @@ class SmarterInterfaceLegacy():
         if command == SmarterLegacy.commandStop:
             self.iKettle2.kettle_stop()
         elif command == SmarterLegacy.commandHeat:
+            
             keepwarm = 0
             if self.emuKeepwarm == SmarterLegacy.statusWarm5m:
                 keepwarm = 5
@@ -506,16 +507,14 @@ class SmarterInterfaceLegacy():
             elif self.emuKeepwarm == SmarterLegacy.statusWarm20m:
                 keepwarm = 20
 
+            temperature = 100
             if self.emuTemperature == SmarterLegacy.status65c:
                 temperature = 65
             elif self.emuTemperature == SmarterLegacy.status80c:
                 temperature = 80
             elif self.emuTemperature == SmarterLegacy.status95c:
                 temperature = 95
-            elif self.emuTemperature == SmarterLegacy.status100c:
-                temperature = 100
-            elif self.emuTemperature == SmarterLegacy.statusTempOff:
-                temperature = 100
+                
             self.iKettle2.kettle_heat(temperature,keepwarm)
         elif command == SmarterLegacy.commandHandshake:
             pass
@@ -793,15 +792,15 @@ class SmarterInterfaceLegacy():
             self.__clients[(clientsock, addr)].release()
         logging.info("[" + self.relayHost + ":" + str(self.relayPort) + "] [" + addr[0] + ":" + str(addr[1]) + "] Legacy client disconnected")
         clientsock.close()
-        del self.__clients[(clientsock, addr)]
+        #del self.__clients[(clientsock, addr)]
 
 
     def __relaySend(self,status):
         # this is probably broken...
         for i in self.__clients:
-            i.acquire()
+            self.__clients[i].acquire()
             i[0].send(status+"\r")
-            i.release()
+            self.__clients[i].release()
     
     
     def __relay(self):
@@ -1569,12 +1568,14 @@ class SmarterInterface:
         self.__write_stats()
 
     def emulate(self):
-        self.simulation = True
+        logging.info("Starting iKettle Emulation")
+        self.simulation = False
         self.emulation = True
         self.iKettle.dump = True
         self.iKettle.emulate(self)
 
     def simulate(self):
+        logging.info("Starting iKettle 2.0 Simulation")
         self.simulation = True
         self.setHost("simulation")
                 
@@ -1872,7 +1873,7 @@ class SmarterInterface:
     
         logging.info(addr[0] + ":" + str(addr[1]) + " Client disconnected")
         clientsock.close()
-        del self.__clients[(clientsock, addr)]
+        #del self.__clients[(clientsock, addr)]
 
 
 
