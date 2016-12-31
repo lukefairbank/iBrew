@@ -545,7 +545,16 @@ class iBrewConsole:
                     self.client.iKettle.events = True
                     if command != "domoticz":
                         command = "monitor"
-                    
+
+            emulate = False
+            if command == "emulate":
+                emulate = True
+                command = arguments[0].lower()
+                arguments = arguments[1:]
+                # ip port?
+                self.client.emulate()
+            
+            
             if command == "legacy":
                 if numarg == 0:
                     self.legacy()
@@ -798,7 +807,6 @@ class iBrewConsole:
                     self.client.dump_status = False
                     
                 if command == "console" or command == "connect" or command == "relay":
-                
                     self.client.fast = False
                     self.client.shout = False
                 
@@ -860,8 +868,6 @@ class iBrewConsole:
             
             if command == "console" or command == "connect":
                 return
-
-            self.client.emulate()
 
             if command == "help" or command == "?":
                                             self.app_info()
@@ -1369,10 +1375,9 @@ class iBrewConsole:
         print "  iBrew iKettle 2.0 & Smater Coffee Command Line"
         print "  ______________________________________________"
         print
-        #print "  Usage: ibrew (energy) (dump) (bridge|emulate (host:(port)) (shout|slow) (coffee|kettle) (fahrenheid) [command] (host(:port))"
-        print "  Usage: ibrew (dump) (events) (legacy [bridge|emulate] (host:(port))) (shout|slow) (coffee|kettle) (fahrenheid) [command] (host(:port))"
+        print "  Usage: ibrew (dump) (events) (emulate (host:(port))) (shout|slow) (coffee|kettle) (fahrenheid) [command] (host(:port))"
         print
-        print "    bridge                 emulate iKettle 2.0 using legacy iKettle (NOT IMPlEMENTED)"
+        #print "    bridge                 emulate iKettle 2.0 using legacy iKettle (NOT IMPlEMENTED)"
         print "    emulate (host:(port)   emulates legacy iKettle"
         print "    coffee                 assumes coffee machine"
         print "    command                action to take!"
@@ -1380,7 +1385,6 @@ class iBrewConsole:
         print "    events                 enable trigger events (monitor, relay, console)"
         print "    fahrenheid             PARTLY WORKING use fahrenheid"
         print "    host                   host address of the appliance (format: ip4, ip6, fqdn), only use if detection fails"
-        #print "    energy                 NOT IMPLEMENTED energy saver (stats not possible)"
         print "    kettle                 assumes kettle"
         print "    port                   port of appliance, optional, only use if detection fails"
         print "    shout                  sends commands and quits not waiting for a reply"
@@ -1426,7 +1430,7 @@ class iBrewConsole:
         print
         print "    protocol               protocol information"
         print "    simulate               start kettle simulation"
-        print "    relay [(ip:)port]      start relay, if no ip and port to bind to, use \"\" to use default bindings"
+        print "    relay [(ip:)port]      start relay, if no ip and port to bind to, always use \"\" to use default bindings"
         print "    trigger                see triggers section"
         print "    triggers               overview of legacy triggers"
         print
@@ -1511,7 +1515,7 @@ class iBrewConsole:
         print "    disconnect             disconnect connected appliance"
         print "    events                 start trigger events only"
         print "    patch [rules]          patch messages"
-        print "    relay [(ip:)port]      start relay, if no ip and port to bind to, use \"\" to use default bindings"
+        print "    relay [(ip:)port]      start relay, if no ip and port to bind to, always use \"\" to use default bindings"
         print "    relay stop             stop relay"
         print "    remote info            info on remote relay"
         print "    remote block [rules]   remote block messages with groups or ids"

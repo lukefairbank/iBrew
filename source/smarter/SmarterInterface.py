@@ -590,49 +590,88 @@ class SmarterInterfaceLegacy():
     def emu_trigger_warm(self,warm):
         if self.dump:
             logging.debug("[" + self.host + ":" + str(self.port) + "] Emulation Trigger keepwarm " + str(warm))
+        if warm != self.emuKeepwarmOn:
+            if warm:
+                self.__relaySend(SmarterLegacy.statusWarm)
+            else:
+                self.__relaySend(SmarterLegacy.statusWarmFinished)
+                self.__relaySend(SmarterLegacy.statusReady)
+            self.emuKeepwarmFinished = not warm
         self.emuKeepwarmOn = warm
 
 
     def emu_trigger_onbase(self,onbase):
         if self.dump:
             logging.debug("[" + self.host + ":" + str(self.port) + "] Emulation trigger onbase " + str(onbase))
+        if onbase != self.emuOnBase and not onbase:
+            self.__relaySend(SmarterLegacy.statusKettleRemoved)
         self.emuOnBase = onbase
 
 
     def emu_trigger_heating(self,heater):
         if self.dump:
             logging.debug("[" + self.host + ":" + str(self.port) + "] Emulation trigger heater " + str(heater))
+        if heater != self.emuHeaterOn:
+            if heater:
+                self.__relaySend(SmarterLegacy.statusHeating)
+            else:
+                self.__relaySend(SmarterLegacy.statusHeated)
+                self.emuTemperature = SmarterLegacy.statusTempOff
+                if not self.emuKeepwarmOn:
+                    self.__relaySend(SmarterLegacy.statusReady)
+            self.emuHeatingFinished = not heater
         self.emuHeaterOn = heater
 
 
     def emu_trigger_temperature(self,temperature):
         if temperature < 73:
-            self.emuTemperature = SmarterLegacy.status65c
+            emuTemperature = SmarterLegacy.status65c
         elif temperature < 88:
-            self.emuTemperature = SmarterLegacy.status80c
+            emuTemperature = SmarterLegacy.status80c
         elif temperature < 97:
-            self.emuTemperature = SmarterLegacy.status95c
+            emuTemperature = SmarterLegacy.status95c
         else:
-            self.emuTemperature = SmarterLegacy.status100c
+            emuTemperature = SmarterLegacy.status100c
+        if  self.emuTemperature != emuTemperature:
+            self.__relaySend(emuTemperature)
+        self.emuTemperature = emuTemperature
         if self.dump:
-            logging.debug("[" + self.host + ":" + str(self.port) + "] Emulation trigger command temperature " + str(temperature) + " [" + self.emuTemperature + "]")
+            logging.debug("[" + self.host + ":" + str(self.port) + "] Emulation trigger command select temperature " + str(temperature) + " [" + self.emuTemperature + "]")
+
+
+    def emu_trigger_keepwarm(self,keepwarm):
+        if keepwarm >= 20:
+            emuKeepwarm = SmarterLegacy.status20m
+        elif keepwarm >= 10:
+            emuKeepwarm = SmarterLegacy.status10m
+        elif keepwarm >= 5:
+            emuKeepwarm = SmarterLegacy.status5m
+        else:
+            return
+        # just send it... NOT if  self.emuKeepwarm != emuKeepwarm:
+        self.__relaySend(emuKeepwarm)
+        self.emuKeepwarm = emuKeepwarm
+        if self.dump:
+            logging.debug("[" + self.host + ":" + str(self.port) + "] Emulation trigger command select warm " + str(keepwarm) + " [" + self.emuKeepwarm + "]")
 
 
     def emu_trigger_stop(self):
         if self.dump:
             logging.debug("[" + self.host + ":" + str(self.port) + "] Emulation trigger command stop")
-        self.emuKeepwarmFinished = False
-        self.emuHeatingFinished = True
-        self.emuKeepwarmOn = False
+        if self.emuOverheated:
+            self.__relaySend(SmarterLegacy.statusOverheat)
+        self.emu_trigger_heating(False)
+        self.emu_trigger_warm(False)
         self.emuOverheated = False
 
-    def emu_trigger_start(self,temperature):
-        self.emu_trigger_temperature(temperature)
+
+    def emu_trigger_start(self,temperature,keepwarm):
         if self.dump:
             logging.debug("[" + self.host + ":" + str(self.port) + "] Emulation trigger command start")
-        self.emuKeepwarmFinished = False
-        self.emuHeatingFinished = False
-        self.emuKeepwarmOn = False
+        self.emu_trigger_temperature(temperature)
+        self.emu_trigger_heating(True)
+        self.emu_trigger_keepwarm(keepwarm)
+        self.emu_trigger_warm(keepwarm > 0)
         self.emuOverheated = False
 
     #------------------------------------------------------
@@ -754,9 +793,17 @@ class SmarterInterfaceLegacy():
             self.__clients[(clientsock, addr)].release()
         logging.info("[" + self.relayHost + ":" + str(self.relayPort) + "] [" + addr[0] + ":" + str(addr[1]) + "] Legacy client disconnected")
         clientsock.close()
+        del self.__clients[(clientsock, addr)]
 
 
-
+    def __relaySend(self,status):
+        # this is probably broken...
+        for i in self.__clients:
+            i.acquire()
+            i[0].send(status+"\r")
+            i.release()
+    
+    
     def __relay(self):
         self.relay_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.relay_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -1808,12 +1855,9 @@ class SmarterInterface:
                 elif command == Smarter.CommandRelayModifiersInfo:
                     response = self.__encode_RelayModifiersInfo(self.string_block())
                 elif command == Smarter.CommandRelayBlock or command == Smarter.CommandRelayPatch:
-                    #print Smarter.raw_to_text(data[0:])
                     self.__modifiers(Smarter.raw_to_text(data[0:]))
                     response = self.__encode_RelayModifiersInfo(self.string_block())
                 elif command == Smarter.CommandRelayUnblock:
-                    #FIX
-                    #print Smarter.raw_to_text(data[0:])
                     self.__unmodifiers(Smarter.raw_to_text(data[0:]))
                     response = self.__encode_RelayModifiersInfo(self.string_block())
                 else:
@@ -1828,6 +1872,7 @@ class SmarterInterface:
     
         logging.info(addr[0] + ":" + str(addr[1]) + " Client disconnected")
         clientsock.close()
+        del self.__clients[(clientsock, addr)]
 
 
 
@@ -4355,14 +4400,14 @@ class SmarterInterface:
         if status != self.kettleStatus:
             self.__trigger(Smarter.triggerKettleStatus,Smarter.status_kettle_description(self.kettleStatus),Smarter.status_kettle_description(status))
             self.kettleStatus = status
-
+            
             if self.kettleStatus == Smarter.KettleHeating:
             
                 if not self.heaterOn:
                     self.__trigger(Smarter.triggerHeaterKettle,False,True)
                     if self.emulation:
                         self.iKettle.emu_trigger_heating(True)
-                    heaterOn = True
+                    self.heaterOn = True
                 if self.keepWarmOn == True:
                     self.keepWarmOn = False
                     if self.emulation:
@@ -4372,7 +4417,7 @@ class SmarterInterface:
                 if self.formulaCoolingOn == True:
                     self.formulaCoolingOn = False
                     self.__trigger(Smarter.triggerFormulaCooling,True,False)
-                    self.countFormulaCooling+= 1
+                    self.countFormulaCooling += 1
                 if not self.busy:
                     self.__trigger(Smarter.triggerBusyKettle,False,True)
                     self.busy = True
@@ -5145,7 +5190,7 @@ class SmarterInterface:
 
         if self.fast or self.isKettle:
             if self.emulation:
-                self.iKettle.emu_trigger_start(t)
+                self.iKettle.emu_trigger_start(t,kw)
             self.__send_command(Smarter.CommandHeat,Smarter.temperature_to_raw(t)+Smarter.keepwarm_to_raw(kw))
         else:
             raise SmarterError(KettleNoMachineHeat,"You need a kettle to heat it")
@@ -5223,7 +5268,7 @@ class SmarterInterface:
         """
         if self.fast or self.isKettle:
             if self.emulation:
-                self.iKettle.emu_trigger_start(self.defaultTemperature)
+                self.iKettle.emu_trigger_start(self.defaultTemperature,self.defaultKeepWarmTime)
             self.__send_command(Smarter.CommandHeatDefault)
         else:
             raise SmarterError(KettleNoMachineHeat,"You need a kettle to heat it")
@@ -5249,7 +5294,7 @@ class SmarterInterface:
         
         if self.fast or self.isKettle:
             if self.emulation:
-                self.iKettle.emu_trigger_start(t)
+                self.iKettle.emu_trigger_start(t,kw)
             self.__send_command(Smarter.CommandHeatFormula,Smarter.temperature_to_raw(t)+Smarter.keepwarm_to_raw(kw))
         else:
             raise SmarterError(KettleNoMachineHeatFormula,"You need a kettle to heat in formula mode")
