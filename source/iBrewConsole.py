@@ -802,10 +802,6 @@ class iBrewConsole:
                         print
                     if not (self.console and command == "relay") and not self.client.simulation:
                         self.client.connect()
-                        
-                        self.client.iKettle.emulate()
-                        
-                        
                 except Exception, e:
                     logging.debug(e)
                     logging.info("iBrew: Could not connect to [" + self.client.host + "]")
@@ -857,6 +853,8 @@ class iBrewConsole:
             
             if command == "console" or command == "connect":
                 return
+
+            self.client.emulate()
 
             if command == "help" or command == "?":
                                             self.app_info()

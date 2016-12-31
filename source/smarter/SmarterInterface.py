@@ -207,16 +207,16 @@ class SmarterInterfaceLegacy():
         self.connect()
         # do stuff to ikettle 2
     
-    def emulation(self,iKettle2=None):
+    def emulate(self,iKettle2=None):
         self.relay_stop()
         self.disconnect()
-        self.emulation = True
-        self.simulation = False
-        self.passthrough = False
         self.iKettle2 = iKettle2
-        self.emuOnBase = iKettle2.onBase
-        self.emuHeaterOn = iKettle2.heaterOn
-        self.emuKeepwarmOn = iKettle2.keepWarmOn
+        self.emulation = True
+        self.simulation = True
+        self.passthrough = False
+        self.emu_trigger_heating(self.heaterOn)
+        self.emu_trigger_temperature(False)
+        self.emu_trigger_onbase(self.onBase)
         self.relay_start()
     
     
@@ -553,7 +553,7 @@ class SmarterInterfaceLegacy():
         elif command == SmarterLegacy.commandHandshake:     response = [SmarterLegacy.responseHandshake]
         elif command == SmarterLegacy.commandStatus:        response = self.__emu_status()
         elif command == SmarterLegacy.command65c or command == SmarterLegacy.command80c or command == SmarterLegacy.command95c or command == SmarterLegacy.command100c:
-                                                            response = self.__emu_temperature(command)
+                                                            response = self.__emu_temperature()
         elif command == SmarterLegacy.commandWarm:  response = self.__emu_warm()
         elif command == SmarterLegacy.commandWarm5m or command == SmarterLegacy.commandWarm10m or command == SmarterLegacy.commandWarm20m:
                                                 response = self.__emu_keepwarm_minutes()
@@ -734,10 +734,10 @@ class SmarterInterfaceLegacy():
 
             self.__clients[(clientsock, addr)].acquire()
 
-            if self.simulation:
-                responses = self.sim_responses(command)
-            elif self.emulation:
+            if self.emulation:
                 responses = self.emu_bridge(command)
+            elif self.simulation:
+                responses = self.sim_responses(command)
             else:
                 try:
                     responses = self.send(command)
@@ -1494,7 +1494,7 @@ class SmarterInterface:
         self.__init()
 
         self.iKettle                      = SmarterInterfaceLegacy(self.settingsPath)
-        self.emulate                      = False
+        self.emulation                      = False
 
 
         try:
@@ -1525,11 +1525,8 @@ class SmarterInterface:
     def emulate(self):
         self.simulation = True
         self.iKettle.dump = True
-        self.iKettle.bridge(self)
-        self.iKettle.emu_trigger_heating(self.heaterOn)
-        self.iKettle.emu_trigger_temperature(False)
-        self.iKettle.emu_trigger_onbase(self.onBase)
-        self.emulate = True
+        self.iKettle.emulate(self)
+        self.emulation = True
 
     def simulate(self):
         self.simulation = True
@@ -4364,12 +4361,12 @@ class SmarterInterface:
             
                 if not self.heaterOn:
                     self.__trigger(Smarter.triggerHeaterKettle,False,True)
-                    if self.emulate:
+                    if self.emulation:
                         self.iKettle.emu_trigger_heating(True)
                     heaterOn = True
                 if self.keepWarmOn == True:
                     self.keepWarmOn = False
-                    if self.emulate:
+                    if self.emulation:
                         self.iKettle.emu_trigger_warm(False)
                     self.__trigger(Smarter.triggerKeepWarm,True,False)
                     self.countKeepWarm += 1
@@ -4387,13 +4384,13 @@ class SmarterInterface:
                     self.__trigger(Smarter.triggerFormulaCooling,False,True)
                 if self.heaterOn == True:
                     self.__trigger(Smarter.triggerHeaterKettle,True,False)
-                    if self.emulate:
+                    if self.emulation:
                         self.iKettle.emu_trigger_heating(False)
                     self.heaterOn = False
                     self.countHeater += 1
                 if self.keepWarmOn == True:
                     self.keepWarmOn = False
-                    if self.emulate:
+                    if self.emulation:
                         self.iKettle.emu_trigger_warm(False)
                     self.__trigger(Smarter.triggerKeepWarm,True,False)
                     self.countKeepWarm += 1
@@ -4404,13 +4401,13 @@ class SmarterInterface:
             elif self.kettleStatus == Smarter.KettleKeepWarm:
                 if not self.keepWarmOn:
                     self.keepWarmOn = True
-                    if self.emulate:
+                    if self.emulation:
                         self.iKettle.emu_trigger_warm(True)
                     self.__trigger(Smarter.triggerKeepWarm,False,True)
                 if self.heaterOn == True:
                     self.__trigger(Smarter.triggerHeaterKettle,True,False)
                     self.heaterOn = False
-                    if self.emulate:
+                    if self.emulation:
                         self.iKettle.emu_trigger_heating(False)
                     self.countHeater += 1
                 if self.formulaCoolingOn == True:
@@ -4423,13 +4420,13 @@ class SmarterInterface:
             else:
                 if self.keepWarmOn == True:
                     self.__trigger(Smarter.triggerKeepWarm,True,False)
-                    if self.emulate:
+                    if self.emulation:
                         self.iKettle.emu_trigger_warm(False)
                     self.keepWarmOn = False
                     self.countKeepWarm += 1
                 if self.heaterOn == True:
                     self.heaterOn = False
-                    if self.emulate:
+                    if self.emulation:
                         self.iKettle.emu_trigger_heating(False)
                     self.__trigger(Smarter.triggerHeaterKettle,True,False)
                     self.countHeater+= 1
@@ -4464,7 +4461,7 @@ class SmarterInterface:
         if self.onBase != v:
             if self.onBase:
                 self.countKettleRemoved += 1
-            if self.emulate:
+            if self.emulation:
                 self.iKettle.emu_trigger_onbase(v)
             self.__trigger(Smarter.triggerOffBase,not self.onBase,not v)
             self.onBase = v
@@ -5148,8 +5145,8 @@ class SmarterInterface:
             t = temperature
 
         if self.fast or self.isKettle:
-            if self.emulate:
-                self.iKettle.emu_start(t)
+            if self.emulation:
+                self.iKettle.emu_trigger_start(t)
             self.__send_command(Smarter.CommandHeat,Smarter.temperature_to_raw(t)+Smarter.keepwarm_to_raw(kw))
         else:
             raise SmarterError(KettleNoMachineHeat,"You need a kettle to heat it")
@@ -5226,8 +5223,8 @@ class SmarterInterface:
         Unknown if this one works...
         """
         if self.fast or self.isKettle:
-            if self.emulate:
-                self.iKettle.emu_start(self.defaultTemperature)
+            if self.emulation:
+                self.iKettle.emu_trigger_start(self.defaultTemperature)
             self.__send_command(Smarter.CommandHeatDefault)
         else:
             raise SmarterError(KettleNoMachineHeat,"You need a kettle to heat it")
@@ -5252,8 +5249,8 @@ class SmarterInterface:
             t = formulaTemperature
         
         if self.fast or self.isKettle:
-            if self.emulate:
-                self.iKettle.emu_start(t)
+            if self.emulation:
+                self.iKettle.emu_trigger_start(t)
             self.__send_command(Smarter.CommandHeatFormula,Smarter.temperature_to_raw(t)+Smarter.keepwarm_to_raw(kw))
         else:
             raise SmarterError(KettleNoMachineHeatFormula,"You need a kettle to heat in formula mode")
@@ -5265,7 +5262,7 @@ class SmarterInterface:
         Stop heating water
         """
         if self.fast or self.isKettle:
-            if self.emulate:
+            if self.emulation:
                 self.iKettle.emu_trigger_stop()
             self.__send_command(Smarter.CommandKettleStop)
         else:
