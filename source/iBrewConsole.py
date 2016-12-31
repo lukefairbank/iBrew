@@ -582,6 +582,10 @@ class iBrewConsole:
                             self.client.iKettle.simulate()
                         self.monitor()
                         return
+                        
+                    if arguments[0] == "monitor":
+                        self.client.iKettle.connect()
+                        self.monitor()
                             
                     if arguments[0] == "trigger":
                         arguments = arguments[1:]
@@ -792,6 +796,9 @@ class iBrewConsole:
 
                 if command == "console" or command == "connect":
                     self.client.dump_status = False
+                    
+                if command == "console" or command == "connect" or command == "relay":
+                
                     self.client.fast = False
                     self.client.shout = False
                 

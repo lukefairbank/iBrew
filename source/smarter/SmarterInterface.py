@@ -276,7 +276,6 @@ class SmarterInterfaceLegacy():
             raise SmarterErrorOld("No kettle found at " + self.host + ":" +  str(self.port))
         self.connected = True
         
-        
         if not self.fast:
             try:
                 self.monitor = threading.Thread(target=self.__monitor_device)
@@ -495,7 +494,7 @@ class SmarterInterfaceLegacy():
     # FIX send to ikettle 2
     def emu_bridge(self,command):
         if self.dump:
-            logging.debug("[" + self.host + ":" + str(self.port) + "] passthrough command: " + SmarterLegacy.command_to_string(command))
+            logging.debug("[" + self.host + ":" + str(self.port) + "] executing emulate command: " + SmarterLegacy.command_to_string(command))
         if command == SmarterLegacy.commandStop:
             self.iKettle2.kettle_stop()
         elif command == SmarterLegacy.commandHeat:
@@ -1524,9 +1523,9 @@ class SmarterInterface:
 
     def emulate(self):
         self.simulation = True
+        self.emulation = True
         self.iKettle.dump = True
         self.iKettle.emulate(self)
-        self.emulation = True
 
     def simulate(self):
         self.simulation = True
@@ -4356,7 +4355,7 @@ class SmarterInterface:
         if status != self.kettleStatus:
             self.__trigger(Smarter.triggerKettleStatus,Smarter.status_kettle_description(self.kettleStatus),Smarter.status_kettle_description(status))
             self.kettleStatus = status
-        
+
             if self.kettleStatus == Smarter.KettleHeating:
             
                 if not self.heaterOn:
