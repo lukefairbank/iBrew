@@ -330,9 +330,6 @@ class SmarterInterfaceLegacy():
                 raise SmarterError(0,"Could not start monitor")
 
 
-
-
-
     def disconnect(self):
         self.monitor_run = False
         if self.connected and self.dump:
@@ -341,7 +338,6 @@ class SmarterInterfaceLegacy():
         self.connected = False
         if self.socket:
             self.socket.close()
-
 
 
     def __read(self):
@@ -359,7 +355,7 @@ class SmarterInterfaceLegacy():
 
     def send(self,command):
         if self.emulation:
-            response = self.emu_responses(command)
+            response = self.emu_bridge(command)
             for data in response:
                 self.__decode_response(data)
         elif self.simulation:
@@ -545,7 +541,6 @@ class SmarterInterfaceLegacy():
                 temperature = 80
             elif self.emuTemperature == SmarterLegacy.status95c:
                 temperature = 95
-
             self.iKettle2.kettle_heat(temperature,keepwarm)
         elif command == SmarterLegacy.commandHandshake:
             pass
@@ -697,11 +692,15 @@ class SmarterInterfaceLegacy():
     def emu_trigger_start(self,temperature,keepwarm):
         if self.dump:
             logging.debug("[" + self.host + ":" + str(self.port) + "] Emulation trigger command start")
-        self.emu_trigger_temperature(temperature)
-        self.emu_trigger_heating(True)
-        self.emu_trigger_keepwarm(keepwarm)
-        self.emu_trigger_warm(keepwarm > 0)
-        self.emuOverheated = False
+        try:
+            self.emu_trigger_temperature(temperature)
+            self.emu_trigger_heating(True)
+            self.emu_trigger_keepwarm(keepwarm)
+            self.emu_trigger_warm(keepwarm > 0)
+            self.emuOverheated = False
+        except Exception, e:
+            print str(e)
+
 
 
     #------------------------------------------------------
@@ -809,12 +808,12 @@ class SmarterInterfaceLegacy():
         logging.info("[" + self.relayHost + ":" + str(self.relayPort) + "] [" + addr[0] + ":" + str(addr[1]) + "] Legacy client connected")
 
         while self.relay:
-            #try:
-            command = clientsock.recv(40)
-            if not command:
+            try:
+                command = clientsock.recv(40)
+                if not command:
+                    break
+            except:
                 break
-            #except:
-            #    continue
             command = command[:-1]
 
             logging.debug("[" + self.host + ":" + str(self.port)  + "] [" + self.relayHost + ":" + str(self.relayPort) + "] [" + addr[0] + ":" + str(addr[1]) + "] Legacy command relay [" + command + "] " + SmarterLegacy.command_to_string(command))
@@ -825,6 +824,8 @@ class SmarterInterfaceLegacy():
             try:
                 responses = self.send(command)
             except Exception, e:
+                self.__clients[(clientsock, addr)].release()
+                # delete here?
                 self.disconnect()
                 print str(e)
                 raise SmarterErrorOld("Could not send command to device")
@@ -844,15 +845,21 @@ class SmarterInterfaceLegacy():
     def __relaySend(self,status):
         # this is probably broken...
         for i in self.__clients:
-            self.__clients[i].acquire()
+            print self.__clients[i]
+            
+            # SHOUL REALLY FIX THE LOCKS ON SENDING!!!
+            
+            #self.__clients[i].acquire()
             logging.debug("[" + self.host + ":" + str(self.port)  + "] [" + self.relayHost + ":" + str(self.relayPort) + "] [" + i[1][0] + ":" + str(i[1][1]) + "] Legacy response relay [" + status + "] " + SmarterLegacy.string_response(status))
             
             try:
                 i[0].send(status+"\r")
             except:
                 i[0].close()
+                self.__clients[i].release()
                 del self.__clients[i]
-            self.__clients[i].release()
+                break
+            #self.__clients[i].release()
     
     
     def __relay(self):
@@ -2379,17 +2386,19 @@ class SmarterInterface:
         if self.host == Smarter.DirectHost:
             if platform.system() == "Darwin" or platform.system() == "Linux":
                 # yeah, it only accept one wifi...
-
-                # loop over interfaces.. interfaces()
-                from wireless import Wireless
-                wireless = Wireless()
-                wirelessname = wireless.current()
-                if wirelessname is not None:
-                    if (wirelessname[0:14] == Smarter.DeviceStringCoffee or wirelessname[0:11] == Smarter.DeviceStringKettle) and self.host == Smarter.DirectHost:
-                        self.isDirect = True
+                try:
+                    # loop over interfaces.. interfaces()
+                    from wireless import Wireless
+                    wireless = Wireless()
+                    wirelessname = wireless.current()
+                    if wirelessname is not None:
+                        if (wirelessname[0:14] == Smarter.DeviceStringCoffee or wirelessname[0:11] == Smarter.DeviceStringKettle) and self.host == Smarter.DirectHost:
+                            self.isDirect = True
+                        else:
+                            self.isDirect = False
                     else:
                         self.isDirect = False
-                else:
+                except:
                     self.isDirect = False
             elif platform.system() == "Windows":
                 self.isDirect = False
