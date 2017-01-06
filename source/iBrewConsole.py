@@ -341,7 +341,7 @@ class iBrewConsole:
             self.serverBind = ""
             self.serverPort = Smarter.Port - 1
             
-            if "simulate" in arguments or command == "simulate":
+            if (numarg > 0 and "simulate" in arguments) or command == "simulate":
                 if command == "legacy":
                     self.client.iKettle.simulation = True
                 else:
@@ -353,7 +353,7 @@ class iBrewConsole:
                         arguments[i] = "relay"
                         break
             
-            if "relay" in arguments or command == "relay":
+            if (numarg > 0 and "relay" in arguments) or command == "relay":
                 if command == "legacy":
                     self.client.iKettle.relayPort = SmarterLegacy.Port
                     self.client.iKettle.relayHost = self.serverBind
