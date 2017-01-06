@@ -64,6 +64,7 @@ class iBrewConsole:
         dump = self.client.dump
         self.client.dump_status = True
         self.client.dump = True
+        self.client.iKettle.dump = True
         
         while True:
             try:
@@ -78,6 +79,7 @@ class iBrewConsole:
                 logging.debug(str(e))
                 break
         self.client.dump = dump
+        self.client.iKettle.dump = dump
         self.client.dump_status = False
         print
    
@@ -318,10 +320,12 @@ class iBrewConsole:
                 else:
                     if self.client.dump and numarg == 0:
                         self.client.dump = False
+                        self.client.iKettle.dump = False
                         if self.console:
                             print "iBrew: Dump raw messages disabled"
                     else:
                         self.client.dump = True
+                        self.client.iKettle.dump = True
                         if self.console:
                             print "iBrew: Dump raw messages enabled"
                     
@@ -337,222 +341,25 @@ class iBrewConsole:
             self.serverBind = ""
             self.serverPort = Smarter.Port - 1
             
-            if numarg > 0:
-                if arguments[numarg-1] == "simulate":
-                    self.client.setHost("simulation")
+            if "simulate" in arguments or command == "simulate":
+                if command == "legacy":
+                    self.client.iKettle.simulation = True
                 else:
-                    connection = str.split(arguments[numarg-1],':')
-                    if self.is_valid_ipv4_address(connection[0]) or self.is_valid_ipv6_address(connection[0]) or (("server" in arguments or command == "server") and connection[0] == ""):
-                        if command == "legacy":
-                            self.client.iKettle.setHost(connection[0])
-                        
-                        else:
-                            if "server" in arguments or command == "server" or "web" in arguments or command == "web":
-                                self.serverBind = connection[0]
-                            else:
-                                self.client.setHost(connection[0])
-                        try:
-                            self.portfound = False
-                            p = int(connection[1])
-                            if command == "legacy":
-                                self.client.iKettle.port = p
-                            else:
-                                if "server" in arguments or command == "server" or "web" in arguments or command == "web":
-                                    self.serverPort = connection[1]
-                                    self.portfound = True
-                                else:
-                                    self.client.port = p
-                        except ValueError:
-                            pass
-                        except IndexError:
-                            pass
-                        if "server" not in arguments and command != "server" and "web" not in arguments and command != "web":
-                            self.haveHost = True
-                        numarg -= 1
-                        arguments = arguments[0:numarg]
-
-                        if numarg > 0 and ("server" in arguments or command == "server" or "web" in arguments or command == "web"):
-                            connection = str.split(arguments[numarg-1],':')
-  
-                            
-                            noport = False
-                            try:
-                                p = int(connection[1])
-                            
-                            except ValueError:
-                                noport = True
-                            except IndexError:
-                                noport = True
-
-                            isvalid = self.is_valid_ipv4_address(connection[0]) or self.is_valid_ipv6_address(connection[0])
-                            if not noport and (connection[0] == "" or isvalid):
-                                if self.serverBind == "":
-                                    self.client.setHost(Smarter.DirectHost)
-                                else:
-                                    self.client.setHost(self.serverBind)
-                                if self.portfound:
-                                    self.client.port = self.serverPort
-                                else:
-                                    self.client.port = Smarter.Port
-                                
-                                self.haveHost = True
-                                self.serverPort = connection[1]
-                                self.serverBind = connection[0]
-                                numarg -= 1
-                                arguments = arguments[0:numarg]
-                            elif noport and isvalid:
-                                if self.serverBind == "":
-                                    self.client.setHost(Smarter.DirectHost)
-                                else:
-                                    self.client.setHost(self.serverBind)
-                                if self.portfound:
-                                    self.client.port = self.serverPort
-                                else:
-                                    self.client.port = Smarter.Port
-                                self.haveHost = True
-                                self.serverPort = Smarter.Port - 1
-                                self.serverBind = connection[0]
-                                numarg -= 1
-                                arguments = arguments[0:numarg]
-
-            # 3 times I went bug hunting forgotting the "s"
-            if command == "event": command = "events"
-            if command == "events" or command == "domoticz":
-                if self.console:
-                    if self.client.events == False:
-                        self.client.iKettle.events = True
-                        self.client.events = True
-                        print "iBrew: Trigger events enabled"
-                    else:
-                        self.client.iKettle.events = False
-                        self.client.events = False
-                        print "iBrew: Trigger events disabled"
-                    return
-                elif numarg != 0 and command != "domoticz":
-                    self.client.events = True
-                    self.client.iKettle.events = True
-                    command = arguments[0].lower()
-                    arguments = arguments[1:]
-                    numarg -= 1
+                    self.client.simulation = True
+                if command == "simulate":
+                    command = "relay"
+                for i in range(0,numarg):
+                    if arguments[i] == "simulate":
+                        arguments[i] = "relay"
+                        break
+            
+            if "relay" in arguments or command == "relay":
+                if command == "legacy":
+                    self.client.iKettle.relayPort = SmarterLegacy.Port
+                    self.client.iKettle.relayHost = self.serverBind
                 else:
-                    self.client.events = True
-                    self.client.iKettle.events = True
-                    if command != "domoticz":
-                        command = "monitor"
-                    
-            if command == "legacy":
-                if numarg == 0:
-                    self.legacy()
-                    self.legacy_commands()
-                    self.triggers()
-                    return
-                if numarg >= 1:
-                    if self.client.isCoffee:
-                        print "iBrew: iKettle != Coffee Machine"
-                        #logging.warning("iBrew: iKettle != Coffee Machine")
-                        return
-              
-                    if arguments[0] == "protocol":
-                        SmarterLegacy.protocol()
-                        return
-                   
-                    if arguments[0] == "triggers":
-                        SmarterLegacy.print_triggers()
-                        return
-                    
-                    if command == "switches":
-                        SmarterLegacy.print_states()
-                        return
-                    
-                    if arguments[0] == "simulate":
-                        self.client.iKettle.simulate()
-                        self.monitor()
-                        return
-                        
-                    if arguments[0] == "relay":
-                        if numarg >= 2:
-                            if arguments[1] == "stop":
-                                self.client.iKettle.relay_stop()
-                                return
-                            connection = str.split(arguments[1],':')
-                            if self.is_valid_ipv4_address(connection[1]) or self.is_valid_ipv6_address(connection[0]):
-                                self.client.iKettle.relayHost = connection[1]
-                            try:
-                                p = int(connection[1])
-                                self.client.iKettle.relayPort = p
-                            except ValueError:
-                                pass
-                            except IndexError:
-                                pass
-                        self.client.iKettle.connect()
-                        self.client.iKettle.relay_start()
-                        self.monitor()
-                        return
-                            
-                    if arguments[0] == "trigger":
-                        arguments = arguments[1:]
-                        numarg -= 1
-                        if numarg == 0:
-                            self.client.iKettle.print_triggers()
-                        else:
-                            if arguments[0] == "groups":
-                                self.client.iKettle.print_groups()
-                            elif arguments[0] == "add" and numarg == 4:
-                                self.client.iKettle.triggerAdd(arguments[1],arguments[2].upper(),arguments[3])
-                                self.client.iKettle.print_group(arguments[1])
-                                self.client.iKettle.print_trigger(arguments[1])
-                                print "iBrew: Legacy iKettle: Added trigger " + arguments[2].upper() + " to group " + arguments[1] + " with action " + arguments[3]
-                            elif arguments[0] == "add" and numarg != 4:
-                                print "iBrew: Legacy iKettle: Trigger add need a group name and a trigger action"
-                            elif arguments[0][0:3] == "del":
-                                if numarg == 3 or numarg == 2:
-                                    if numarg == 2:
-                                        self.client.iKettle.triggerGroupDelete(arguments[1])
-                                        print "iBrew: Legacy iKettle: Trigger group " + arguments[1] + " deleted"
-                                    else:
-                                        self.client.iKettle.triggerDelete(arguments[1],arguments[2].upper())
-                                        self.client.iKettle.print_group(arguments[1])
-                                        self.client.iKettle.print_trigger(arguments[1])
-                                        print "iBrew: Legacy iKettle: Trigger " + arguments[2].upper() + " of group " + arguments[1] + " deleted"
-                                else:
-                                    print "iBrew: Legacy iKettle: Trigger delete need a group name or a group name and a trigger action"
-                            else:
-                                if numarg == 1:
-                                    self.client.iKettle.print_group(arguments[0])
-                                elif numarg == 2:
-                                    if arguments[1] == "switch":
-                                        print "iBrew: Legacy iKettle: Missing arguments, which duality?"
-                                    else:
-                                        try:
-                                            state = Smarter.string_to_bool(arguments[1])
-                                            if state:
-                                                self.client.iKettle.enableGroup(arguments[0])
-                                                print "iBrew: Legacy iKettle: Trigger group " + arguments[0] + " enabled"
-                                            else:
-                                                self.client.iKettle.disableGroup(arguments[0])
-                                                print "iBrew: Legacy iKettle: Trigger group " + arguments[0] + " enabled"
-                                        except Exception, e:
-                                            print str(e)
-                                            print "iBrew: Legacy iKettle: failed to get switch state type"
-                                elif arguments[1] == "switch":
-                                    self.client.iKettle.boolsGroup(arguments[0],arguments[2])
-                                    print "iBrew: Legacy iKettle: Trigger group " + arguments[0] + " switch type " + arguments[2]
-                                else:
-                                    print "iBrew: Legacy iKettle: Missing arguments, about time for some peace and quite :-)"
-                        return
-
-                    if numarg == 1:
-                        self.client.iKettle.dump = self.client.dump
-                        self.client.iKettle.normal()
-                        try:
-                            r = self.client.iKettle.send(SmarterLegacy.string_to_command(arguments[0]))
-                            for i in r:
-                                print "iBrew: Legacy iKettle: " + SmarterLegacy.string_response(i)
-                        except Exception:
-                            print "iBrew: Legacy iKettle: Unknown command"
-                        return
-                    else:
-                        print "iBrew: Legacy iKettle: Unknown command"
+                    self.client.relayPort = Smarter.Port
+                    self.client.relayHost = self.serverBind
 
             if command == "shout":
                 if self.console or numarg == 0:
@@ -583,7 +390,16 @@ class iBrewConsole:
                 else:
                     print "iBrew: \'kettle\' not available in the console"
 
-
+            emulate = False
+            if command == "emulate":
+                emulate = True
+                command = arguments[0].lower()
+                arguments = arguments[1:]
+                numarg -= 1
+                # ip port?
+                self.client.emulate()
+            
+            
             if command == "coffee":
                 if numarg == 0:
                     print "iBrew: Nah, I want hot chocolade!"
@@ -658,10 +474,305 @@ class iBrewConsole:
                         print "iBrew: Temperature in celsius"
                         return
 
-            if command == "simulate":
-                self.client.simulate()
+
+            if numarg > 0:
+                connection = str.split(arguments[numarg-1],':')
+                if self.is_valid_ipv4_address(connection[0]) or self.is_valid_ipv6_address(connection[0]) or (("server" in arguments or command == "server" or "relay" in arguments or command == "relay") and connection[0] == ""):
+                    
+                    if "relay" in arguments or command == "relay" or "server" in arguments or command == "server" or "web" in arguments or command == "web":
+                        self.serverBind = connection[0]
+                        if "relay" in arguments or command == "relay":
+                            if command == "legacy":
+                                self.client.iKettle.relayHost = self.serverBind
+                            else:
+                                self.client.relayHost = self.serverBind
+                    else:
+                        if command == "legacy":
+                            self.client.iKettle.setHost(connection[0])
+                        else:
+                            self.client.setHost(connection[0])
+                    try:
+                        self.portfound = False
+                        p = int(connection[1])
+                        
+                        if "relay" in arguments or command == "relay" or "server" in arguments or command == "server" or "web" in arguments or command == "web":
+                            self.serverPort = p
+                            if "relay" in arguments or command == "relay":
+                                if command == "legacy":
+                                    self.client.iKettle.relayPort = self.serverPort
+                                else:
+                                    self.client.relayPort = self.serverPort
+                            self.portfound = True
+                        else:
+                            if command == "legacy":
+                                self.client.iKettle.port = p
+                            else:
+                                self.client.port = p
+                    except ValueError:
+                        pass
+                    except IndexError:
+                        pass
+                    if "relay" not in arguments and command != "relay" and "server" not in arguments and command != "server" and "web" not in arguments and command != "web":
+                        self.haveHost = True
+                    numarg -= 1
+                    arguments = arguments[0:numarg]
+
+                    """
+                    print "Server"
+                    print self.serverBind
+                    print str(self.serverPort)
+                    print "Normal"
+                    print self.client.host
+                    print str(self.client.port)
+                    print "iKettle"
+                    print self.client.iKettle.host
+                    print str(self.client.iKettle.port)
+                    print
+                    """
+
+                    if numarg > 0 and ("relay" in arguments or command == "relay" or "server" in arguments or command == "server" or "web" in arguments or command == "web"):
+                        connection = str.split(arguments[numarg-1],':')
+
+                        
+                        noport = False
+                        try:
+                            p = int(connection[1])
+                        
+                        except ValueError:
+                            noport = True
+                        except IndexError:
+                            noport = True
+
+
+                        isvalid = self.is_valid_ipv4_address(connection[0]) or self.is_valid_ipv6_address(connection[0])
+                        if connection[0] == "" or (not noport and isvalid):
+
+                            if self.serverBind == "":
+                                if command == "legacy":
+                                    self.client.iKettle.setHost(Smarter.DirectHost)
+                                else:
+                                    self.client.setHost(Smarter.DirectHost)
+                            else:
+                                if command == "legacy":
+                                    self.client.iKettle.setHost(self.serverBind)
+                                else:
+                                    self.client.setHost(self.serverBind)
+
+                            if self.portfound:
+                                if command == "legacy":
+                                    self.client.iKettle.port = self.serverPort
+                                else:
+                                    self.client.port = self.serverPort
+                            else:
+                                if command == "legacy":
+                                    self.client.iKettle.port = SmarterLegacy.Port
+                                else:
+                                    self.client.port = Smarter.Port
+                            
+                            self.haveHost = True
+                            if not noport:
+                                self.serverPort = p
+                            else:
+                                if command == "legacy":
+                                    self.serverPort= SmarterLegacy.Port
+                                else:
+                                    self.client.relayPort = Smarter.Port
+                        
+                            
+                            self.serverBind = connection[0]
+                            if "relay" in arguments or command == "relay":
+                                if command == "legacy":
+                                    self.client.iKettle.relayPort = self.serverPort
+                                    self.client.iKettle.relayHost = self.serverBind
+                                else:
+                                    self.client.relayPort = self.serverPort
+                                    self.client.relayHost = self.serverBind
+                            numarg -= 1
+                            arguments = arguments[0:numarg]
+                        elif noport and isvalid:
+                            if self.serverBind == "":
+                                if command == "legacy":
+                                    self.client.iKettle.setHost(Smarter.DirectHost)
+                                else:
+                                    self.client.setHost(Smarter.DirectHost)
+                            else:
+                                if command == "legacy":
+                                    self.client.iKettle.setHost(self.serverBind)
+                                else:
+                                    self.client.setHost(self.serverBind)
+                            if self.portfound:
+                                if command == "legacy":
+                                    self.client.iKettle.port = self.serverPort
+                                else:
+                                    self.client.port = self.serverPort
+                            else:
+                                if command == "legacy":
+                                    self.client.iKettle.port = SmarterLegacy.Port
+                                else:
+                                    self.client.port = Smarter.Port
+                            self.haveHost = True
+                            self.serverPort = Smarter.Port - 1
+                            self.serverBind = connection[0]
+
+                            if "relay" in arguments or command == "relay":
+                                if command == "legacy":
+                                    self.client.iKettle.relayPort = SmarterLegacy.Port
+                                    self.client.iKettle.relayHost = self.serverBind
+                                else:
+                                    self.client.relayPort = Smarter.Port
+                                    self.client.relayHost = self.serverBind
+
+                            numarg -= 1
+                            arguments = arguments[0:numarg]
+        
+            """
+            print "Server"
+            print self.serverBind
+            print str(self.serverPort)
+            print "Normal"
+            print self.client.host
+            print str(self.client.port)
+            print "iKettle"
+            print self.client.iKettle.host
+            print str(self.client.iKettle.port)
+            print
+            """
+
+
+            # 3 times I went bug hunting forgotting the "s"
+            if command == "event": command = "events"
+            if command == "events" or command == "domoticz":
+                if self.console:
+                    if self.client.events == False:
+                        self.client.iKettle.events = True
+                        self.client.events = True
+                        print "iBrew: Trigger events enabled"
+                    else:
+                        self.client.iKettle.events = False
+                        self.client.events = False
+                        print "iBrew: Trigger events disabled"
+                    return
+                elif numarg != 0 and command != "domoticz":
+                    self.client.events = True
+                    self.client.iKettle.events = True
+                    command = arguments[0].lower()
+                    arguments = arguments[1:]
+                    numarg -= 1
+                else:
+                    self.client.events = True
+                    self.client.iKettle.events = True
+                    if command != "domoticz":
+                        command = "monitor"
+
+            if command == "legacy":
+                if numarg == 0:
+                    self.legacy()
+                    self.legacy_commands()
+                    self.triggers()
+                    return
+                if numarg >= 1:
+                    if self.client.isCoffee:
+                        print "iBrew: iKettle != Coffee Machine"
+                        #logging.warning("iBrew: iKettle != Coffee Machine")
+                        return
+              
+                    if arguments[0] == "protocol":
+                        SmarterLegacy.protocol()
+                        return
+                   
+                    if arguments[0] == "triggers":
+                        SmarterLegacy.print_triggers()
+                        return
+                    
+                    if command == "switches":
+                        SmarterLegacy.print_states()
+                        return
                 
-                command = "relay"
+                    if arguments[0] == "relay":
+                        if numarg >= 2:
+                            if arguments[1] == "stop":
+                                self.client.iKettle.relay_stop()
+                                return
+                        if not self.client.iKettle.simulation:
+                            self.client.iKettle.connect()
+                            self.client.iKettle.relay_start()
+                        else:
+                            self.client.iKettle.simulate()
+                        self.monitor()
+                        return
+                        
+                    if arguments[0] == "monitor":
+                        self.client.iKettle.connect()
+                        self.monitor()
+                            
+                    if arguments[0] == "trigger":
+                        arguments = arguments[1:]
+                        numarg -= 1
+                        if numarg == 0:
+                            self.client.iKettle.print_triggers()
+                        else:
+                            if arguments[0] == "groups":
+                                self.client.iKettle.print_groups()
+                            elif arguments[0] == "add" and numarg == 4:
+                                self.client.iKettle.triggerAdd(arguments[1],arguments[2].upper(),arguments[3])
+                                self.client.iKettle.print_group(arguments[1])
+                                self.client.iKettle.print_trigger(arguments[1])
+                                print "iBrew: Legacy iKettle: Added trigger " + arguments[2].upper() + " to group " + arguments[1] + " with action " + arguments[3]
+                            elif arguments[0] == "add" and numarg != 4:
+                                print "iBrew: Legacy iKettle: Trigger add need a group name and a trigger action"
+                            elif arguments[0][0:3] == "del":
+                                if numarg == 3 or numarg == 2:
+                                    if numarg == 2:
+                                        self.client.iKettle.triggerGroupDelete(arguments[1])
+                                        print "iBrew: Legacy iKettle: Trigger group " + arguments[1] + " deleted"
+                                    else:
+                                        self.client.iKettle.triggerDelete(arguments[1],arguments[2].upper())
+                                        self.client.iKettle.print_group(arguments[1])
+                                        self.client.iKettle.print_trigger(arguments[1])
+                                        print "iBrew: Legacy iKettle: Trigger " + arguments[2].upper() + " of group " + arguments[1] + " deleted"
+                                else:
+                                    print "iBrew: Legacy iKettle: Trigger delete need a group name or a group name and a trigger action"
+                            else:
+                                if numarg == 1:
+                                    self.client.iKettle.print_group(arguments[0])
+                                elif numarg == 2:
+                                    if arguments[1] == "switch":
+                                        print "iBrew: Legacy iKettle: Missing arguments, which duality?"
+                                    else:
+                                        try:
+                                            state = Smarter.string_to_bool(arguments[1])
+                                            if state:
+                                                self.client.iKettle.enableGroup(arguments[0])
+                                                print "iBrew: Legacy iKettle: Trigger group " + arguments[0] + " enabled"
+                                            else:
+                                                self.client.iKettle.disableGroup(arguments[0])
+                                                print "iBrew: Legacy iKettle: Trigger group " + arguments[0] + " enabled"
+                                        except Exception, e:
+                                            print str(e)
+                                            print "iBrew: Legacy iKettle: failed to get switch state type"
+                                elif arguments[1] == "switch":
+                                    self.client.iKettle.boolsGroup(arguments[0],arguments[2])
+                                    print "iBrew: Legacy iKettle: Trigger group " + arguments[0] + " switch type " + arguments[2]
+                                else:
+                                    print "iBrew: Legacy iKettle: Missing arguments, about time for some peace and quite :-)"
+                        return
+
+                    if numarg == 1:
+                        self.client.iKettle.dump = self.client.dump
+                        if not self.console:
+                            self.client.iKettle.fast = True
+                        self.client.iKettle.normal()
+                        try:
+                            r = self.client.iKettle.send(SmarterLegacy.string_to_command(arguments[0]))
+                            for i in r:
+                                print "iBrew: Legacy iKettle: " + SmarterLegacy.string_response(i)
+                        except Exception:
+                            print "iBrew: Legacy iKettle: Unknown command"
+                        return
+                    else:
+                        print "iBrew: Legacy iKettle: Unknown command"
+
+            if command == "relay" and (self.client.simulation and not self.client.emulation):
                 if self.client.isCoffee:
                     self.client.switch_coffee_device()
                     numarg = 1
@@ -686,8 +797,8 @@ class iBrewConsole:
             if command == "monitor" or command == "events":
                 self.client.fast = False
 
-            if (command == "relay" and not self.console) or ((not self.client.connected or self.haveHost) and command != "help" and command != "?" and command != "list" and command != "message" and command != "usage" and command != "commands" and command != "server" and command != "joke" and command != "license" and command != "protocol" and command != "structure" and command != "notes" and command != "groups" and command != "group" and command != "examples" and command != "switches" and command != "triggers" and command != "messages" and command != "rules" and command != "rule" and command != "web" and command != "legacy"  and command != "trigger"):
 
+            if (command == "relay" and not self.console) or ((not self.client.connected or self.haveHost) and command != "help" and command != "?" and command != "list" and command != "message" and command != "usage" and command != "commands" and command != "server" and command != "joke" and command != "license" and command != "protocol" and command != "structure" and command != "notes" and command != "groups" and command != "group" and command != "examples" and command != "switches" and command != "triggers" and command != "messages" and command != "rules" and command != "rule" and command != "web" and command != "legacy"  and command != "trigger"):
 
                 if not self.haveHost and command != "relay":
                     devices, relay = Smarter.find_devices(self.client.port)
@@ -699,16 +810,17 @@ class iBrewConsole:
 
                 if command == "console" or command == "connect":
                     self.client.dump_status = False
+                    
+                if command == "console" or command == "connect" or command == "relay":
                     self.client.fast = False
                     self.client.shout = False
                 
-
                 try:
                     if not self.client.dump:
                         print
                         print "  Starting please wait..."
                         print
-                    if not (self.console and command == "relay") and not self.client.simulate:
+                    if not (self.console and command == "relay") and not self.client.simulation:
                         self.client.connect()
                 except Exception, e:
                     logging.debug(e)
@@ -721,14 +833,18 @@ class iBrewConsole:
 
                 if command == "console" or command == "server" or command == "web" or command == "connect" or command == "relay":
                     if numarg >= 1:
-                        if arguments[0][2] == ':' or arguments[0][3] == ':':
-                            self.client.unblock("in:GOD,out:GOD")
-                            self.client.block(arguments[0])
-                            numarg -= 1
-                            arguments = arguments[0:numarg]
-                    if self.client.dump:
-                        self.client.print_rules_short()
-               
+                        try:
+                            if arguments[0][2] == ':' or arguments[0][3] == ':':
+                                self.client.unblock("in:GOD,out:GOD")
+                                self.client.block(arguments[0])
+                                numarg -= 1
+                                arguments = arguments[0:numarg]
+                            if self.client.dump:
+                                self.client.print_rules_short()
+                        except:
+                            # very bad
+                            pass
+
             if command == "status" and numarg > 0:
                 self.client.fast = False
                 try:
@@ -1245,7 +1361,7 @@ class iBrewConsole:
         print "  iBrew Server"
         print "  ________________"
         print
-        print "  Usage: ibrew (dump) (events) (fahrenheid) server (host:(port) (host:(port))"
+        print "  Usage: ibrew (dump) (events) (fahrenheid) server (ip:(port) (host:(port))"
 #        print "  Usage: ibrew (energy) (dump) (fahrenheid) server (host:(port))"
         print
      #   print "    energy                 energy saver (stats not possible)"
@@ -1263,10 +1379,9 @@ class iBrewConsole:
         print "  iBrew iKettle 2.0 & Smater Coffee Command Line"
         print "  ______________________________________________"
         print
-        #print "  Usage: ibrew (energy) (dump) (bridge|emulate (host:(port)) (shout|slow) (coffee|kettle) (fahrenheid) [command] (host(:port))"
-        print "  Usage: ibrew (dump) (events) (legacy [bridge|emulate] (host:(port))) (shout|slow) (coffee|kettle) (fahrenheid) [command] (host(:port))"
+        print "  Usage: ibrew (dump) (events) (shout|slow) (coffee|kettle|emulate (host:(port))) (fahrenheid) [command] (host(:port))"
         print
-        print "    bridge                 emulate iKettle 2.0 using legacy iKettle (NOT IMPlEMENTED)"
+        #print "    bridge                 emulate iKettle 2.0 using legacy iKettle (NOT IMPlEMENTED)"
         print "    emulate (host:(port)   emulates legacy iKettle"
         print "    coffee                 assumes coffee machine"
         print "    command                action to take!"
@@ -1274,7 +1389,6 @@ class iBrewConsole:
         print "    events                 enable trigger events (monitor, relay, console)"
         print "    fahrenheid             PARTLY WORKING use fahrenheid"
         print "    host                   host address of the appliance (format: ip4, ip6, fqdn), only use if detection fails"
-        #print "    energy                 NOT IMPLEMENTED energy saver (stats not possible)"
         print "    kettle                 assumes kettle"
         print "    port                   port of appliance, optional, only use if detection fails"
         print "    shout                  sends commands and quits not waiting for a reply"
@@ -1320,7 +1434,7 @@ class iBrewConsole:
         print
         print "    protocol               protocol information"
         print "    simulate               start kettle simulation"
-        print "    relay ((ip:)port)      start relay"
+        print "    relay [(ip:)port]      start relay, if no ip and port to bind to, always use \"\" to use default bindings"
         print "    trigger                see triggers section"
         print "    triggers               overview of legacy triggers"
         print
@@ -1405,7 +1519,7 @@ class iBrewConsole:
         print "    disconnect             disconnect connected appliance"
         print "    events                 start trigger events only"
         print "    patch [rules]          patch messages"
-        print "    relay ((ip:)port)      start relay"
+        print "    relay [(ip:)port]      start relay, if no ip and port to bind to, always use \"\" to use default bindings"
         print "    relay stop             stop relay"
         print "    remote info            info on remote relay"
         print "    remote block [rules]   remote block messages with groups or ids"

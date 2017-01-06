@@ -211,41 +211,55 @@ class iBrewDomoticz:
             id = self.get_id('TEMPERATURE','Temperature',self.SensorTemperature)
             client.triggerAdd("Domoticz","TEMPERATURE",url_trigger_value % (self.domoticzurl,id))
             client.boolsGroup("Domoticz","On")
+            
             id = self.get_id('WATERSENSOR','Water Level',self.SensorCustom,";")
             self.set_switch_type(id,'Water Level',self.SwitchTypeNormal,self.CustomimageWater)
             client.triggerAdd("Domoticz","WATERSENSOR",url_trigger_value % (self.domoticzurl,id))
+            
             id = self.get_id('KETTLEBUSY','Busy',self.SensorSwitch)
             self.set_switch_type(id,'Busy',self.SwitchTypeMotion,self.CustomImageNormal)
             client.triggerAdd("Domoticz","KETTLEBUSY",url_trigger_switch % (self.domoticzurl,id))
-            id = self.get_id('KEEPWARM','Keep Warm Time',self.SensorSwitch)
-            self.set_switch_type(id,'Keep Warm Time',self.SwitchTypeMotion,self.CustomImageNormal)
+            
+            id = self.get_id('KEEPWARM','Keep Warm',self.SensorSwitch)
+            self.set_switch_type(id,'Keep Warm',self.SwitchTypeMotion,self.CustomImageNormal)
             client.triggerAdd("Domoticz","KEEPWARM",url_trigger_switch % (self.domoticzurl,id))
+            
             id = self.get_id('KETTLEHEATER','Heater',self.SensorSwitch)
             self.set_switch_type(id,'Heater',self.SwitchTypeMotion,self.CustomImageHeating)
             client.triggerAdd("Domoticz","KETTLEHEATER",url_trigger_switch % (self.domoticzurl,id))
+            
             id = self.get_id('FORMULACOOLING','Formula Cooling',self.SensorSwitch)
-            self.set_switch_type(id,'Formula Cooling',self.SwitchTypeMotion,self.CustomImageNormal)
+            self.set_switch_type(id,'Formula Cooling',self.SwitchTypeMotion,self.CustomImageCooling)
             client.triggerAdd("Domoticz","FORMULACOOLING",url_trigger_switch % (self.domoticzurl,id))
+            
             id = self.get_id('OFFBASE','Off Base',self.SensorSwitch)
-            self.set_switch_type(id,'Off Base',self.SwitchTypeMotion,self.CustomImageCooling)
+            self.set_switch_type(id,'Off Base',self.SwitchTypeMotion,self.CustomImageNormal)
             client.triggerAdd("Domoticz","OFFBASE",url_trigger_switch % (self.domoticzurl,id))
+            
             id = self.get_id('STATUS','Status',self.SensorText)
             client.triggerAdd("Domoticz","KETTLESTATUS",url_trigger_value % (self.domoticzurl,id))
+            
             id = self.get_id('KETTLEDEFAULTCHANGED','Settings Changed',self.SensorSwitch)
             self.set_switch_type(id,'Settings Changed',self.SwitchTypeMotion,self.CustomImageNormal)
             client.triggerAdd("Domoticz","KETTLEDEFAULTCHANGED",url_trigger_switch % (self.domoticzurl,id))
+            
             id = self.get_id('BASECHANGED','Calibration Changed',self.SensorSwitch)
             self.set_switch_type(id,'Calibration Changed',self.SwitchTypeMotion,self.CustomImageNormal)
             client.triggerAdd("Domoticz","BASECHANGED",url_trigger_switch % (self.domoticzurl,id))
+            
             id = self.get_id('BASE','Calibration Base',self.SensorCustom,";")
             self.set_switch_type(id,'Calibration Base',self.SwitchTypeNormal,self.CustomimageWater)
             client.triggerAdd("Domoticz","BASE",url_trigger_value % (self.domoticzurl,id))
+            
             id = self.get_id('DEFAULTTEMPERATURE','Default Temperature',self.SensorTemperature)
             client.triggerAdd("Domoticz","DEFAULTTEMPERATURE",url_trigger_value % (self.domoticzurl,id))
+            
             id = self.get_id('DEFAULTFORMULATEMPERATURE','Default Formula Temperature',self.SensorTemperature)
             client.triggerAdd("Domoticz","DEFAULTFORMULATEMPERATURE",url_trigger_value % (self.domoticzurl,id))
+            
             id = self.get_id('DEFAULTKEEPWARM','Default Keep Warm',self.SensorCustom,";minutes")
             client.triggerAdd("Domoticz","DEFAULTKEEPWARM",url_trigger_value % (self.domoticzurl,id))
+        
             #id = self.get_id('DEFAULTKEEPWARMTEXT','Default Keep Warm',self.SensorCustom,";minutes")
             #client.triggerAdd("Domoticz","DEFAULTKEEPWARMTEXT",url_trigger_value % (self.domoticzurl,id))
 
