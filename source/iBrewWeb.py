@@ -584,7 +584,7 @@ class BrewHandler(GenericAPIHandler):
         if ip in self.application.clients:
             client = self.application.clients[ip]
             if client.isCoffee:
-                client.coffee_brew(Smarter.string_to_cups(cups),Smarter.string_to_hotplate(hotplate),Smarter.string_to_bool(grind),Smarter.string_to_strength(strength))
+                client.coffee_brew(Smarter.string_to_cups(cups),Smarter.string_to_strength(strength),Smarter.string_to_hotplate(hotplate),Smarter.string_to_grind(grind))
                 response = { 'command'  : Smarter.status_command(client.commandStatus) }
             else:
                 response = { 'error': 'need coffee machine' }

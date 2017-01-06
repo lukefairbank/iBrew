@@ -1721,13 +1721,17 @@ class SmarterProtocol:
 
 
     def string_to_grind(self,grind):
-        s = grind.lower()
-        if s == self.CoffeeStringBeans:
-            return True
-        elif s == self.CoffeeStringFilter:
-            return False
-        else:
-           raise SmarterErrorOld("Unknown grind ["+self.CoffeeStringBeans+"/"+self.CoffeeStringFilter+"] " + grind)
+        try:
+            b = self.string_to_bool(grind)
+        except:
+            s = grind.lower()
+            if s == self.CoffeeStringBeans:
+                return True
+            elif s == self.CoffeeStringFilter:
+                return False
+            else:
+               raise SmarterErrorOld("Unknown grind ["+self.CoffeeStringBeans+"/"+self.CoffeeStringFilter+"] " + grind)
+        return b
 
 
 
