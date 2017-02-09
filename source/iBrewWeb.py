@@ -82,8 +82,13 @@ class GenericPageHandler(BaseHandler):
 class MainPageHandler(BaseHandler):
     #@tornado.web.authenticated
     def get(self):
-        self.render("index.html",clients = self.application.clients,joke = iBrewJokes().joke())
+        self.render("index.html",joke = iBrewJokes().joke())
 
+
+class OldMainPageHandler(BaseHandler):
+    #@tornado.web.authenticated
+    def get(self):
+        self.render("old.html",clients = self.application.clients,joke = iBrewJokes().joke())
 
 class ServerPageHandler(BaseHandler):
     #@tornado.web.authenticated
@@ -1487,6 +1492,7 @@ class iBrewWeb(tornado.web.Application):
                 (r"/info/arguments/?",ArgumentsPageHandler),
                 (r"/info/groups/?",GroupsPageHandler),
                 (r"/info/message/([0-9,A-F,a-f][0-9,A-F,a-f])/?",MessagePageHandler),
+                (r"/old/?",OldMainPageHandler),
                 (r"/",MainPageHandler),
                 (r"/info/?",InfoPageHandler),
                 (r"/(.*)",GenericPageHandler),
