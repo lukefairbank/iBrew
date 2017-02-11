@@ -676,7 +676,7 @@ class HotPlateOnHandler(GenericAPIHandler):
         if ip in self.application.clients:
             client = self.application.clients[ip]
             if client.isCoffee:
-                client.coffee_hotplate_on(timer)
+                client.coffee_hotplate_on(Smarter.string_to_hotplate(timer))                
                 response = { 'command'  : Smarter.status_command(client.commandStatus) }
             else:
                 response = { 'error': 'need coffee machine' }
@@ -1444,7 +1444,7 @@ class iBrewWeb(tornado.web.Application):
                 (self.webroot + r"/api/([0-9]+.[0-9]+.[0-9]+.[0-9]+)/hotplate/on/([0-9]+)/?",HotPlateOnHandler),
                 (self.webroot + r"/api/([0-9]+.[0-9]+.[0-9]+.[0-9]+)/hotplate/off/?",HotPlateOffHandler),
                 (self.webroot + r"/api/([0-9]+.[0-9]+.[0-9]+.[0-9]+)/cups/([0-9]+)/?",CupsHandler),
-                (self.webroot + r"/api/([0-9]+.[0-9]+.[0-9]+.[0-9]+)/(weak|normal|strong)/?",StrengthHandler),
+                (self.webroot + r"/api/([0-9]+.[0-9]+.[0-9]+.[0-9]+)/(weak|medium|strong)/?",StrengthHandler),
                 (self.webroot + r"/api/([0-9]+.[0-9]+.[0-9]+.[0-9]+)/(boil|coffee|white|green|black|oelong|milk)/?",BeverageHandler),
                 (self.webroot + r"/api/([0-9]+.[0-9]+.[0-9]+.[0-9]+)/scan/?",WifiScanHandler),
                 (self.webroot + r"/api/([0-9]+.[0-9]+.[0-9]+.[0-9]+)/join/(.+)/(.*)/?",WifiJoinHandler),
