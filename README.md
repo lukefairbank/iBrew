@@ -7,24 +7,11 @@ iKettle, [iKettle 2.0](http://smarter.am/ikettle) and [Smarter Coffee](http://sm
 
 Comming soon the iKettle emulator and the iKettle 2.0 emulator! 
 
-## Needed remote access to iKettle 1, to test new code!
+As of this spring 2017, due to mayor illness, there will be no mayor enhancements and I offer no support on this project besides questions about code or bugs. Ofcourse if someone builds a nice web frontend, I will help out where I can (but very limited)
 
-To test and finish: 
-  * iKettle Emulation (emulates an iKettle with an iKettle 2.0)
-  * iKettle Brigde (connect to an iKettle and use it if it was an iKettle 2.0)
-  * Figure out to correct responses
-  
-Such that all features of iBrew are available (if supported) for the original iKettle!
+Anyway thanks for all you're support!
 
-So if you have an original iKettle filled up with water! And some time to spare!
-
-Contact <tristan@monkeycat.nl>!
-
-## Needed help with Website layout! CSS!
-Were talking about CSS for tablet, phones and displays... *ugh*. 
-
-Contact <tristan@monkeycat.nl>!
-
+Tristan
 
 ## Downloads
   * [Windows x86](https://dl.dropboxusercontent.com/u/12474226/32/iBrew.exe)
