@@ -594,7 +594,7 @@ class SmarterProtocol:
 
 
 
-    def __con(self,coffee,kettle):
+    def __con(self,kettle,coffee):
         if coffee and kettle:
             return [self.DeviceKettle,self.DeviceCoffee]
         if coffee and not kettle:
