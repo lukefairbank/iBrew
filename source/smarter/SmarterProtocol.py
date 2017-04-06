@@ -7,6 +7,8 @@ import socket
 import datetime
 import os
 import sys
+import subprocess
+import re
 
 from operator import itemgetter
 
@@ -1885,15 +1887,30 @@ class SmarterProtocol:
                 message, server = cs.recvfrom(1024)
                 # '0x64 type version 0x7e
                 if self.raw_to_number(message[0]) == self.ResponseDeviceInfo and self.raw_to_number(message[3]) == self.MessageTail:
-                    devices.append((server[0],self.raw_to_number(message[1]),self.raw_to_number(message[2])))
+                    devices.append((server[0],self.raw_to_number(message[1]),self.raw_to_number(message[2]), self.get_mac_for_device(server[0])))
                 if self.raw_to_number(message[0]) == self.ResponseRelayInfo:
-                    relay.append((server[0],self.raw_to_number(message[1]),self.raw_to_text(message[1:])))
+                    relay.append((server[0],self.raw_to_number(message[1]),self.raw_to_text(message[1:]), self.get_mac_for_device(server[0])))
         except socket.error, e:
             # FIX
             pass #print 'iBrew:' + str(e)
         finally:
             cs.close()
         return devices, relay
+
+    def get_mac_for_device(self,target):
+        pid = subprocess.Popen(["ping", "-c", "1", target], shell=False, stdout=subprocess.PIPE)
+        s = pid.communicate()[0]
+        rc = pid.returncode
+
+        if rc != 0:
+            return null
+
+        pid = subprocess.Popen(["arp", "-n", target], shell=False, stdout=subprocess.PIPE)
+        s = pid.communicate()[0]
+        result = re.search(r"(([a-f\d]{1,2}\:){5}[a-f\d]{1,2})", s) 
+        mac = result.group(0)
+
+        return result.group(0) if result else null
 
     def print_devices_found(self,devices,relay):
         for i in range(0,len(devices)):
@@ -1904,7 +1921,6 @@ class SmarterProtocol:
             print "[" + devices[i][0] +  ":" + '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now()) + "] Found " + s + Smarter.device_info(devices[i][1],devices[i][2])
         if len(devices) == 0:
             print "No coffee machine or kettle found"
-
 
     #------------------------------------------------------
     # TRIGGERS
