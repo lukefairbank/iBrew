@@ -5792,8 +5792,8 @@ class SmarterInterface:
             if not self.grind:
                 self.__send_command(Smarter.CommandGrinder)
                 self.grind = True
-            else:
-                raise SmarterError(CoffeeNoMachineGrinder,"Already beans")
+            #else:
+            #    raise SmarterError(CoffeeNoMachineGrinder,"Already beans")
         else:
             raise SmarterError(CoffeeNoMachineGrinder,"You need a coffee machine to use the grinder to grind the beans")
 
@@ -5819,8 +5819,8 @@ class SmarterInterface:
                 except Exception, e:
                     print str(e)
                 self.grind = False
-            else:
-                raise SmarterError(CoffeeNoMachineGrinder,"Already filter")
+            #else:
+            #    raise SmarterError(CoffeeNoMachineGrinder,"Already filter")
         else:
             raise SmarterError(CoffeeNoMachineGrinder,"You need a coffee machine to use the pre grind beans in the filter")
 

@@ -1,0 +1,1339 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+APIPageHandler	../iBrewWeb.py	/^class APIPageHandler(BaseHandler):$/;"	kind:class	line:116
+AppFolders	../iBrewConsole.py	/^from iBrewFolders import AppFolders$/;"	kind:namespace	line:19
+AppFolders	../iBrewFolders.py	/^class AppFolders():$/;"	kind:class	line:20
+AppFolders	../iBrewMac.py	/^from iBrewFolders import AppFolders$/;"	kind:namespace	line:4
+AppFolders	../iBrewWeb.py	/^from iBrewFolders import AppFolders$/;"	kind:namespace	line:17
+AppFolders	../iBrewWin.py	/^from iBrewFolders import AppFolders$/;"	kind:namespace	line:15
+AppFolders	../ibrewui	/^from iBrewFolders import AppFolders$/;"	kind:namespace	line:14
+AppHelper	../iBrewMac.py	/^from PyObjCTools import AppHelper$/;"	kind:namespace	line:6
+ArgCarafe	../smarter/SmarterProtocol.py	/^    ArgCarafe       = 1046$/;"	kind:variable	line:2193
+ArgCentury	../smarter/SmarterProtocol.py	/^    ArgCentury      = 1020$/;"	kind:variable	line:2170
+ArgCoffeeStatus	../smarter/SmarterProtocol.py	/^    ArgCoffeeStatus = 1023$/;"	kind:variable	line:2184
+ArgCommandStatus	../smarter/SmarterProtocol.py	/^    ArgCommandStatus= 1009$/;"	kind:variable	line:2161
+ArgCounter	../smarter/SmarterProtocol.py	/^    ArgCounter      = 1027$/;"	kind:variable	line:2182
+ArgCups	../smarter/SmarterProtocol.py	/^    ArgCups       = 1000$/;"	kind:variable	line:2152
+ArgCupsBrew	../smarter/SmarterProtocol.py	/^    ArgCupsBrew     = 1050$/;"	kind:variable	line:2195
+ArgCupsCombi	../smarter/SmarterProtocol.py	/^    ArgCupsCombi    = 1049$/;"	kind:variable	line:2188
+ArgDB	../smarter/SmarterProtocol.py	/^    ArgDB           = 1032$/;"	kind:variable	line:2183
+ArgDay	../smarter/SmarterProtocol.py	/^    ArgDay          = 1015$/;"	kind:variable	line:2167
+ArgDevice	../smarter/SmarterProtocol.py	/^    ArgDevice       = 1025$/;"	kind:variable	line:2176
+ArgFormula	../smarter/SmarterProtocol.py	/^    ArgFormula      = 1010$/;"	kind:variable	line:2162
+ArgFormulaTemperature	../smarter/SmarterProtocol.py	/^    ArgFormulaTemperature= 1008$/;"	kind:variable	line:2160
+ArgGrind	../smarter/SmarterProtocol.py	/^    ArgGrind      = 1004$/;"	kind:variable	line:2156
+ArgGrinder	../smarter/SmarterProtocol.py	/^    ArgGrinder      = 1047$/;"	kind:variable	line:2192
+ArgHeater	../smarter/SmarterProtocol.py	/^    ArgHeater       = 1043$/;"	kind:variable	line:2190
+ArgHotPlate	../smarter/SmarterProtocol.py	/^    ArgHotPlate   = 1007$/;"	kind:variable	line:2159
+ArgHotPlateOn	../smarter/SmarterProtocol.py	/^    ArgHotPlateOn   = 1021$/;"	kind:variable	line:2171
+ArgHotplateCombi	../smarter/SmarterProtocol.py	/^    ArgHotplateCombi   = 1053$/;"	kind:variable	line:2199
+ArgHour	../smarter/SmarterProtocol.py	/^    ArgHour         = 1014$/;"	kind:variable	line:2166
+ArgIndex	../smarter/SmarterProtocol.py	/^    ArgIndex        = 1036$/;"	kind:variable	line:2179
+ArgKeepWarm	../smarter/SmarterProtocol.py	/^    ArgKeepWarm   = 1006$/;"	kind:variable	line:2158
+ArgKeepWarmCombi	../smarter/SmarterProtocol.py	/^    ArgKeepWarmCombi= 1054$/;"	kind:variable	line:2197
+ArgKeepWarmOn	../smarter/SmarterProtocol.py	/^    ArgKeepWarmOn   = 1051$/;"	kind:variable	line:2196
+ArgKettleStatus	../smarter/SmarterProtocol.py	/^    ArgKettleStatus = 1022$/;"	kind:variable	line:2174
+ArgList	../smarter/SmarterProtocol.py	/^    ArgList           = 1031$/;"	kind:variable	line:2215
+ArgMinute	../smarter/SmarterProtocol.py	/^    ArgMinute       = 1013$/;"	kind:variable	line:2165
+ArgMode	../smarter/SmarterProtocol.py	/^    ArgMode    = 1038$/;"	kind:variable	line:2181
+ArgMonth	../smarter/SmarterProtocol.py	/^    ArgMonth        = 1016$/;"	kind:variable	line:2168
+ArgOffBase	../smarter/SmarterProtocol.py	/^    ArgOffBase      = 1011$/;"	kind:variable	line:2163
+ArgPassword	../smarter/SmarterProtocol.py	/^    ArgPassword   = 1002$/;"	kind:variable	line:2154
+ArgPayloadCoffeeHistory	../smarter/SmarterProtocol.py	/^    ArgPayloadCoffeeHistory    = 1028$/;"	kind:variable	line:2208
+ArgPayloadKettleHistory	../smarter/SmarterProtocol.py	/^    ArgPayloadKettleHistory    = 1029$/;"	kind:variable	line:2209
+ArgPayloadTimer	../smarter/SmarterProtocol.py	/^    ArgPayloadTimer            = 1026$/;"	kind:variable	line:2207
+ArgPayloadWifiScan	../smarter/SmarterProtocol.py	/^    ArgPayloadWifiScan         = 1039$/;"	kind:variable	line:2210
+ArgReady	../smarter/SmarterProtocol.py	/^    ArgReady        = 1044$/;"	kind:variable	line:2191
+ArgRelayHost	../smarter/SmarterProtocol.py	/^    ArgRelayHost = 1057$/;"	kind:variable	line:2203
+ArgRelayModifiers	../smarter/SmarterProtocol.py	/^    ArgRelayModifiers = 1058$/;"	kind:variable	line:2204
+ArgRelayVersion	../smarter/SmarterProtocol.py	/^    ArgRelayVersion   = 1056$/;"	kind:variable	line:2202
+ArgRequired	../smarter/SmarterProtocol.py	/^    ArgRequired     = 1037$/;"	kind:variable	line:2180
+ArgSSID	../smarter/SmarterProtocol.py	/^    ArgSSID       = 1003$/;"	kind:variable	line:2155
+ArgSecond	../smarter/SmarterProtocol.py	/^    ArgSecond       = 1017$/;"	kind:variable	line:2169
+ArgState	../smarter/SmarterProtocol.py	/^    ArgState        = 1012$/;"	kind:variable	line:2164
+ArgStrength	../smarter/SmarterProtocol.py	/^    ArgStrength   = 1001$/;"	kind:variable	line:2153
+ArgSubList	../smarter/SmarterProtocol.py	/^    ArgSubList        = 1030$/;"	kind:variable	line:2214
+ArgTemperature	../smarter/SmarterProtocol.py	/^    ArgTemperature= 1005$/;"	kind:variable	line:2157
+ArgTemperatureCombi	../smarter/SmarterProtocol.py	/^    ArgTemperatureCombi= 1052$/;"	kind:variable	line:2198
+ArgTimerEvent	../smarter/SmarterProtocol.py	/^    ArgTimerEvent   = 1045$/;"	kind:variable	line:2194
+ArgTriggerGroups	../smarter/SmarterProtocol.py	/^    ArgTriggerGroups = 1059$/;"	kind:variable	line:2205
+ArgType	../smarter/SmarterProtocol.py	/^    ArgType = {$/;"	kind:variable	line:2339
+ArgUnknown	../smarter/SmarterProtocol.py	/^    ArgUnknown      = 1019$/;"	kind:variable	line:2173
+ArgValueOther	../smarter/SmarterProtocol.py	/^    ArgValueOther = -1$/;"	kind:variable	line:2216
+ArgVersion	../smarter/SmarterProtocol.py	/^    ArgVersion      = 1024$/;"	kind:variable	line:2175
+ArgWater	../smarter/SmarterProtocol.py	/^    ArgWater  = 1033$/;"	kind:variable	line:2211
+ArgWaterEnough	../smarter/SmarterProtocol.py	/^    ArgWaterEnough  = 1041$/;"	kind:variable	line:2186
+ArgWaterLevel	../smarter/SmarterProtocol.py	/^    ArgWaterLevel   = 1040$/;"	kind:variable	line:2185
+ArgWaterLevelRaw	../smarter/SmarterProtocol.py	/^    ArgWaterLevelRaw= 1048$/;"	kind:variable	line:2187
+ArgWaterSensorHi	../smarter/SmarterProtocol.py	/^    ArgWaterSensorHi= 1035$/;"	kind:variable	line:2178
+ArgWaterSensorLo	../smarter/SmarterProtocol.py	/^    ArgWaterSensorLo= 1034$/;"	kind:variable	line:2177
+ArgWifiFirmware	../smarter/SmarterProtocol.py	/^    ArgWifiFirmware    = 1055$/;"	kind:variable	line:2200
+ArgWorking	../smarter/SmarterProtocol.py	/^    ArgWorking      = 1042$/;"	kind:variable	line:2189
+ArgYear	../smarter/SmarterProtocol.py	/^    ArgYear         = 1018$/;"	kind:variable	line:2172
+ArgumentsPageHandler	../iBrewWeb.py	/^class ArgumentsPageHandler(BaseHandler):$/;"	kind:class	line:145
+BaseHandler	../iBrewWeb.py	/^class BaseHandler(tornado.web.RequestHandler):$/;"	kind:class	line:41
+BeansHandler	../iBrewWeb.py	/^class BeansHandler(GenericAPIHandler):$/;"	kind:class	line:768
+BeverageHandler	../iBrewWeb.py	/^class BeverageHandler(GenericAPIHandler):$/;"	kind:class	line:355
+BlockHandler	../iBrewWeb.py	/^class BlockHandler(GenericAPIHandler):$/;"	kind:class	line:850
+BrewDefaultHandler	../iBrewWeb.py	/^class BrewDefaultHandler(GenericAPIHandler):$/;"	kind:class	line:602
+BrewHandler	../iBrewWeb.py	/^class BrewHandler(GenericAPIHandler):$/;"	kind:class	line:587
+CalibrateBaseHandler	../iBrewWeb.py	/^class CalibrateBaseHandler(GenericAPIHandler):$/;"	kind:class	line:444
+CalibrateHandler	../iBrewWeb.py	/^class CalibrateHandler(GenericAPIHandler):$/;"	kind:class	line:427
+CalibrateStoreBaseHandler	../iBrewWeb.py	/^class CalibrateStoreBaseHandler(GenericAPIHandler):$/;"	kind:class	line:460
+CarafeModeHandler	../iBrewWeb.py	/^class CarafeModeHandler(GenericAPIHandler):$/;"	kind:class	line:736
+CarafeOffHandler	../iBrewWeb.py	/^class CarafeOffHandler(GenericAPIHandler):$/;"	kind:class	line:720
+CarafeOnHandler	../iBrewWeb.py	/^class CarafeOnHandler(GenericAPIHandler):$/;"	kind:class	line:704
+CoffeeBeans	../smarter/SmarterProtocol.py	/^    CoffeeBeans  = True$/;"	kind:variable	line:1710
+CoffeeCarafeMode	../smarter/SmarterProtocol.py	/^    CoffeeCarafeMode = False$/;"	kind:variable	line:1740
+CoffeeCupMode	../smarter/SmarterProtocol.py	/^    CoffeeCupMode = True$/;"	kind:variable	line:1739
+CoffeeFailedStoreSettings	../smarter/SmarterProtocol.py	/^CoffeeFailedStoreSettings       = 90$/;"	kind:variable	line:393
+CoffeeFilter	../smarter/SmarterProtocol.py	/^    CoffeeFilter = False$/;"	kind:variable	line:1711
+CoffeeFirmwareVerified	../smarter/SmarterProtocol.py	/^    CoffeeFirmwareVerified    = [20,22]$/;"	kind:variable	line:1165
+CoffeeGramsMedium	../smarter/SmarterProtocol.py	/^    CoffeeGramsMedium         = 150 #???$/;"	kind:variable	line:1229
+CoffeeGramsStrong	../smarter/SmarterProtocol.py	/^    CoffeeGramsStrong         = 200$/;"	kind:variable	line:1228
+CoffeeGramsWeak	../smarter/SmarterProtocol.py	/^    CoffeeGramsWeak           = 100 #???$/;"	kind:variable	line:1230
+CoffeeMedium	../smarter/SmarterProtocol.py	/^    CoffeeMedium              = 0x01$/;"	kind:variable	line:1220
+CoffeeNoMachineCarafe	../smarter/SmarterProtocol.py	/^CoffeeNoMachineCarafe           = 61$/;"	kind:variable	line:391
+CoffeeNoMachineCup	../smarter/SmarterProtocol.py	/^CoffeeNoMachineCup              = 60$/;"	kind:variable	line:390
+CoffeeNoMachineCups	../smarter/SmarterProtocol.py	/^CoffeeNoMachineCups             = 52$/;"	kind:variable	line:382
+CoffeeNoMachineGrinder	../smarter/SmarterProtocol.py	/^CoffeeNoMachineGrinder          = 51$/;"	kind:variable	line:381
+CoffeeNoMachineHistory	../smarter/SmarterProtocol.py	/^CoffeeNoMachineHistory          = 59$/;"	kind:variable	line:389
+CoffeeNoMachineHotplateOff	../smarter/SmarterProtocol.py	/^CoffeeNoMachineHotplateOff      = 54$/;"	kind:variable	line:384
+CoffeeNoMachineHotplateOn	../smarter/SmarterProtocol.py	/^CoffeeNoMachineHotplateOn       = 53$/;"	kind:variable	line:383
+CoffeeNoMachineOff	../smarter/SmarterProtocol.py	/^CoffeeNoMachineOff              = 56$/;"	kind:variable	line:386
+CoffeeNoMachineSettings	../smarter/SmarterProtocol.py	/^CoffeeNoMachineSettings         = 57$/;"	kind:variable	line:387
+CoffeeNoMachineStoreSettings	../smarter/SmarterProtocol.py	/^CoffeeNoMachineStoreSettings    = 58$/;"	kind:variable	line:388
+CoffeeNoMachineStrength	../smarter/SmarterProtocol.py	/^CoffeeNoMachineStrength         = 50$/;"	kind:variable	line:380
+CoffeeNoMachinesBrew	../smarter/SmarterProtocol.py	/^CoffeeNoMachinesBrew            = 55$/;"	kind:variable	line:385
+CoffeeStringBeans	../smarter/SmarterProtocol.py	/^    CoffeeStringBeans  = "beans"$/;"	kind:variable	line:1708
+CoffeeStringFilter	../smarter/SmarterProtocol.py	/^    CoffeeStringFilter = "filter"$/;"	kind:variable	line:1707
+CoffeeStringMedium	../smarter/SmarterProtocol.py	/^    CoffeeStringMedium        = "medium"$/;"	kind:variable	line:1224
+CoffeeStringStrong	../smarter/SmarterProtocol.py	/^    CoffeeStringStrong        = "strong"$/;"	kind:variable	line:1225
+CoffeeStringWeak	../smarter/SmarterProtocol.py	/^    CoffeeStringWeak          = "weak"$/;"	kind:variable	line:1223
+CoffeeStrong	../smarter/SmarterProtocol.py	/^    CoffeeStrong              = 0x02$/;"	kind:variable	line:1221
+CoffeeWaterEmpty	../smarter/SmarterProtocol.py	/^    CoffeeWaterEmpty = 0x00$/;"	kind:variable	line:1559
+CoffeeWaterFull	../smarter/SmarterProtocol.py	/^    CoffeeWaterFull  = 0x03$/;"	kind:variable	line:1562
+CoffeeWaterHalf	../smarter/SmarterProtocol.py	/^    CoffeeWaterHalf  = 0x02$/;"	kind:variable	line:1561
+CoffeeWaterLow	../smarter/SmarterProtocol.py	/^    CoffeeWaterLow   = 0x01$/;"	kind:variable	line:1560
+CoffeeWeak	../smarter/SmarterProtocol.py	/^    CoffeeWeak                = 0x00$/;"	kind:variable	line:1219
+Command20	../smarter/SmarterProtocol.py	/^    Command20                 = 0x20$/;"	kind:variable	line:499
+Command22	../smarter/SmarterProtocol.py	/^    Command22                 = 0x22$/;"	kind:variable	line:500
+Command23	../smarter/SmarterProtocol.py	/^    Command23                 = 0x23$/;"	kind:variable	line:501
+Command30	../smarter/SmarterProtocol.py	/^    Command30                 = 0x30$/;"	kind:variable	line:502
+Command69	../smarter/SmarterProtocol.py	/^    Command69                 = 0x69$/;"	kind:variable	line:463
+CommandBase	../smarter/SmarterProtocol.py	/^    CommandBase               = 0x2b$/;"	kind:variable	line:507
+CommandBrew	../smarter/SmarterProtocol.py	/^    CommandBrew               = 0x33$/;"	kind:variable	line:475
+CommandBrewDefault	../smarter/SmarterProtocol.py	/^    CommandBrewDefault        = 0x37$/;"	kind:variable	line:479
+CommandCalibrate	../smarter/SmarterProtocol.py	/^    CommandCalibrate          = 0x2c$/;"	kind:variable	line:508
+CommandCarafe	../smarter/SmarterProtocol.py	/^    CommandCarafe             = 0x4c$/;"	kind:variable	line:486
+CommandCoffeeHistory	../smarter/SmarterProtocol.py	/^    CommandCoffeeHistory      = 0x46$/;"	kind:variable	line:484
+CommandCoffeeSettings	../smarter/SmarterProtocol.py	/^    CommandCoffeeSettings     = 0x48$/;"	kind:variable	line:480
+CommandCoffeeStop	../smarter/SmarterProtocol.py	/^    CommandCoffeeStop         = 0x34$/;"	kind:variable	line:476
+CommandCoffeeStoreSettings	../smarter/SmarterProtocol.py	/^    CommandCoffeeStoreSettings = 0x38$/;"	kind:variable	line:481
+CommandCups	../smarter/SmarterProtocol.py	/^    CommandCups               = 0x36$/;"	kind:variable	line:478
+CommandDeviceInfo	../smarter/SmarterProtocol.py	/^    CommandDeviceInfo         = 0x64$/;"	kind:variable	line:461
+CommandDeviceTime	../smarter/SmarterProtocol.py	/^    CommandDeviceTime         = 0x02$/;"	kind:variable	line:459
+CommandDisableTimer	../smarter/SmarterProtocol.py	/^    CommandDisableTimer       = 0x43$/;"	kind:variable	line:492
+CommandGrinder	../smarter/SmarterProtocol.py	/^    CommandGrinder            = 0x3c$/;"	kind:variable	line:482
+CommandHeat	../smarter/SmarterProtocol.py	/^    CommandHeat               = 0x15$/;"	kind:variable	line:495
+CommandHeatDefault	../smarter/SmarterProtocol.py	/^    CommandHeatDefault        = 0x21$/;"	kind:variable	line:498
+CommandHeatFormula	../smarter/SmarterProtocol.py	/^    CommandHeatFormula        = 0x19$/;"	kind:variable	line:497
+CommandHotplateOff	../smarter/SmarterProtocol.py	/^    CommandHotplateOff        = 0x4a$/;"	kind:variable	line:485
+CommandHotplateOn	../smarter/SmarterProtocol.py	/^    CommandHotplateOn         = 0x3e$/;"	kind:variable	line:483
+CommandKettleHistory	../smarter/SmarterProtocol.py	/^    CommandKettleHistory      = 0x28$/;"	kind:variable	line:504
+CommandKettleSettings	../smarter/SmarterProtocol.py	/^    CommandKettleSettings     = 0x2e$/;"	kind:variable	line:505
+CommandKettleStop	../smarter/SmarterProtocol.py	/^    CommandKettleStop         = 0x16$/;"	kind:variable	line:496
+CommandKettleStoreSettings	../smarter/SmarterProtocol.py	/^    CommandKettleStoreSettings = 0x1f$/;"	kind:variable	line:503
+CommandMessages	../smarter/SmarterProtocol.py	/^    CommandMessages = {$/;"	kind:variable	line:544
+CommandMode	../smarter/SmarterProtocol.py	/^    CommandMode                 = 0x4f$/;"	kind:variable	line:488
+CommandRelayBlock	../smarter/SmarterProtocol.py	/^    CommandRelayBlock     = 0x72$/;"	kind:variable	line:512
+CommandRelayInfo	../smarter/SmarterProtocol.py	/^    CommandRelayInfo      = 0x70$/;"	kind:variable	line:511
+CommandRelayModifiersInfo	../smarter/SmarterProtocol.py	/^    CommandRelayModifiersInfo = 0x74$/;"	kind:variable	line:514
+CommandRelayPatch	../smarter/SmarterProtocol.py	/^    CommandRelayPatch     = 0x76$/;"	kind:variable	line:515
+CommandRelayUnblock	../smarter/SmarterProtocol.py	/^    CommandRelayUnblock   = 0x73$/;"	kind:variable	line:513
+CommandResetSettings	../smarter/SmarterProtocol.py	/^    CommandResetSettings      = 0x10$/;"	kind:variable	line:460
+CommandSetCarafe	../smarter/SmarterProtocol.py	/^    CommandSetCarafe          = 0x4b$/;"	kind:variable	line:487
+CommandSetMode	../smarter/SmarterProtocol.py	/^    CommandSetMode              = 0x4e$/;"	kind:variable	line:489
+CommandStoreBase	../smarter/SmarterProtocol.py	/^    CommandStoreBase          = 0x2a$/;"	kind:variable	line:506
+CommandStoreTimer	../smarter/SmarterProtocol.py	/^    CommandStoreTimer         = 0x40$/;"	kind:variable	line:490
+CommandStrength	../smarter/SmarterProtocol.py	/^    CommandStrength           = 0x35$/;"	kind:variable	line:477
+CommandTimers	../smarter/SmarterProtocol.py	/^    CommandTimers             = 0x41$/;"	kind:variable	line:491
+CommandToJSON	../smarter/SmarterProtocol.py	/^    def CommandToJSON(self):$/;"	kind:member	line:609
+CommandTriggerGroups	../smarter/SmarterProtocol.py	/^    CommandTriggerGroups    = 0x77$/;"	kind:variable	line:516
+CommandUpdate	../smarter/SmarterProtocol.py	/^    CommandUpdate             = 0x6d$/;"	kind:variable	line:462
+CommandWifiFirmware	../smarter/SmarterProtocol.py	/^    CommandWifiFirmware       = 0x6a$/;"	kind:variable	line:471
+CommandWifiJoin	../smarter/SmarterProtocol.py	/^    CommandWifiJoin           = 0x0c$/;"	kind:variable	line:468
+CommandWifiLeave	../smarter/SmarterProtocol.py	/^    CommandWifiLeave          = 0x0f$/;"	kind:variable	line:470
+CommandWifiNetwork	../smarter/SmarterProtocol.py	/^    CommandWifiNetwork        = 0x05$/;"	kind:variable	line:466
+CommandWifiPassword	../smarter/SmarterProtocol.py	/^    CommandWifiPassword       = 0x07$/;"	kind:variable	line:467
+CommandWifiScan	../smarter/SmarterProtocol.py	/^    CommandWifiScan           = 0x0d$/;"	kind:variable	line:469
+ConvertCodeNumber	../smarter/SmarterProtocol.py	/^ConvertCodeNumber               = 112$/;"	kind:variable	line:397
+ConvertNumberCode	../smarter/SmarterProtocol.py	/^ConvertNumberCode               = 113$/;"	kind:variable	line:398
+ConvertNumberRaw	../smarter/SmarterProtocol.py	/^ConvertNumberRaw                = 111$/;"	kind:variable	line:396
+ConvertRawNumber	../smarter/SmarterProtocol.py	/^ConvertRawNumber                = 110$/;"	kind:variable	line:395
+CupModeHandler	../iBrewWeb.py	/^class CupModeHandler(GenericAPIHandler):$/;"	kind:class	line:752
+CupsHandler	../iBrewWeb.py	/^class CupsHandler(GenericAPIHandler):$/;"	kind:class	line:659
+CustomImageAlarm	../iBrewDomoticz.py	/^    CustomImageAlarm  = 13$/;"	kind:variable	line:55
+CustomImageCooling	../iBrewDomoticz.py	/^    CustomImageCooling = 16$/;"	kind:variable	line:58
+CustomImageHeating	../iBrewDomoticz.py	/^    CustomImageHeating = 15$/;"	kind:variable	line:57
+CustomImageNormal	../iBrewDomoticz.py	/^    CustomImageNormal = 0$/;"	kind:variable	line:53
+CustomimageTree	../iBrewDomoticz.py	/^    CustomimageTree   = 14$/;"	kind:variable	line:56
+CustomimageWater	../iBrewDomoticz.py	/^    CustomimageWater  = 11$/;"	kind:variable	line:54
+DescaleHandler	../iBrewWeb.py	/^class DescaleHandler(GenericAPIHandler):$/;"	kind:class	line:617
+DeviceCoffee	../smarter/SmarterProtocol.py	/^    DeviceCoffee              = 0x02$/;"	kind:variable	line:1159
+DeviceHandler	../iBrewWeb.py	/^class DeviceHandler(GenericAPIHandler):$/;"	kind:class	line:237
+DeviceKettle	../smarter/SmarterProtocol.py	/^    DeviceKettle              = 0x01$/;"	kind:variable	line:1158
+DeviceStringCoffee	../smarter/SmarterProtocol.py	/^    DeviceStringCoffee        = "Smarter Coffee"$/;"	kind:variable	line:1162
+DeviceStringKettle	../smarter/SmarterProtocol.py	/^    DeviceStringKettle        = "iKettle 2.0"$/;"	kind:variable	line:1161
+DevicesHandler	../iBrewWeb.py	/^class DevicesHandler(GenericAPIHandler):$/;"	kind:class	line:317
+DirectHost	../smarter/SmarterProtocol.py	/^    DirectHost = "192.168.4.1"$/;"	kind:variable	line:438
+DirectHost	../smarter/SmarterProtocol.py	/^    DirectHost = "192.168.4.1"$/;"	kind:variable	line:91
+Domoticz	../iBrewDomoticz.py	/^Domoticz = iBrewDomoticz()$/;"	kind:variable	line:352
+FIRST_ID	../iBrewWin.py	/^    FIRST_ID = 1023$/;"	kind:variable	line:34
+Fahrenheid	../smarter/SmarterProtocol.py	/^    Fahrenheid = False$/;"	kind:variable	line:440
+FilterHandler	../iBrewWeb.py	/^class FilterHandler(GenericAPIHandler):$/;"	kind:class	line:783
+FirmWareReleaseNotes	../smarter/SmarterProtocol.py	/^    FirmWareReleaseNotes = {$/;"	kind:variable	line:1173
+FormulaHandler	../iBrewWeb.py	/^class FormulaHandler(GenericAPIHandler):$/;"	kind:class	line:408
+GenericAPIHandler	../iBrewWeb.py	/^class GenericAPIHandler(BaseHandler):$/;"	kind:class	line:55
+GenericPageHandler	../iBrewWeb.py	/^class GenericPageHandler(BaseHandler):$/;"	kind:class	line:72
+GroupAdmin	../smarter/SmarterProtocol.py	/^    GroupAdmin          = 19$/;"	kind:variable	line:829
+GroupAll	../smarter/SmarterProtocol.py	/^    GroupAll            = 9$/;"	kind:variable	line:790
+GroupCalibrate	../smarter/SmarterProtocol.py	/^    GroupCalibrate      = 2$/;"	kind:variable	line:762
+GroupCalibrateOnly	../smarter/SmarterProtocol.py	/^    GroupCalibrateOnly  = 39$/;"	kind:variable	line:760
+GroupCoffee	../smarter/SmarterProtocol.py	/^    GroupCoffee         = 25$/;"	kind:variable	line:846
+GroupCoffeeAll	../smarter/SmarterProtocol.py	/^    GroupCoffeeAll      = 34$/;"	kind:variable	line:792
+GroupCoffeeControl	../smarter/SmarterProtocol.py	/^    GroupCoffeeControl         = 13$/;"	kind:variable	line:803
+GroupCoffeeGet	../smarter/SmarterProtocol.py	/^    GroupCoffeeGet      = 27$/;"	kind:variable	line:779
+GroupCoffeeHistory	../smarter/SmarterProtocol.py	/^    GroupCoffeeHistory  = 29$/;"	kind:variable	line:771
+GroupCoffeeStore	../smarter/SmarterProtocol.py	/^    GroupCoffeeStore    = 31$/;"	kind:variable	line:785
+GroupControl	../smarter/SmarterProtocol.py	/^    GroupControl        = 36$/;"	kind:variable	line:808
+GroupDebug	../smarter/SmarterProtocol.py	/^    GroupDebug          = 15$/;"	kind:variable	line:813
+GroupDeviceInfo	../smarter/SmarterProtocol.py	/^    GroupDeviceInfo         = 12$/;"	kind:variable	line:801
+GroupGet	../smarter/SmarterProtocol.py	/^    GroupGet            = 7$/;"	kind:variable	line:778
+GroupGod	../smarter/SmarterProtocol.py	/^    GroupGod            = 20$/;"	kind:variable	line:831
+GroupHistory	../smarter/SmarterProtocol.py	/^    GroupHistory        = 5$/;"	kind:variable	line:770
+GroupKettle	../smarter/SmarterProtocol.py	/^    GroupKettle         = 24$/;"	kind:variable	line:840
+GroupKettleAll	../smarter/SmarterProtocol.py	/^    GroupKettleAll      = 33$/;"	kind:variable	line:791
+GroupKettleControl	../smarter/SmarterProtocol.py	/^    GroupKettleControl = 10$/;"	kind:variable	line:796
+GroupKettleGet	../smarter/SmarterProtocol.py	/^    GroupKettleGet      = 28$/;"	kind:variable	line:780
+GroupKettleHistory	../smarter/SmarterProtocol.py	/^    GroupKettleHistory  = 30$/;"	kind:variable	line:772
+GroupKettleStore	../smarter/SmarterProtocol.py	/^    GroupKettleStore    = 32$/;"	kind:variable	line:786
+GroupMaintenance	../smarter/SmarterProtocol.py	/^    GroupMaintenance         = 11$/;"	kind:variable	line:799
+GroupModeGet	../smarter/SmarterProtocol.py	/^    GroupModeGet        = 22$/;"	kind:variable	line:837
+GroupModeStore	../smarter/SmarterProtocol.py	/^    GroupModeStore      = 23$/;"	kind:variable	line:838
+GroupModes	../smarter/SmarterProtocol.py	/^    GroupModes          = 14$/;"	kind:variable	line:809
+GroupNormal	../smarter/SmarterProtocol.py	/^    GroupNormal         = 17$/;"	kind:variable	line:817
+GroupReadOnly	../smarter/SmarterProtocol.py	/^    GroupReadOnly       = 21$/;"	kind:variable	line:834
+GroupRelay	../smarter/SmarterProtocol.py	/^    GroupRelay         = 40$/;"	kind:variable	line:826
+GroupRest	../smarter/SmarterProtocol.py	/^    GroupRest         = 37$/;"	kind:variable	line:841
+GroupSetup	../smarter/SmarterProtocol.py	/^    GroupSetup          = 16$/;"	kind:variable	line:815
+GroupShared	../smarter/SmarterProtocol.py	/^    GroupShared       = 35$/;"	kind:variable	line:842
+GroupStatus	../smarter/SmarterProtocol.py	/^    GroupStatus  = 38$/;"	kind:variable	line:849
+GroupStore	../smarter/SmarterProtocol.py	/^    GroupStore          = 8$/;"	kind:variable	line:784
+GroupTime	../smarter/SmarterProtocol.py	/^    GroupTime           = 6$/;"	kind:variable	line:776
+GroupTimers	../smarter/SmarterProtocol.py	/^    GroupTimers         = 4$/;"	kind:variable	line:768
+GroupTrigger	../smarter/SmarterProtocol.py	/^    GroupTrigger        = 41$/;"	kind:variable	line:822
+GroupUnTriggerHandler	../iBrewWeb.py	/^class GroupUnTriggerHandler(GenericAPIHandler):$/;"	kind:class	line:1041
+GroupUnknown	../smarter/SmarterProtocol.py	/^    GroupUnknown        = 3$/;"	kind:variable	line:764
+GroupUnknownKettle	../smarter/SmarterProtocol.py	/^    GroupUnknownKettle  = 26$/;"	kind:variable	line:765
+GroupUser	../smarter/SmarterProtocol.py	/^    GroupUser           = 18$/;"	kind:variable	line:819
+GroupWifi	../smarter/SmarterProtocol.py	/^    GroupWifi           = 1$/;"	kind:variable	line:758
+Groups	../smarter/SmarterProtocol.py	/^    Groups = {$/;"	kind:variable	line:872
+GroupsPageHandler	../iBrewWeb.py	/^class GroupsPageHandler(BaseHandler):$/;"	kind:class	line:151
+HeatHandler	../iBrewWeb.py	/^class HeatHandler(GenericAPIHandler):$/;"	kind:class	line:393
+HotPlateOffHandler	../iBrewWeb.py	/^class HotPlateOffHandler(GenericAPIHandler):$/;"	kind:class	line:689
+HotPlateOnHandler	../iBrewWeb.py	/^class HotPlateOnHandler(GenericAPIHandler):$/;"	kind:class	line:674
+InfoPageHandler	../iBrewWeb.py	/^class InfoPageHandler(BaseHandler):$/;"	kind:class	line:99
+JokeHandler	../iBrewWeb.py	/^class JokeHandler(GenericAPIHandler):$/;"	kind:class	line:917
+KettleCycleFinished	../smarter/SmarterProtocol.py	/^    KettleCycleFinished       = 0x03$/;"	kind:variable	line:1648
+KettleFailedStoreSettings	../smarter/SmarterProtocol.py	/^KettleFailedStoreSettings       = 70$/;"	kind:variable	line:392
+KettleFirmwareVerified	../smarter/SmarterProtocol.py	/^    KettleFirmwareVerified    = [19]$/;"	kind:variable	line:1164
+KettleFormulaCooling	../smarter/SmarterProtocol.py	/^    KettleFormulaCooling      = 0x04$/;"	kind:variable	line:1649
+KettleHeating	../smarter/SmarterProtocol.py	/^    KettleHeating             = 0x01$/;"	kind:variable	line:1646
+KettleKeepWarm	../smarter/SmarterProtocol.py	/^    KettleKeepWarm            = 0x02$/;"	kind:variable	line:1647
+KettleModeFormula	../smarter/SmarterProtocol.py	/^    KettleModeFormula  = "formula"$/;"	kind:variable	line:1689
+KettleModeNormal	../smarter/SmarterProtocol.py	/^    KettleModeNormal = "normal"$/;"	kind:variable	line:1688
+KettleNoMachineHeat	../smarter/SmarterProtocol.py	/^KettleNoMachineHeat             = 30$/;"	kind:variable	line:375
+KettleNoMachineHistory	../smarter/SmarterProtocol.py	/^KettleNoMachineHistory          = 34$/;"	kind:variable	line:379
+KettleNoMachineOff	../smarter/SmarterProtocol.py	/^KettleNoMachineOff              = 31$/;"	kind:variable	line:376
+KettleNoMachineSettings	../smarter/SmarterProtocol.py	/^KettleNoMachineSettings         = 32$/;"	kind:variable	line:377
+KettleNoMachineStoreSettings	../smarter/SmarterProtocol.py	/^KettleNoMachineStoreSettings    = 33$/;"	kind:variable	line:378
+KettleReady	../smarter/SmarterProtocol.py	/^    KettleReady               = 0x00$/;"	kind:variable	line:1645
+Launcher	../ibrewui	/^class Launcher():    $/;"	kind:class	line:29
+LegacyHandler	../iBrewWeb.py	/^class LegacyHandler(GenericAPIHandler):$/;"	kind:class	line:1184
+LegacyRawHandler	../iBrewWeb.py	/^class LegacyRawHandler(GenericAPIHandler):$/;"	kind:class	line:1206
+LicensePageHandler	../iBrewWeb.py	/^class LicensePageHandler(BaseHandler):$/;"	kind:class	line:138
+MacGui	../iBrewMac.py	/^class MacGui(rumps.App):$/;"	kind:class	line:24
+MacGui	../ibrewui	/^                from iBrewMac import MacGui$/;"	kind:namespace	line:102
+MainPageHandler	../iBrewWeb.py	/^class MainPageHandler(BaseHandler):$/;"	kind:class	line:82
+MessageOffBase	../smarter/SmarterProtocol.py	/^    MessageOffBase            = 0x7f$/;"	kind:variable	line:450
+MessagePageHandler	../iBrewWeb.py	/^class MessagePageHandler(BaseHandler):$/;"	kind:class	line:157
+MessagePayloadTail	../smarter/SmarterProtocol.py	/^    MessagePayloadTail        = 0x7d$/;"	kind:variable	line:449
+MessageTail	../smarter/SmarterProtocol.py	/^    MessageTail               = 0x7e$/;"	kind:variable	line:448
+MessagesAdmin	../smarter/SmarterProtocol.py	/^    MessagesAdmin       = MessagesSetup + MessagesNormal + MessagesRelay + MessagesTrigger$/;"	kind:variable	line:830
+MessagesAll	../smarter/SmarterProtocol.py	/^    MessagesAll         = MessagesStore + MessagesGet$/;"	kind:variable	line:795
+MessagesCalibrate	../smarter/SmarterProtocol.py	/^    MessagesCalibrate   = MessagesCalibrateOnly + [CommandBase,ResponseBase]$/;"	kind:variable	line:763
+MessagesCalibrateOnly	../smarter/SmarterProtocol.py	/^    MessagesCalibrateOnly  = [CommandStoreBase,CommandCalibrate]$/;"	kind:variable	line:761
+MessagesCoffee	../smarter/SmarterProtocol.py	/^    MessagesCoffee      = MessagesCoffeeControl + MessagesTimers + MessagesModes + MessagesShared + MessagesCoffeeStore + MessagesCoffeeGet +  MessagesCoffeeHistory$/;"	kind:variable	line:847
+MessagesCoffeeAll	../smarter/SmarterProtocol.py	/^    MessagesCoffeeAll   = MessagesCoffeeStore + MessagesCoffeeGet$/;"	kind:variable	line:793
+MessagesCoffeeControl	../smarter/SmarterProtocol.py	/^    MessagesCoffeeControl      = __MessagesCoffee + [ResponseCoffeeStatus]$/;"	kind:variable	line:805
+MessagesCoffeeGet	../smarter/SmarterProtocol.py	/^    MessagesCoffeeGet  = [CommandCoffeeSettings,ResponseCoffeeSettings]$/;"	kind:variable	line:782
+MessagesCoffeeHistory	../smarter/SmarterProtocol.py	/^    MessagesCoffeeHistory = [CommandCoffeeHistory,ResponseCoffeeHistory]$/;"	kind:variable	line:774
+MessagesCoffeeStore	../smarter/SmarterProtocol.py	/^    MessagesCoffeeStore = [CommandCoffeeStoreSettings]$/;"	kind:variable	line:788
+MessagesControl	../smarter/SmarterProtocol.py	/^    MessagesControl     = MessagesCoffeeControl + MessagesKettleControl$/;"	kind:variable	line:807
+MessagesDebug	../smarter/SmarterProtocol.py	/^    MessagesDebug       = MessagesUnknown + MessagesTime + MessagesTimers + MessagesHistory + MessagesMaintenance$/;"	kind:variable	line:814
+MessagesDeviceInfo	../smarter/SmarterProtocol.py	/^    MessagesDeviceInfo      = [CommandDeviceInfo, ResponseDeviceInfo]$/;"	kind:variable	line:802
+MessagesGet	../smarter/SmarterProtocol.py	/^    MessagesGet         = MessagesCoffeeGet + MessagesKettleGet$/;"	kind:variable	line:783
+MessagesGod	../smarter/SmarterProtocol.py	/^    MessagesGod         = MessagesAdmin + MessagesDebug$/;"	kind:variable	line:832
+MessagesHandler	../iBrewWeb.py	/^class MessagesHandler(GenericAPIHandler):$/;"	kind:class	line:979
+MessagesHistory	../smarter/SmarterProtocol.py	/^    MessagesHistory     = MessagesCoffeeHistory + MessagesKettleHistory$/;"	kind:variable	line:775
+MessagesKettle	../smarter/SmarterProtocol.py	/^    MessagesKettle      = MessagesKettleControl + MessagesCalibrate + MessagesShared + MessagesKettleHistory + MessagesUnknownKettle + MessagesKettleStore + MessagesKettleGet$/;"	kind:variable	line:845
+MessagesKettleAll	../smarter/SmarterProtocol.py	/^    MessagesKettleAll   = MessagesKettleStore + MessagesKettleGet$/;"	kind:variable	line:794
+MessagesKettleControl	../smarter/SmarterProtocol.py	/^    MessagesKettleControl      = __MessagesKettle + [ResponseKettleStatus]$/;"	kind:variable	line:798
+MessagesKettleGet	../smarter/SmarterProtocol.py	/^    MessagesKettleGet  = [CommandKettleSettings,ResponseKettleSettings]$/;"	kind:variable	line:781
+MessagesKettleHistory	../smarter/SmarterProtocol.py	/^    MessagesKettleHistory = [CommandKettleHistory,ResponseKettleHistory]$/;"	kind:variable	line:773
+MessagesKettleStore	../smarter/SmarterProtocol.py	/^    MessagesKettleStore = [CommandKettleStoreSettings]$/;"	kind:variable	line:787
+MessagesMaintenance	../smarter/SmarterProtocol.py	/^    MessagesMaintenance      = [CommandUpdate] + [CommandResetSettings]$/;"	kind:variable	line:800
+MessagesModes	../smarter/SmarterProtocol.py	/^    MessagesModes       = MessagesModesGet + MessagesModesStore$/;"	kind:variable	line:812
+MessagesModesGet	../smarter/SmarterProtocol.py	/^    MessagesModesGet    = [CommandMode,CommandCarafe,ResponseMode,ResponseCarafe]$/;"	kind:variable	line:811
+MessagesModesStore	../smarter/SmarterProtocol.py	/^    MessagesModesStore  = [CommandSetMode,CommandSetCarafe]$/;"	kind:variable	line:810
+MessagesNormal	../smarter/SmarterProtocol.py	/^    MessagesNormal      = MessagesCoffeeControl + MessagesKettleControl + MessagesGet + MessagesDeviceInfo + [ResponseCommandStatus]$/;"	kind:variable	line:818
+MessagesPageHandler	../iBrewWeb.py	/^class MessagesPageHandler(BaseHandler):$/;"	kind:class	line:132
+MessagesReadOnly	../smarter/SmarterProtocol.py	/^    MessagesReadOnly    = MessagesDebug + MessagesSetup +  __MessagesCoffee + __MessagesKettle + MessagesGet + MessagesDeviceInfo$/;"	kind:variable	line:835
+MessagesRelay	../smarter/SmarterProtocol.py	/^    MessagesRelay      = [CommandRelayInfo, ResponseRelayInfo, CommandRelayPatch, CommandRelayBlock, CommandRelayUnblock, CommandRelayModifiersInfo, ResponseRelayModifiersInfo]$/;"	kind:variable	line:827
+MessagesSetup	../smarter/SmarterProtocol.py	/^    MessagesSetup       = MessagesWifi + MessagesCalibrate + MessagesStore + MessagesModes$/;"	kind:variable	line:816
+MessagesShared	../smarter/SmarterProtocol.py	/^    MessagesShared    = MessagesWifi + MessagesTime + [Command69] + MessagesDeviceInfo + MessagesMaintenance + [ResponseCommandStatus]$/;"	kind:variable	line:843
+MessagesStatus	../smarter/SmarterProtocol.py	/^    MessagesStatus = [ResponseCommandStatus] + [ResponseCoffeeStatus] + [ResponseKettleStatus]$/;"	kind:variable	line:850
+MessagesStore	../smarter/SmarterProtocol.py	/^    MessagesStore       = MessagesCoffeeStore + MessagesKettleStore$/;"	kind:variable	line:789
+MessagesTime	../smarter/SmarterProtocol.py	/^    MessagesTime        = [CommandDeviceTime]$/;"	kind:variable	line:777
+MessagesTimers	../smarter/SmarterProtocol.py	/^    MessagesTimers      = [CommandStoreTimer,CommandTimers,CommandDisableTimer,ResponseTimers]$/;"	kind:variable	line:769
+MessagesTrigger	../smarter/SmarterProtocol.py	/^    MessagesTrigger     = [CommandTriggerGroups, ResponseTriggerGroups]$/;"	kind:variable	line:823
+MessagesUnknown	../smarter/SmarterProtocol.py	/^    MessagesUnknown     = MessagesUnknownKettle + [Command69]$/;"	kind:variable	line:767
+MessagesUnknownKettle	../smarter/SmarterProtocol.py	/^    MessagesUnknownKettle = [Command20,Command22,Command23,Command30]$/;"	kind:variable	line:766
+MessagesUser	../smarter/SmarterProtocol.py	/^    MessagesUser        = MessagesNormal$/;"	kind:variable	line:820
+MessagesWifi	../smarter/SmarterProtocol.py	/^    MessagesWifi        = [CommandWifiJoin,CommandWifiLeave,CommandWifiNetwork,CommandWifiPassword,CommandWifiFirmware,CommandWifiScan,ResponseWifiFirmware,ResponseWirelessNetworks]$/;"	kind:variable	line:759
+OS	../distro/win/version.py	/^    OS=0x40004,$/;"	kind:variable	line:17
+OldMainPageHandler	../iBrewWeb.py	/^class OldMainPageHandler(BaseHandler):$/;"	kind:class	line:88
+PatchHandler	../iBrewWeb.py	/^class PatchHandler(GenericAPIHandler):$/;"	kind:class	line:878
+PatchesHandler	../iBrewWeb.py	/^class PatchesHandler(GenericAPIHandler):$/;"	kind:class	line:892
+Port	../smarter/SmarterProtocol.py	/^    Port       = 2000$/;"	kind:variable	line:90
+Port	../smarter/SmarterProtocol.py	/^    Port       = 2081$/;"	kind:variable	line:439
+ProtocolPageHandler	../iBrewWeb.py	/^class ProtocolPageHandler(BaseHandler):$/;"	kind:class	line:126
+QUIT	../iBrewWin.py	/^    QUIT = 'QUIT'$/;"	kind:variable	line:31
+RawHandler	../iBrewWeb.py	/^class RawHandler(GenericAPIHandler):$/;"	kind:class	line:1220
+ResponseBase	../smarter/SmarterProtocol.py	/^    ResponseBase              = 0x2d$/;"	kind:variable	line:540
+ResponseCarafe	../smarter/SmarterProtocol.py	/^    ResponseCarafe            = 0x4d$/;"	kind:variable	line:535
+ResponseCoffeeHistory	../smarter/SmarterProtocol.py	/^    ResponseCoffeeHistory     = 0x47$/;"	kind:variable	line:534
+ResponseCoffeeSettings	../smarter/SmarterProtocol.py	/^    ResponseCoffeeSettings    = 0x49$/;"	kind:variable	line:531
+ResponseCoffeeStatus	../smarter/SmarterProtocol.py	/^    ResponseCoffeeStatus      = 0x32$/;"	kind:variable	line:532
+ResponseCommandStatus	../smarter/SmarterProtocol.py	/^    ResponseCommandStatus     = 0x03$/;"	kind:variable	line:521
+ResponseDeviceInfo	../smarter/SmarterProtocol.py	/^    ResponseDeviceInfo        = 0x65$/;"	kind:variable	line:524
+ResponseKettleHistory	../smarter/SmarterProtocol.py	/^    ResponseKettleHistory     = 0x29$/;"	kind:variable	line:523
+ResponseKettleSettings	../smarter/SmarterProtocol.py	/^    ResponseKettleSettings    = 0x2f$/;"	kind:variable	line:541
+ResponseKettleStatus	../smarter/SmarterProtocol.py	/^    ResponseKettleStatus      = 0x14$/;"	kind:variable	line:539
+ResponseMessages	../smarter/SmarterProtocol.py	/^    ResponseMessages = {$/;"	kind:variable	line:632
+ResponseMode	../smarter/SmarterProtocol.py	/^    ResponseMode              = 0x50$/;"	kind:variable	line:536
+ResponseRelayInfo	../smarter/SmarterProtocol.py	/^    ResponseRelayInfo         = 0x71$/;"	kind:variable	line:525
+ResponseRelayModifiersInfo	../smarter/SmarterProtocol.py	/^    ResponseRelayModifiersInfo = 0x75$/;"	kind:variable	line:526
+ResponseTimers	../smarter/SmarterProtocol.py	/^    ResponseTimers            = 0x42$/;"	kind:variable	line:533
+ResponseToJSON	../smarter/SmarterProtocol.py	/^    def ResponseToJSON(self):$/;"	kind:member	line:616
+ResponseTriggerGroups	../smarter/SmarterProtocol.py	/^    ResponseTriggerGroups       = 0x78$/;"	kind:variable	line:527
+ResponseWifiFirmware	../smarter/SmarterProtocol.py	/^    ResponseWifiFirmware      = 0x6b$/;"	kind:variable	line:528
+ResponseWirelessNetworks	../smarter/SmarterProtocol.py	/^    ResponseWirelessNetworks  = 0x0e$/;"	kind:variable	line:522
+RulesHandler	../iBrewWeb.py	/^class RulesHandler(GenericAPIHandler):$/;"	kind:class	line:902
+SPECIAL_ACTIONS	../iBrewWin.py	/^    SPECIAL_ACTIONS = [QUIT]$/;"	kind:variable	line:32
+SensorCustom	../iBrewDomoticz.py	/^    SensorCustom      = 1004$/;"	kind:variable	line:46
+SensorSwitch	../iBrewDomoticz.py	/^    SensorSwitch      = 6$/;"	kind:variable	line:44
+SensorTemperature	../iBrewDomoticz.py	/^    SensorTemperature = 80$/;"	kind:variable	line:45
+SensorText	../iBrewDomoticz.py	/^    SensorText        = 5$/;"	kind:variable	line:43
+ServerPageHandler	../iBrewWeb.py	/^class ServerPageHandler(BaseHandler):$/;"	kind:class	line:93
+SettingsDefaultHandler	../iBrewWeb.py	/^class SettingsDefaultHandler(GenericAPIHandler):$/;"	kind:class	line:570
+SettingsHandler	../iBrewWeb.py	/^class SettingsHandler(GenericAPIHandler):$/;"	kind:class	line:547
+SettingsPageHandler	../iBrewWeb.py	/^class SettingsPageHandler(BaseHandler):$/;"	kind:class	line:167
+Smarter	../smarter/SmarterProtocol.py	/^Smarter = SmarterProtocol()$/;"	kind:variable	line:2933
+SmarterError	../smarter/SmarterProtocol.py	/^class SmarterError(Exception):$/;"	kind:class	line:410
+SmarterErrorOld	../smarter/SmarterProtocol.py	/^class SmarterErrorOld(Exception):$/;"	kind:class	line:420
+SmarterInterface	../smarter/SmarterInterface.py	/^class SmarterInterface:$/;"	kind:class	line:1366
+SmarterInterface.py	../smarter/SmarterInterface.py	1;"	kind:file	line:1
+SmarterInterfaceFailedStop	../smarter/SmarterProtocol.py	/^SmarterInterfaceFailedStop        = 105$/;"	kind:variable	line:407
+SmarterInterfaceFailedStopThread	../smarter/SmarterProtocol.py	/^SmarterInterfaceFailedStopThread  = 106$/;"	kind:variable	line:408
+SmarterInterfaceLegacy	../smarter/SmarterInterface.py	/^class SmarterInterfaceLegacy():$/;"	kind:class	line:74
+SmarterLegacy	../smarter/SmarterProtocol.py	/^SmarterLegacy = SmarterProtocolLegacy()$/;"	kind:variable	line:2934
+SmarterProtocol	../smarter/SmarterProtocol.py	/^class SmarterProtocol:$/;"	kind:class	line:431
+SmarterProtocol.py	../smarter/SmarterProtocol.py	1;"	kind:file	line:1
+SmarterProtocolLegacy	../smarter/SmarterProtocol.py	/^class SmarterProtocolLegacy:$/;"	kind:class	line:30
+StartHandler	../iBrewWeb.py	/^class StartHandler(GenericAPIHandler):$/;"	kind:class	line:815
+StatsHandler	../iBrewWeb.py	/^class StatsHandler(GenericAPIHandler):$/;"	kind:class	line:933
+StatsPageHandler	../iBrewWeb.py	/^class StatsPageHandler(BaseHandler):$/;"	kind:class	line:177
+StatusBusy	../smarter/SmarterProtocol.py	/^    StatusBusy                = 0x01$/;"	kind:variable	line:1602
+StatusCommand	../smarter/SmarterProtocol.py	/^    StatusCommand = {$/;"	kind:variable	line:1613
+StatusErrorWifi	../smarter/SmarterProtocol.py	/^    StatusErrorWifi           = 0x68$/;"	kind:variable	line:1610
+StatusFailed	../smarter/SmarterProtocol.py	/^    StatusFailed              = 0x04$/;"	kind:variable	line:1605
+StatusInvalid	../smarter/SmarterProtocol.py	/^    StatusInvalid             = 0x69$/;"	kind:variable	line:1611
+StatusInvalidTimer	../smarter/SmarterProtocol.py	/^    StatusInvalidTimer        = 0x0d$/;"	kind:variable	line:1609
+StatusKettle	../smarter/SmarterProtocol.py	/^    StatusKettle = {$/;"	kind:variable	line:1651
+StatusNoCarafe	../smarter/SmarterProtocol.py	/^    StatusNoCarafe            = 0x02$/;"	kind:variable	line:1603
+StatusNoCarafeUnknown	../smarter/SmarterProtocol.py	/^    StatusNoCarafeUnknown     = 0x05$/;"	kind:variable	line:1606
+StatusNoWater	../smarter/SmarterProtocol.py	/^    StatusNoWater             = 0x03$/;"	kind:variable	line:1604
+StatusNoWaterAborted	../smarter/SmarterProtocol.py	/^    StatusNoWaterAborted      = 0x07$/;"	kind:variable	line:1608
+StatusNoWaterUnknown	../smarter/SmarterProtocol.py	/^    StatusNoWaterUnknown      = 0x06$/;"	kind:variable	line:1607
+StatusSucces	../smarter/SmarterProtocol.py	/^    StatusSucces              = 0x00$/;"	kind:variable	line:1601
+StatusToJSON	../smarter/SmarterProtocol.py	/^    def StatusToJSON(self):$/;"	kind:member	line:625
+StopHandler	../iBrewWeb.py	/^class StopHandler(GenericAPIHandler):$/;"	kind:class	line:803
+StoreSettingsHandler	../iBrewWeb.py	/^class StoreSettingsHandler(GenericAPIHandler):$/;"	kind:class	line:535
+StrengthHandler	../iBrewWeb.py	/^class StrengthHandler(GenericAPIHandler):$/;"	kind:class	line:633
+SwitchTypeContact	../iBrewDomoticz.py	/^    SwitchTypeContact = 2$/;"	kind:variable	line:51
+SwitchTypeMotion	../iBrewDomoticz.py	/^    SwitchTypeMotion  = 8$/;"	kind:variable	line:49
+SwitchTypeNormal	../iBrewDomoticz.py	/^    SwitchTypeNormal  = 0$/;"	kind:variable	line:48
+SwitchtypeDimmer	../iBrewDomoticz.py	/^    SwitchtypeDimmer  = 7$/;"	kind:variable	line:50
+Timer	../smarter/SmarterProtocol.py	/^    Timer = {$/;"	kind:variable	line:1472
+Timer1	../smarter/SmarterProtocol.py	/^    Timer1 = 0x01$/;"	kind:variable	line:1467
+Timer2	../smarter/SmarterProtocol.py	/^    Timer2 = 0x02$/;"	kind:variable	line:1468
+Timer3	../smarter/SmarterProtocol.py	/^    Timer3 = 0x03$/;"	kind:variable	line:1469
+Timer4	../smarter/SmarterProtocol.py	/^    Timer4 = 0x04$/;"	kind:variable	line:1470
+TimerAll	../smarter/SmarterProtocol.py	/^    TimerAll = 0x00$/;"	kind:variable	line:1466
+TriggerHandler	../iBrewWeb.py	/^class TriggerHandler(GenericAPIHandler):$/;"	kind:class	line:1008
+TriggersGroupHandler	../iBrewWeb.py	/^class TriggersGroupHandler(GenericAPIHandler):$/;"	kind:class	line:1091
+TriggersHandler	../iBrewWeb.py	/^class TriggersHandler(GenericAPIHandler):$/;"	kind:class	line:1058
+UnTriggerHandler	../iBrewWeb.py	/^class UnTriggerHandler(GenericAPIHandler):$/;"	kind:class	line:1025
+UnblockHandler	../iBrewWeb.py	/^class UnblockHandler(GenericAPIHandler):$/;"	kind:class	line:864
+UnknownHandler	../iBrewWeb.py	/^class UnknownHandler(GenericAPIHandler):$/;"	kind:class	line:342
+VersionHandler	../iBrewWeb.py	/^class VersionHandler(GenericAPIHandler):$/;"	kind:class	line:992
+WaterLevel	../smarter/SmarterProtocol.py	/^    WaterLevel = {$/;"	kind:variable	line:1564
+WebServerListen	../smarter/SmarterProtocol.py	/^WebServerListen                = 100$/;"	kind:variable	line:400
+WebServerStartFailed	../smarter/SmarterProtocol.py	/^WebServerStartFailed           = 101$/;"	kind:variable	line:401
+WebServerStopMonitor	../smarter/SmarterProtocol.py	/^WebServerStopMonitor           = 102$/;"	kind:variable	line:403
+WebServerStopMonitorWeb	../smarter/SmarterProtocol.py	/^WebServerStopMonitorWeb        = 103$/;"	kind:variable	line:404
+WebServerStopWeb	../smarter/SmarterProtocol.py	/^WebServerStopWeb               = 104$/;"	kind:variable	line:405
+WifiDirectHandler	../iBrewWeb.py	/^class WifiDirectHandler(GenericAPIHandler):$/;"	kind:class	line:518
+WifiJoinHandler	../iBrewWeb.py	/^class WifiJoinHandler(GenericAPIHandler):$/;"	kind:class	line:507
+WifiScanHandler	../iBrewWeb.py	/^class WifiScanHandler(GenericAPIHandler):$/;"	kind:class	line:482
+WifiStringCoffeeDirect	../smarter/SmarterProtocol.py	/^    WifiStringCoffeeDirect    = DeviceStringCoffee + ":c1"$/;"	kind:variable	line:1170
+WifiStringCoffeeUpdate	../smarter/SmarterProtocol.py	/^    WifiStringCoffeeUpdate    = DeviceStringCoffee + " Update"$/;"	kind:variable	line:1168
+WifiStringKettleDirect	../smarter/SmarterProtocol.py	/^    WifiStringKettleDirect    = DeviceStringKettle + ":c0"$/;"	kind:variable	line:1169
+WifiStringKettleUpdate	../smarter/SmarterProtocol.py	/^    WifiStringKettleUpdate    = DeviceStringKettle + " Update"$/;"	kind:variable	line:1167
+WinGui	../iBrewWin.py	/^class WinGui(object):$/;"	kind:class	line:29
+WinGui	../ibrewui	/^                from iBrewWin import WinGui$/;"	kind:namespace	line:106
+Wireless	../smarter/SmarterInterface.py	/^                    from wireless import Wireless$/;"	kind:namespace	line:2391
+WirelessPageHandler	../iBrewWeb.py	/^class WirelessPageHandler(BaseHandler):$/;"	kind:class	line:105
+__MessagesCoffee	../smarter/SmarterProtocol.py	/^    __MessagesCoffee    = [CommandBrew,CommandBrewDefault,CommandCoffeeStop,CommandCups,CommandStrength,CommandGrinder,CommandHotplateOn,CommandHotplateOff]$/;"	kind:variable	line:804
+__MessagesKettle	../smarter/SmarterProtocol.py	/^    __MessagesKettle    = [CommandHeat,CommandHeatFormula,CommandHeatDefault,CommandKettleStop]$/;"	kind:variable	line:797
+__block_command	../smarter/SmarterInterface.py	/^    def __block_command(self,message):$/;"	kind:member	line:2743
+__block_response	../smarter/SmarterInterface.py	/^    def __block_response(self,message):$/;"	kind:member	line:2799
+__broadcast_device	../smarter/SmarterInterface.py	/^    def __broadcast_device(self):$/;"	kind:member	line:1806
+__broadcast_device_start	../smarter/SmarterInterface.py	/^    def __broadcast_device_start(self):$/;"	kind:member	line:1834
+__broadcast_device_stop	../smarter/SmarterInterface.py	/^    def __broadcast_device_stop(self):$/;"	kind:member	line:1827
+__con	../smarter/SmarterProtocol.py	/^    def __con(self,kettle,coffee):$/;"	kind:member	line:598
+__decode	../smarter/SmarterInterface.py	/^    def __decode(self,message):$/;"	kind:member	line:4347
+__decode_Base	../smarter/SmarterInterface.py	/^    def __decode_Base(self,message):$/;"	kind:member	line:4769
+__decode_Carafe	../smarter/SmarterInterface.py	/^    def __decode_Carafe(self,message):$/;"	kind:member	line:4778
+__decode_CoffeeHistory	../smarter/SmarterInterface.py	/^    def __decode_CoffeeHistory(self,message):$/;"	kind:member	line:4835
+__decode_CoffeeSettings	../smarter/SmarterInterface.py	/^    def __decode_CoffeeSettings(self,message):$/;"	kind:member	line:4423
+__decode_CoffeeStatus	../smarter/SmarterInterface.py	/^    def __decode_CoffeeStatus(self,message):$/;"	kind:member	line:4582
+__decode_CommandStatus	../smarter/SmarterInterface.py	/^    def __decode_CommandStatus(self,message):$/;"	kind:member	line:4795
+__decode_DeviceInfo	../smarter/SmarterInterface.py	/^    def __decode_DeviceInfo(self,message):$/;"	kind:member	line:4735
+__decode_KettleHistory	../smarter/SmarterInterface.py	/^    def __decode_KettleHistory(self,message):$/;"	kind:member	line:4845
+__decode_KettleSettings	../smarter/SmarterInterface.py	/^    def __decode_KettleSettings(self,message):$/;"	kind:member	line:4396
+__decode_KettleStatus	../smarter/SmarterInterface.py	/^    def __decode_KettleStatus(self,message):$/;"	kind:member	line:4459
+__decode_Mode	../smarter/SmarterInterface.py	/^    def __decode_Mode(self,message):$/;"	kind:member	line:4786
+__decode_RelayInfo	../smarter/SmarterInterface.py	/^    def __decode_RelayInfo(self,message):$/;"	kind:member	line:4748
+__decode_RelayModifiersInfo	../smarter/SmarterInterface.py	/^    def __decode_RelayModifiersInfo(self,message):$/;"	kind:member	line:4758
+__decode_Timers	../smarter/SmarterInterface.py	/^    def __decode_Timers(self,message):$/;"	kind:member	line:4805
+__decode_TriggerGroups	../smarter/SmarterInterface.py	/^    def __decode_TriggerGroups(self,message):$/;"	kind:member	line:4754
+__decode_WifiFirmware	../smarter/SmarterInterface.py	/^    def __decode_WifiFirmware(self,message):$/;"	kind:member	line:4800
+__decode_WirelessNetworks	../smarter/SmarterInterface.py	/^    def __decode_WirelessNetworks(self,message):$/;"	kind:member	line:4810
+__decode_keepwarm	../smarter/SmarterInterface.py	/^    def __decode_keepwarm(self,keepwarm):$/;"	kind:member	line:474
+__decode_response	../smarter/SmarterInterface.py	/^    def __decode_response(self,status):$/;"	kind:member	line:493
+__decode_responseStatus	../smarter/SmarterInterface.py	/^    def __decode_responseStatus(self,status):$/;"	kind:member	line:452
+__decode_status	../smarter/SmarterInterface.py	/^    def __decode_status(self,heaterOn,onBase,keepwarmOn,overheated,heatingFinished,keepwarmFinished):$/;"	kind:member	line:436
+__decode_temperature	../smarter/SmarterInterface.py	/^    def __decode_temperature(self,status):$/;"	kind:member	line:405
+__del__	../iBrewWeb.py	/^    def __del__(self):$/;"	kind:member	line:1348
+__device_check	../smarter/SmarterInterface.py	/^    def __device_check(self):$/;"	kind:member	line:5017
+__emu_heat	../smarter/SmarterInterface.py	/^    def __emu_heat(self):$/;"	kind:member	line:592
+__emu_keepwarm_minutes	../smarter/SmarterInterface.py	/^    def __emu_keepwarm_minutes(self):$/;"	kind:member	line:604
+__emu_status	../smarter/SmarterInterface.py	/^    def __emu_status(self):$/;"	kind:member	line:595
+__emu_stop	../smarter/SmarterInterface.py	/^    def __emu_stop(self):$/;"	kind:member	line:589
+__emu_temperature	../smarter/SmarterInterface.py	/^    def __emu_temperature(self):$/;"	kind:member	line:598
+__emu_warm	../smarter/SmarterInterface.py	/^    def __emu_warm(self):$/;"	kind:member	line:601
+__encode_Base	../smarter/SmarterInterface.py	/^    def __encode_Base(self,base):$/;"	kind:member	line:3746
+__encode_Calibrate	../smarter/SmarterInterface.py	/^    def __encode_Calibrate(self,base):$/;"	kind:member	line:3762
+__encode_Carafe	../smarter/SmarterInterface.py	/^    def __encode_Carafe(self,carafeRequired):$/;"	kind:member	line:3722
+__encode_CoffeeGetSettings	../smarter/SmarterInterface.py	/^    def __encode_CoffeeGetSettings(self,cups,strength,grind,hotplate):$/;"	kind:member	line:3698
+__encode_CoffeeHistory	../smarter/SmarterInterface.py	/^    def __encode_CoffeeHistory(self,history=""):$/;"	kind:member	line:3780
+__encode_CoffeeSettings	../smarter/SmarterInterface.py	/^    def __encode_CoffeeSettings(self,cups,strength,grind,hotplate):$/;"	kind:member	line:3706
+__encode_CoffeeStatus	../smarter/SmarterInterface.py	/^    def __encode_CoffeeStatus(self,cups,strenght,cupsbrew,waterlevel,waterenough,carafe,grind,ready,grinder,heater,hotplate,working,timer,unknown=0):$/;"	kind:member	line:3610
+__encode_CommandStatus	../smarter/SmarterInterface.py	/^    def __encode_CommandStatus(self,status):$/;"	kind:member	line:3671
+__encode_DeviceInfo	../smarter/SmarterInterface.py	/^    def __encode_DeviceInfo(self,type,version):$/;"	kind:member	line:3639
+__encode_GetBase	../smarter/SmarterInterface.py	/^    def __encode_GetBase(self,base):$/;"	kind:member	line:3754
+__encode_GetCarafe	../smarter/SmarterInterface.py	/^    def __encode_GetCarafe(self,carafeRequired):$/;"	kind:member	line:3714
+__encode_GetMode	../smarter/SmarterInterface.py	/^    def __encode_GetMode(self,mode):$/;"	kind:member	line:3730
+__encode_GetTimers	../smarter/SmarterInterface.py	/^    def __encode_GetTimers(self,index):$/;"	kind:member	line:3630
+__encode_KettleGetSettings	../smarter/SmarterInterface.py	/^    def __encode_KettleGetSettings(self,temperature,keepwarm,formulatemperature):$/;"	kind:member	line:3690
+__encode_KettleHistory	../smarter/SmarterInterface.py	/^    def __encode_KettleHistory(self,history=""):$/;"	kind:member	line:3771
+__encode_KettleSettings	../smarter/SmarterInterface.py	/^    def __encode_KettleSettings(self,temperature,keepwarm,formulatemperature):$/;"	kind:member	line:3679
+__encode_KettleStatus	../smarter/SmarterInterface.py	/^    def __encode_KettleStatus(self,status,temperature,watersensor,onbase,unknown=0):$/;"	kind:member	line:3602
+__encode_Mode	../smarter/SmarterInterface.py	/^    def __encode_Mode(self,mode):$/;"	kind:member	line:3738
+__encode_RelayInfo	../smarter/SmarterInterface.py	/^    def __encode_RelayInfo(self,version,ip):$/;"	kind:member	line:3647
+__encode_RelayModifiersInfo	../smarter/SmarterInterface.py	/^    def __encode_RelayModifiersInfo(self,modifiers):$/;"	kind:member	line:3663
+__encode_Timers	../smarter/SmarterInterface.py	/^    def __encode_Timers(self):$/;"	kind:member	line:3621
+__encode_TriggerGroups	../smarter/SmarterInterface.py	/^    def __encode_TriggerGroups(self,groups):$/;"	kind:member	line:3655
+__encode_WifiFirmware	../smarter/SmarterInterface.py	/^    def __encode_WifiFirmware(self,wifi="6b41542b474d520d0d0a41542076657273696f6e3a302e34302e302e302841756720203820323031352031343a34353a3538290d0a53444b2076657273696f6e3a312e332e300d0a636f6d70696c652074696d653a41756720203820323031352031373a31393a33380d0a4f4b7e"):$/;"	kind:member	line:3789
+__encode_WifiScan	../smarter/SmarterInterface.py	/^    def __encode_WifiScan(self,list):$/;"	kind:member	line:3797
+__encode_status	../smarter/SmarterInterface.py	/^    def __encode_status(self,temperature,heaterOn,keepwarmOn):$/;"	kind:member	line:750
+__findGroup	../smarter/SmarterInterface.py	/^    def __findGroup(self,group):$/;"	kind:member	line:1156
+__findGroup	../smarter/SmarterInterface.py	/^    def __findGroup(self,group):$/;"	kind:member	line:4183
+__init	../smarter/SmarterInterface.py	/^    def __init(self):$/;"	kind:member	line:1378
+__init	../smarter/SmarterInterface.py	/^    def __init(self):$/;"	kind:member	line:76
+__initTriggers	../smarter/SmarterInterface.py	/^    def __initTriggers(self):$/;"	kind:member	line:3881
+__initTriggers	../smarter/SmarterInterface.py	/^    def __initTriggers(self):$/;"	kind:member	line:981
+__init__	../iBrewBonjour.py	/^    def __init__(self, port):$/;"	kind:member	line:30
+__init__	../iBrewDomoticz.py	/^    def __init__(self,connection="127.0.0.1:8080",name="NaNa"):$/;"	kind:member	line:84
+__init__	../iBrewMac.py	/^    def __init__(self, apiServer):$/;"	kind:member	line:25
+__init__	../iBrewWeb.py	/^    def __init__(self,webroot=""):$/;"	kind:member	line:1340
+__init__	../iBrewWin.py	/^    def __init__(self, apiServer):$/;"	kind:member	line:40
+__init__	../ibrewui	/^    def __init__(self):$/;"	kind:member	line:36
+__init__	../smarter/SmarterInterface.py	/^    def __init__(self,setting_path=""):$/;"	kind:member	line:1507
+__init__	../smarter/SmarterInterface.py	/^    def __init__(self,setting_path="",host=SmarterLegacy.DirectHost,port=SmarterLegacy.Port):$/;"	kind:member	line:90
+__init__	../smarter/SmarterProtocol.py	/^    def __init__(self):$/;"	kind:member	line:854
+__init__	../smarter/SmarterProtocol.py	/^    def __init__(self, err, msg):$/;"	kind:member	line:412
+__init__	../smarter/SmarterProtocol.py	/^    def __init__(self, msg):$/;"	kind:member	line:421
+__init__.py	../smarter/__init__.py	1;"	kind:file	line:1
+__modifiers	../smarter/SmarterInterface.py	/^    def __modifiers(self,string):$/;"	kind:member	line:2693
+__monitor_device	../smarter/SmarterInterface.py	/^    def __monitor_device(self):$/;"	kind:member	line:151
+__monitor_device	../smarter/SmarterInterface.py	/^    def __monitor_device(self):$/;"	kind:member	line:1994
+__read	../smarter/SmarterInterface.py	/^    def __read(self):$/;"	kind:member	line:2173
+__read	../smarter/SmarterInterface.py	/^    def __read(self):$/;"	kind:member	line:343
+__read_block	../smarter/SmarterInterface.py	/^    def __read_block(self):$/;"	kind:member	line:2528
+__read_message	../smarter/SmarterInterface.py	/^    def __read_message(self):$/;"	kind:member	line:2133
+__read_triggers	../smarter/SmarterInterface.py	/^    def __read_triggers(self):$/;"	kind:member	line:1003
+__read_triggers	../smarter/SmarterInterface.py	/^    def __read_triggers(self):$/;"	kind:member	line:3954
+__relay	../smarter/SmarterInterface.py	/^    def __relay(self):$/;"	kind:member	line:1939
+__relay	../smarter/SmarterInterface.py	/^    def __relay(self):$/;"	kind:member	line:865
+__relayHandler	../smarter/SmarterInterface.py	/^    def __relayHandler(self,clientsock,addr):$/;"	kind:member	line:1887
+__relayHandler	../smarter/SmarterInterface.py	/^    def __relayHandler(self,clientsock,addr):$/;"	kind:member	line:807
+__relayMonitor	../smarter/SmarterInterface.py	/^    def __relayMonitor(self,clientsock,addr):$/;"	kind:member	line:1862
+__relaySend	../smarter/SmarterInterface.py	/^    def __relaySend(self,status):$/;"	kind:member	line:845
+__send	../smarter/SmarterInterface.py	/^    def __send(self,message):$/;"	kind:member	line:2264
+__send_command	../smarter/SmarterInterface.py	/^    def __send_command(self,id,arguments=""):$/;"	kind:member	line:2252
+__send_message	../smarter/SmarterInterface.py	/^    def __send_message(self,message):$/;"	kind:member	line:2223
+__sim_handshake	../smarter/SmarterInterface.py	/^    def __sim_handshake(self):$/;"	kind:member	line:729
+__sim_heat	../smarter/SmarterInterface.py	/^    def __sim_heat(self):$/;"	kind:member	line:734
+__sim_keepwarm_minutes	../smarter/SmarterInterface.py	/^    def __sim_keepwarm_minutes(self,command):$/;"	kind:member	line:788
+__sim_status	../smarter/SmarterInterface.py	/^    def __sim_status(self):$/;"	kind:member	line:739
+__sim_stop	../smarter/SmarterInterface.py	/^    def __sim_stop(self):$/;"	kind:member	line:765
+__sim_temperature	../smarter/SmarterInterface.py	/^    def __sim_temperature(self,command):$/;"	kind:member	line:776
+__sim_warm	../smarter/SmarterInterface.py	/^    def __sim_warm(self):$/;"	kind:member	line:798
+__simulate_20	../smarter/SmarterInterface.py	/^    def __simulate_20(self):$/;"	kind:member	line:3565
+__simulate_22	../smarter/SmarterInterface.py	/^    def __simulate_22(self):$/;"	kind:member	line:3573
+__simulate_23	../smarter/SmarterInterface.py	/^    def __simulate_23(self):$/;"	kind:member	line:3581
+__simulate_30	../smarter/SmarterInterface.py	/^    def __simulate_30(self):$/;"	kind:member	line:3589
+__simulate_69	../smarter/SmarterInterface.py	/^    def __simulate_69(self):$/;"	kind:member	line:3557
+__simulate_Base	../smarter/SmarterInterface.py	/^    def __simulate_Base(self):$/;"	kind:member	line:3463
+__simulate_Brew	../smarter/SmarterInterface.py	/^    def __simulate_Brew(self,message):$/;"	kind:member	line:3095
+__simulate_BrewDefault	../smarter/SmarterInterface.py	/^    def __simulate_BrewDefault(self):$/;"	kind:member	line:3159
+__simulate_Calibrate	../smarter/SmarterInterface.py	/^    def __simulate_Calibrate(self):$/;"	kind:member	line:3471
+__simulate_Carafe	../smarter/SmarterInterface.py	/^    def __simulate_Carafe(self):$/;"	kind:member	line:3421
+__simulate_CoffeeHistory	../smarter/SmarterInterface.py	/^    def __simulate_CoffeeHistory(self):$/;"	kind:member	line:3500
+__simulate_CoffeeSettings	../smarter/SmarterInterface.py	/^    def __simulate_CoffeeSettings(self):$/;"	kind:member	line:3357
+__simulate_CoffeeStatus	../smarter/SmarterInterface.py	/^    def __simulate_CoffeeStatus(self):$/;"	kind:member	line:3072
+__simulate_CoffeeStop	../smarter/SmarterInterface.py	/^    def __simulate_CoffeeStop(self):$/;"	kind:member	line:3136
+__simulate_CoffeeStoreSettings	../smarter/SmarterInterface.py	/^    def __simulate_CoffeeStoreSettings(self,message):$/;"	kind:member	line:3365
+__simulate_Cups	../smarter/SmarterInterface.py	/^    def __simulate_Cups(self,message):$/;"	kind:member	line:3401
+__simulate_DeviceInfo	../smarter/SmarterInterface.py	/^    def __simulate_DeviceInfo(self):$/;"	kind:member	line:3327
+__simulate_DeviceTime	../smarter/SmarterInterface.py	/^    def __simulate_DeviceTime(self,message):$/;"	kind:member	line:3077
+__simulate_DisableTimer	../smarter/SmarterInterface.py	/^    def __simulate_DisableTimer(self,message):$/;"	kind:member	line:3259
+__simulate_Grinder	../smarter/SmarterInterface.py	/^    def __simulate_Grinder(self):$/;"	kind:member	line:3380
+__simulate_Heat	../smarter/SmarterInterface.py	/^    def __simulate_Heat(self,message):$/;"	kind:member	line:3268
+__simulate_HeatDefault	../smarter/SmarterInterface.py	/^    def __simulate_HeatDefault(self):$/;"	kind:member	line:3313
+__simulate_HeatFormula	../smarter/SmarterInterface.py	/^    def __simulate_HeatFormula(self,message):$/;"	kind:member	line:3296
+__simulate_HotplateOff	../smarter/SmarterInterface.py	/^    def __simulate_HotplateOff(self):$/;"	kind:member	line:3226
+__simulate_HotplateOn	../smarter/SmarterInterface.py	/^    def __simulate_HotplateOn(self,message):$/;"	kind:member	line:3192
+__simulate_KettleHistory	../smarter/SmarterInterface.py	/^    def __simulate_KettleHistory(self):$/;"	kind:member	line:3492
+__simulate_KettleSettings	../smarter/SmarterInterface.py	/^    def __simulate_KettleSettings(self):$/;"	kind:member	line:3349
+__simulate_KettleStatus	../smarter/SmarterInterface.py	/^    def __simulate_KettleStatus(self):$/;"	kind:member	line:3067
+__simulate_KettleStop	../smarter/SmarterInterface.py	/^    def __simulate_KettleStop(self):$/;"	kind:member	line:3284
+__simulate_KettleStoreSettings	../smarter/SmarterInterface.py	/^    def __simulate_KettleStoreSettings(self,message):$/;"	kind:member	line:3335
+__simulate_Mode	../smarter/SmarterInterface.py	/^    def __simulate_Mode(self):$/;"	kind:member	line:3441
+__simulate_Network	../smarter/SmarterInterface.py	/^    def __simulate_Network(self):$/;"	kind:member	line:3541
+__simulate_ResetSettings	../smarter/SmarterInterface.py	/^    def __simulate_ResetSettings(self):$/;"	kind:member	line:3086
+__simulate_SetCarafe	../smarter/SmarterInterface.py	/^    def __simulate_SetCarafe(self,message):$/;"	kind:member	line:3429
+__simulate_SetMode	../smarter/SmarterInterface.py	/^    def __simulate_SetMode(self,message):$/;"	kind:member	line:3449
+__simulate_StoreBase	../smarter/SmarterInterface.py	/^    def __simulate_StoreBase(self,message):$/;"	kind:member	line:3480
+__simulate_StoreTimer	../smarter/SmarterInterface.py	/^    def __simulate_StoreTimer(self,message):$/;"	kind:member	line:3238
+__simulate_Strength	../smarter/SmarterInterface.py	/^    def __simulate_Strength(self,message):$/;"	kind:member	line:3389
+__simulate_Timers	../smarter/SmarterInterface.py	/^    def __simulate_Timers(self,message):$/;"	kind:member	line:3247
+__simulate_Update	../smarter/SmarterInterface.py	/^    def __simulate_Update(self):$/;"	kind:member	line:3549
+__simulate_WifiFirmware	../smarter/SmarterInterface.py	/^    def __simulate_WifiFirmware(self):$/;"	kind:member	line:3508
+__simulate_WifiJoin	../smarter/SmarterInterface.py	/^    def __simulate_WifiJoin(self):$/;"	kind:member	line:3524
+__simulate_WifiPassword	../smarter/SmarterInterface.py	/^    def __simulate_WifiPassword(self):$/;"	kind:member	line:3532
+__simulate_WifiScan	../smarter/SmarterInterface.py	/^    def __simulate_WifiScan(self):$/;"	kind:member	line:3516
+__simulate_device	../smarter/SmarterInterface.py	/^    def __simulate_device(self):$/;"	kind:member	line:231
+__simulate_device	../smarter/SmarterInterface.py	/^    def __simulate_device(self):$/;"	kind:member	line:2922
+__simulation_default	../smarter/SmarterInterface.py	/^    def __simulation_default(self):$/;"	kind:member	line:219
+__simulation_default	../smarter/SmarterInterface.py	/^    def __simulation_default(self):$/;"	kind:member	line:2833
+__splitrules	../smarter/SmarterInterface.py	/^    def __splitrules(self,string):$/;"	kind:member	line:2569
+__touch	../smarter/SmarterInterface.py	/^    def __touch(path):$/;"	kind:member	line:1646
+__trigger	../smarter/SmarterInterface.py	/^    def __trigger(self,triggerID,old,new):$/;"	kind:member	line:1268
+__trigger	../smarter/SmarterInterface.py	/^    def __trigger(self,triggerID,old,new):$/;"	kind:member	line:4310
+__triggerDelete	../smarter/SmarterInterface.py	/^    def __triggerDelete(self,group,trigger):$/;"	kind:member	line:1068
+__triggerDelete	../smarter/SmarterInterface.py	/^    def __triggerDelete(self,group,trigger):$/;"	kind:member	line:4032
+__triggerHeartBeat	../smarter/SmarterInterface.py	/^    def __triggerHeartBeat(self,triggerID):$/;"	kind:member	line:1129
+__triggerHeartBeat	../smarter/SmarterInterface.py	/^    def __triggerHeartBeat(self,triggerID):$/;"	kind:member	line:4146
+__triggerHeartBeats	../smarter/SmarterInterface.py	/^    def __triggerHeartBeats(self):$/;"	kind:member	line:1098
+__triggerHeartBeats	../smarter/SmarterInterface.py	/^    def __triggerHeartBeats(self):$/;"	kind:member	line:4071
+__triggerStringRaw	../smarter/SmarterInterface.py	/^    def __triggerStringRaw(self,triggerID):$/;"	kind:member	line:1107
+__triggerStringRaw	../smarter/SmarterInterface.py	/^    def __triggerStringRaw(self,triggerID):$/;"	kind:member	line:4081
+__unmodifiers	../smarter/SmarterInterface.py	/^    def __unmodifiers(self,string):$/;"	kind:member	line:2717
+__write_block	../smarter/SmarterInterface.py	/^    def __write_block(self):$/;"	kind:member	line:2490
+__write_stats	../smarter/SmarterInterface.py	/^    def __write_stats(self):$/;"	kind:member	line:1651
+__write_triggers	../smarter/SmarterInterface.py	/^    def __write_triggers(self):$/;"	kind:member	line:3812
+__write_triggers	../smarter/SmarterInterface.py	/^    def __write_triggers(self):$/;"	kind:member	line:927
+_add_ids_to_menu_options	../iBrewWin.py	/^    def _add_ids_to_menu_options(self, menu_options):$/;"	kind:member	line:95
+_threadsafe_function	../smarter/SmarterInterface.py	/^def _threadsafe_function(fn):$/;"	kind:function	line:45
+appBase	../iBrewFolders.py	/^    def appBase():$/;"	kind:member	line:59
+appData	../iBrewFolders.py	/^    def appData():$/;"	kind:member	line:96
+app_info	../iBrewConsole.py	/^    def app_info(self):$/;"	kind:member	line:1334
+appname	../iBrewFolders.py	/^appname = 'iBrew'$/;"	kind:variable	line:18
+argument_messages	../smarter/SmarterProtocol.py	/^    def argument_messages(self,id):$/;"	kind:member	line:2544
+autoconnect	../iBrewWeb.py	/^    def autoconnect(self):$/;"	kind:member	line:1247
+block	../smarter/SmarterInterface.py	/^    def block(self,string):$/;"	kind:member	line:2681
+boil	../smarter/SmarterInterface.py	/^    def boil(self):$/;"	kind:member	line:1344
+bool_to_raw	../smarter/SmarterProtocol.py	/^    def bool_to_raw(self,boolean):$/;"	kind:member	line:1493
+boolsGroup	../smarter/SmarterInterface.py	/^    def boolsGroup(self,group,bools):$/;"	kind:member	line:1182
+boolsGroup	../smarter/SmarterInterface.py	/^    def boolsGroup(self,group,bools):$/;"	kind:member	line:4209
+bytes_to_human	../smarter/SmarterProtocol.py	/^    def bytes_to_human(self,size_bytes):$/;"	kind:member	line:1838
+celsius_to_fahrenheid	../smarter/SmarterProtocol.py	/^    def celsius_to_fahrenheid(self,temperature):$/;"	kind:member	line:1282
+check_cups	../smarter/SmarterProtocol.py	/^    def check_cups(self,cups_raw):$/;"	kind:member	line:1509
+check_cups_brew	../smarter/SmarterProtocol.py	/^    def check_cups_brew(self,cups_raw):$/;"	kind:member	line:1515
+check_hardware	../iBrewDomoticz.py	/^    def check_hardware(self):$/;"	kind:member	line:91
+check_hotplate	../smarter/SmarterProtocol.py	/^    def check_hotplate(self,timer,version=20):$/;"	kind:member	line:1376
+check_hotplate_on	../smarter/SmarterProtocol.py	/^    def check_hotplate_on(self,timer):$/;"	kind:member	line:1383
+check_keepwarm	../smarter/SmarterProtocol.py	/^    def check_keepwarm(self,timer):$/;"	kind:member	line:1412
+check_keepwarm_on	../smarter/SmarterProtocol.py	/^    def check_keepwarm_on(self,timer):$/;"	kind:member	line:1418
+check_license	../iBrewConsole.py	/^    def check_license(self):$/;"	kind:member	line:205
+check_strength	../smarter/SmarterProtocol.py	/^    def check_strength(self,strength):$/;"	kind:member	line:1233
+check_temperature	../smarter/SmarterProtocol.py	/^    def check_temperature(self,temperature):$/;"	kind:member	line:1308
+check_temperature_celsius	../smarter/SmarterProtocol.py	/^    def check_temperature_celsius(self,temperature):$/;"	kind:member	line:1297
+check_waterlevel	../smarter/SmarterProtocol.py	/^    def check_waterlevel(self,waterlevel_raw):$/;"	kind:member	line:1578
+check_watersensor	../smarter/SmarterProtocol.py	/^    def check_watersensor(self, watersensor):$/;"	kind:member	line:1441
+code_to_number	../smarter/SmarterProtocol.py	/^    def code_to_number(self,code):$/;"	kind:member	line:1067
+code_to_raw	../smarter/SmarterProtocol.py	/^    def code_to_raw(self,code):$/;"	kind:member	line:1063
+codecs	../iBrewConsole.py	/^import codecs$/;"	kind:namespace	line:10
+codecs	../smarter/SmarterInterface.py	/^import codecs$/;"	kind:namespace	line:6
+codes_to_message	../smarter/SmarterProtocol.py	/^    def codes_to_message(self,string):$/;"	kind:member	line:1118
+coffee	../iBrewJokes.py	/^    def coffee(self):$/;"	kind:member	line:102
+coffeeJokes	../iBrewJokes.py	/^    coffeeJokes = [("Why is a bad cup of coffee the end of a marriage?","Because it’s grounds for divorce!"),$/;"	kind:variable	line:53
+coffeeStatus_to_raw	../smarter/SmarterProtocol.py	/^    def coffeeStatus_to_raw(self,carafe,grind,ready,grinder,heater,hotplate,working,timer):$/;"	kind:member	line:1714
+coffee_beans	../smarter/SmarterInterface.py	/^    def coffee_beans(self):$/;"	kind:member	line:5780
+coffee_brew	../smarter/SmarterInterface.py	/^    def coffee_brew(self, cups = 1, hotplate = 0, grind = True, strength = 1):$/;"	kind:member	line:5624
+coffee_brew_default	../smarter/SmarterInterface.py	/^    def coffee_brew_default(self):$/;"	kind:member	line:5604
+coffee_brew_settings	../smarter/SmarterInterface.py	/^    def coffee_brew_settings(self):$/;"	kind:member	line:5612
+coffee_carafe_mode	../smarter/SmarterInterface.py	/^    def coffee_carafe_mode(self):$/;"	kind:member	line:5521
+coffee_carafe_required	../smarter/SmarterInterface.py	/^    def coffee_carafe_required(self):$/;"	kind:member	line:5533
+coffee_carafe_required_off	../smarter/SmarterInterface.py	/^    def coffee_carafe_required_off(self):$/;"	kind:member	line:5571
+coffee_carafe_required_on	../smarter/SmarterInterface.py	/^    def coffee_carafe_required_on(self):$/;"	kind:member	line:5558
+coffee_carafe_required_toggle	../smarter/SmarterInterface.py	/^    def coffee_carafe_required_toggle(self):$/;"	kind:member	line:5545
+coffee_cup_mode	../smarter/SmarterInterface.py	/^    def coffee_cup_mode(self):$/;"	kind:member	line:5509
+coffee_cups	../smarter/SmarterInterface.py	/^    def coffee_cups(self,cups=1):$/;"	kind:member	line:5724
+coffee_descale	../smarter/SmarterInterface.py	/^    def coffee_descale(self):$/;"	kind:member	line:5636
+coffee_filter	../smarter/SmarterInterface.py	/^    def coffee_filter(self):$/;"	kind:member	line:5803
+coffee_grinder_off	../smarter/SmarterInterface.py	/^    def coffee_grinder_off(self):$/;"	kind:member	line:5754
+coffee_grinder_on	../smarter/SmarterInterface.py	/^    def coffee_grinder_on(self):$/;"	kind:member	line:5766
+coffee_grinder_toggle	../smarter/SmarterInterface.py	/^    def coffee_grinder_toggle(self):$/;"	kind:member	line:5737
+coffee_history	../smarter/SmarterInterface.py	/^    def coffee_history(self):$/;"	kind:member	line:5462
+coffee_hotplate_off	../smarter/SmarterInterface.py	/^    def coffee_hotplate_off(self):$/;"	kind:member	line:5651
+coffee_hotplate_on	../smarter/SmarterInterface.py	/^    def coffee_hotplate_on(self, hotplate=-1):$/;"	kind:member	line:5664
+coffee_medium	../smarter/SmarterInterface.py	/^    def coffee_medium(self):$/;"	kind:member	line:5867
+coffee_mode	../smarter/SmarterInterface.py	/^    def coffee_mode(self):$/;"	kind:member	line:5484
+coffee_mode_toggle	../smarter/SmarterInterface.py	/^    def coffee_mode_toggle(self):$/;"	kind:member	line:5496
+coffee_pregrind	../smarter/SmarterInterface.py	/^    def coffee_pregrind(self):$/;"	kind:member	line:5842
+coffee_settings	../smarter/SmarterInterface.py	/^    def coffee_settings(self):$/;"	kind:member	line:5451
+coffee_stop	../smarter/SmarterInterface.py	/^    def coffee_stop(self):$/;"	kind:member	line:5473
+coffee_store_settings	../smarter/SmarterInterface.py	/^    def coffee_store_settings(self, cups = 1, hotplate = 0, grind = True, strength = 1):$/;"	kind:member	line:5584
+coffee_strength	../smarter/SmarterInterface.py	/^    def coffee_strength(self,strength=Smarter.CoffeeMedium):$/;"	kind:member	line:5830
+coffee_strong	../smarter/SmarterInterface.py	/^    def coffee_strong(self):$/;"	kind:member	line:5879
+coffee_timer_disable	../smarter/SmarterInterface.py	/^    def coffee_timer_disable(self,index=0):$/;"	kind:member	line:5697
+coffee_timer_store	../smarter/SmarterInterface.py	/^    def coffee_timer_store(self,index=0,time=None):$/;"	kind:member	line:5710
+coffee_timers	../smarter/SmarterInterface.py	/^    def coffee_timers(self,index=0):$/;"	kind:member	line:5684
+coffee_weak	../smarter/SmarterInterface.py	/^    def coffee_weak(self):$/;"	kind:member	line:5853
+command	../iBrewWin.py	/^    def command(self, hwnd, msg, wparam, lparam):$/;"	kind:member	line:215
+command100c	../smarter/SmarterProtocol.py	/^    command100c         = "set sys output 0x80"$/;"	kind:variable	line:102
+command65c	../smarter/SmarterProtocol.py	/^    command65c          = "set sys output 0x200"$/;"	kind:variable	line:99
+command80c	../smarter/SmarterProtocol.py	/^    command80c          = "set sys output 0x4000"$/;"	kind:variable	line:100
+command95c	../smarter/SmarterProtocol.py	/^    command95c          = "set sys output 0x2"$/;"	kind:variable	line:101
+commandHandshake	../smarter/SmarterProtocol.py	/^    commandHandshake    = "HELLOKETTLE"$/;"	kind:variable	line:93
+commandHeat	../smarter/SmarterProtocol.py	/^    commandHeat         = "set sys output 0x4"$/;"	kind:variable	line:98
+commandStatus	../smarter/SmarterProtocol.py	/^    commandStatus       = "get sys status"$/;"	kind:variable	line:97
+commandStop	../smarter/SmarterProtocol.py	/^    commandStop         = "set sys output 0x0"$/;"	kind:variable	line:107
+commandWarm	../smarter/SmarterProtocol.py	/^    commandWarm         = "set sys output 0x8"$/;"	kind:variable	line:106
+commandWarm10m	../smarter/SmarterProtocol.py	/^    commandWarm10m      = "set sys output 0x8010"$/;"	kind:variable	line:104
+commandWarm20m	../smarter/SmarterProtocol.py	/^    commandWarm20m      = "set sys output 0x8020"$/;"	kind:variable	line:105
+commandWarm5m	../smarter/SmarterProtocol.py	/^    commandWarm5m       = "set sys output 0x8005"$/;"	kind:variable	line:103
+command_to_commandText	../smarter/SmarterProtocol.py	/^    def command_to_commandText(self,command):$/;"	kind:member	line:261
+command_to_string	../smarter/SmarterProtocol.py	/^    def command_to_string(self,command):$/;"	kind:member	line:228
+commands	../iBrewConsole.py	/^    def commands(self):$/;"	kind:member	line:1462
+connect	../smarter/SmarterInterface.py	/^    def connect(self):$/;"	kind:member	line:2373
+connect	../smarter/SmarterInterface.py	/^    def connect(self):$/;"	kind:member	line:272
+create_menu	../iBrewWin.py	/^    def create_menu(self, menu, menu_options):$/;"	kind:member	line:174
+cups_to_raw	../smarter/SmarterProtocol.py	/^    def cups_to_raw(self,cups):$/;"	kind:member	line:1529
+cups_to_string	../smarter/SmarterProtocol.py	/^    def cups_to_string(self,cups):$/;"	kind:member	line:1547
+cupsmerged_to_raw	../smarter/SmarterProtocol.py	/^    def cupsmerged_to_raw(self,cups,cupsbrew):$/;"	kind:member	line:1532
+custom_get_current_user	../iBrewWeb.py	/^def custom_get_current_user(handler):$/;"	kind:function	line:34
+date	../distro/win/version.py	/^    date=(0, 0)$/;"	kind:variable	line:25
+date	../iBrewWeb.py	/^from datetime import date$/;"	kind:namespace	line:3
+datetime	../iBrewConsole.py	/^import datetime$/;"	kind:namespace	line:5
+datetime	../iBrewDomoticz.py	/^import datetime$/;"	kind:namespace	line:5
+datetime	../iBrewWeb.py	/^import datetime$/;"	kind:namespace	line:10
+datetime	../smarter/SmarterInterface.py	/^import datetime$/;"	kind:namespace	line:13
+datetime	../smarter/SmarterProtocol.py	/^import datetime$/;"	kind:namespace	line:7
+dbm_to_quality	../smarter/SmarterProtocol.py	/^    def dbm_to_quality(self,dBm):$/;"	kind:member	line:1823
+destroy	../iBrewWin.py	/^    def destroy(self, hwnd, msg, wparam, lparam):$/;"	kind:member	line:140
+device_all_settings	../smarter/SmarterInterface.py	/^    def device_all_settings(self):$/;"	kind:member	line:4912
+device_default	../smarter/SmarterInterface.py	/^    def device_default(self):$/;"	kind:member	line:5087
+device_history	../smarter/SmarterInterface.py	/^    def device_history(self):$/;"	kind:member	line:5056
+device_info	../smarter/SmarterInterface.py	/^    def device_info(self):$/;"	kind:member	line:5004
+device_info	../smarter/SmarterProtocol.py	/^    def device_info(self,device,firmware):$/;"	kind:member	line:1210
+device_raw	../smarter/SmarterInterface.py	/^    def device_raw(self,code):$/;"	kind:member	line:4940
+device_reset	../smarter/SmarterInterface.py	/^    def device_reset(self):$/;"	kind:member	line:5097
+device_settings	../smarter/SmarterInterface.py	/^    def device_settings(self):$/;"	kind:member	line:5046
+device_start	../smarter/SmarterInterface.py	/^    def device_start(self):$/;"	kind:member	line:5077
+device_stop	../smarter/SmarterInterface.py	/^    def device_stop(self):$/;"	kind:member	line:5067
+device_store_settings	../smarter/SmarterInterface.py	/^    def device_store_settings(self,v1,v2,v3,v4):$/;"	kind:member	line:5023
+device_time	../smarter/SmarterInterface.py	/^    def device_time(self,second = 0,minute = 0,hour = 12,unknown = 0,day = 17, month=1, century = 20,year = 16):$/;"	kind:member	line:5128
+device_time_now	../smarter/SmarterInterface.py	/^    def device_time_now(self):$/;"	kind:member	line:5119
+device_to_string	../smarter/SmarterProtocol.py	/^    def device_to_string(self,device):$/;"	kind:member	line:1201
+device_type	../smarter/SmarterInterface.py	/^    def device_type(self):$/;"	kind:member	line:5012
+device_update	../smarter/SmarterInterface.py	/^    def device_update(self):$/;"	kind:member	line:5111
+devices	../iBrewWeb.py	/^    def devices(self):$/;"	kind:member	line:50
+disableGroup	../smarter/SmarterInterface.py	/^    def disableGroup(self,group):$/;"	kind:member	line:1172
+disableGroup	../smarter/SmarterInterface.py	/^    def disableGroup(self,group):$/;"	kind:member	line:4199
+disconnect	../smarter/SmarterInterface.py	/^    def disconnect(self):$/;"	kind:member	line:2437
+disconnect	../smarter/SmarterInterface.py	/^    def disconnect(self):$/;"	kind:member	line:333
+emu_bridge	../smarter/SmarterInterface.py	/^    def emu_bridge(self,command):$/;"	kind:member	line:522
+emu_responses	../smarter/SmarterInterface.py	/^    def emu_responses(self,command):$/;"	kind:member	line:571
+emu_trigger_heating	../smarter/SmarterInterface.py	/^    def emu_trigger_heating(self,heater):$/;"	kind:member	line:636
+emu_trigger_keepwarm	../smarter/SmarterInterface.py	/^    def emu_trigger_keepwarm(self,keepwarm):$/;"	kind:member	line:666
+emu_trigger_onbase	../smarter/SmarterInterface.py	/^    def emu_trigger_onbase(self,onbase):$/;"	kind:member	line:628
+emu_trigger_start	../smarter/SmarterInterface.py	/^    def emu_trigger_start(self,temperature,keepwarm):$/;"	kind:member	line:692
+emu_trigger_stop	../smarter/SmarterInterface.py	/^    def emu_trigger_stop(self):$/;"	kind:member	line:682
+emu_trigger_temperature	../smarter/SmarterInterface.py	/^    def emu_trigger_temperature(self,temperature):$/;"	kind:member	line:650
+emu_trigger_warm	../smarter/SmarterInterface.py	/^    def emu_trigger_warm(self,warm):$/;"	kind:member	line:615
+emulate	../smarter/SmarterInterface.py	/^    def emulate(self):$/;"	kind:member	line:1629
+emulate	../smarter/SmarterInterface.py	/^    def emulate(self,iKettle2=None):$/;"	kind:member	line:207
+enableGroup	../smarter/SmarterInterface.py	/^    def enableGroup(self,group):$/;"	kind:member	line:1163
+enableGroup	../smarter/SmarterInterface.py	/^    def enableGroup(self,group):$/;"	kind:member	line:4190
+encodeDevice	../iBrewWeb.py	/^def encodeDevice(client):$/;"	kind:function	line:208
+encodeFirmware	../iBrewWeb.py	/^def encodeFirmware(device,version):$/;"	kind:function	line:197
+encodeLegacy	../iBrewWeb.py	/^def encodeLegacy(client):$/;"	kind:function	line:1133
+encodePatch	../iBrewWeb.py	/^def encodePatch():$/;"	kind:function	line:845
+encodeRelay	../iBrewWeb.py	/^def encodeRelay(enabled,version,host):$/;"	kind:function	line:201
+encodeRules	../iBrewWeb.py	/^def encodeRules(rulesIn,rulesOut):$/;"	kind:function	line:832
+escape	../iBrewWeb.py	/^import tornado.escape$/;"	kind:namespace	line:4
+eventStringRaw	../smarter/SmarterInterface.py	/^    def eventStringRaw(self,trigger):$/;"	kind:member	line:1103
+eventStringRaw	../smarter/SmarterInterface.py	/^    def eventStringRaw(self,trigger):$/;"	kind:member	line:4077
+examples	../iBrewConsole.py	/^    def examples(self):$/;"	kind:member	line:1616
+execute	../iBrewConsole.py	/^    def execute(self,line):$/;"	kind:member	line:284
+execute_menu_option	../iBrewWin.py	/^    def execute_menu_option(self, id):$/;"	kind:member	line:219
+exists_hardware	../iBrewDomoticz.py	/^    def exists_hardware(self,name):$/;"	kind:member	line:71
+exists_id	../iBrewDomoticz.py	/^    def exists_id(sensorid):$/;"	kind:member	line:114
+exists_sensor	../iBrewDomoticz.py	/^    def exists_sensor(self,name):$/;"	kind:member	line:101
+exit	../ibrewui	/^    def exit(self):$/;"	kind:member	line:39
+fahrenheid_to_celsius	../smarter/SmarterProtocol.py	/^    def fahrenheid_to_celsius(self,temperature):$/;"	kind:member	line:1286
+ffi	../distro/win/version.py	/^  ffi=FixedFileInfo($/;"	kind:variable	line:6
+fileType	../distro/win/version.py	/^    fileType=0x1,$/;"	kind:variable	line:20
+filevers	../distro/win/version.py	/^    filevers=(0, 5, 0, 0),$/;"	kind:variable	line:9
+find_devices	../smarter/SmarterProtocol.py	/^    def find_devices(self,port):$/;"	kind:member	line:1868
+firmware_verified	../smarter/SmarterProtocol.py	/^    def firmware_verified(self,device,firmware):$/;"	kind:member	line:1195
+flags	../distro/win/version.py	/^    flags=0x0,$/;"	kind:variable	line:14
+get	../iBrewWeb.py	/^    def get(self):$/;"	kind:member	line:101
+get	../iBrewWeb.py	/^    def get(self):$/;"	kind:member	line:118
+get	../iBrewWeb.py	/^    def get(self):$/;"	kind:member	line:128
+get	../iBrewWeb.py	/^    def get(self):$/;"	kind:member	line:134
+get	../iBrewWeb.py	/^    def get(self):$/;"	kind:member	line:140
+get	../iBrewWeb.py	/^    def get(self):$/;"	kind:member	line:147
+get	../iBrewWeb.py	/^    def get(self):$/;"	kind:member	line:153
+get	../iBrewWeb.py	/^    def get(self):$/;"	kind:member	line:318
+get	../iBrewWeb.py	/^    def get(self):$/;"	kind:member	line:343
+get	../iBrewWeb.py	/^    def get(self):$/;"	kind:member	line:84
+get	../iBrewWeb.py	/^    def get(self):$/;"	kind:member	line:90
+get	../iBrewWeb.py	/^    def get(self):$/;"	kind:member	line:95
+get	../iBrewWeb.py	/^    def get(self):$/;"	kind:member	line:980
+get	../iBrewWeb.py	/^    def get(self):$/;"	kind:member	line:993
+get	../iBrewWeb.py	/^    def get(self, ip):$/;"	kind:member	line:1060
+get	../iBrewWeb.py	/^    def get(self, ip):$/;"	kind:member	line:239
+get	../iBrewWeb.py	/^    def get(self, ip, command):$/;"	kind:member	line:1186
+get	../iBrewWeb.py	/^    def get(self, ip, command):$/;"	kind:member	line:1208
+get	../iBrewWeb.py	/^    def get(self, ip, command):$/;"	kind:member	line:1222
+get	../iBrewWeb.py	/^    def get(self, ip, group):$/;"	kind:member	line:1043
+get	../iBrewWeb.py	/^    def get(self, ip, group):$/;"	kind:member	line:1093
+get	../iBrewWeb.py	/^    def get(self, ip, group, trigger):$/;"	kind:member	line:1027
+get	../iBrewWeb.py	/^    def get(self, ip, group, trigger, http, url):$/;"	kind:member	line:1010
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:107
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:169
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:179
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:428
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:445
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:483
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:519
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:548
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:571
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:603
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:618
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:690
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:705
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:721
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:737
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:753
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:769
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:784
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:804
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:816
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:893
+get	../iBrewWeb.py	/^    def get(self,ip):$/;"	kind:member	line:903
+get	../iBrewWeb.py	/^    def get(self,ip,base):$/;"	kind:member	line:461
+get	../iBrewWeb.py	/^    def get(self,ip,beverage):$/;"	kind:member	line:356
+get	../iBrewWeb.py	/^    def get(self,ip,block):$/;"	kind:member	line:851
+get	../iBrewWeb.py	/^    def get(self,ip,cups):$/;"	kind:member	line:660
+get	../iBrewWeb.py	/^    def get(self,ip,cups,hotplate,grind,strength):$/;"	kind:member	line:588
+get	../iBrewWeb.py	/^    def get(self,ip,name,password):$/;"	kind:member	line:508
+get	../iBrewWeb.py	/^    def get(self,ip,patch):$/;"	kind:member	line:879
+get	../iBrewWeb.py	/^    def get(self,ip,strength):$/;"	kind:member	line:634
+get	../iBrewWeb.py	/^    def get(self,ip,temperature,keepwarm):$/;"	kind:member	line:394
+get	../iBrewWeb.py	/^    def get(self,ip,temperature,keepwarm):$/;"	kind:member	line:409
+get	../iBrewWeb.py	/^    def get(self,ip,timer):$/;"	kind:member	line:675
+get	../iBrewWeb.py	/^    def get(self,ip,unblock):$/;"	kind:member	line:865
+get	../iBrewWeb.py	/^    def get(self,ip,x1,x2,x3,x4):$/;"	kind:member	line:536
+get	../iBrewWeb.py	/^    def get(self,ip=""):$/;"	kind:member	line:918
+get	../iBrewWeb.py	/^    def get(self,ip=""):$/;"	kind:member	line:934
+get	../iBrewWeb.py	/^    def get(self,message):$/;"	kind:member	line:159
+get	../iBrewWeb.py	/^    def get(self,page):$/;"	kind:member	line:74
+getGroup	../smarter/SmarterInterface.py	/^    def getGroup(self,group):$/;"	kind:member	line:1153
+getGroup	../smarter/SmarterInterface.py	/^    def getGroup(self,group):$/;"	kind:member	line:4180
+get_current_user	../iBrewWeb.py	/^    def get_current_user(self):$/;"	kind:member	line:42
+get_id	../iBrewDomoticz.py	/^    def get_id(self,iniid,text,type,options=""):$/;"	kind:member	line:141
+get_mac_for_device	../smarter/SmarterProtocol.py	/^    def get_mac_for_device(self,target):$/;"	kind:member	line:1899
+glob	../iBrewWin.py	/^import itertools, glob$/;"	kind:namespace	line:4
+go	../ibrewui	/^    def go(self):$/;"	kind:member	line:57
+grind_to_string	../smarter/SmarterProtocol.py	/^    def grind_to_string(self,grind):$/;"	kind:member	line:1717
+group	../smarter/SmarterProtocol.py	/^    def group(self,group):$/;"	kind:member	line:2710
+group_to_string	../smarter/SmarterProtocol.py	/^    def group_to_string(self,group):$/;"	kind:member	line:976
+groups	../smarter/SmarterProtocol.py	/^    def groups(self):$/;"	kind:member	line:2697
+groupsCommand	../smarter/SmarterProtocol.py	/^    def groupsCommand(self,id):$/;"	kind:member	line:923
+groupsList	../smarter/SmarterProtocol.py	/^    def groupsList(self,groups):$/;"	kind:member	line:951
+groupsListDecode	../smarter/SmarterProtocol.py	/^    def groupsListDecode(self,list):$/;"	kind:member	line:999
+groupsString	../smarter/SmarterProtocol.py	/^    def groupsString(self,groups):$/;"	kind:member	line:960
+groups_all	../smarter/SmarterProtocol.py	/^    def groups_all(self):$/;"	kind:member	line:2721
+handlers	../iBrewConsole.py	/^import logging.handlers$/;"	kind:namespace	line:12
+handlers	../ibrewui	/^import logging.handlers$/;"	kind:namespace	line:12
+handlers	../smarter/SmarterInterface.py	/^import logging.handlers$/;"	kind:namespace	line:15
+hasGroup	../smarter/SmarterProtocol.py	/^    def hasGroup(self,group):$/;"	kind:member	line:933
+have_bonjour	../iBrewBonjour.py	/^    have_bonjour = False$/;"	kind:variable	line:27
+have_bonjour	../iBrewBonjour.py	/^    have_bonjour = True$/;"	kind:variable	line:25
+heat	../smarter/SmarterInterface.py	/^    def heat(self):$/;"	kind:member	line:1348
+heat_temp	../smarter/SmarterInterface.py	/^    def heat_temp(self,temperature=100):$/;"	kind:member	line:1352
+hotchocolade	../iBrewJokes.py	/^    def hotchocolade(self):$/;"	kind:member	line:96
+hotchocoladeJokes	../iBrewJokes.py	/^    hotchocoladeJokes = [("Coffee makes it possible to get out of bed","but chocolate makes it worthwhile"),$/;"	kind:variable	line:80
+hotplate_to_raw	../smarter/SmarterProtocol.py	/^    def hotplate_to_raw(self,timer,version=20):$/;"	kind:member	line:1391
+hotplate_to_string	../smarter/SmarterProtocol.py	/^    def hotplate_to_string(self,hotplate):$/;"	kind:member	line:1395
+iBrewApp	../iBrewConsole.py	/^iBrewApp          = "iBrew - Smarter Appliances Interface"$/;"	kind:variable	line:46
+iBrewBonjour.py	../iBrewBonjour.py	1;"	kind:file	line:1
+iBrewBonjourThread	../iBrewBonjour.py	/^class iBrewBonjourThread(threading.Thread):$/;"	kind:class	line:29
+iBrewConsole	../iBrewConsole.py	/^class iBrewConsole:$/;"	kind:class	line:50
+iBrewConsole.py	../iBrewConsole.py	1;"	kind:file	line:1
+iBrewContribute	../iBrewConsole.py	/^iBrewContribute   = "Please DONATE! Food, jokes, hugs and fun toys! To your favaroite cat!\\n\\nContribute any discoveries on https:\/\/github.com\/Tristan79\/iBrew\/issues"$/;"	kind:variable	line:48
+iBrewDomoticz	../iBrewDomoticz.py	/^class iBrewDomoticz:$/;"	kind:class	line:41
+iBrewDomoticz.py	../iBrewDomoticz.py	1;"	kind:file	line:1
+iBrewFolders.py	../iBrewFolders.py	1;"	kind:file	line:1
+iBrewInfo	../iBrewConsole.py	/^iBrewInfo         = "The Dream Tea © 2017 Tristan Crispijn (tristan@monkeycat.nl). All Rights Reserved"$/;"	kind:variable	line:47
+iBrewJokes	../iBrewJokes.py	/^class iBrewJokes:$/;"	kind:class	line:19
+iBrewJokes.py	../iBrewJokes.py	1;"	kind:file	line:1
+iBrewMac.py	../iBrewMac.py	1;"	kind:file	line:1
+iBrewWeb	../iBrewWeb.py	/^class iBrewWeb(tornado.web.Application):$/;"	kind:class	line:1239
+iBrewWeb.py	../iBrewWeb.py	1;"	kind:file	line:1
+iBrewWin.py	../iBrewWin.py	1;"	kind:file	line:1
+ibrew	../ibrew	1;"	kind:file	line:1
+ibrewui	../ibrewui	1;"	kind:file	line:1
+iconsPath	../iBrewFolders.py	/^    def iconsPath(filename):$/;"	kind:member	line:109
+idsAdd	../smarter/SmarterProtocol.py	/^    def idsAdd(self,ids,addids):$/;"	kind:member	line:993
+idsListEncode	../smarter/SmarterProtocol.py	/^    def idsListEncode(self,ids):$/;"	kind:member	line:1017
+idsMin	../smarter/SmarterProtocol.py	/^    def idsMin(self,ids):$/;"	kind:member	line:986
+idsRemove	../smarter/SmarterProtocol.py	/^    def idsRemove(self,ids,removeids):$/;"	kind:member	line:989
+ids_to_string	../smarter/SmarterProtocol.py	/^    def ids_to_string(self,ids):$/;"	kind:member	line:996
+intro	../iBrewConsole.py	/^    def intro(self):$/;"	kind:member	line:1343
+ioloop	../iBrewWeb.py	/^import tornado.ioloop$/;"	kind:namespace	line:5
+isGroup	../smarter/SmarterProtocol.py	/^    def isGroup(self,string):$/;"	kind:member	line:940
+isTriggersGroup	../smarter/SmarterInterface.py	/^    def isTriggersGroup(self,group):$/;"	kind:member	line:1147
+isTriggersGroup	../smarter/SmarterInterface.py	/^    def isTriggersGroup(self,group):$/;"	kind:member	line:4174
+is_coffee	../smarter/SmarterProtocol.py	/^    def is_coffee(self,device):$/;"	kind:member	line:1191
+is_coffee_verified	../smarter/SmarterProtocol.py	/^    def is_coffee_verified(self,firmware):$/;"	kind:member	line:1187
+is_kettle	../smarter/SmarterProtocol.py	/^    def is_kettle(self,device):$/;"	kind:member	line:1179
+is_kettle_verified	../smarter/SmarterProtocol.py	/^    def is_kettle_verified(self,firmware):$/;"	kind:member	line:1183
+is_on_base	../smarter/SmarterProtocol.py	/^    def is_on_base(self,raw):$/;"	kind:member	line:1272
+is_set	../smarter/SmarterInterface.py	/^        def is_set(x, n):$/;"	kind:function	line:454
+is_set	../smarter/SmarterInterface.py	/^        def is_set(x, n):$/;"	kind:function	line:4584
+is_set	../smarter/SmarterProtocol.py	/^        def is_set(x, n):$/;"	kind:function	line:165
+is_status_command	../smarter/SmarterProtocol.py	/^    def is_status_command(self,status):$/;"	kind:member	line:1628
+is_valid_ipv4_address	../iBrewConsole.py	/^    def is_valid_ipv4_address(self,address):$/;"	kind:member	line:183
+is_valid_ipv6_address	../iBrewConsole.py	/^    def is_valid_ipv6_address(self,address):$/;"	kind:member	line:197
+itemgetter	../smarter/SmarterInterface.py	/^from operator import itemgetter$/;"	kind:namespace	line:18
+itemgetter	../smarter/SmarterProtocol.py	/^from operator import itemgetter$/;"	kind:namespace	line:12
+itertools	../iBrewWin.py	/^import itertools, glob$/;"	kind:namespace	line:4
+joke	../iBrewConsole.py	/^    def joke(self):$/;"	kind:member	line:1349
+joke	../iBrewJokes.py	/^    def joke(self):$/;"	kind:member	line:106
+json	../iBrewDomoticz.py	/^import json$/;"	kind:namespace	line:9
+keepwarm	../smarter/SmarterInterface.py	/^    def keepwarm(self):$/;"	kind:member	line:1308
+keepwarm_to_raw	../smarter/SmarterProtocol.py	/^    def keepwarm_to_raw(self,timer):$/;"	kind:member	line:1427
+keepwarm_to_string	../smarter/SmarterProtocol.py	/^    def keepwarm_to_string(self,keepwarm):$/;"	kind:member	line:1430
+kettle	../iBrewJokes.py	/^    def kettle(self):$/;"	kind:member	line:99
+kettle_boil	../smarter/SmarterInterface.py	/^    def kettle_boil(self):$/;"	kind:member	line:5309
+kettle_calibrate	../smarter/SmarterInterface.py	/^    def kettle_calibrate(self):$/;"	kind:member	line:5395
+kettle_calibrate_base	../smarter/SmarterInterface.py	/^    def kettle_calibrate_base(self):$/;"	kind:member	line:5421
+kettle_calibrate_offbase	../smarter/SmarterInterface.py	/^    def kettle_calibrate_offbase(self):$/;"	kind:member	line:5407
+kettle_calibrate_store_base	../smarter/SmarterInterface.py	/^    def kettle_calibrate_store_base(self,base = 1000):$/;"	kind:member	line:5432
+kettle_formula_heat	../smarter/SmarterInterface.py	/^    def kettle_formula_heat(self, formulaTemperature = 75, keepwarm = 0):$/;"	kind:member	line:5340
+kettle_heat	../smarter/SmarterInterface.py	/^    def kettle_heat(self,temperature=100,keepwarm=-1):$/;"	kind:member	line:5235
+kettle_heat_black_tea	../smarter/SmarterInterface.py	/^    def kettle_heat_black_tea(self):$/;"	kind:member	line:5269
+kettle_heat_coffee	../smarter/SmarterInterface.py	/^    def kettle_heat_coffee(self):$/;"	kind:member	line:5301
+kettle_heat_default	../smarter/SmarterInterface.py	/^    def kettle_heat_default(self):$/;"	kind:member	line:5317
+kettle_heat_green_tea	../smarter/SmarterInterface.py	/^    def kettle_heat_green_tea(self):$/;"	kind:member	line:5277
+kettle_heat_milk	../smarter/SmarterInterface.py	/^    def kettle_heat_milk(self):$/;"	kind:member	line:5261
+kettle_heat_oelong_tea	../smarter/SmarterInterface.py	/^    def kettle_heat_oelong_tea(self):$/;"	kind:member	line:5293
+kettle_heat_settings	../smarter/SmarterInterface.py	/^    def kettle_heat_settings(self):$/;"	kind:member	line:5325
+kettle_heat_white_tea	../smarter/SmarterInterface.py	/^    def kettle_heat_white_tea(self):$/;"	kind:member	line:5285
+kettle_history	../smarter/SmarterInterface.py	/^    def kettle_history(self):$/;"	kind:member	line:5379
+kettle_settings	../smarter/SmarterInterface.py	/^    def kettle_settings(self):$/;"	kind:member	line:5224
+kettle_stop	../smarter/SmarterInterface.py	/^    def kettle_stop(self):$/;"	kind:member	line:5366
+kettle_store_settings	../smarter/SmarterInterface.py	/^    def kettle_store_settings(self, temperature = 100, timer = 0, formulaOn = False, formulaTemperature = 75):$/;"	kind:member	line:5206
+kids	../distro/win/version.py	/^  kids=[$/;"	kind:variable	line:27
+kill	../iBrewWeb.py	/^    def kill(self):$/;"	kind:member	line:1352
+legacy	../iBrewConsole.py	/^    def legacy(self):$/;"	kind:member	line:1401
+legacy_commands	../iBrewConsole.py	/^    def legacy_commands(self):$/;"	kind:member	line:1414
+license	../smarter/SmarterProtocol.py	/^    def license(self):$/;"	kind:member	line:2914
+locale	../iBrewConsole.py	/^import locale$/;"	kind:namespace	line:8
+logging	../iBrewBonjour.py	/^import logging$/;"	kind:namespace	line:6
+logging	../iBrewConsole.py	/^import logging$/;"	kind:namespace	line:6
+logging	../iBrewConsole.py	/^import logging.handlers$/;"	kind:namespace	line:12
+logging	../iBrewDomoticz.py	/^import logging$/;"	kind:namespace	line:8
+logging	../ibrewui	/^import logging$/;"	kind:namespace	line:11
+logging	../ibrewui	/^import logging.handlers$/;"	kind:namespace	line:12
+logging	../smarter/SmarterInterface.py	/^import logging$/;"	kind:namespace	line:14
+logging	../smarter/SmarterInterface.py	/^import logging.handlers$/;"	kind:namespace	line:15
+logs	../iBrewFolders.py	/^    def logs():$/;"	kind:member	line:70
+make	../iBrewFolders.py	/^        def make(folder):$/;"	kind:function	line:24
+makeFolders	../iBrewFolders.py	/^    def makeFolders():$/;"	kind:member	line:23
+mask	../distro/win/version.py	/^    mask=0x3f,$/;"	kind:variable	line:12
+message	../smarter/SmarterProtocol.py	/^    def message(self,id):$/;"	kind:member	line:2735
+message_arguments	../smarter/SmarterProtocol.py	/^    def message_arguments(self,id):$/;"	kind:member	line:2553
+message_coffee	../smarter/SmarterProtocol.py	/^    def message_coffee(self,id):$/;"	kind:member	line:744
+message_coffee_supported	../smarter/SmarterProtocol.py	/^    def message_coffee_supported(self,id):$/;"	kind:member	line:740
+message_connection	../smarter/SmarterProtocol.py	/^    def message_connection(self,id):$/;"	kind:member	line:678
+message_connection_type	../smarter/SmarterProtocol.py	/^    def message_connection_type(self,id):$/;"	kind:member	line:670
+message_description	../smarter/SmarterProtocol.py	/^    def message_description(self,id):$/;"	kind:member	line:661
+message_example	../smarter/SmarterProtocol.py	/^    def message_example(self,id):$/;"	kind:member	line:2535
+message_is_command	../smarter/SmarterProtocol.py	/^    def message_is_command(self,id):$/;"	kind:member	line:707
+message_is_known	../smarter/SmarterProtocol.py	/^    def message_is_known(self,id):$/;"	kind:member	line:691
+message_is_response	../smarter/SmarterProtocol.py	/^    def message_is_response(self,id):$/;"	kind:member	line:695
+message_is_status	../smarter/SmarterProtocol.py	/^    def message_is_status(self,id):$/;"	kind:member	line:701
+message_is_type	../smarter/SmarterProtocol.py	/^    def message_is_type(self,id):$/;"	kind:member	line:711
+message_kettle	../smarter/SmarterProtocol.py	/^    def message_kettle(self,id):$/;"	kind:member	line:729
+message_kettle_supported	../smarter/SmarterProtocol.py	/^    def message_kettle_supported(self,id):$/;"	kind:member	line:736
+message_notes	../smarter/SmarterProtocol.py	/^    def message_notes(self,id):$/;"	kind:member	line:2538
+message_protocol_arguments	../smarter/SmarterProtocol.py	/^    def message_protocol_arguments(self):$/;"	kind:member	line:2560
+message_response_length	../smarter/SmarterProtocol.py	/^    def message_response_length(self,id):$/;"	kind:member	line:655
+message_supported	../smarter/SmarterProtocol.py	/^    def message_supported(self,state):$/;"	kind:member	line:720
+message_to_codes	../smarter/SmarterProtocol.py	/^    def message_to_codes(self,message,space = False):$/;"	kind:member	line:1105
+messages	../smarter/SmarterProtocol.py	/^    def messages(self,coffee=True,kettle=True):$/;"	kind:member	line:2739
+messages_all	../smarter/SmarterProtocol.py	/^    def messages_all(self):$/;"	kind:member	line:2727
+monitor	../iBrewConsole.py	/^    def monitor(self):$/;"	kind:member	line:61
+netifaces	../smarter/SmarterProtocol.py	/^import netifaces$/;"	kind:namespace	line:10
+new	../smarter/SmarterInterface.py	/^    def new(*args, **kwargs):$/;"	kind:function	line:48
+non_string_iterable	../iBrewWin.py	/^def non_string_iterable(obj):$/;"	kind:function	line:230
+normal	../smarter/SmarterInterface.py	/^    def normal(self):$/;"	kind:member	line:181
+notes	../smarter/SmarterProtocol.py	/^    def notes(self):$/;"	kind:member	line:2819
+notifications	../iBrewMac.py	/^    def notifications(self, notification):  # function that reacts to incoming notification dicts$/;"	kind:member	line:53
+notify	../iBrewWin.py	/^    def notify(self, hwnd, msg, wparam, lparam):$/;"	kind:member	line:148
+number_to_code	../smarter/SmarterProtocol.py	/^    def number_to_code(self,number):$/;"	kind:member	line:1074
+number_to_raw	../smarter/SmarterProtocol.py	/^    def number_to_raw(self,number):$/;"	kind:member	line:1045
+onebitcallback	../iBrewMac.py	/^    def onebitcallback(self, sender):  # functions don't have to be decorated to serve as callbacks for buttons$/;"	kind:member	line:56
+open_url	../iBrewDomoticz.py	/^    def open_url(self,url):$/;"	kind:member	line:60
+os	../iBrewDomoticz.py	/^import os$/;"	kind:namespace	line:6
+os	../iBrewFolders.py	/^import os$/;"	kind:namespace	line:2
+os	../iBrewWeb.py	/^import os$/;"	kind:namespace	line:12
+os	../iBrewWin.py	/^import os$/;"	kind:namespace	line:3
+os	../ibrewui	/^import os$/;"	kind:namespace	line:5
+os	../smarter/SmarterInterface.py	/^import os$/;"	kind:namespace	line:4
+os	../smarter/SmarterProtocol.py	/^import os$/;"	kind:namespace	line:8
+passthrough	../smarter/SmarterInterface.py	/^    def passthrough(self,iKettle2=None):$/;"	kind:member	line:198
+patch	../smarter/SmarterInterface.py	/^    def patch(self,string):$/;"	kind:member	line:2675
+platform	../iBrewConsole.py	/^import platform$/;"	kind:namespace	line:9
+platform	../iBrewFolders.py	/^import platform$/;"	kind:namespace	line:4
+platform	../ibrewui	/^import platform$/;"	kind:namespace	line:6
+platform	../smarter/SmarterInterface.py	/^import platform$/;"	kind:namespace	line:16
+prep_menu_icon	../iBrewWin.py	/^    def prep_menu_icon(self, icon):$/;"	kind:member	line:192
+print_carafe_required	../smarter/SmarterInterface.py	/^    def print_carafe_required(self):$/;"	kind:member	line:5914
+print_coffee_history	../smarter/SmarterInterface.py	/^    def print_coffee_history(self):$/;"	kind:member	line:5968
+print_coffee_settings	../smarter/SmarterInterface.py	/^    def print_coffee_settings(self):$/;"	kind:member	line:5955
+print_coffee_status	../smarter/SmarterInterface.py	/^    def print_coffee_status(self):$/;"	kind:member	line:6025
+print_connect_status	../smarter/SmarterInterface.py	/^    def print_connect_status(self):$/;"	kind:member	line:6053
+print_devices_found	../smarter/SmarterProtocol.py	/^    def print_devices_found(self,devices,relay):$/;"	kind:member	line:1933
+print_group	../smarter/SmarterInterface.py	/^    def print_group(self,group):$/;"	kind:member	line:1211
+print_group	../smarter/SmarterInterface.py	/^    def print_group(self,group):$/;"	kind:member	line:4246
+print_groups	../smarter/SmarterInterface.py	/^    def print_groups(self):$/;"	kind:member	line:1198
+print_groups	../smarter/SmarterInterface.py	/^    def print_groups(self):$/;"	kind:member	line:4224
+print_history	../smarter/SmarterInterface.py	/^    def print_history(self):$/;"	kind:member	line:5976
+print_info_device	../smarter/SmarterInterface.py	/^    def print_info_device(self):$/;"	kind:member	line:5896
+print_info_relay	../smarter/SmarterInterface.py	/^    def print_info_relay(self):$/;"	kind:member	line:5900
+print_kettle_history	../smarter/SmarterInterface.py	/^    def print_kettle_history(self):$/;"	kind:member	line:5983
+print_kettle_settings	../smarter/SmarterInterface.py	/^    def print_kettle_settings(self):$/;"	kind:member	line:5959
+print_kettle_status	../smarter/SmarterInterface.py	/^    def print_kettle_status(self):$/;"	kind:member	line:6007
+print_message_read	../smarter/SmarterInterface.py	/^    def print_message_read(self,message):$/;"	kind:member	line:6117
+print_message_send	../smarter/SmarterInterface.py	/^    def print_message_send(self,message):$/;"	kind:member	line:6112
+print_mode	../smarter/SmarterInterface.py	/^    def print_mode(self):$/;"	kind:member	line:5907
+print_patches	../smarter/SmarterInterface.py	/^    def print_patches(self):$/;"	kind:member	line:2608
+print_patches_short	../smarter/SmarterInterface.py	/^    def print_patches_short(self):$/;"	kind:member	line:2604
+print_remote_patches	../smarter/SmarterInterface.py	/^    def print_remote_patches(self):$/;"	kind:member	line:2616
+print_remote_patches_short	../smarter/SmarterInterface.py	/^    def print_remote_patches_short(self):$/;"	kind:member	line:2612
+print_remote_rules	../smarter/SmarterInterface.py	/^    def print_remote_rules(self):$/;"	kind:member	line:2650
+print_remote_rules_short	../smarter/SmarterInterface.py	/^    def print_remote_rules_short(self):$/;"	kind:member	line:2625
+print_rules	../smarter/SmarterInterface.py	/^    def print_rules(self):$/;"	kind:member	line:2629
+print_rules_short	../smarter/SmarterInterface.py	/^    def print_rules_short(self):$/;"	kind:member	line:2620
+print_settings	../smarter/SmarterInterface.py	/^    def print_settings(self):$/;"	kind:member	line:5948
+print_short_coffee_status	../smarter/SmarterInterface.py	/^    def print_short_coffee_status(self):$/;"	kind:member	line:6020
+print_short_kettle_status	../smarter/SmarterInterface.py	/^    def print_short_kettle_status(self):$/;"	kind:member	line:5992
+print_short_status	../smarter/SmarterInterface.py	/^    def print_short_status(self):$/;"	kind:member	line:5999
+print_states	../smarter/SmarterProtocol.py	/^    def print_states(self):$/;"	kind:member	line:2132
+print_states	../smarter/SmarterProtocol.py	/^    def print_states(self):$/;"	kind:member	line:361
+print_stats	../smarter/SmarterInterface.py	/^    def print_stats(self):$/;"	kind:member	line:6057
+print_status	../smarter/SmarterInterface.py	/^    def print_status(self):$/;"	kind:member	line:6033
+print_timers	../smarter/SmarterInterface.py	/^    def print_timers(self):$/;"	kind:member	line:5963
+print_trigger	../smarter/SmarterInterface.py	/^    def print_trigger(self,group):$/;"	kind:member	line:1227
+print_trigger	../smarter/SmarterInterface.py	/^    def print_trigger(self,group):$/;"	kind:member	line:4261
+print_trigger_groups	../smarter/SmarterInterface.py	/^    def print_trigger_groups(self):$/;"	kind:member	line:4237
+print_triggers	../smarter/SmarterInterface.py	/^    def print_triggers(self):$/;"	kind:member	line:1248
+print_triggers	../smarter/SmarterInterface.py	/^    def print_triggers(self):$/;"	kind:member	line:4286
+print_triggers	../smarter/SmarterProtocol.py	/^    def print_triggers(self):$/;"	kind:member	line:2116
+print_triggers	../smarter/SmarterProtocol.py	/^    def print_triggers(self):$/;"	kind:member	line:350
+print_watersensor_base	../smarter/SmarterInterface.py	/^    def print_watersensor_base(self):$/;"	kind:member	line:5921
+print_wifi_firmware	../smarter/SmarterInterface.py	/^    def print_wifi_firmware(self):$/;"	kind:member	line:5942
+print_wireless_networks	../smarter/SmarterInterface.py	/^    def print_wireless_networks(self):$/;"	kind:member	line:5925
+prodvers	../distro/win/version.py	/^    prodvers=(0, 5, 0, 1),$/;"	kind:variable	line:10
+protocol	../smarter/SmarterProtocol.py	/^    def protocol(self):$/;"	kind:member	line:2784
+protocol	../smarter/SmarterProtocol.py	/^    def protocol(self):$/;"	kind:member	line:37
+pybonjour	../iBrewBonjour.py	/^    import pybonjour$/;"	kind:namespace	line:24
+quit	../iBrewMac.py	/^    def quit(self, sender):$/;"	kind:member	line:45
+random	../iBrewConsole.py	/^import random$/;"	kind:namespace	line:23
+random	../iBrewJokes.py	/^import random$/;"	kind:namespace	line:3
+random	../smarter/SmarterInterface.py	/^import random$/;"	kind:namespace	line:11
+raw_to_bool	../smarter/SmarterProtocol.py	/^    def raw_to_bool(self,raw):$/;"	kind:member	line:1484
+raw_to_code	../smarter/SmarterProtocol.py	/^    def raw_to_code(self,raw):$/;"	kind:member	line:1059
+raw_to_cups	../smarter/SmarterProtocol.py	/^    def raw_to_cups(self,raw):$/;"	kind:member	line:1525
+raw_to_cups_brew	../smarter/SmarterProtocol.py	/^    def raw_to_cups_brew(self,cups_raw):$/;"	kind:member	line:1521
+raw_to_hotplate	../smarter/SmarterProtocol.py	/^    def raw_to_hotplate(self,raw,version=20):$/;"	kind:member	line:1387
+raw_to_keepwarm	../smarter/SmarterProtocol.py	/^    def raw_to_keepwarm(self,raw):$/;"	kind:member	line:1423
+raw_to_number	../smarter/SmarterProtocol.py	/^    def raw_to_number(self,raw):$/;"	kind:member	line:1038
+raw_to_strength	../smarter/SmarterProtocol.py	/^    def raw_to_strength(self,raw):$/;"	kind:member	line:1244
+raw_to_temperature	../smarter/SmarterProtocol.py	/^    def raw_to_temperature(self,raw):$/;"	kind:member	line:1318
+raw_to_text	../smarter/SmarterProtocol.py	/^    def raw_to_text(self,raw):$/;"	kind:member	line:1087
+raw_to_waterlevel	../smarter/SmarterProtocol.py	/^    def raw_to_waterlevel(self,raw):$/;"	kind:member	line:1585
+raw_to_waterlevel_bit	../smarter/SmarterProtocol.py	/^    def raw_to_waterlevel_bit(self,raw):$/;"	kind:member	line:1589
+raw_to_watersensor	../smarter/SmarterProtocol.py	/^    def raw_to_watersensor(self,raw_low,raw_high):$/;"	kind:member	line:1446
+re	../iBrewConsole.py	/^import re$/;"	kind:namespace	line:22
+refresh_icon	../iBrewWin.py	/^    def refresh_icon(self):$/;"	kind:member	line:112
+register_callback	../iBrewBonjour.py	/^    def register_callback(self, sdRef, flags, errorCode, name, regtype, domain):$/;"	kind:member	line:37
+relay_block	../smarter/SmarterInterface.py	/^    def relay_block(self,block):$/;"	kind:member	line:4980
+relay_info	../smarter/SmarterInterface.py	/^    def relay_info(self):$/;"	kind:member	line:4964
+relay_modifiers_info	../smarter/SmarterInterface.py	/^    def relay_modifiers_info(self):$/;"	kind:member	line:4972
+relay_patch	../smarter/SmarterInterface.py	/^    def relay_patch(self,patch):$/;"	kind:member	line:4996
+relay_start	../smarter/SmarterInterface.py	/^    def relay_start(self):$/;"	kind:member	line:1973
+relay_start	../smarter/SmarterInterface.py	/^    def relay_start(self):$/;"	kind:member	line:904
+relay_stop	../smarter/SmarterInterface.py	/^    def relay_stop(self):$/;"	kind:member	line:1980
+relay_stop	../smarter/SmarterInterface.py	/^    def relay_stop(self):$/;"	kind:member	line:911
+relay_unblock	../smarter/SmarterInterface.py	/^    def relay_unblock(self,unblock):$/;"	kind:member	line:4988
+responseHandshake	../smarter/SmarterProtocol.py	/^    responseHandshake   = "HELLOAPP"$/;"	kind:variable	line:94
+restart	../iBrewWin.py	/^    def restart(self, hwnd, msg, wparam, lparam):$/;"	kind:member	line:137
+rumps	../iBrewMac.py	/^import rumps$/;"	kind:namespace	line:3
+run	../iBrewBonjour.py	/^    def run(self):$/;"	kind:member	line:41
+run	../iBrewConsole.py	/^    def run(self,arguments):$/;"	kind:member	line:1272
+run	../iBrewWeb.py	/^    def run(self,bind="",port=Smarter.Port-1,dump=False,host="",sport=Smarter.Port):$/;"	kind:member	line:1389
+run	../iBrewWin.py	/^    def run(self):    $/;"	kind:member	line:226
+run	../ibrewui	/^    def run(self):$/;"	kind:member	line:42
+runningAtRoolLevel	../iBrewFolders.py	/^    def runningAtRoolLevel():$/;"	kind:member	line:32
+select	../iBrewBonjour.py	/^import select$/;"	kind:namespace	line:4
+selectKeepwamr10min	../smarter/SmarterInterface.py	/^    def selectKeepwamr10min(self):$/;"	kind:member	line:1320
+selectKeepwamr20min	../smarter/SmarterInterface.py	/^    def selectKeepwamr20min(self):$/;"	kind:member	line:1316
+selectKeepwamr5min	../smarter/SmarterInterface.py	/^    def selectKeepwamr5min(self):$/;"	kind:member	line:1324
+selectTemperature100	../smarter/SmarterInterface.py	/^    def selectTemperature100(self):$/;"	kind:member	line:1340
+selectTemperature65	../smarter/SmarterInterface.py	/^    def selectTemperature65(self):$/;"	kind:member	line:1328
+selectTemperature80	../smarter/SmarterInterface.py	/^    def selectTemperature80(self):$/;"	kind:member	line:1332
+selectTemperature95	../smarter/SmarterInterface.py	/^    def selectTemperature95(self):$/;"	kind:member	line:1336
+send	../smarter/SmarterInterface.py	/^    def send(self,command):$/;"	kind:member	line:356
+setContentType	../iBrewWeb.py	/^    def setContentType(self):$/;"	kind:member	line:56
+setHost	../smarter/SmarterInterface.py	/^    def setHost(self,host):$/;"	kind:member	line:147
+setHost	../smarter/SmarterInterface.py	/^    def setHost(self,host):$/;"	kind:member	line:1623
+set_custom_type	../iBrewDomoticz.py	/^    def set_custom_type(self,idx,name,switchImage):$/;"	kind:member	line:166
+set_switch_type	../iBrewDomoticz.py	/^    def set_switch_type(self,idx,name,switchType,switchImage):$/;"	kind:member	line:158
+settings	../iBrewFolders.py	/^    def settings():$/;"	kind:member	line:82
+setup	../iBrewDomoticz.py	/^    def setup(self,client,connection,prefix="",name=""):$/;"	kind:member	line:175
+show	../iBrewWin.py	/^    def show(self, sender):$/;"	kind:member	line:37
+show_menu	../iBrewWin.py	/^    def show_menu(self):$/;"	kind:member	line:157
+signal	../ibrewui	/^import signal$/;"	kind:namespace	line:7
+signal_handler	../ibrewui	/^    def signal_handler(self, signal, frame):$/;"	kind:member	line:30
+sim_responses	../smarter/SmarterInterface.py	/^    def sim_responses(self,command):$/;"	kind:member	line:710
+simulate	../smarter/SmarterInterface.py	/^    def simulate(self):$/;"	kind:member	line:1636
+simulate	../smarter/SmarterInterface.py	/^    def simulate(self):$/;"	kind:member	line:188
+socket	../iBrewBonjour.py	/^import socket$/;"	kind:namespace	line:7
+socket	../iBrewWeb.py	/^import socket$/;"	kind:namespace	line:7
+socket	../smarter/SmarterInterface.py	/^import socket$/;"	kind:namespace	line:3
+socket	../smarter/SmarterProtocol.py	/^import socket$/;"	kind:namespace	line:6
+start	../iBrewWeb.py	/^    def start(self):$/;"	kind:member	line:1243
+status	../smarter/SmarterInterface.py	/^    def status(self):$/;"	kind:member	line:1304
+status100c	../smarter/SmarterProtocol.py	/^    status100c          = "sys status 0x100"$/;"	kind:variable	line:146
+status65c	../smarter/SmarterProtocol.py	/^    status65c           = "sys status 0x65"$/;"	kind:variable	line:149
+status80c	../smarter/SmarterProtocol.py	/^    status80c           = "sys status 0x80"$/;"	kind:variable	line:148
+status95c	../smarter/SmarterProtocol.py	/^    status95c           = "sys status 0x95"$/;"	kind:variable	line:147
+statusHeated	../smarter/SmarterProtocol.py	/^    statusHeated        = "sys status 0x3"$/;"	kind:variable	line:157
+statusHeating	../smarter/SmarterProtocol.py	/^    statusHeating       = "sys status 0x5"$/;"	kind:variable	line:152
+statusKettleRemoved	../smarter/SmarterProtocol.py	/^    statusKettleRemoved = "sys status 0x1"$/;"	kind:variable	line:159
+statusOverheat	../smarter/SmarterProtocol.py	/^    statusOverheat      = "sys status 0x2"$/;"	kind:variable	line:158
+statusReady	../smarter/SmarterProtocol.py	/^    statusReady         = "sys status 0x0"$/;"	kind:variable	line:153
+statusWarm	../smarter/SmarterProtocol.py	/^    statusWarm          = "sys status 0x11"$/;"	kind:variable	line:150
+statusWarm10m	../smarter/SmarterProtocol.py	/^    statusWarm10m       = "sys status 0x8010"$/;"	kind:variable	line:155
+statusWarm20m	../smarter/SmarterProtocol.py	/^    statusWarm20m       = "sys status 0x8020"$/;"	kind:variable	line:156
+statusWarm5m	../smarter/SmarterProtocol.py	/^    statusWarm5m        = "sys status 0x8005"$/;"	kind:variable	line:154
+statusWarmFinished	../smarter/SmarterProtocol.py	/^    statusWarmFinished  = "sys status 0x10"$/;"	kind:variable	line:151
+status_command	../smarter/SmarterProtocol.py	/^    def status_command(self,status):$/;"	kind:member	line:1633
+status_kettle_description	../smarter/SmarterProtocol.py	/^    def status_kettle_description(self,status):$/;"	kind:member	line:1660
+stop	../smarter/SmarterInterface.py	/^    def stop(self):$/;"	kind:member	line:1312
+stop_loop	../iBrewWeb.py	/^            def stop_loop():$/;"	kind:function	line:1369
+strength_to_raw	../smarter/SmarterProtocol.py	/^    def strength_to_raw(self,strength):$/;"	kind:member	line:1240
+strength_to_string	../smarter/SmarterProtocol.py	/^    def strength_to_string(self,number):$/;"	kind:member	line:1247
+string	../iBrewDomoticz.py	/^import string$/;"	kind:namespace	line:4
+string	../smarter/SmarterProtocol.py	/^import string$/;"	kind:namespace	line:5
+string_argument	../smarter/SmarterProtocol.py	/^    def string_argument(self,argument,bit=False):$/;"	kind:member	line:2665
+string_base_on_off	../smarter/SmarterProtocol.py	/^    def string_base_on_off(self,onbase):$/;"	kind:member	line:1276
+string_block	../smarter/SmarterInterface.py	/^    def string_block(self):$/;"	kind:member	line:2589
+string_coffee_bits	../smarter/SmarterProtocol.py	/^    def string_coffee_bits(self,caraferequired,mode,waterenough,timerevent):$/;"	kind:member	line:1775
+string_coffee_settings	../smarter/SmarterProtocol.py	/^    def string_coffee_settings(self, cups, strength, grind, hotplate):$/;"	kind:member	line:1743
+string_coffee_status	../smarter/SmarterProtocol.py	/^    def string_coffee_status(self,busy,ready,cups,working,heating,hotPlateOn,carafe,grinderOn):$/;"	kind:member	line:1753
+string_combined	../smarter/SmarterProtocol.py	/^    def string_combined(self,argument):$/;"	kind:member	line:2598
+string_connect_status	../smarter/SmarterInterface.py	/^    def string_connect_status(self):$/;"	kind:member	line:6043
+string_int	../smarter/SmarterProtocol.py	/^    def string_int(self,argument):$/;"	kind:member	line:2583
+string_kettle_settings	../smarter/SmarterProtocol.py	/^    def string_kettle_settings(self, temperature,  formula, formulatemperature, keepwarmtime):$/;"	kind:member	line:1667
+string_kettle_status	../smarter/SmarterProtocol.py	/^    def string_kettle_status(self,onbase,kettlestatus,temperature,watersensor):$/;"	kind:member	line:1681
+string_mode	../smarter/SmarterProtocol.py	/^    def string_mode(self,mode):$/;"	kind:member	line:1790
+string_number	../smarter/SmarterProtocol.py	/^    def string_number(self,argument):$/;"	kind:member	line:2661
+string_option	../smarter/SmarterProtocol.py	/^    def string_option(self,argument):$/;"	kind:member	line:2592
+string_protocol	../smarter/SmarterProtocol.py	/^    def string_protocol(self,argument,id):$/;"	kind:member	line:2622
+string_range	../smarter/SmarterProtocol.py	/^    def string_range(self,argument):$/;"	kind:member	line:2611
+string_response	../smarter/SmarterProtocol.py	/^    def string_response(self,status):$/;"	kind:member	line:192
+string_responseStatus	../smarter/SmarterProtocol.py	/^    def string_responseStatus(self,status):$/;"	kind:member	line:163
+string_rules	../smarter/SmarterInterface.py	/^    def string_rules(self,rules):$/;"	kind:member	line:2584
+string_text	../smarter/SmarterProtocol.py	/^    def string_text(self,argument):$/;"	kind:member	line:2619
+string_to_bool	../smarter/SmarterProtocol.py	/^    def string_to_bool(self,boolean):$/;"	kind:member	line:1497
+string_to_command	../smarter/SmarterProtocol.py	/^    def string_to_command(self,string):$/;"	kind:member	line:244
+string_to_commandText	../smarter/SmarterProtocol.py	/^    def string_to_commandText(self,string):$/;"	kind:member	line:264
+string_to_cups	../smarter/SmarterProtocol.py	/^    def string_to_cups(self,string):$/;"	kind:member	line:1538
+string_to_grind	../smarter/SmarterProtocol.py	/^    def string_to_grind(self,grind):$/;"	kind:member	line:1724
+string_to_group	../smarter/SmarterProtocol.py	/^    def string_to_group(self,string):$/;"	kind:member	line:967
+string_to_hotplate	../smarter/SmarterProtocol.py	/^    def string_to_hotplate(self,string):$/;"	kind:member	line:1367
+string_to_keepwarm	../smarter/SmarterProtocol.py	/^    def string_to_keepwarm(self,string):$/;"	kind:member	line:1404
+string_to_mode	../smarter/SmarterProtocol.py	/^    def string_to_mode(self,mode):$/;"	kind:member	line:1692
+string_to_strength	../smarter/SmarterProtocol.py	/^    def string_to_strength(self,strength):$/;"	kind:member	line:1257
+string_to_temperature	../smarter/SmarterProtocol.py	/^    def string_to_temperature(self,temperature):$/;"	kind:member	line:1354
+string_to_watersensor	../smarter/SmarterProtocol.py	/^    def string_to_watersensor(self,string):$/;"	kind:member	line:1453
+stringboolsGroup	../smarter/SmarterInterface.py	/^    def stringboolsGroup(self,group,bools):$/;"	kind:member	line:1190
+stringboolsGroup	../smarter/SmarterInterface.py	/^    def stringboolsGroup(self,group,bools):$/;"	kind:member	line:4217
+struct	../smarter/SmarterProtocol.py	/^import struct$/;"	kind:namespace	line:4
+structure	../smarter/SmarterProtocol.py	/^    def structure(self):$/;"	kind:member	line:2787
+subtype	../distro/win/version.py	/^    subtype=0x0,$/;"	kind:variable	line:23
+sweep	../iBrewConsole.py	/^    def sweep(self,start=1):$/;"	kind:member	line:125
+switch_coffee_device	../smarter/SmarterInterface.py	/^    def switch_coffee_device(self):$/;"	kind:member	line:4897
+switch_kettle_device	../smarter/SmarterInterface.py	/^    def switch_kettle_device(self):$/;"	kind:member	line:4883
+sys	../iBrewBonjour.py	/^import sys$/;"	kind:namespace	line:5
+sys	../iBrewConsole.py	/^import sys$/;"	kind:namespace	line:3
+sys	../iBrewDomoticz.py	/^import sys$/;"	kind:namespace	line:7
+sys	../iBrewFolders.py	/^import sys$/;"	kind:namespace	line:3
+sys	../ibrewui	/^import sys$/;"	kind:namespace	line:4
+sys	../smarter/SmarterInterface.py	/^import sys$/;"	kind:namespace	line:5
+sys	../smarter/SmarterProtocol.py	/^import sys$/;"	kind:namespace	line:9
+tea	../iBrewJokes.py	/^    def tea(self):$/;"	kind:member	line:92
+teaJokes	../iBrewJokes.py	/^    teaJokes = [("What do you call a talkative drink?","Chai-tea."),$/;"	kind:variable	line:22
+temperature_metric_to_string	../smarter/SmarterProtocol.py	/^    def temperature_metric_to_string(self):$/;"	kind:member	line:1348
+temperature_symbol_to_string	../smarter/SmarterProtocol.py	/^    def temperature_symbol_to_string(self):$/;"	kind:member	line:1342
+temperature_to_raw	../smarter/SmarterProtocol.py	/^    def temperature_to_raw(self,temperature):$/;"	kind:member	line:1324
+temperature_to_string	../smarter/SmarterProtocol.py	/^    def temperature_to_string(self,temperature):$/;"	kind:member	line:1335
+temperaturemerged_to_raw	../smarter/SmarterProtocol.py	/^    def temperaturemerged_to_raw(self,temperature,onbase):$/;"	kind:member	line:1328
+text100c	../smarter/SmarterProtocol.py	/^    text100c            = "100°C"$/;"	kind:variable	line:118
+text65c	../smarter/SmarterProtocol.py	/^    text65c             = "65°C"$/;"	kind:variable	line:121
+text80c	../smarter/SmarterProtocol.py	/^    text80c             = "80°C"$/;"	kind:variable	line:120
+text95c	../smarter/SmarterProtocol.py	/^    text95c             = "95°C"$/;"	kind:variable	line:119
+textGetHandshake	../smarter/SmarterProtocol.py	/^    textGetHandshake    = "Offer hand"$/;"	kind:variable	line:115
+textGetStatus	../smarter/SmarterProtocol.py	/^    textGetStatus       = "Get status"$/;"	kind:variable	line:128
+textHandshake	../smarter/SmarterProtocol.py	/^    textHandshake       = "Handshake"$/;"	kind:variable	line:114
+textHeat	../smarter/SmarterProtocol.py	/^    textHeat            = "Start heating water"$/;"	kind:variable	line:110
+textHeated	../smarter/SmarterProtocol.py	/^    textHeated          = "Water heated"$/;"	kind:variable	line:140
+textHeating	../smarter/SmarterProtocol.py	/^    textHeating         = "Heating water"$/;"	kind:variable	line:138
+textKettleRemoved	../smarter/SmarterProtocol.py	/^    textKettleRemoved   = "Kettle removed"$/;"	kind:variable	line:142
+textOverheat	../smarter/SmarterProtocol.py	/^    textOverheat        = "Kettle overheated"$/;"	kind:variable	line:141
+textReady	../smarter/SmarterProtocol.py	/^    textReady           = "Ready"$/;"	kind:variable	line:139
+textSelect100c	../smarter/SmarterProtocol.py	/^    textSelect100c      = "Select temperature 100°C"$/;"	kind:variable	line:129
+textSelect65c	../smarter/SmarterProtocol.py	/^    textSelect65c       = "Select temperature 65°C"$/;"	kind:variable	line:132
+textSelect80c	../smarter/SmarterProtocol.py	/^    textSelect80c       = "Select temperature 80°C"$/;"	kind:variable	line:131
+textSelect95c	../smarter/SmarterProtocol.py	/^    textSelect95c       = "Select temperature 95°C"$/;"	kind:variable	line:130
+textSelectWarm10m	../smarter/SmarterProtocol.py	/^    textSelectWarm10m   = "Select 10 minutes keep water warm"$/;"	kind:variable	line:134
+textSelectWarm20m	../smarter/SmarterProtocol.py	/^    textSelectWarm20m   = "Select 20 minutes keep water warm"$/;"	kind:variable	line:135
+textSelectWarm5m	../smarter/SmarterProtocol.py	/^    textSelectWarm5m    = "Select 5 minutes keep water warm"$/;"	kind:variable	line:133
+textStartWarm	../smarter/SmarterProtocol.py	/^    textStartWarm         = "Start keep water warm"$/;"	kind:variable	line:111
+textStatus	../smarter/SmarterProtocol.py	/^    textStatus          = "Status"$/;"	kind:variable	line:113
+textStop	../smarter/SmarterProtocol.py	/^    textStop            = "Stop heating water"$/;"	kind:variable	line:112
+textWarm	../smarter/SmarterProtocol.py	/^    textWarm            = "Keep water warm" # for 30 minutes???$/;"	kind:variable	line:123
+textWarm10m	../smarter/SmarterProtocol.py	/^    textWarm10m         = "10 minutes"$/;"	kind:variable	line:125
+textWarm20m	../smarter/SmarterProtocol.py	/^    textWarm20m         = "20 minutes"$/;"	kind:variable	line:126
+textWarm5m	../smarter/SmarterProtocol.py	/^    textWarm5m          = "5 minutes"$/;"	kind:variable	line:124
+textWarmFinished	../smarter/SmarterProtocol.py	/^    textWarmFinished    = "Keep water warm finished"$/;"	kind:variable	line:143
+text_to_raw	../smarter/SmarterProtocol.py	/^    def text_to_raw(self,text):$/;"	kind:member	line:1084
+threading	../iBrewBonjour.py	/^import threading$/;"	kind:namespace	line:3
+threading	../iBrewWeb.py	/^import threading$/;"	kind:namespace	line:9
+threading	../smarter/SmarterInterface.py	/^import threading$/;"	kind:namespace	line:28
+time	../iBrewConsole.py	/^                import time$/;"	kind:namespace	line:71
+time	../iBrewConsole.py	/^import time$/;"	kind:namespace	line:4
+time	../iBrewWeb.py	/^import time$/;"	kind:namespace	line:8
+time	../smarter/SmarterInterface.py	/^import time$/;"	kind:namespace	line:12
+tornado	../iBrewWeb.py	/^import tornado.escape$/;"	kind:namespace	line:4
+tornado	../iBrewWeb.py	/^import tornado.ioloop$/;"	kind:namespace	line:5
+tornado	../iBrewWeb.py	/^import tornado.web$/;"	kind:namespace	line:6
+traceback	../iBrewConsole.py	/^import traceback$/;"	kind:namespace	line:25
+traceback	../iBrewDomoticz.py	/^import traceback$/;"	kind:namespace	line:3
+traceback	../iBrewWeb.py	/^import traceback$/;"	kind:namespace	line:19
+traceback	../smarter/SmarterInterface.py	/^import traceback$/;"	kind:namespace	line:27
+traceback	../smarter/SmarterProtocol.py	/^import traceback$/;"	kind:namespace	line:3
+trash	../smarter/SmarterInterface.py	/^    def trash(self):$/;"	kind:member	line:137
+trash	../smarter/SmarterInterface.py	/^    def trash(self):$/;"	kind:member	line:1615
+trigger100c	../smarter/SmarterProtocol.py	/^    trigger100c           = 3$/;"	kind:variable	line:286
+trigger65c	../smarter/SmarterProtocol.py	/^    trigger65c            = 0$/;"	kind:variable	line:283
+trigger80c	../smarter/SmarterProtocol.py	/^    trigger80c            = 1$/;"	kind:variable	line:284
+trigger95c	../smarter/SmarterProtocol.py	/^    trigger95c            = 2$/;"	kind:variable	line:285
+triggerAdd	../smarter/SmarterInterface.py	/^    def triggerAdd(self,group,trigger,action):$/;"	kind:member	line:1046
+triggerAdd	../smarter/SmarterInterface.py	/^    def triggerAdd(self,group,trigger,action):$/;"	kind:member	line:4008
+triggerBooleans	../smarter/SmarterProtocol.py	/^    triggerBooleans = [("ON","OFF"),("On","Off"),("on","off"),("1","0"),("TRUE","FALSE"),("True","False"),("true","false"),("ENABLED","DISABLED"),("Enabled,Disabled"),("enabled","disabled")]$/;"	kind:variable	line:2104
+triggerBooleans	../smarter/SmarterProtocol.py	/^    triggerBooleans = [("ON","OFF"),("On","Off"),("on","off"),("1","0"),("TRUE","FALSE"),("True","False"),("true","false"),("ENABLED","DISABLED"),("Enabled,Disabled"),("enabled","disabled")]$/;"	kind:variable	line:338
+triggerBusyCoffee	../smarter/SmarterProtocol.py	/^    triggerBusyCoffee                   = 41$/;"	kind:variable	line:1992
+triggerBusyKettle	../smarter/SmarterProtocol.py	/^    triggerBusyKettle                   = 9$/;"	kind:variable	line:1958
+triggerCarafe	../smarter/SmarterProtocol.py	/^    triggerCarafe                       = 36$/;"	kind:variable	line:1987
+triggerCarafeRequired	../smarter/SmarterProtocol.py	/^    triggerCarafeRequired               = 40$/;"	kind:variable	line:1991
+triggerChangeCoffeeDefaultSettings	../smarter/SmarterProtocol.py	/^    triggerChangeCoffeeDefaultSettings  = 49$/;"	kind:variable	line:2000
+triggerChangeCoffeeSettings	../smarter/SmarterProtocol.py	/^    triggerChangeCoffeeSettings         = 50$/;"	kind:variable	line:2001
+triggerChangeKettleDefaultSettings	../smarter/SmarterProtocol.py	/^    triggerChangeKettleDefaultSettings  = 5$/;"	kind:variable	line:1954
+triggerChangeWaterSensorBase	../smarter/SmarterProtocol.py	/^    triggerChangeWaterSensorBase        = 4$/;"	kind:variable	line:1953
+triggerCheckBooleans	../smarter/SmarterProtocol.py	/^    def triggerCheckBooleans(self,boolean):$/;"	kind:member	line:2107
+triggerCheckBooleans	../smarter/SmarterProtocol.py	/^    def triggerCheckBooleans(self,boolean):$/;"	kind:member	line:341
+triggerCoffeeStatus	../smarter/SmarterProtocol.py	/^    triggerCoffeeStatus                 = 42$/;"	kind:variable	line:1993
+triggerCups	../smarter/SmarterProtocol.py	/^    triggerCups                         = 33$/;"	kind:variable	line:1984
+triggerCupsBrew	../smarter/SmarterProtocol.py	/^    triggerCupsBrew                     = 34$/;"	kind:variable	line:1985
+triggerCupsBrewText	../smarter/SmarterProtocol.py	/^    triggerCupsBrewText                 = 54$/;"	kind:variable	line:2005
+triggerCupsText	../smarter/SmarterProtocol.py	/^    triggerCupsText                     = 51$/;"	kind:variable	line:2002
+triggerDefaultCups	../smarter/SmarterProtocol.py	/^    triggerDefaultCups                  = 23$/;"	kind:variable	line:1974
+triggerDefaultCupsText	../smarter/SmarterProtocol.py	/^    triggerDefaultCupsText              = 53$/;"	kind:variable	line:2004
+triggerDefaultFormulaTemperature	../smarter/SmarterProtocol.py	/^    triggerDefaultFormulaTemperature    = 11$/;"	kind:variable	line:1960
+triggerDefaultGrind	../smarter/SmarterProtocol.py	/^    triggerDefaultGrind                 = 24$/;"	kind:variable	line:1975
+triggerDefaultGrindText	../smarter/SmarterProtocol.py	/^    triggerDefaultGrindText             = 45$/;"	kind:variable	line:1996
+triggerDefaultHotplate	../smarter/SmarterProtocol.py	/^    triggerDefaultHotplate              = 25$/;"	kind:variable	line:1976
+triggerDefaultHotplateText	../smarter/SmarterProtocol.py	/^    triggerDefaultHotplateText          = 52$/;"	kind:variable	line:2003
+triggerDefaultKeepwarmText	../smarter/SmarterProtocol.py	/^    triggerDefaultKeepwarmText          = 3$/;"	kind:variable	line:1952
+triggerDefaultKeepwarmTime	../smarter/SmarterProtocol.py	/^    triggerDefaultKeepwarmTime          = 12$/;"	kind:variable	line:1961
+triggerDefaultStrength	../smarter/SmarterProtocol.py	/^    triggerDefaultStrength              = 22$/;"	kind:variable	line:1973
+triggerDefaultStrengthText	../smarter/SmarterProtocol.py	/^    triggerDefaultStrengthText          = 43$/;"	kind:variable	line:1994
+triggerDefaultTemperature	../smarter/SmarterProtocol.py	/^    triggerDefaultTemperature           = 10$/;"	kind:variable	line:1959
+triggerDelete	../smarter/SmarterInterface.py	/^    def triggerDelete(self,group,trigger):$/;"	kind:member	line:1082
+triggerDelete	../smarter/SmarterInterface.py	/^    def triggerDelete(self,group,trigger):$/;"	kind:member	line:4051
+triggerDescription	../smarter/SmarterProtocol.py	/^    def triggerDescription(self,trigger):$/;"	kind:member	line:2096
+triggerDescription	../smarter/SmarterProtocol.py	/^    def triggerDescription(self,trigger):$/;"	kind:member	line:332
+triggerFormulaCooling	../smarter/SmarterProtocol.py	/^    triggerFormulaCooling               = 16$/;"	kind:variable	line:1965
+triggerGet	../smarter/SmarterInterface.py	/^    def triggerGet(self,group,trigger):$/;"	kind:member	line:1089
+triggerGet	../smarter/SmarterInterface.py	/^    def triggerGet(self,group,trigger):$/;"	kind:member	line:4058
+triggerGrind	../smarter/SmarterProtocol.py	/^    triggerGrind                        = 26$/;"	kind:variable	line:1977
+triggerGrindText	../smarter/SmarterProtocol.py	/^    triggerGrindText                    = 46$/;"	kind:variable	line:1997
+triggerGrinder	../smarter/SmarterProtocol.py	/^    triggerGrinder                      = 37$/;"	kind:variable	line:1988
+triggerGroupDelete	../smarter/SmarterInterface.py	/^    def triggerGroupDelete(self,group):$/;"	kind:member	line:1055
+triggerGroupDelete	../smarter/SmarterInterface.py	/^    def triggerGroupDelete(self,group):$/;"	kind:member	line:4017
+triggerHeated	../smarter/SmarterProtocol.py	/^    triggerHeated         = 9$/;"	kind:variable	line:294
+triggerHeaterCoffee	../smarter/SmarterProtocol.py	/^    triggerHeaterCoffee                 = 39$/;"	kind:variable	line:1990
+triggerHeaterKettle	../smarter/SmarterProtocol.py	/^    triggerHeaterKettle                 = 15$/;"	kind:variable	line:1964
+triggerHeating	../smarter/SmarterProtocol.py	/^    triggerHeating        = 8$/;"	kind:variable	line:293
+triggerHotPlate	../smarter/SmarterProtocol.py	/^    triggerHotPlate                     = 38$/;"	kind:variable	line:1989
+triggerID	../smarter/SmarterProtocol.py	/^    def triggerID(self,trigger):$/;"	kind:member	line:2079
+triggerID	../smarter/SmarterProtocol.py	/^    def triggerID(self,trigger):$/;"	kind:member	line:320
+triggerKeepWarm	../smarter/SmarterProtocol.py	/^    triggerKeepWarm                     = 14$/;"	kind:variable	line:1963
+triggerKeepwarmSelect	../smarter/SmarterProtocol.py	/^    triggerKeepwarmSelect = 17$/;"	kind:variable	line:288
+triggerKettleRemoved	../smarter/SmarterProtocol.py	/^    triggerKettleRemoved  = 13$/;"	kind:variable	line:298
+triggerKettleStatus	../smarter/SmarterProtocol.py	/^    triggerKettleStatus                 = 6$/;"	kind:variable	line:1955
+triggerMode	../smarter/SmarterProtocol.py	/^    triggerMode                         = 21$/;"	kind:variable	line:1972
+triggerModeText	../smarter/SmarterProtocol.py	/^    triggerModeText                     = 48$/;"	kind:variable	line:1999
+triggerName	../smarter/SmarterProtocol.py	/^    def triggerName(self,trigger):$/;"	kind:member	line:2089
+triggerName	../smarter/SmarterProtocol.py	/^    def triggerName(self,trigger):$/;"	kind:member	line:327
+triggerOffBase	../smarter/SmarterProtocol.py	/^    triggerOffBase                      = 19$/;"	kind:variable	line:1968
+triggerOverheat	../smarter/SmarterProtocol.py	/^    triggerOverheat       = 10$/;"	kind:variable	line:295
+triggerReady	../smarter/SmarterProtocol.py	/^    triggerReady                        = 27$/;"	kind:variable	line:1978
+triggerReady	../smarter/SmarterProtocol.py	/^    triggerReady          = 7$/;"	kind:variable	line:292
+triggerSet	../smarter/SmarterInterface.py	/^    def triggerSet(self,group,trigger,action):$/;"	kind:member	line:1134
+triggerSet	../smarter/SmarterInterface.py	/^    def triggerSet(self,group,trigger,action):$/;"	kind:member	line:4151
+triggerStrength	../smarter/SmarterProtocol.py	/^    triggerStrength                     = 32$/;"	kind:variable	line:1983
+triggerStrengthText	../smarter/SmarterProtocol.py	/^    triggerStrengthText                 = 44$/;"	kind:variable	line:1995
+triggerTemperature	../smarter/SmarterProtocol.py	/^    triggerTemperature                  = 17$/;"	kind:variable	line:1966
+triggerTemperatureSelect	../smarter/SmarterProtocol.py	/^    triggerTemperatureSelect = 16$/;"	kind:variable	line:287
+triggerTemperatureStable	../smarter/SmarterProtocol.py	/^    triggerTemperatureStable            = 7$/;"	kind:variable	line:1956
+triggerTimerEvent	../smarter/SmarterProtocol.py	/^    triggerTimerEvent                   = 29$/;"	kind:variable	line:1980
+triggerUnknownCoffee	../smarter/SmarterProtocol.py	/^    triggerUnknownCoffee                = 35$/;"	kind:variable	line:1986
+triggerUnknownKettle	../smarter/SmarterProtocol.py	/^    triggerUnknownKettle                = 20$/;"	kind:variable	line:1969
+triggerWarm	../smarter/SmarterProtocol.py	/^    triggerWarm           = 12$/;"	kind:variable	line:297
+triggerWarm10m	../smarter/SmarterProtocol.py	/^    triggerWarm10m        = 5$/;"	kind:variable	line:290
+triggerWarm20m	../smarter/SmarterProtocol.py	/^    triggerWarm20m        = 6$/;"	kind:variable	line:291
+triggerWarm5m	../smarter/SmarterProtocol.py	/^    triggerWarm5m         = 4$/;"	kind:variable	line:289
+triggerWarmFinished	../smarter/SmarterProtocol.py	/^    triggerWarmFinished   = 11$/;"	kind:variable	line:296
+triggerWaterEnough	../smarter/SmarterProtocol.py	/^    triggerWaterEnough                  = 31$/;"	kind:variable	line:1982
+triggerWaterLevel	../smarter/SmarterProtocol.py	/^    triggerWaterLevel                   = 30$/;"	kind:variable	line:1981
+triggerWaterLevelText	../smarter/SmarterProtocol.py	/^    triggerWaterLevelText               = 47$/;"	kind:variable	line:1998
+triggerWaterSensor	../smarter/SmarterProtocol.py	/^    triggerWaterSensor                  = 18$/;"	kind:variable	line:1967
+triggerWaterSensorBase	../smarter/SmarterProtocol.py	/^    triggerWaterSensorBase              = 13$/;"	kind:variable	line:1962
+triggerWaterSensorStable	../smarter/SmarterProtocol.py	/^    triggerWaterSensorStable            = 8$/;"	kind:variable	line:1957
+triggerWorking	../smarter/SmarterProtocol.py	/^    triggerWorking                      = 28$/;"	kind:variable	line:1979
+trigger_info	../smarter/SmarterInterface.py	/^    def trigger_info(self,group=""):$/;"	kind:member	line:4953
+triggers	../iBrewConsole.py	/^    def triggers(self):$/;"	kind:member	line:1442
+triggersCoffee	../smarter/SmarterProtocol.py	/^    triggersCoffee = {$/;"	kind:variable	line:2037
+triggersKettle	../smarter/SmarterProtocol.py	/^    triggersKettle = {$/;"	kind:variable	line:2015
+triggersKettle	../smarter/SmarterProtocol.py	/^    triggersKettle = {$/;"	kind:variable	line:301
+unblock	../smarter/SmarterInterface.py	/^    def unblock(self,string):$/;"	kind:member	line:2687
+urllib	../iBrewDomoticz.py	/^import urllib$/;"	kind:namespace	line:10
+urllib	../smarter/SmarterInterface.py	/^import urllib$/;"	kind:namespace	line:17
+usage	../iBrewConsole.py	/^    def usage(self):$/;"	kind:member	line:1359
+use_virtual_sensor	../iBrewDomoticz.py	/^    def use_virtual_sensor(self,name,type,options=''):$/;"	kind:member	line:128
+userFolder	../iBrewFolders.py	/^    def userFolder():$/;"	kind:member	line:43
+validateAPIKey	../iBrewWeb.py	/^    def validateAPIKey(self):$/;"	kind:member	line:59
+version	../iBrewWeb.py	/^    version = '0.90a'$/;"	kind:variable	line:1241
+version.py	../distro/win/version.py	1;"	kind:file	line:1
+waterlevel	../smarter/SmarterProtocol.py	/^    def waterlevel(self,level):$/;"	kind:member	line:1571
+waterlevel_to_raw	../smarter/SmarterProtocol.py	/^    def waterlevel_to_raw(self,waterlevel,waterenough):$/;"	kind:member	line:1592
+watersensor_to_level	../smarter/SmarterProtocol.py	/^    def watersensor_to_level(self,watersensor):$/;"	kind:member	line:1801
+watersensor_to_raw	../smarter/SmarterProtocol.py	/^    def watersensor_to_raw(self,watersensor):$/;"	kind:member	line:1450
+web	../iBrewConsole.py	/^    def web(self):$/;"	kind:member	line:94
+web	../iBrewMac.py	/^    def web(self, sender):$/;"	kind:member	line:41
+web	../iBrewWeb.py	/^import tornado.web$/;"	kind:namespace	line:6
+webbrowser	../iBrewMac.py	/^import webbrowser$/;"	kind:namespace	line:8
+webbrowser	../iBrewWin.py	/^import webbrowser$/;"	kind:namespace	line:5
+webroot	../iBrewWeb.py	/^    def webroot(self):$/;"	kind:member	line:46
+wifi_direct	../smarter/SmarterInterface.py	/^    def wifi_direct(self):$/;"	kind:member	line:5159
+wifi_firmware	../smarter/SmarterInterface.py	/^    def wifi_firmware(self):$/;"	kind:member	line:5143
+wifi_join	../smarter/SmarterInterface.py	/^    def wifi_join(self,network,password=""):$/;"	kind:member	line:5186
+wifi_rejoin	../smarter/SmarterInterface.py	/^    def wifi_rejoin(self):$/;"	kind:member	line:5173
+wifi_scan	../smarter/SmarterInterface.py	/^    def wifi_scan(self):$/;"	kind:member	line:5151
+win32api	../iBrewWin.py	/^import win32api$/;"	kind:namespace	line:6
+win32con	../iBrewWin.py	/^import win32con$/;"	kind:namespace	line:7
+win32gui	../iBrewWin.py	/^    import win32gui$/;"	kind:namespace	line:13
+win32gui	../iBrewWin.py	/^    import winxpgui as win32gui$/;"	kind:namespace	line:11
+win32gui_struct	../iBrewWin.py	/^import win32gui_struct$/;"	kind:namespace	line:8
+win_inet_pton	../smarter/SmarterInterface.py	/^    import win_inet_pton$/;"	kind:namespace	line:21
+windowsAppDataFolder	../iBrewFolders.py	/^    def windowsAppDataFolder():$/;"	kind:member	line:39

@@ -333,7 +333,9 @@ class DevicesHandler(GenericAPIHandler):
                                                       'id'          : device[1]
                                                     },
                                     'relay'       : r,
-                                    'firmware'    : encodeFirmware(device[1],device[2])
+                                    'firmware'    : encodeFirmware(device[1],device[2]),
+                                    'ip'          : device[0],
+                                    'mac'         : device[3],
                                   }
         self.setContentType()
         self.write(response)
