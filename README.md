@@ -1,17 +1,12 @@
 # iBrew: The Dream Tea!
 
+[Hier bijvoorbeeld rene vdg!]
+
 iKettle, [iKettle 2.0](http://smarter.am/ikettle) and [Smarter Coffee](http://smarter.am/coffee) Interface
 
 
 > “The only way to get any smarter is to play a smarter opponent.”
 
-Comming soon the iKettle emulator and the iKettle 2.0 emulator! 
-
-As of this spring 2017, due to mayor illness, there will be no mayor enhancements and I offer no support on this project besides questions about code or bugs. Ofcourse if someone builds a nice web frontend, I will help out where I can (but very limited)
-
-Anyway thanks for all you're support!
-
-Tristan
 
 ## Downloads
   * [Windows x86](https://dl.dropboxusercontent.com/u/12474226/32/iBrew.exe)
