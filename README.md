@@ -1,11 +1,15 @@
 # iBrew: The Dream Tea!
 
-[Hier bijvoorbeeld rene vdg!]
+WARNING: VERSION 3 of the iKettle and VERSION 2 of the Smarter Coffee NOT SUPPORTED
 
-iKettle, [iKettle 2.0](http://smarter.am/ikettle) and [Smarter Coffee](http://smarter.am/coffee) Interface
+You can thank ga-rat for that see:
 
+https://support.smarter.am/hc/en-us/community/posts/115003744705-SmartHome-Integration
 
-> “The only way to get any smarter is to play a smarter opponent.”
+For now... the iKettle, iKettle 2.0 and Smarter Coffee Interface
+
+[Would it be time for new hardware???](https://github.com/Tristan79/iBrew/issues/61)
+
 
 
 ## Downloads
@@ -1116,7 +1120,7 @@ Interfaces
 The author has no contact with or support from Smarter, and is not affiliated in any way with the company that produces the appliances.
 
 
-Copyright (c) 2016, Tristan Crispijn
+Copyright (c) 2019, Tristan Crispijn
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
